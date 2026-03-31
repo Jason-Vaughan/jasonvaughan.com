@@ -2,66 +2,127 @@ import React from "react";
 
 const projects = [
   {
-    title: "Resourcing Tracker",
+    title: "Cierre Sensei",
     blurb:
-      "Google Sheets + Apps Script allocation model that visualizes load, surfaces conflicts early, and drives assignments across 100+ concurrent projects.",
-    image: "images/projects/resourcing.svg",
-    link: "https://github.com/Jason-Vaughan",
-    tags: ["Sheets", "Apps Script", "Ops"],
+      "Mexican real estate closing cost calculator. Started as a custom GPT, rebuilt into a full web app. Helps buyers, sellers, and agents estimate fees for property transactions in Mexico.",
+    link: "https://cierresensei.com",
+    linkLabel: "Visit site",
+    github: "https://github.com/Jason-Vaughan/cierre-sensei",
+    tags: ["Real Estate", "Fintech", "Next.js"],
+    accent: "#10b981",
   },
   {
-    title: "Budget Workbooks",
+    title: "TangleClaw",
     blurb:
-      "Forecast vs. actuals with variance flags and exec-ready rollups. Monthly risk surfacing to prevent overages before they happen.",
-    image: "images/projects/budgets.svg",
-    link: "https://github.com/Jason-Vaughan",
-    tags: ["Finance Ops", "Dashboards"],
+      "AI coding session orchestrator — manages persistent tmux sessions, multi-engine support (Claude Code, Aider, Codex), and mobile access via browser. Zero npm dependencies, pure Node.js.",
+    link: "https://github.com/Jason-Vaughan/TangleClaw",
+    linkLabel: "View on GitHub",
+    tags: ["Node.js", "tmux", "AI Tools", "DevOps"],
+    accent: "#8b5cf6",
   },
   {
-    title: "AI-Assisted Workflow Toolkit",
+    title: "Notse",
     blurb:
-      "Prompt libraries and helpers (ChatGPT, Claude, Midjourney, Runway) to accelerate copy/design iterations and automate reporting.",
-    image: "images/projects/ai.svg",
-    link: "https://www.npmjs.com/~jason",
-    tags: ["AI", "Automation"],
+      "Live teleprompter system built for broadcast production. Electron desktop app with real-time WebSocket sync, designed for on-set workflows across macOS and Windows.",
+    tags: ["Electron", "TypeScript", "Broadcast", "WebSockets"],
+    accent: "#f59e0b",
+  },
+  {
+    title: "Refuctor",
+    blurb:
+      "Snark-fueled technical debt detection CLI. Scans codebases for markdown lint, spelling, code quality, and security issues — then roasts you about it. Shipped to NPM, now archived.",
+    link: "https://github.com/Jason-Vaughan/refuctor",
+    linkLabel: "View on GitHub",
+    tags: ["CLI", "Node.js", "DevTools"],
+    accent: "#ef4444",
   },
 ];
 
+/**
+ * Dark-themed project cards matching the BarCoach GPT card style.
+ */
 export default function Projects() {
-  return (
-    <section className="bg-gray-100 py-12 px-6" id="projects">
-      <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-8">Selected Projects</h2>
+  const section = { background: "transparent", color: "#fafafa", padding: "48px 0" };
+  const wrap = { maxWidth: 960, margin: "0 auto", padding: "0 24px" };
+  const grid = {
+    marginTop: 24,
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+    gap: 24,
+  };
+  const h2Style = { fontSize: 32, fontWeight: 800, letterSpacing: -0.5 };
 
-        <div className="grid md:grid-cols-2 gap-6">
+  const card = {
+    borderRadius: 16,
+    overflow: "hidden",
+    border: "1px solid #3f3f46",
+    background: "#18181b",
+    boxShadow: "0 8px 24px rgba(0,0,0,.35)",
+    display: "flex",
+    flexDirection: "column",
+  };
+
+  const tagStyle = {
+    fontSize: 11,
+    fontWeight: 600,
+    padding: "3px 10px",
+    borderRadius: 9999,
+    background: "rgba(255,255,255,0.06)",
+    border: "1px solid rgba(255,255,255,0.08)",
+    color: "#a1a1aa",
+  };
+
+  return (
+    <section id="projects" style={section}>
+      <div style={wrap}>
+        <h2 style={h2Style}>Projects</h2>
+        <div style={grid}>
           {projects.map((p) => (
-            <article key={p.title} className="p-6 rounded-2xl bg-white shadow flex flex-col">
-              <img
-                src={p.image}
-                alt={p.title}
-                className="w-full h-40 object-contain mb-4 opacity-90"
-                loading="lazy"
-              />
-              <h3 className="font-semibold text-lg">{p.title}</h3>
-              <p className="text-sm text-gray-600 mt-2 flex-1">{p.blurb}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {p.tags.map((t) => (
-                  <span key={t} className="text-xs bg-gray-100 border border-gray-200 px-2 py-0.5 rounded">
-                    {t}
-                  </span>
-                ))}
+            <div key={p.title} style={card}>
+              {/* Accent bar */}
+              <div style={{ height: 4, background: `linear-gradient(90deg, ${p.accent}, transparent)` }} />
+
+              <div style={{ padding: 24, flex: 1, display: "flex", flexDirection: "column" }}>
+                <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fafafa", margin: 0 }}>
+                  {p.title}
+                </h3>
+
+                <p style={{ marginTop: 10, color: "#d4d4d8", lineHeight: 1.5, fontSize: 14, flex: 1 }}>
+                  {p.blurb}
+                </p>
+
+                {/* Tags */}
+                <div style={{ marginTop: 16, display: "flex", flexWrap: "wrap", gap: 8 }}>
+                  {p.tags.map((t) => (
+                    <span key={t} style={tagStyle}>{t}</span>
+                  ))}
+                </div>
+
+                {/* Links */}
+                <div style={{ marginTop: 16, display: "flex", gap: 16 }}>
+                  {p.link && (
+                    <a
+                      href={p.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ color: "#38bdf8", fontWeight: 600, fontSize: 14, textDecoration: "none" }}
+                    >
+                      {p.linkLabel || "View details"} →
+                    </a>
+                  )}
+                  {p.github && p.github !== p.link && (
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ color: "#71717a", fontWeight: 600, fontSize: 14, textDecoration: "none" }}
+                    >
+                      GitHub →
+                    </a>
+                  )}
+                </div>
               </div>
-              {p.link && (
-                <a
-                  href={p.link}
-                  className="mt-5 inline-block text-sm font-medium underline underline-offset-4 hover:no-underline"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View details →
-                </a>
-              )}
-            </article>
+            </div>
           ))}
         </div>
       </div>
