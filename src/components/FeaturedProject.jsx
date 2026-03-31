@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import tiltLogo from "../assets/tilt_logo.png";
 
 /**
  * Big panel card for TiLT — same dark card style as BarCoach/Projects.
@@ -81,7 +82,8 @@ export default function FeaturedProject() {
 
           <div style={{ padding: 32 }}>
             {/* Title row */}
-            <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
+              <img src={tiltLogo} alt="TiLT logo" style={{ height: 48, width: 48, objectFit: "contain" }} />
               <h3 style={{ fontSize: 28, fontWeight: 700, color: "#fafafa", margin: 0 }}>TiLT</h3>
               <span style={{
                 fontSize: 11, fontWeight: 700, textTransform: "uppercase",
