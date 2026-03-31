@@ -1,8 +1,13 @@
 import React from "react";
+import cierresenseiLogo from "../assets/projects/cierresensei.png";
+import tangleclawLogo from "../assets/projects/tangleclaw.png";
+import notseLogo from "../assets/projects/notse.png";
+import refuctorLogo from "../assets/projects/refuctor.png";
 
 const projects = [
   {
     title: "Cierre Sensei",
+    image: cierresenseiLogo,
     blurb:
       "Mexican real estate closing cost calculator. Started as a custom GPT, rebuilt into a full web app. Helps buyers, sellers, and agents estimate fees for property transactions in Mexico.",
     link: "https://cierresensei.com",
@@ -13,6 +18,7 @@ const projects = [
   },
   {
     title: "TangleClaw",
+    image: tangleclawLogo,
     blurb:
       "AI coding session orchestrator — manages persistent tmux sessions, multi-engine support (Claude Code, Aider, Codex), and mobile access via browser. Zero npm dependencies, pure Node.js.",
     link: "https://github.com/Jason-Vaughan/TangleClaw",
@@ -22,6 +28,7 @@ const projects = [
   },
   {
     title: "Notse",
+    image: notseLogo,
     blurb:
       "Live teleprompter system built for broadcast production. Electron desktop app with real-time WebSocket sync, designed for on-set workflows across macOS and Windows.",
     tags: ["Electron", "TypeScript", "Broadcast", "WebSockets"],
@@ -29,6 +36,7 @@ const projects = [
   },
   {
     title: "Refuctor",
+    image: refuctorLogo,
     blurb:
       "Snark-fueled technical debt detection CLI. Scans codebases for markdown lint, spelling, code quality, and security issues — then roasts you about it. Shipped to NPM, now archived.",
     link: "https://github.com/Jason-Vaughan/refuctor",
@@ -39,7 +47,7 @@ const projects = [
 ];
 
 /**
- * Dark-themed project cards matching the BarCoach GPT card style.
+ * Dark-themed project cards with logo viewports, matching the GPT card style.
  */
 export default function Projects() {
   const section = { background: "transparent", color: "#fafafa", padding: "48px 0" };
@@ -62,6 +70,19 @@ export default function Projects() {
     flexDirection: "column",
   };
 
+  const imgViewport = {
+    height: 180, padding: 12,
+    background: "rgba(24,24,27,.6)",
+    borderBottom: "1px solid rgba(63,63,70,.6)",
+    display: "flex", alignItems: "center", justifyContent: "center",
+  };
+
+  const imgStyle = {
+    maxWidth: "100%", maxHeight: "100%",
+    objectFit: "contain",
+    borderRadius: 10,
+  };
+
   const tagStyle = {
     fontSize: 11,
     fontWeight: 600,
@@ -82,7 +103,12 @@ export default function Projects() {
               {/* Accent bar */}
               <div style={{ height: 4, background: `linear-gradient(90deg, ${p.accent}, transparent)` }} />
 
-              <div style={{ padding: 24, flex: 1, display: "flex", flexDirection: "column" }}>
+              {/* Logo viewport */}
+              <div style={imgViewport}>
+                <img src={p.image} alt={p.title} style={imgStyle} loading="lazy" />
+              </div>
+
+              <div style={{ padding: 20, flex: 1, display: "flex", flexDirection: "column" }}>
                 <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fafafa", margin: 0 }}>
                   {p.title}
                 </h3>
