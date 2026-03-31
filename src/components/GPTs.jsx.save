@@ -1,0 +1,50 @@
+:q
+çççç≈import barcoach from "../assets/gpts/barcoach.png";
+
+export default function GPTs() {
+  return (
+    <section id="gpts" className="bg-zinc-900 text-zinc-100 py-16">
+      <div className="max-w-5xl mx-auto px-6">
+        <h2 className="text-4xl font-bold tracking-tight">Custom GPTs</h2>
+
+        <div className="mt-10 grid gap-8 sm:grid-cols-2">
+          {/* Link-preview style card (no framer-motion for now) */}
+          <a
+            href="https://chatgpt.com/g/g-68d9df5e526c81918bfe45c149d71cb7-barcoach"
+            target="_blank"
+            rel="noreferrer"
+            className="block rounded-2xl border-2 border-sky-400 bg-zinc-800/60 shadow-2xl overflow-hidden"
+          >
+            {/* Constrained image panel */}
+            <div className="bg-zinc-900/40 border-b border-sky-400/50">
+              <div className="mx-auto w-full h-56 overflow-hidden"> {/* fixed height */}
+                <img
+                  src={barcoach}
+                  alt="Event Master Coach (BarCoach)"
+                  className="h-full w-full object-contain p-4"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            {/* Text block */}
+            <div className="p-5">
+              <div className="text-sm text-zinc-400">chatgpt.com</div>
+              <h3 className="mt-1 text-2xl font-semibold leading-tight">
+                Event Master Coach (BarCoach)
+              </h3>
+              <p className="mt-2 text-zinc-300">
+                Coaching GPT for event producers—ops checklists, run-of-show help,
+                vendor wrangling, risk planning, and live-show troubleshooting.
+              </p>
+
+              <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-sky-300">
+                Open GPT →
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
