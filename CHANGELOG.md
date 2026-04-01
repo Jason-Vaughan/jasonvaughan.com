@@ -4,6 +4,24 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+## [2026-03-31] — Screenshot Gallery, Asset Repo Rename, Final De-Puberty-Labs
+
+### Added
+- **ScreenshotModal.jsx** — lightbox component with left/right nav, keyboard support, captions
+- **TangleClaw screenshots** — 8 screenshots loaded from GitHub (project-assets repo), "Screenshots" pill on card
+
+### Changed
+- **Asset URLs** — all image refs now point to `Jason-Vaughan/project-assets` (renamed from `puberty-labs-assets`)
+- Screenshots sourced from GitHub raw URLs (SSOT) instead of local copies
+
+### External (non-portfolio repo changes)
+- **project-assets** — renamed from `puberty-labs-assets`, updated README and description
+- **PortHub** — replaced NPM install commands with git clone (NPM nuked), updated asset URLs
+- **ClawBridge, SPiT** — updated asset URLs
+- **Refuctor** — updated asset URLs, re-archived
+- **GitHub profile** — updated name, bio, and avatar (manual, by user)
+- All `puberty-labs-assets` references updated across 8 repos
+
 ## [2026-03-30] — Dark Theme Redesign & Project Showcase
 
 ### Added
