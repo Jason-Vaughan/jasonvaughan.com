@@ -5,7 +5,7 @@ import tangleclawLogo from "../assets/projects/tangleclaw.png";
 import notseLogo from "../assets/projects/notse.png";
 import refuctorLogo from "../assets/projects/refuctor.png";
 
-const GH_ASSETS = "https://raw.githubusercontent.com/Jason-Vaughan/puberty-labs-assets/main";
+const GH_ASSETS = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main";
 const tcScreenshots = `${GH_ASSETS}/tangleclaw-screenshots`;
 
 const projects = [
