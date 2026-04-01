@@ -1,6 +1,7 @@
 import barcoach from "../assets/gpts/barcoach.png";
 import cierresensei from "../assets/gpts/cierresensei.png";
 import engenius from "../assets/gpts/engenius.png";
+import lensjester from "../assets/gpts/lensjester.png";
 
 const gpts = [
   {
@@ -36,6 +37,14 @@ const gpts = [
     alt: "En-Genius4Dummies ENH1350",
     description:
       "A no-nonsense guide for the <strong>EnGenius ENH1350</strong> access point. Covers setup, configuration, troubleshooting, and deployment — written for people who just want the thing to work without reading a 200-page manual.",
+  },
+  {
+    title: "LensJester",
+    href: "https://chatgpt.com/g/g-69cd9ef8f8408191a1588bad87215f83-lensjester",
+    image: lensjester,
+    alt: "LensJester — Projector Lens Calculator",
+    description:
+      "Snarky projectionist tool that interviews you about your <strong>screen size, projector model, and resolution</strong>, then generates a report with the optimal lens recommendation and a couple of alternates. Equal parts useful and sarcastic.",
   },
 ];
 
