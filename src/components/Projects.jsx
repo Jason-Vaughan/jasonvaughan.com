@@ -5,9 +5,8 @@ import tangleclawLogo from "../assets/projects/tangleclaw.png";
 import notseLogo from "../assets/projects/notse.png";
 import refuctorLogo from "../assets/projects/refuctor.png";
 
-import tcDashboard from "../assets/screenshots/tangleclaw/dashboard.png";
-import tcMobile from "../assets/screenshots/tangleclaw/mobile.png";
-import tcCreateProject from "../assets/screenshots/tangleclaw/create-project.png";
+const GH_ASSETS = "https://raw.githubusercontent.com/Jason-Vaughan/puberty-labs-assets/main";
+const tcScreenshots = `${GH_ASSETS}/tangleclaw-screenshots`;
 
 const projects = [
   {
@@ -32,9 +31,14 @@ const projects = [
     tags: ["Node.js", "tmux", "AI Tools", "DevOps"],
     accent: "#8b5cf6",
     screenshots: [
-      { src: tcDashboard, alt: "Dashboard — Projects Directory" },
-      { src: tcMobile, alt: "Mobile View — Project Launcher" },
-      { src: tcCreateProject, alt: "Create Project Dialog" },
+      { src: `${tcScreenshots}/project%20splash%20screen%20with%20sampele%20cards.png`, alt: "Dashboard — Projects Directory" },
+      { src: `${tcScreenshots}/project%20info%20panel%20expanded.png`, alt: "Project Info Panel" },
+      { src: `${tcScreenshots}/porthub-registry%20list%20example.png`, alt: "PortHub Registry & Port Leases" },
+      { src: `${tcScreenshots}/ai%20model%20select%20modal.png`, alt: "Engine & Methodology Selection" },
+      { src: `${tcScreenshots}/global%20rules%20modal.png`, alt: "Global Rules Configuration" },
+      { src: `${tcScreenshots}/openclaw%20modal.png`, alt: "OpenClaw Integration" },
+      { src: `${tcScreenshots}/shared%20directories%20and%20files%20between%20groups%20modal.png`, alt: "Shared Documents & Groups" },
+      { src: `${tcScreenshots}/port%20conflict%20example%20warning.png`, alt: "Port Conflict Warning" },
     ],
   },
   {
