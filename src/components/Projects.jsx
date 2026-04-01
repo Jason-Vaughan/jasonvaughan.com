@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import ScreenshotModal from "./ScreenshotModal";
 import cierresenseiLogo from "../assets/projects/cierresensei.png";
 import tangleclawLogo from "../assets/projects/tangleclaw.png";
 import notseLogo from "../assets/projects/notse.png";
 import refuctorLogo from "../assets/projects/refuctor.png";
+
+import tcDashboard from "../assets/screenshots/tangleclaw/dashboard.png";
+import tcMobile from "../assets/screenshots/tangleclaw/mobile.png";
+import tcCreateProject from "../assets/screenshots/tangleclaw/create-project.png";
 
 const projects = [
   {
@@ -15,6 +20,7 @@ const projects = [
     github: "https://github.com/Jason-Vaughan/cierre-sensei",
     tags: ["Real Estate", "Fintech", "Next.js"],
     accent: "#10b981",
+    screenshots: null,
   },
   {
     title: "TangleClaw",
@@ -25,6 +31,11 @@ const projects = [
     linkLabel: "View on GitHub",
     tags: ["Node.js", "tmux", "AI Tools", "DevOps"],
     accent: "#8b5cf6",
+    screenshots: [
+      { src: tcDashboard, alt: "Dashboard — Projects Directory" },
+      { src: tcMobile, alt: "Mobile View — Project Launcher" },
+      { src: tcCreateProject, alt: "Create Project Dialog" },
+    ],
   },
   {
     title: "Notse",
@@ -33,6 +44,7 @@ const projects = [
       "Live teleprompter system built for broadcast production. Electron desktop app with real-time WebSocket sync, designed for on-set workflows across macOS and Windows.",
     tags: ["Electron", "TypeScript", "Broadcast", "WebSockets"],
     accent: "#f59e0b",
+    screenshots: null,
   },
   {
     title: "Refuctor",
@@ -43,13 +55,16 @@ const projects = [
     linkLabel: "View on GitHub",
     tags: ["CLI", "Node.js", "DevTools"],
     accent: "#ef4444",
+    screenshots: null,
   },
 ];
 
 /**
- * Dark-themed project cards with logo viewports, matching the GPT card style.
+ * Dark-themed project cards with logo viewports and optional screenshot galleries.
  */
 export default function Projects() {
+  const [modal, setModal] = useState(null);
+
   const section = { background: "transparent", color: "#fafafa", padding: "48px 0" };
   const wrap = { maxWidth: 960, margin: "0 auto", padding: "0 24px" };
   const grid = {
@@ -93,6 +108,17 @@ export default function Projects() {
     color: "#a1a1aa",
   };
 
+  const screenshotPill = {
+    fontSize: 13,
+    fontWeight: 600,
+    color: "#38bdf8",
+    background: "none",
+    border: "none",
+    padding: 0,
+    cursor: "pointer",
+    textDecoration: "none",
+  };
+
   return (
     <section id="projects" style={section}>
       <div style={wrap}>
@@ -125,7 +151,7 @@ export default function Projects() {
                 </div>
 
                 {/* Links */}
-                <div style={{ marginTop: 16, display: "flex", gap: 16 }}>
+                <div style={{ marginTop: 16, display: "flex", gap: 16, alignItems: "center" }}>
                   {p.link && (
                     <a
                       href={p.link}
@@ -146,12 +172,27 @@ export default function Projects() {
                       GitHub →
                     </a>
                   )}
+                  {p.screenshots && (
+                    <button
+                      style={screenshotPill}
+                      onClick={() => setModal({ images: p.screenshots })}
+                    >
+                      Screenshots →
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {modal && (
+        <ScreenshotModal
+          images={modal.images}
+          onClose={() => setModal(null)}
+        />
+      )}
     </section>
   );
 }
