@@ -3,6 +3,7 @@ import ScreenshotModal from "./ScreenshotModal";
 import cierresenseiLogo from "../assets/projects/cierresensei.png";
 import tangleclawLogo from "../assets/projects/tangleclaw.png";
 import notseLogo from "../assets/projects/notse.png";
+import porthubLogo from "../assets/projects/porthub.png";
 import refuctorLogo from "../assets/projects/refuctor.png";
 
 const GH_ASSETS = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main";
@@ -48,6 +49,17 @@ const projects = [
       "Live teleprompter system built for broadcast production. Electron desktop app with real-time WebSocket sync, designed for on-set workflows across macOS and Windows.",
     tags: ["Electron", "TypeScript", "Broadcast", "WebSockets"],
     accent: "#f59e0b",
+    screenshots: null,
+  },
+  {
+    title: "PortHub",
+    image: porthubLogo,
+    blurb:
+      "DHCP for developers — a port registry that prevents 'address already in use' errors across all your projects. Automatic lease management, real-time dashboard, conflict detection, and AI assistant integration.",
+    link: "https://github.com/Jason-Vaughan/PortHub",
+    linkLabel: "View on GitHub",
+    tags: ["Node.js", "CLI", "DevTools", "Networking"],
+    accent: "#06b6d4",
     screenshots: null,
   },
   {
