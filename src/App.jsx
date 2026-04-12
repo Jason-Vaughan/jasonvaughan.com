@@ -1,8 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import FeaturedProject from "./components/FeaturedProject";
+import FeaturedTangleClaw from "./components/FeaturedTangleClaw";
 import Projects from "./components/Projects";
 import GPTs from "./components/GPTs";
+import ContactSection from "./components/ContactSection";
 
 export default function App() {
   return (
@@ -29,8 +31,10 @@ export default function App() {
       </header>
 
       <FeaturedProject />
+      <FeaturedTangleClaw />
       <Projects />
       <GPTs />
+      <ContactSection />
 
       <footer className="py-8 text-center text-sm text-zinc-600">
         © {new Date().getFullYear()} Jason Vaughan

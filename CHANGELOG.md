@@ -4,6 +4,24 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+## [2026-04-12] — TangleClaw Hero, Contact Section, ScrapeGoat Card
+
+### Added
+- **FeaturedTangleClaw.jsx** — full hero card for TangleClaw (purple accent) with stats grid (3.5K+ LOC, 49 tests, 4 AI engines, 0 npm deps), tech stack tags, GitHub CTA, and screenshot gallery
+- **ContactSection.jsx** — "Get in Touch" section with Web3Forms contact form (name, email, message), honeypot spam protection, success state, and GitHub/LinkedIn social icon links
+- **ScrapeGoat project card** — PDF calendar extractor PWA added to Projects grid (blue #3b82f6 accent)
+- **ScrapeGoat logo** — `src/assets/projects/scrapegoat.png`
+
+### Changed
+- **TiLT stats updated** — Lines of Code 130K+ → 114K+, Tests Passing 334 → 842 (real counts from codebase)
+- **TangleClaw promoted** — moved from project cards grid to featured hero section (removed from Projects.jsx)
+- **App.jsx layout** — new render order: TiLT hero → TangleClaw hero → Projects → GPTs → Contact → Footer
+- **Vite base path** — changed from `/jasonvaughan.com/` to `/` for custom domain deployment
+
+### Infrastructure
+- **GitHub Pages deploy** — GitHub Actions workflow (`.github/workflows/deploy.yml`) builds and deploys on push to main
+- **CNAME file** — `public/CNAME` for custom domain jasonvaughan.com
+
 ## [2026-03-31] — Screenshot Gallery, Asset Repo Rename, Final De-Puberty-Labs
 
 ### Added

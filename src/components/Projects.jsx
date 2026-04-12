@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import ScreenshotModal from "./ScreenshotModal";
 import cierresenseiLogo from "../assets/projects/cierresensei.png";
-import tangleclawLogo from "../assets/projects/tangleclaw.png";
 import notseLogo from "../assets/projects/notse.png";
 import porthubLogo from "../assets/projects/porthub.png";
 import refuctorLogo from "../assets/projects/refuctor.png";
-
-const GH_ASSETS = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main";
-const tcScreenshots = `${GH_ASSETS}/tangleclaw-screenshots`;
+import scrapegoatLogo from "../assets/projects/scrapegoat.png";
 
 const projects = [
   {
@@ -23,24 +20,15 @@ const projects = [
     screenshots: null,
   },
   {
-    title: "TangleClaw",
-    image: tangleclawLogo,
+    title: "ScrapeGoat",
+    image: scrapegoatLogo,
     blurb:
-      "AI coding session orchestrator — manages persistent tmux sessions, multi-engine support (Claude Code, Aider, Codex), and mobile access via browser. Zero npm dependencies, pure Node.js.",
-    link: "https://github.com/Jason-Vaughan/TangleClaw",
+      "PDF calendar extractor PWA — drop a PDF schedule, AI wizard builds a parsing template, export as ICS, CSV, JSON, or Markdown. Runs entirely in-browser, privacy-first. Your files never leave your device.",
+    link: "https://github.com/Jason-Vaughan/ScrapeGoat",
     linkLabel: "View on GitHub",
-    tags: ["Node.js", "tmux", "AI Tools", "DevOps"],
-    accent: "#8b5cf6",
-    screenshots: [
-      { src: `${tcScreenshots}/project%20splash%20screen%20with%20sampele%20cards.png`, alt: "Dashboard — Projects Directory" },
-      { src: `${tcScreenshots}/project%20info%20panel%20expanded.png`, alt: "Project Info Panel" },
-      { src: `${tcScreenshots}/porthub-registry%20list%20example.png`, alt: "PortHub Registry & Port Leases" },
-      { src: `${tcScreenshots}/ai%20model%20select%20modal.png`, alt: "Engine & Methodology Selection" },
-      { src: `${tcScreenshots}/global%20rules%20modal.png`, alt: "Global Rules Configuration" },
-      { src: `${tcScreenshots}/openclaw%20modal.png`, alt: "OpenClaw Integration" },
-      { src: `${tcScreenshots}/shared%20directories%20and%20files%20between%20groups%20modal.png`, alt: "Shared Documents & Groups" },
-      { src: `${tcScreenshots}/port%20conflict%20example%20warning.png`, alt: "Port Conflict Warning" },
-    ],
+    tags: ["PWA", "Gemini AI", "PDF.js", "TypeScript"],
+    accent: "#3b82f6",
+    screenshots: null,
   },
   {
     title: "Notse",

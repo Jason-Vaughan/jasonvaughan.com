@@ -7,9 +7,9 @@ import tiltLogo from "../assets/tilt_logo.png";
  */
 export default function FeaturedProject() {
   const stats = [
-    { label: "Lines of Code", value: "130K+" },
+    { label: "Lines of Code", value: "114K+" },
     { label: "API Endpoints", value: "146" },
-    { label: "Tests Passing", value: "334" },
+    { label: "Tests Passing", value: "842" },
     { label: "CBA Rule Types", value: "12" },
   ];
 
