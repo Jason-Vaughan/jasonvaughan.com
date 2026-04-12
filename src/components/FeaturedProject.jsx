@@ -1,15 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import tiltLogo from "../assets/tilt_logo.png";
 
+const STATS_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/tilt-stats.json";
+
+/**
+ * Format a number with K+ suffix for thousands.
+ */
+function formatCount(n) {
+  if (n >= 1000) return `${Math.floor(n / 1000)}K+`;
+  return n.toLocaleString();
+}
+
 /**
  * Big panel card for TiLT — same dark card style as BarCoach/Projects.
+ * Stats are fetched live from project-assets/tilt-stats.json.
  */
 export default function FeaturedProject() {
+  const [liveStats, setLiveStats] = useState(null);
+
+  useEffect(() => {
+    fetch(STATS_URL)
+      .then((r) => r.json())
+      .then(setLiveStats)
+      .catch(() => {});
+  }, []);
+
   const stats = [
-    { label: "Lines of Code", value: "114K+" },
-    { label: "API Endpoints", value: "146" },
-    { label: "Tests Passing", value: "842" },
+    { label: "Lines of Code", value: liveStats ? formatCount(liveStats.loc) : "114K+" },
+    { label: "API Endpoints", value: liveStats ? String(liveStats.endpoints) : "146" },
+    { label: "Tests Passing", value: liveStats ? liveStats.tests.toLocaleString() : "842" },
     { label: "CBA Rule Types", value: "12" },
   ];
 

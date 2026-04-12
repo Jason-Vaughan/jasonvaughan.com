@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import ScreenshotModal from "./ScreenshotModal";
 import tangleclawLogo from "../assets/projects/tangleclaw.png";
 
 const GH_ASSETS = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main";
 const tcScreenshots = `${GH_ASSETS}/tangleclaw-screenshots`;
+const STATS_URL = "https://raw.githubusercontent.com/Jason-Vaughan/TangleClaw/main/stats.json";
 
 const screenshots = [
   { src: `${tcScreenshots}/project%20splash%20screen%20with%20sampele%20cards.png`, alt: "Dashboard — Projects Directory" },
@@ -18,16 +19,33 @@ const screenshots = [
 ];
 
 /**
+ * Format a number with K+ suffix for thousands.
+ */
+function formatCount(n) {
+  if (n >= 1000) return `${Math.floor(n / 1000)}K+`;
+  return n.toLocaleString();
+}
+
+/**
  * Featured hero card for TangleClaw — purple-accented, same layout as TiLT hero.
+ * Stats are fetched live from the TangleClaw repo's stats.json.
  */
 export default function FeaturedTangleClaw() {
   const [modal, setModal] = useState(null);
+  const [liveStats, setLiveStats] = useState(null);
+
+  useEffect(() => {
+    fetch(STATS_URL)
+      .then((r) => r.json())
+      .then(setLiveStats)
+      .catch(() => {});
+  }, []);
 
   const stats = [
-    { label: "Lines of Code", value: "3.5K+" },
-    { label: "Tests Passing", value: "49" },
-    { label: "AI Engines", value: "4" },
-    { label: "npm Dependencies", value: "0" },
+    { label: "Lines of Code", value: liveStats ? formatCount(liveStats.loc) : "39K+" },
+    { label: "Tests Passing", value: liveStats ? liveStats.tests.toLocaleString() : "1,520" },
+    { label: "AI Engines", value: liveStats ? String(liveStats.engines) : "4" },
+    { label: "npm Dependencies", value: liveStats ? String(liveStats.npmDeps) : "0" },
   ];
 
   const techStack = [
