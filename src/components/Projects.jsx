@@ -5,6 +5,7 @@ import notseLogo from "../assets/projects/notse.png";
 import porthubLogo from "../assets/projects/porthub.png";
 import refuctorLogo from "../assets/projects/refuctor.png";
 import scrapegoatLogo from "../assets/projects/scrapegoat.png";
+import clawbridgeLogo from "../assets/projects/clawbridge.png";
 
 const projects = [
   {
@@ -59,6 +60,17 @@ const projects = [
     linkLabel: "View on GitHub",
     tags: ["CLI", "Node.js", "DevTools"],
     accent: "#ef4444",
+    screenshots: null,
+  },
+  {
+    title: "ClawBridge",
+    image: clawbridgeLogo,
+    blurb:
+      "Host-side HTTP bridge that exposes Claude Code as a supervised build tool for automation systems. JSON API for spawning, managing, and streaming AI coding sessions — with structured permission review and test result detection.",
+    link: "https://github.com/Jason-Vaughan/ClawBridge",
+    linkLabel: "View on GitHub",
+    tags: ["Node.js", "Claude Code", "API", "DevOps"],
+    accent: "#a855f7",
     screenshots: null,
   },
 ];

@@ -4,6 +4,18 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+## [2026-04-12b] — Live Stats, ClawBridge Card, Stats Workflow Rollout
+
+### Added
+- **Live stats fetching** — TiLT and TangleClaw hero cards now fetch `stats.json` from GitHub at page load, with hardcoded fallbacks
+- **ClawBridge project card** — HTTP bridge for Claude Code automation added to Projects grid (purple #a855f7 accent)
+- **Stats workflows deployed** — `stats.yml` GitHub Actions added to: TangleClaw, tilt-v2, ClawBridge, Medusa, PortHub, ScrapeGoat (Refuctor and CLiTS skipped — archived repos)
+- **TangleClaw global rule** — "Project Stats Workflow" rule added to default-global-rules.md for all future projects
+- **PAT secrets** — `PROJECT_ASSETS_TOKEN` added to tilt-v2, Notse, OnDeck-V9 for cross-repo stats publishing
+
+### Changed
+- **TangleClaw stats corrected** — was pulling from v1 directory (49 tests), now uses v3 numbers (1,520 tests, 39K+ LOC)
+
 ## [2026-04-12] — TangleClaw Hero, Contact Section, ScrapeGoat Card
 
 ### Added
