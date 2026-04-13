@@ -5,7 +5,7 @@ import tangleclawLogo from "../assets/projects/tangleclaw.png";
 
 const GH_ASSETS = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main";
 const tcScreenshots = `${GH_ASSETS}/tangleclaw-screenshots`;
-const STATS_URL = "https://raw.githubusercontent.com/Jason-Vaughan/TangleClaw/main/stats.json";
+const STATS_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/tangleclaw-stats.json";
 
 const screenshots = [
   { src: `${tcScreenshots}/project%20splash%20screen%20with%20sampele%20cards.png`, alt: "Dashboard — Projects Directory" },
