@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import BuilderStats from "./components/BuilderStats";
 import FeaturedProject from "./components/FeaturedProject";
 import FeaturedTangleClaw from "./components/FeaturedTangleClaw";
 import Projects from "./components/Projects";
@@ -30,6 +31,7 @@ export default function App() {
         </motion.p>
       </header>
 
+      <BuilderStats />
       <FeaturedProject />
       <FeaturedTangleClaw />
       <Projects />

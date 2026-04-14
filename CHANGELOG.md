@@ -4,6 +4,17 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+## [2026-04-13] — Builder Stats Bar, Commits Tracking
+
+### Added
+- **BuilderStats.jsx** — new header bar component that fetches stats from all 8 projects and displays aggregate totals (LOC, Commits, Tests, Projects Shipped)
+- **Commits + contributors tracking** — all 8 stats workflows now also capture commit count, contributor count, and first commit date
+- **Live domain** — jasonvaughan.com DNS configured with A records to GitHub Pages, CNAME for www, SSL cert auto-provisioned by Let's Encrypt
+
+### Changed
+- **App.jsx layout** — BuilderStats bar inserted between header and TiLT hero
+- **Stats workflows** — all include `fetch-depth: 0` for full git history access
+
 ## [2026-04-12b] — Live Stats, ClawBridge Card, Stats Workflow Rollout
 
 ### Added
