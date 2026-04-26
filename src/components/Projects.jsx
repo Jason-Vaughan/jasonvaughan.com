@@ -250,16 +250,27 @@ export default function Projects() {
 
                 {/* Links */}
                 <div style={{ marginTop: 16, display: "flex", gap: 16, alignItems: "center" }}>
-                  {p.link && (
-                    <a
-                      href={p.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      style={{ color: "#38bdf8", fontWeight: 600, fontSize: 14, textDecoration: "none" }}
-                    >
-                      {p.linkLabel || "View details"} →
-                    </a>
-                  )}
+                  {p.link && (() => {
+                    const isAnchor = p.link.startsWith("#");
+                    return (
+                      <a
+                        href={p.link}
+                        {...(isAnchor
+                          ? {
+                              onClick: (e) => {
+                                e.preventDefault();
+                                document
+                                  .querySelector(p.link)
+                                  ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                              },
+                            }
+                          : { target: "_blank", rel: "noreferrer" })}
+                        style={{ color: "#38bdf8", fontWeight: 600, fontSize: 14, textDecoration: "none" }}
+                      >
+                        {p.linkLabel || "View details"} →
+                      </a>
+                    );
+                  })()}
                   {p.github && p.github !== p.link && (
                     <a
                       href={p.github}

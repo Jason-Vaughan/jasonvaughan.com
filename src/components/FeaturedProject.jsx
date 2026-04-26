@@ -125,6 +125,15 @@ export default function FeaturedProject() {
               }}>
                 Live Product
               </span>
+              <span style={{
+                fontSize: 11, fontWeight: 700, textTransform: "uppercase",
+                letterSpacing: 1.5, padding: "4px 12px", borderRadius: 9999,
+                background: "rgba(212,175,55,0.12)",
+                border: "1px solid rgba(212,175,55,0.35)",
+                color: "#D4AF37",
+              }}>
+                SaaS · Subscription
+              </span>
               {since && (
                 <span style={{
                   fontSize: 11, fontWeight: 600,
