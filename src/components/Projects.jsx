@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ScreenshotModal from "./ScreenshotModal";
 import cierresenseiLogo from "../assets/projects/cierresensei.png";
 import notseLogo from "../assets/projects/notse.png";
@@ -7,8 +7,11 @@ import refuctorLogo from "../assets/projects/refuctor.png";
 import scrapegoatLogo from "../assets/projects/scrapegoat.png";
 import clawbridgeLogo from "../assets/projects/clawbridge.png";
 
+const MANIFEST_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/_collect-meta.json";
+
 const projects = [
   {
+    slug: "cierre-sensei",
     title: "Cierre Sensei",
     image: cierresenseiLogo,
     blurb:
@@ -21,6 +24,7 @@ const projects = [
     screenshots: null,
   },
   {
+    slug: "scrapegoat",
     title: "ScrapeGoat",
     image: scrapegoatLogo,
     blurb:
@@ -32,15 +36,20 @@ const projects = [
     screenshots: null,
   },
   {
+    slug: "notse",
     title: "Notse",
     image: notseLogo,
     blurb:
-      "Live teleprompter system built for broadcast production. Electron desktop app with real-time WebSocket sync, designed for on-set workflows across macOS and Windows.",
+      "Live teleprompter system built for broadcast production. Electron desktop app with real-time WebSocket sync, designed for on-set workflows across macOS and Windows. Closed-source — available under commercial license.",
     tags: ["Electron", "TypeScript", "Broadcast", "WebSockets"],
     accent: "#f59e0b",
+    commercial: true,
+    link: "#contact",
+    linkLabel: "Contact for licensing",
     screenshots: null,
   },
   {
+    slug: "porthub",
     title: "PortHub",
     image: porthubLogo,
     blurb:
@@ -52,6 +61,7 @@ const projects = [
     screenshots: null,
   },
   {
+    slug: "refuctor",
     title: "Refuctor",
     image: refuctorLogo,
     blurb:
@@ -63,6 +73,7 @@ const projects = [
     screenshots: null,
   },
   {
+    slug: "clawbridge",
     title: "ClawBridge",
     image: clawbridgeLogo,
     blurb:
@@ -75,11 +86,31 @@ const projects = [
   },
 ];
 
+function formatCount(n) {
+  if (n >= 1000) return `${Math.floor(n / 1000)}K`;
+  return n.toLocaleString();
+}
+
 /**
  * Dark-themed project cards with logo viewports and optional screenshot galleries.
  */
 export default function Projects() {
   const [modal, setModal] = useState(null);
+  const [statsBySlug, setStatsBySlug] = useState({});
+
+  useEffect(() => {
+    fetch(MANIFEST_URL, { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((manifest) => {
+        if (!manifest?.projects) return;
+        const map = {};
+        for (const [slug, entry] of Object.entries(manifest.projects)) {
+          if (entry.ok && entry.stats) map[slug] = entry.stats;
+        }
+        setStatsBySlug(map);
+      })
+      .catch(() => {});
+  }, []);
 
   const section = { background: "transparent", color: "#fafafa", padding: "48px 0" };
   const wrap = { maxWidth: 960, margin: "0 auto", padding: "0 24px" };
@@ -135,6 +166,31 @@ export default function Projects() {
     textDecoration: "none",
   };
 
+  const statsRow = {
+    marginTop: 12,
+    fontSize: 12,
+    color: "#71717a",
+    display: "flex",
+    flexWrap: "wrap",
+    gap: 10,
+    alignItems: "center",
+  };
+
+  const commercialBadge = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 6,
+    fontSize: 11,
+    fontWeight: 700,
+    padding: "4px 10px",
+    borderRadius: 6,
+    background: "rgba(245, 158, 11, 0.12)",
+    border: "1px solid rgba(245, 158, 11, 0.35)",
+    color: "#fbbf24",
+    letterSpacing: 0.5,
+    textTransform: "uppercase",
+  };
+
   return (
     <section id="projects" style={section}>
       <div style={wrap}>
@@ -151,9 +207,14 @@ export default function Projects() {
               </div>
 
               <div style={{ padding: 20, flex: 1, display: "flex", flexDirection: "column" }}>
-                <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fafafa", margin: 0 }}>
-                  {p.title}
-                </h3>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+                  <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fafafa", margin: 0 }}>
+                    {p.title}
+                  </h3>
+                  {p.commercial && (
+                    <span style={commercialBadge}>Commercial · License</span>
+                  )}
+                </div>
 
                 <p style={{ marginTop: 10, color: "#d4d4d8", lineHeight: 1.5, fontSize: 14, flex: 1 }}>
                   {p.blurb}
@@ -165,6 +226,27 @@ export default function Projects() {
                     <span key={t} style={tagStyle}>{t}</span>
                   ))}
                 </div>
+
+                {/* Live stats from collector */}
+                {statsBySlug[p.slug] && (
+                  <div style={statsRow}>
+                    {statsBySlug[p.slug].loc > 0 && (
+                      <span><strong style={{ color: "#d4d4d8" }}>{formatCount(statsBySlug[p.slug].loc)}</strong> LOC</span>
+                    )}
+                    {statsBySlug[p.slug].tests > 0 && (
+                      <>
+                        <span style={{ color: "#3f3f46" }}>·</span>
+                        <span><strong style={{ color: "#d4d4d8" }}>{formatCount(statsBySlug[p.slug].tests)}</strong> tests</span>
+                      </>
+                    )}
+                    {statsBySlug[p.slug].commits > 0 && (
+                      <>
+                        <span style={{ color: "#3f3f46" }}>·</span>
+                        <span><strong style={{ color: "#d4d4d8" }}>{statsBySlug[p.slug].commits}</strong> commits</span>
+                      </>
+                    )}
+                  </div>
+                )}
 
                 {/* Links */}
                 <div style={{ marginTop: 16, display: "flex", gap: 16, alignItems: "center" }}>

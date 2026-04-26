@@ -10,6 +10,8 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ### Changed
 - **BuilderStats now manifest-driven** — fetches `_collect-meta.json` from project-assets and sums totals across every collected repo. Replaces the hardcoded 8-URL list. New repos auto-roll into the headline numbers as the centralized stats collector picks them up. (refs portfolio#1)
+- **Project cards show live stats** — Projects.jsx fetches the same manifest and renders LOC / tests / commits inline on each card (Cierre Sensei, ScrapeGoat, Notse, PortHub, Refuctor, ClawBridge).
+- **Notse marked as commercial** — added "Commercial · License" badge, updated blurb, and changed CTA to "Contact for licensing" (anchored to the contact section). Notse is closed-source and available under commercial license only.
 
 ## [2026-04-13] — Builder Stats Bar, Commits Tracking
 
