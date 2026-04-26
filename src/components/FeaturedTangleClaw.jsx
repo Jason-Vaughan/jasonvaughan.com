@@ -144,6 +144,15 @@ export default function FeaturedTangleClaw() {
               }}>
                 Developer Tool
               </span>
+              <span style={{
+                fontSize: 11, fontWeight: 700, textTransform: "uppercase",
+                letterSpacing: 1.5, padding: "4px 12px", borderRadius: 9999,
+                background: "rgba(52, 211, 153, 0.12)",
+                border: "1px solid rgba(52, 211, 153, 0.35)",
+                color: "#34d399",
+              }}>
+                Open Source · MIT
+              </span>
               {since && (
                 <span style={{
                   fontSize: 11, fontWeight: 600,

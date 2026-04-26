@@ -14,6 +14,7 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 - **Notse marked as commercial** — added "Commercial · License" badge, updated blurb, and changed CTA to "Contact for licensing" (anchored to the contact section). Notse is closed-source and available under commercial license only.
 - **TiLT marked as SaaS** — added "SaaS · Subscription" pill on the TiLT hero card next to "Live Product" so the subscription business model is visible at a glance.
 - **Same-page anchor links scroll smoothly** — Projects.jsx detects `#` href prefixes and uses smooth scrollIntoView instead of `target="_blank"` (fixes Notse's "Contact for licensing" link refreshing the page in a new tab).
+- **Status badges on every card** — generic `badge: { label, tone }` system with four tones (commercial / openSource / archived / saas). Applied: ScrapeGoat / PortHub / ClawBridge "Open Source · MIT", Refuctor "Source Available · Archived", Notse "Commercial · License" (existing). TangleClaw hero card adds "Open Source · MIT" pill. Refuctor blurb no longer references NPM since it was never widely distributed there.
 
 ## [2026-04-13] — Builder Stats Bar, Commits Tracking
 

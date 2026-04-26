@@ -33,6 +33,7 @@ const projects = [
     linkLabel: "View on GitHub",
     tags: ["PWA", "Gemini AI", "PDF.js", "TypeScript"],
     accent: "#3b82f6",
+    badge: { label: "Open Source · MIT", tone: "openSource" },
     screenshots: null,
   },
   {
@@ -43,7 +44,7 @@ const projects = [
       "Live teleprompter system built for broadcast production. Electron desktop app with real-time WebSocket sync, designed for on-set workflows across macOS and Windows. Closed-source — available under commercial license.",
     tags: ["Electron", "TypeScript", "Broadcast", "WebSockets"],
     accent: "#f59e0b",
-    commercial: true,
+    badge: { label: "Commercial · License", tone: "commercial" },
     link: "#contact",
     linkLabel: "Contact for licensing",
     screenshots: null,
@@ -58,6 +59,7 @@ const projects = [
     linkLabel: "View on GitHub",
     tags: ["Node.js", "CLI", "DevTools", "Networking"],
     accent: "#06b6d4",
+    badge: { label: "Open Source · MIT", tone: "openSource" },
     screenshots: null,
   },
   {
@@ -65,11 +67,12 @@ const projects = [
     title: "Refuctor",
     image: refuctorLogo,
     blurb:
-      "Snark-fueled technical debt detection CLI. Scans codebases for markdown lint, spelling, code quality, and security issues — then roasts you about it. Shipped to NPM, now archived.",
+      "Snark-fueled technical debt detection CLI. Scans codebases for markdown lint, spelling, code quality, and security issues — then roasts you about it. Project is archived.",
     link: "https://github.com/Jason-Vaughan/refuctor",
     linkLabel: "View on GitHub",
     tags: ["CLI", "Node.js", "DevTools"],
     accent: "#ef4444",
+    badge: { label: "Source Available · Archived", tone: "archived" },
     screenshots: null,
   },
   {
@@ -82,9 +85,33 @@ const projects = [
     linkLabel: "View on GitHub",
     tags: ["Node.js", "Claude Code", "API", "DevOps"],
     accent: "#a855f7",
+    badge: { label: "Open Source · MIT", tone: "openSource" },
     screenshots: null,
   },
 ];
+
+const badgeStyles = {
+  commercial: {
+    background: "rgba(245, 158, 11, 0.12)",
+    border: "1px solid rgba(245, 158, 11, 0.35)",
+    color: "#fbbf24",
+  },
+  openSource: {
+    background: "rgba(52, 211, 153, 0.12)",
+    border: "1px solid rgba(52, 211, 153, 0.35)",
+    color: "#34d399",
+  },
+  archived: {
+    background: "rgba(161, 161, 170, 0.12)",
+    border: "1px solid rgba(161, 161, 170, 0.35)",
+    color: "#a1a1aa",
+  },
+  saas: {
+    background: "rgba(212, 175, 55, 0.12)",
+    border: "1px solid rgba(212, 175, 55, 0.35)",
+    color: "#D4AF37",
+  },
+};
 
 function formatCount(n) {
   if (n >= 1000) return `${Math.floor(n / 1000)}K`;
@@ -176,7 +203,7 @@ export default function Projects() {
     alignItems: "center",
   };
 
-  const commercialBadge = {
+  const badgeBase = {
     display: "inline-flex",
     alignItems: "center",
     gap: 6,
@@ -184,9 +211,6 @@ export default function Projects() {
     fontWeight: 700,
     padding: "4px 10px",
     borderRadius: 6,
-    background: "rgba(245, 158, 11, 0.12)",
-    border: "1px solid rgba(245, 158, 11, 0.35)",
-    color: "#fbbf24",
     letterSpacing: 0.5,
     textTransform: "uppercase",
   };
@@ -211,8 +235,10 @@ export default function Projects() {
                   <h3 style={{ fontSize: 22, fontWeight: 700, color: "#fafafa", margin: 0 }}>
                     {p.title}
                   </h3>
-                  {p.commercial && (
-                    <span style={commercialBadge}>Commercial · License</span>
+                  {p.badge && (
+                    <span style={{ ...badgeBase, ...(badgeStyles[p.badge.tone] || badgeStyles.openSource) }}>
+                      {p.badge.label}
+                    </span>
                   )}
                 </div>
 
