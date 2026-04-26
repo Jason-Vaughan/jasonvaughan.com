@@ -16,6 +16,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 - **Same-page anchor links scroll smoothly** — Projects.jsx detects `#` href prefixes and uses smooth scrollIntoView instead of `target="_blank"` (fixes Notse's "Contact for licensing" link refreshing the page in a new tab).
 - **Status badges on every card** — generic `badge: { label, tone }` system with four tones (commercial / openSource / archived / saas). Applied: ScrapeGoat / PortHub / ClawBridge "Open Source · MIT", Refuctor "Source Available · Archived", Notse "Commercial · License" (existing). TangleClaw hero card adds "Open Source · MIT" pill. Refuctor blurb no longer references NPM since it was never widely distributed there.
 
+### Added
+- **Cierre Sensei hero card** — Cierre Sensei promoted from regular Projects grid to a 3rd hero card (after TiLT and TangleClaw). Emerald accent, "Live Product · SaaS · Subscription" pills, conversational-AI-driven closing-cost engine description, stats grid (LOC, 32 Mexican states, commits, plans), Replit + Stripe + PostgreSQL tech stack, "Visit Live Site" + "Inquire about Subscription" CTAs. Stats fetched live from cierresensei.com/api/stats.json via the centralized collector's new remote-URL fetch path.
+
 ## [2026-04-13] — Builder Stats Bar, Commits Tracking
 
 ### Added

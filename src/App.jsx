@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import BuilderStats from "./components/BuilderStats";
 import FeaturedProject from "./components/FeaturedProject";
 import FeaturedTangleClaw from "./components/FeaturedTangleClaw";
+import FeaturedCierreSensei from "./components/FeaturedCierreSensei";
 import Projects from "./components/Projects";
 import GPTs from "./components/GPTs";
 import ContactSection from "./components/ContactSection";
@@ -34,6 +35,7 @@ export default function App() {
       <BuilderStats />
       <FeaturedProject />
       <FeaturedTangleClaw />
+      <FeaturedCierreSensei />
       <Projects />
       <GPTs />
       <ContactSection />

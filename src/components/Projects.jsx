@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import ScreenshotModal from "./ScreenshotModal";
-import cierresenseiLogo from "../assets/projects/cierresensei.png";
 import notseLogo from "../assets/projects/notse.png";
 import porthubLogo from "../assets/projects/porthub.png";
 import refuctorLogo from "../assets/projects/refuctor.png";
@@ -10,19 +9,6 @@ import clawbridgeLogo from "../assets/projects/clawbridge.png";
 const MANIFEST_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/_collect-meta.json";
 
 const projects = [
-  {
-    slug: "cierre-sensei",
-    title: "Cierre Sensei",
-    image: cierresenseiLogo,
-    blurb:
-      "Mexican real estate closing cost calculator. Started as a custom GPT, rebuilt into a full web app. Helps buyers, sellers, and agents estimate fees for property transactions in Mexico.",
-    link: "https://cierresensei.com",
-    linkLabel: "Visit site",
-    github: "https://github.com/Jason-Vaughan/cierre-sensei",
-    tags: ["Real Estate", "Fintech", "Next.js"],
-    accent: "#10b981",
-    screenshots: null,
-  },
   {
     slug: "scrapegoat",
     title: "ScrapeGoat",
