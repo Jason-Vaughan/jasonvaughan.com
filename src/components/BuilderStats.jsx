@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-// All stats URLs — private/protected repos push to project-assets, public repos commit to themselves
-const STATS_URLS = [
-  "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/tilt-stats.json",
-  "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/tangleclaw-stats.json",
-  "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/notse-stats.json",
-  "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/ondeck-stats.json",
-  "https://raw.githubusercontent.com/Jason-Vaughan/ClawBridge/main/stats.json",
-  "https://raw.githubusercontent.com/Jason-Vaughan/Medusa/main/stats.json",
-  "https://raw.githubusercontent.com/Jason-Vaughan/PortHub/main/stats.json",
-  "https://raw.githubusercontent.com/Jason-Vaughan/ScrapeGoat/main/stats.json",
-];
+// Manifest produced by the centralized collector in project-assets.
+// Lists every collected repo + its stats; the aggregate bar sums across all of them
+// so new repos auto-roll into the headline numbers without a code change here.
+const MANIFEST_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/_collect-meta.json";
 
 /**
  * Format a number with K/M suffix.
@@ -29,29 +22,27 @@ export default function BuilderStats() {
   const [totals, setTotals] = useState(null);
 
   useEffect(() => {
-    Promise.allSettled(
-      STATS_URLS.map((url) =>
-        fetch(url, { cache: "no-store" }).then((r) => (r.ok ? r.json() : null))
-      )
-    ).then((results) => {
-      const stats = results
-        .filter((r) => r.status === "fulfilled" && r.value)
-        .map((r) => r.value);
+    fetch(MANIFEST_URL, { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((manifest) => {
+        if (!manifest?.projects) return;
 
-      if (stats.length === 0) return;
+        const successful = Object.values(manifest.projects).filter((p) => p.ok && p.stats);
+        if (successful.length === 0) return;
 
-      const totals = stats.reduce(
-        (acc, s) => ({
-          loc: acc.loc + (s.loc || 0),
-          tests: acc.tests + (s.tests || 0),
-          commits: acc.commits + (s.commits || 0),
-          projects: acc.projects + 1,
-        }),
-        { loc: 0, tests: 0, commits: 0, projects: 0 }
-      );
+        const totals = successful.reduce(
+          (acc, p) => ({
+            loc: acc.loc + (p.stats.loc || 0),
+            tests: acc.tests + (p.stats.tests || 0),
+            commits: acc.commits + (p.stats.commits || 0),
+            projects: acc.projects + 1,
+          }),
+          { loc: 0, tests: 0, commits: 0, projects: 0 }
+        );
 
-      setTotals(totals);
-    });
+        setTotals(totals);
+      })
+      .catch(() => {});
   }, []);
 
   // Hide section if no stats loaded yet

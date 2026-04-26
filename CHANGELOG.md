@@ -4,6 +4,13 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **Commits stat on hero cards** — TiLT and TangleClaw hero cards now display live commit count (pulled from stats.json)
+- **"Building since" badge** — both hero cards show month/year of first commit next to the status tag
+
+### Changed
+- **BuilderStats now manifest-driven** — fetches `_collect-meta.json` from project-assets and sums totals across every collected repo. Replaces the hardcoded 8-URL list. New repos auto-roll into the headline numbers as the centralized stats collector picks them up. (refs portfolio#1)
+
 ## [2026-04-13] — Builder Stats Bar, Commits Tracking
 
 ### Added

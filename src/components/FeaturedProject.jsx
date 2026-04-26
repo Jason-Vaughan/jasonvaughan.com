@@ -13,6 +13,16 @@ function formatCount(n) {
 }
 
 /**
+ * Format an ISO date (YYYY-MM-DD) as "Mon YYYY" (e.g., "Oct 2025").
+ */
+function formatSince(iso) {
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (isNaN(d)) return null;
+  return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+}
+
+/**
  * Big panel card for TiLT — same dark card style as BarCoach/Projects.
  * Stats are fetched live from project-assets/tilt-stats.json.
  */
@@ -30,8 +40,11 @@ export default function FeaturedProject() {
     { label: "Lines of Code", value: liveStats ? formatCount(liveStats.loc) : "114K+" },
     { label: "API Endpoints", value: liveStats ? String(liveStats.endpoints) : "146" },
     { label: "Tests Passing", value: liveStats ? liveStats.tests.toLocaleString() : "842" },
+    { label: "Commits", value: liveStats ? formatCount(liveStats.commits) : "1.5K+" },
     { label: "CBA Rule Types", value: "12" },
   ];
+
+  const since = liveStats ? formatSince(liveStats.firstCommit) : null;
 
   const techStack = [
     "Next.js 15", "React 19", "TypeScript", "PostgreSQL",
@@ -112,6 +125,17 @@ export default function FeaturedProject() {
               }}>
                 Live Product
               </span>
+              {since && (
+                <span style={{
+                  fontSize: 11, fontWeight: 600,
+                  padding: "4px 10px", borderRadius: 9999,
+                  background: "rgba(212,175,55,0.08)",
+                  border: "1px solid rgba(212,175,55,0.25)",
+                  color: "#D4AF37",
+                }}>
+                  Building since {since}
+                </span>
+              )}
             </div>
 
             <p style={{ marginTop: 4, fontSize: 13, color: "#71717a" }}>Time I Logged Today</p>

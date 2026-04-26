@@ -27,6 +27,16 @@ function formatCount(n) {
 }
 
 /**
+ * Format an ISO date (YYYY-MM-DD) as "Mon YYYY" (e.g., "Mar 2026").
+ */
+function formatSince(iso) {
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (isNaN(d)) return null;
+  return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+}
+
+/**
  * Featured hero card for TangleClaw — purple-accented, same layout as TiLT hero.
  * Stats are fetched live from the TangleClaw repo's stats.json.
  */
@@ -44,9 +54,12 @@ export default function FeaturedTangleClaw() {
   const stats = [
     { label: "Lines of Code", value: liveStats ? formatCount(liveStats.loc) : "39K+" },
     { label: "Tests Passing", value: liveStats ? liveStats.tests.toLocaleString() : "1,520" },
+    { label: "Commits", value: liveStats ? formatCount(liveStats.commits) : "150+" },
     { label: "AI Engines", value: liveStats ? String(liveStats.engines) : "4" },
     { label: "npm Dependencies", value: liveStats ? String(liveStats.npmDeps) : "0" },
   ];
+
+  const since = liveStats ? formatSince(liveStats.firstCommit) : null;
 
   const techStack = [
     "Node.js", "tmux", "ttyd", "REST API", "Zero Dependencies",
@@ -131,6 +144,17 @@ export default function FeaturedTangleClaw() {
               }}>
                 Developer Tool
               </span>
+              {since && (
+                <span style={{
+                  fontSize: 11, fontWeight: 600,
+                  padding: "4px 10px", borderRadius: 9999,
+                  background: "rgba(139,92,246,0.08)",
+                  border: "1px solid rgba(139,92,246,0.25)",
+                  color: accent,
+                }}>
+                  Building since {since}
+                </span>
+              )}
             </div>
 
             <p style={{ marginTop: 4, fontSize: 13, color: "#71717a" }}>AI Coding Session Orchestrator</p>
