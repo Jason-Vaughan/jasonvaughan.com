@@ -7,9 +7,10 @@ import { motion } from "framer-motion";
 const MANIFEST_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/_collect-meta.json";
 
 /**
- * Format a number with K/M suffix.
+ * Format a number with K/M/B suffix.
  */
 function formatBigNumber(n) {
+  if (n >= 1_000_000_000) return `${(n / 1_000_000_000).toFixed(1)}B+`;
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M+`;
   if (n >= 1_000) return `${Math.floor(n / 1000)}K+`;
   return n.toLocaleString();
