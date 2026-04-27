@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import ScreenshotModal from "./ScreenshotModal";
 import tangleclawLogo from "../assets/projects/tangleclaw.png";
+import { autoLanguageTags } from "../utils/languageTags";
 
 const GH_ASSETS = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main";
 const tcScreenshots = `${GH_ASSETS}/tangleclaw-screenshots`;
@@ -193,9 +194,9 @@ export default function FeaturedTangleClaw() {
               ))}
             </div>
 
-            {/* Tech stack */}
+            {/* Tech stack — curated + auto-detected languages from stats */}
             <div style={{ marginTop: 20, display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {techStack.map((t) => (
+              {[...techStack, ...autoLanguageTags(liveStats?.languages, techStack)].map((t) => (
                 <span key={t} style={tagStyle}>{t}</span>
               ))}
             </div>

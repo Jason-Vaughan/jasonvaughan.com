@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import tiltLogo from "../assets/tilt_logo.png";
+import { autoLanguageTags } from "../utils/languageTags";
 
 const STATS_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/tilt-stats.json";
 
@@ -173,9 +174,9 @@ export default function FeaturedProject() {
               ))}
             </div>
 
-            {/* Tech stack */}
+            {/* Tech stack — curated + auto-detected languages from stats */}
             <div style={{ marginTop: 20, display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {techStack.map((t) => (
+              {[...techStack, ...autoLanguageTags(liveStats?.languages, techStack)].map((t) => (
                 <span key={t} style={tagStyle}>{t}</span>
               ))}
             </div>

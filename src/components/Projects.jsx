@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ScreenshotModal from "./ScreenshotModal";
+import { autoLanguageTags } from "../utils/languageTags";
 import notseLogo from "../assets/projects/notse.png";
 import porthubLogo from "../assets/projects/porthub.png";
 import refuctorLogo from "../assets/projects/refuctor.png";
@@ -232,9 +233,9 @@ export default function Projects() {
                   {p.blurb}
                 </p>
 
-                {/* Tags */}
+                {/* Tags — curated + auto-detected languages from manifest */}
                 <div style={{ marginTop: 16, display: "flex", flexWrap: "wrap", gap: 8 }}>
-                  {p.tags.map((t) => (
+                  {[...p.tags, ...autoLanguageTags(statsBySlug[p.slug]?.languages, p.tags)].map((t) => (
                     <span key={t} style={tagStyle}>{t}</span>
                   ))}
                 </div>
