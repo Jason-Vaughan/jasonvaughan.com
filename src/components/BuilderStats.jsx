@@ -40,6 +40,8 @@ export default function BuilderStats() {
           { loc: 0, tests: 0, commits: 0, projects: 0 }
         );
 
+        totals.tokens = manifest.aggregateTokens?.total || 0;
+
         setTotals(totals);
       })
       .catch(() => {});
@@ -54,6 +56,11 @@ export default function BuilderStats() {
     { label: "Tests Passing", value: formatBigNumber(totals.tests), color: "#34d399" },
     { label: "Projects Shipped", value: String(totals.projects), color: "#fbbf24" },
   ];
+
+  // Only show AI Tokens stat once it's a non-zero number
+  if (totals.tokens > 0) {
+    stats.push({ label: "AI Tokens", value: formatBigNumber(totals.tokens), color: "#f472b6" });
+  }
 
   return (
     <section id="builder-stats" style={{ padding: "24px 0" }}>
