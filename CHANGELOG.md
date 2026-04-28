@@ -22,7 +22,7 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 - **AI Tokens stat in BuilderStats** — 5th headline stat (pink, "AI Tokens") summed across Anthropic + OpenAI lifetime usage (admin APIs) plus manual estimates in `project-assets/projects.yml#tokens.manual` for closed-source tools (Copilot, Cursor, Gemini). Hidden until non-zero so the stat doesn't render with no data. Manifest exposes a full breakdown at `_collect-meta.json#aggregateTokens`.
 
 ### Added
-- **Pipeline section** — new `Pipeline.jsx` rendering two grouped sections ("Beta" with amber accent, "In Development" with teal). Each stage auto-hides if no projects are in that stage. Cards are text-forward (no logo viewport since WIP projects don't have shipped assets yet) with stage badge, title + subtitle, tagline, body, feature bullets, and tech tags. First entry: **UCI (Unified Comms Intelligence)** in In Development.
+- **Pipeline section** — new `Pipeline.jsx` rendering two grouped sections ("Public Beta" with amber accent, "In Development" with teal). Each stage auto-hides if its list is empty. Cards have a logo viewport (per-project `imgBackground` lets dark-on-black logos like Medusa override the default white viewport), stage badge, title + subtitle, tagline, body, feature bullets, tech tags, and an optional external link. Initial entries: **Medusa-MCP v0.7.7-beta** (Public Beta, GitHub link) and **UCI — Unified Comms Intelligence** (In Development, no public repo yet). Logos backed up at `project-assets/uci-logo.png` and `project-assets/medusa-logo.png`.
 
 ## [2026-04-13] — Builder Stats Bar, Commits Tracking
 
