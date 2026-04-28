@@ -19,6 +19,21 @@ Live numbers as of merge: **142 fixes**, **60 merged PRs** across 14 repos. Tang
 
 **Follow-up PR #3** (same session, after the above shipped): broadened `countFixCommits` regex from strict Conventional Commits to also catch legacy `Fix `/`Fixed `/`Fixes ` (capital, no colon — used by TiLT/TangleClaw pre-Conventional, plus GitHub's default squash-merge titles). New regex `^(fix|bugfix|hotfix|fixed|fixes)([^a-zA-Z]|$)` is case-insensitive, subject-only (not body, which over-counts), zero false positives. **Production aggregateFixes: 142 → 284 (~11% of 2575 commits)** — healthy ratio for this body of work. Convention going forward documented in JSDoc + project_stats_system memory: prefix fix-PR titles with `fix:` or `Fix ` for the squash subject to count.
 
+**More follow-ups (same session):**
+- **PR #4 (project-assets):** stats workflow bumped from 1x daily to 5x/day, anchored to PT (`'0 3,9,13,17,22 * * *'` UTC). AI Tokens stat lags up to 24h since the local ccusage agent runs separately at 05:30 PT.
+- **PR #3 (portfolio):** Added 7th aggregate tile in BuilderStats — PRs Merged (orange `#f97316`). Reads `manifest.aggregatePRs.merged` (currently 61). Hidden when zero.
+- **PR #4 (portfolio):** Layout polish — `body` in index.css had `display: flex; place-items: center` causing dark bg to end at viewport edges. Removed flex centering, set `background: #09090b` on body. Also bumped BuilderStats grid to `minmax(110px, 1fr)` + gap 12 so all 7 tiles fit on one line at 960px container. Plus new `TODO.md` at repo root.
+- **PR #5 (project-assets):** Test infra — Node's built-in `node --test` (zero deps), 20 tests covering countFixCommits + fetchMergedPRCount edge cases, CI workflow runs on every PR.
+- **PR #5 (portfolio):** Test infra — Vitest, 15 tests covering formatBigNumber + autoLanguageTags. Extracted `formatBigNumber` from BuilderStats to `src/utils/format.js` so it's testable. CI on every PR. Total: **35 tests passing**.
+- **PR #7 (portfolio):** New `WISHLIST.md` — long-running brainstorm of cool features (AI chat, contribution heatmap, touring credits wall, certs, skills, etc.). Cross-linked from TODO.md.
+- **PRs #6/#8/#9 (portfolio):** Doc PRs adding TODO entries for: resume / creative work / socials / appointment booking; certifications; skills (creative pro tools — Photoshop, AE, Watchout, Millumin, etc., distinct from auto-detected dev tags).
+
+## Strategic notes captured this session
+
+- **User's 4-column differentiation story** (see `project_creative_skills_path.md`): dev skills (auto from GitHub) + pro creative tools (manual, live-events) + certifications (no degree → "experience-credentialed since X" reframe) + touring credits + IATSE Local 33 badge. This combo is the unique pitch.
+- **Redesign considered, not committed** — user had "thoughts of a complete redesign" after the brainstorm. Prep step before any redesign: extract hardcoded project data from components to `src/data/projects.js`. See `feedback_data_extraction_for_redesign.md`.
+- **Skills section is for CREATIVE/PRO TOOLS**, not dev skills. Don't conflate.
+
 ## Open items / next session
 
 (Carried forward from previous sessions — none introduced today.)
