@@ -10,6 +10,10 @@ This file persists context across AI sessions. Update it with key decisions, pro
 
 **Lesson recorded:** When a session is killed mid-wrap, the smoking-gun signature is (a) an OPEN wrap-PR with green CI, (b) MEMORY.md mtime older than the latest commit on the wrap branch, and (c) stale plan files for shipped work still in `.claude/plans/`. Took ~5 minutes to recover; no work was lost.
 
+**Auto-merge pattern adopted:** This session used `gh pr merge --auto --squash --delete-branch` to ship PR #12 — GitHub holds the PR server-side and merges the instant CI clears, no agent watching needed. Drafted a corresponding `## PR Auto-Merge` rule for `~/.tangleclaw/global-rules.md`; another session is handling the actual file edit. Until that lands, future sessions on this project should still apply the pattern manually for routine PRs (docs, chore, version bumps, test-only).
+
+**Session wrap PR:** #13 (`chore/session-wrap-2026-04-28-recovery`) — refreshes project-version.txt timestamp + this memory addendum. Auto-merged.
+
 ## Previous Session (2026-04-28 — PRs Merged + Fixes Shipped stats)
 
 **What happened:** Executed the build plan at `/Users/jasonvaughan/Documents/Projects/JasonVaughanComPortfolio/.claude/plans/stats-prs-and-fixes.md` end-to-end. Two new metrics now live:
