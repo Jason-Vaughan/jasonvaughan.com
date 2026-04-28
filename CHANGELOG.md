@@ -4,6 +4,8 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+## [2026-04-28] — Stats Pipeline Maturity + Tests + Brainstorm
+
 ### Added
 - **Commits stat on hero cards** — TiLT and TangleClaw hero cards now display live commit count (pulled from stats.json)
 - **"Building since" badge** — both hero cards show month/year of first commit next to the status tag
@@ -14,8 +16,15 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 - **Fixes Shipped stat in BuilderStats** — 6th headline stat (cyan, "Fixes Shipped") summing every conventional-commit `fix:` / `fix(scope):` / `fix!:` / `bugfix:` / `hotfix:` across all collected repos. Hidden until non-zero. Reads `manifest.aggregateFixes.count` from the centralized collector.
 - **PRs Merged stat on project + hero cards** — Projects.jsx adds a `{n} PRs` chip next to LOC / Tests / Commits when the underlying repo has merged PRs. FeaturedProject (TiLT), FeaturedTangleClaw, and FeaturedCierreSensei conditionally append a "PRs Merged" tile to their stats grid. Reads `stats.prs.merged` from the per-repo collector output. Forward-looking metric — most history is direct-to-main, but the user is shifting to PR workflow as of 2026-04.
 - **PRs Merged aggregate in BuilderStats** — 7th headline tile (orange `#f97316`, "PRs Merged") summing `aggregatePRs.merged` from the manifest. Hidden until non-zero, same pattern as AI Tokens / Fixes Shipped.
+- **Test infrastructure** — Vitest in portfolio (15 tests covering `formatBigNumber` + `autoLanguageTags`), `node:test` (zero deps) in project-assets (20 tests covering `countFixCommits` + `fetchMergedPRCount`). CI workflows in both repos run tests on every PR. Total: 35 tests passing. Convention going forward: every new helper gets a test.
+- **TODO.md** — top-level backlog file for ideas in flight. Categories: Content/Bio · Stats System · UX/Polish · Infrastructure · Pipeline.
+- **WISHLIST.md** — long-running brainstorm of cool features (AI chat, contribution heatmap, touring credits wall, certs, skills, etc.). Explicitly NOT a commitment. Effort tags 🟢/🟡/🔴. Cross-linked from TODO.
 
 ### Changed
+- **BuilderStats fits all 7 tiles on one row at 960px+ container** — grid bumped from `minmax(130px, 1fr)` gap 16 to `minmax(110px, 1fr)` gap 12. Still wraps cleanly on tablet/mobile via `auto-fit`.
+- **Dark background extends edge-to-edge at any viewport width** — `body` in `index.css` had `display: flex; place-items: center` which centered the App as a flex item, exposing white on the sides at wider viewports. Removed flex centering, set `background: #09090b` directly on body.
+- **Fix-detection regex broadened (collector change, portfolio impact)** — `countFixCommits` now matches `^(fix|bugfix|hotfix|fixed|fixes)([^a-zA-Z]|$)` (case-insensitive, subject-only). Catches both Conventional `fix:` and legacy `Fix `/`Fixed `/`Fixes ` styles. Production aggregateFixes jumped from 142 → 284 (~11% of 2575 commits) — healthy ratio. Convention going forward: prefix fix-PR titles with `fix:` or `Fix ` so the squash subject lands in the count.
+- **Stats workflow now refreshes 5x daily** (was 1x) — cron `0 3,9,13,17,22 * * *` UTC, anchored to PT. Portfolio LOC / commits / fixes / PRs / tests now update ~5x/day. AI Tokens still lags up to 24h since the local ccusage agent runs separately.
 - **BuilderStats now manifest-driven** — fetches `_collect-meta.json` from project-assets and sums totals across every collected repo. Replaces the hardcoded 8-URL list. New repos auto-roll into the headline numbers as the centralized stats collector picks them up. (refs portfolio#1) Now also logs to console when the manifest fetch returns a 404 / empty / error so silent regressions are debuggable.
 - **Project cards show live stats** — Projects.jsx fetches the same manifest and renders LOC / tests / commits inline on each card (Cierre Sensei, ScrapeGoat, Notse, PortHub, Refuctor, ClawBridge).
 - **Notse marked as commercial** — added "Commercial · License" badge, updated blurb, and changed CTA to "Contact for licensing" (anchored to the contact section). Notse is closed-source and available under commercial license only.
