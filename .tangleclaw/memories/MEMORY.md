@@ -17,6 +17,8 @@ Live numbers as of merge: **142 fixes**, **60 merged PRs** across 14 repos. Tang
 
 **PAT scope:** `STATS_COLLECTOR_TOKEN` already had `Pull requests: Read` — verified by 14/14 repos returning non-null PR counts. No PAT update needed.
 
+**Follow-up PR #3** (same session, after the above shipped): broadened `countFixCommits` regex from strict Conventional Commits to also catch legacy `Fix `/`Fixed `/`Fixes ` (capital, no colon — used by TiLT/TangleClaw pre-Conventional, plus GitHub's default squash-merge titles). New regex `^(fix|bugfix|hotfix|fixed|fixes)([^a-zA-Z]|$)` is case-insensitive, subject-only (not body, which over-counts), zero false positives. **Production aggregateFixes: 142 → 284 (~11% of 2575 commits)** — healthy ratio for this body of work. Convention going forward documented in JSDoc + project_stats_system memory: prefix fix-PR titles with `fix:` or `Fix ` for the squash subject to count.
+
 ## Open items / next session
 
 (Carried forward from previous sessions — none introduced today.)
