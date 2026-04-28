@@ -17,6 +17,7 @@ Issues fixed in PRs are removed from this list — git history is the record. Us
 - [ ] **Creative work links** — add a section (or footer links) for artwork, photography, and music. Decide: separate sub-pages on the site, or external links (Instagram / Bandcamp / personal galleries)?
 - [ ] **Expanded social links** — currently only LinkedIn is in the contact section. Add GitHub (https://github.com/Jason-Vaughan), npm (https://www.npmjs.com/~jason-vaughan or whichever handle), plus any other socials user actively maintains.
 - [ ] **Appointment booking** — let visitors request a meeting. Options: Calendly / Cal.com embed, simple "Request a meeting" form (Web3Forms again, with date/time fields), or just a mailto link. Calendly is the lowest-friction for the visitor.
+- [ ] **Certifications list** — basic section listing every certification (IATSE training, broadcast/video, safety, dev/cloud, anything else). Framed as the "experience-credentials path" since there's no college degree on the resume. Plain markdown table or simple card list to start; the impressive visual version lives in `WISHLIST.md`.
 
 ### Stats System
 - [ ] **AI Tokens daily lag** — currently the local `~/.claude-stats/refresh.sh` agent runs once daily at 05:30 PT. The new 5x/day GitHub workflow doesn't refresh AI Tokens. Either (a) accept the lag, (b) bump the local agent to multiple times per day, or (c) skip token aggregation on workflow runs that don't have fresh agent data.
