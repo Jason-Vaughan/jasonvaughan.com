@@ -2,7 +2,15 @@
 
 This file persists context across AI sessions. Update it with key decisions, progress, and open questions.
 
-## Last Session (2026-04-28 — PRs Merged + Fixes Shipped stats)
+## Last Session (2026-04-28 — release-cut + kill-recovery)
+
+**What happened:** Short cleanup session. The previous 2026-04-28 working session had pushed a release-cut wrap commit (`d087bb2`) and opened PR #11 ("chore: cut [2026-04-28] release + clean working tree") but was killed before the merge + post-wrap janitor finished. This session merged PR #11 (which had already been auto/externally merged by the time the local sync ran), pulled main, removed the two completed plan files from `.claude/plans/` (`stats-prs-and-fixes.md`, `stats-system-backup-and-docs.md` — both shipped, kept in git history if ever needed), and wrote this memory note.
+
+**Net effect on main:** CHANGELOG `[Unreleased]` rolled into `[2026-04-28] Stats Pipeline Maturity + Tests + Brainstorm` block. project-version.txt bumped to `2026-04-28`. CLAUDE.md got TangleClaw-injected updates (Build Plans & Chunks rule + PortHub HTTPS API note).
+
+**Lesson recorded:** When a session is killed mid-wrap, the smoking-gun signature is (a) an OPEN wrap-PR with green CI, (b) MEMORY.md mtime older than the latest commit on the wrap branch, and (c) stale plan files for shipped work still in `.claude/plans/`. Took ~5 minutes to recover; no work was lost.
+
+## Previous Session (2026-04-28 — PRs Merged + Fixes Shipped stats)
 
 **What happened:** Executed the build plan at `/Users/jasonvaughan/Documents/Projects/JasonVaughanComPortfolio/.claude/plans/stats-prs-and-fixes.md` end-to-end. Two new metrics now live:
 
