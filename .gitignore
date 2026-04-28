@@ -6,3 +6,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+
+# Local-only stash dirs (private usage exports, scratch uploads, etc.)
+.uploads/
+cursor_usage/
