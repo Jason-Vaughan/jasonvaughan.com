@@ -41,6 +41,7 @@ const projects = [
     tags: ["MCP", "Python A2A Swarm", "Node.js Hub", "Autonomous Agents"],
     link: "https://github.com/Jason-Vaughan/Medusa",
     linkLabel: "View on GitHub",
+    imgBackground: "#000000",
   },
   {
     stage: "dev",
@@ -118,7 +119,10 @@ function PipelineCard({ project }) {
   const imgViewport = {
     height: 200,
     padding: 16,
-    background: "#fafafa",
+    // Default white viewport works for logos designed on white (UCI). Logos
+    // that ship with their own dark background (Medusa) override via
+    // project.imgBackground so the viewport doesn't frame them in white.
+    background: project.imgBackground || "#fafafa",
     borderBottom: "1px solid rgba(63,63,70,.6)",
     display: "flex",
     alignItems: "center",
