@@ -11,6 +11,10 @@ Issues fixed in PRs are removed from this list — git history is the record. Us
 - [ ] **Cierre Sensei screenshots** — add to the Cierre Sensei hero card.
 - [ ] **Notse screenshots** — add to the Notse project card (currently logo only).
 - [ ] **Refuctor screenshots** — same.
+- [ ] **Resume access** — either a password-protected resume PDF link or a "Request Resume" CTA that emails the user. Decision needed: gated download (Web3Forms or similar to capture requester) vs. a one-line form, vs. a direct PDF behind a shared password.
+- [ ] **Creative work links** — add a section (or footer links) for artwork, photography, and music. Decide: separate sub-pages on the site, or external links (Instagram / Bandcamp / personal galleries)?
+- [ ] **Expanded social links** — currently only LinkedIn is in the contact section. Add GitHub (https://github.com/Jason-Vaughan), npm (https://www.npmjs.com/~jason-vaughan or whichever handle), plus any other socials user actively maintains.
+- [ ] **Appointment booking** — let visitors request a meeting. Options: Calendly / Cal.com embed, simple "Request a meeting" form (Web3Forms again, with date/time fields), or just a mailto link. Calendly is the lowest-friction for the visitor.
 
 ### Stats System
 - [ ] **AI Tokens daily lag** — currently the local `~/.claude-stats/refresh.sh` agent runs once daily at 05:30 PT. The new 5x/day GitHub workflow doesn't refresh AI Tokens. Either (a) accept the lag, (b) bump the local agent to multiple times per day, or (c) skip token aggregation on workflow runs that don't have fresh agent data.
