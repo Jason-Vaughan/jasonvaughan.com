@@ -25,6 +25,18 @@ Effort tags: 🟢 quick (<1 hr) · 🟡 medium (1-4 hr) · 🔴 big (multi-sessi
 - 🟡 **Concert/broadcast photo gallery** — your past gigs. Strong differentiator for a "developer" site.
 - 🟢 **IATSE Local 33 badge** + years-as-tech callout. 25-year credibility marker.
 
+### Credentials section (no degree → make experience the headline)
+- 🟡 **Impressive certifications table/wall** — visual showcase of every cert (IATSE, broadcast/video, safety, cloud/dev, etc.). What would make this *land*:
+  - Each cert as a card with provider logo, badge image (Credly/native), name, year earned, expiration status (active / recertifying / lifetime)
+  - Filter pills by category: Live Events · Broadcast/Video · Safety · Cloud · Dev · Other
+  - Hover/expand for scope of cert + verification link (cert number → issuer page)
+  - Subtle "Experience-credentialed since [year]" subtitle reframing the no-degree story as a strength
+  - Optional total-hours-of-training counter (sum across certs that publish hours)
+  - Sort options: most recent / most prestigious / by category
+  - Print-friendly stylesheet so this section doubles as a credentials handout
+- 🟡 **Recency indicator** — animated "Last cert earned: [date]" badge to show ongoing learning, not a stale list.
+- 🔴 **Auto-pull from Credly / similar** — if certs are on Credly, fetch live (so renewals reflect immediately and the site stays current with no edits).
+
 ---
 
 ## Quick wins (each <1 hr)
