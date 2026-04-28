@@ -4,6 +4,8 @@ A living list of feature requests, polish items, and known issues for the portfo
 
 Issues fixed in PRs are removed from this list — git history is the record. Use this for ideas in flight.
 
+> Looking for the long-running "what if" brainstorm? See [`WISHLIST.md`](./WISHLIST.md) — bigger ideas that haven't graduated to "yes, let's ship" yet.
+
 ## Active
 
 ### Content / Bio
