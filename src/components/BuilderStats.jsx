@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { formatBigNumber } from "../utils/format";
 
 // Manifest produced by the centralized collector in project-assets.
 // Lists every collected repo + its stats; the aggregate bar sums across all of them
 // so new repos auto-roll into the headline numbers without a code change here.
 const MANIFEST_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/_collect-meta.json";
-
-/**
- * Format a number with K/M/B suffix.
- */
-function formatBigNumber(n) {
-  if (n >= 1_000_000_000) return `${(n / 1_000_000_000).toFixed(1)}B+`;
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M+`;
-  if (n >= 1_000) return `${Math.floor(n / 1000)}K+`;
-  return n.toLocaleString();
-}
 
 /**
  * Builder stats bar — fetches stats from all projects and displays aggregated totals.
