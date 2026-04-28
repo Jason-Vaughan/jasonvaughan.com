@@ -2,7 +2,26 @@
 
 This file persists context across AI sessions. Update it with key decisions, progress, and open questions.
 
-## Last Session (2026-04-27 — into 2026-04-28 UTC)
+## Last Session (2026-04-28 — PRs Merged + Fixes Shipped stats)
+
+**What happened:** Executed the build plan at `/Users/jasonvaughan/Documents/Projects/JasonVaughanComPortfolio/.claude/plans/stats-prs-and-fixes.md` end-to-end. Two new metrics now live:
+
+1. **`aggregateFixes.count`** + per-repo `fixes.count` — `git log --grep` counts conventional `^(fix|bugfix|hotfix)(\(.+\))?!?:` commits.
+2. **`aggregatePRs.merged`** + per-repo `prs.merged` — paginated `/pulls?state=closed`, filter `merged_at != null`. Returns `null` (preserved through manifest) on 401/403/404/5xx/timeout.
+
+Live numbers as of merge: **142 fixes**, **60 merged PRs** across 14 repos. TangleClaw leads PRs (47), TiLT leads fixes (65). Cierre Sensei correctly skipped (remoteStats project).
+
+**First active use of PR-based workflow** — both `Jason-Vaughan/project-assets#2` and `Jason-Vaughan/jasonvaughan.com#2` opened, Critic-reviewed, then squash-merged. New normal going forward.
+
+**Critic findings (all addressed):** Added 30s `AbortController` timeout on PR fetch, treated 5xx like 401/403/404 (return null instead of throwing — preserves other repo stats), added sentinel warns for `aggregateFixes=0` regressions and "all PRs returned null" PAT-scope hints, added comment near `git clone` warning against `--depth` (countFixCommits needs full history). NIT: `project-assets` repo has no CHANGELOG convention — skipped that plan step.
+
+**PAT scope:** `STATS_COLLECTOR_TOKEN` already had `Pull requests: Read` — verified by 14/14 repos returning non-null PR counts. No PAT update needed.
+
+## Open items / next session
+
+(Carried forward from previous sessions — none introduced today.)
+
+## Previous Session (2026-04-27 — into 2026-04-28 UTC)
 
 **What happened:** A long, deep session — touched both repos heavily. Three big arcs:
 
