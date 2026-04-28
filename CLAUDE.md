@@ -26,6 +26,16 @@ Edit them from the TangleClaw landing page or via the API.
 - Keep functions short and single-purpose
 - Write clear commit messages that explain why, not just what
 
+## Build Plans & Chunks
+
+Claude Code stores plan files globally at `~/.claude/plans/`. This causes problems — plans get lost across sessions and can collide between projects.
+
+**Rule: Keep plans local to the project.**
+- After creating or updating a plan in Claude Code's plan mode, copy the plan file into the project directory at `<project-root>/.claude/plans/<plan-name>.md`.
+- All memory entries and session handoffs must reference the **project-local copy** using its absolute path (e.g., `/Users/jasonvaughan/Documents/Projects/MyProject/.claude/plans/my-plan.md`).
+- Never reference plans with ambiguous relative paths like `.claude/plans/...` — always use absolute paths.
+- Each project's plans live inside that project. Do not rely on `~/.claude/plans/` as the source of truth across sessions.
+
 ## Port Management (PortHub)
 
 TangleClaw is the central port registry for all projects on this machine. Every port used by any project must be registered here to prevent conflicts. This replaces the old standalone `porthub` CLI — do not use `porthub lease`/`porthub release`; use the TangleClaw API instead.
@@ -44,7 +54,7 @@ TangleClaw is the central port registry for all projects on this machine. Every 
 
 ### API Operations
 
-All calls are JSON. Use `curl` or equivalent. The TangleClaw API base URL is injected below this guide.
+All calls are JSON. Use `curl` or equivalent. The TangleClaw API base URL is injected below this guide. HTTPS (`https://localhost:3102`) is the default; installs that skipped HTTPS or have no certificates configured fall back to `http://localhost:3102`. When hitting HTTPS with a locally generated certificate (mkcert), pass `-k` to `curl` or install the mkcert root CA so the client trusts it.
 
 **Check what's taken** before picking a port:
 ```
@@ -139,6 +149,117 @@ Groups can have a `sharedDir` path. On session launch, TangleClaw scans that dir
 - **Unlock after editing** so other sessions can access the file.
 - Locks expire after **30 minutes** if not released. Sessions auto-release all locks on wrap or kill.
 
+## Session Memory
+
+TangleClaw provides a file-based memory system that persists context across AI sessions. Each project has a `.tangleclaw/memories/` directory where you can store and retrieve memories.
+
+### How It Works
+
+- **Index file**: `.tangleclaw/memories/MEMORY.md` — read this at session start to restore context
+- **Additional files**: Create topic-specific `.md` files in the same directory (e.g., `ARCHITECTURE.md`, `DECISIONS.md`)
+- `MEMORY.md` serves as the index — it should reference any additional memory files
+
+### At Session Start
+
+Read `.tangleclaw/memories/MEMORY.md`. Use it to understand prior decisions, progress, open questions, and anything the previous session flagged for you.
+
+### At Session End
+
+Before wrapping, update memory files with anything the next session should know:
+- Key decisions made and why
+- Progress on multi-session work
+- Open questions or blockers
+- Architecture notes or patterns discovered
+
+### Conventions
+
+- Keep entries concise and actionable
+- Use markdown headings to organize by topic
+- Don't duplicate what's already in code, git history, docs, or changelogs
+- Remove or update stale entries — memories should reflect current state
+- Memory files are plain markdown — no special syntax required
+
+## Project Version Recording
+
+TangleClaw displays each project's version on the landing page and session banner. The AI is the writer — it detects the version and records it to a cache file that TangleClaw reads.
+
+### Cache File
+
+Path: `<project-root>/.tangleclaw/project-version.txt`
+
+Format (plain key-value lines, not YAML):
+```
+version: 3.12.7
+recorded_at: 2026-04-10T20:34:12Z
+source: CHANGELOG.md
+```
+
+- `version` — the project's current version string
+- `recorded_at` — ISO-8601 UTC timestamp of when it was recorded
+- `source` — free-form string indicating where the version came from (e.g., `CHANGELOG.md`, `package.json`, `version.json`, `git tag`, `pyproject.toml`)
+
+### When to Write
+
+- **Session start** — detect the version and write the file. The prime prompt includes instructions for this.
+- **Session wrap** — re-check and rewrite the file, since the version may have changed during the session (e.g., CHANGELOG bump, git tag).
+
+### Detection Order
+
+When determining the version to write, check in this order:
+1. Latest released entry in `CHANGELOG.md` (skip `[Unreleased]`)
+2. `version.json` or `package.json` at the project root
+3. Latest git tag (`git describe --tags --abbrev=0`)
+4. `0.0.0-dev` as a placeholder if none of the above exist
+
+### How TangleClaw Reads It
+
+`enrichProject()` uses a layered fallback chain: cache file → CHANGELOG → version.json → package.json → null. The cache file has highest priority because the AI may have used a source (like git tags or pyproject.toml) that TangleClaw can't parse natively.
+
 ## Methodology: Prawduct
 
 Structured governance with discovery, planning, building, and independent Critic review.
+
+## Session Playbook: Prawduct
+
+This is your operational guide. Follow these procedures — they are not suggestions.
+
+### Phases
+
+**Discovery** — Understand the problem before proposing solutions. Ask clarifying questions scaled to risk: 5-8 for small utilities, 15-25 for critical systems. Produce a problem statement and success criteria. Do not write code in this phase.
+
+**Planning** — Design the solution. Produce artifacts in dependency order (specs before implementation plans). Write a `build-plan.md` with concrete session chunks — each chunk is one session's worth of work. Get user alignment before moving to Building.
+
+**Building** — One chunk per session. Complete the chunk, write tests, update docs, commit, then wrap. Do not start a second chunk in the same session. If a chunk is too large, split it and defer the rest.
+
+### Session Discipline
+
+- **One chunk per session.** Finish it, test it, commit it, wrap it. No partial chunks, no multi-chunk sessions.
+- **Always commit after completing a chunk.** Never leave work uncommitted across sessions.
+- **Wrap before ending.** Capture summary, next steps, and learnings. The next session reads your wrap to resume context.
+- **No context compaction mid-work.** If context is getting long, finish the current chunk and wrap rather than continuing in a degraded state.
+
+### Independent Critic Review
+
+After completing medium+ work (anything beyond trivial bug fixes):
+1. Spawn a separate review agent (or mental context shift)
+2. The Critic sees only: code changes, tests, specs, and build plan — NOT the builder's reasoning
+3. The Critic checks: missed edge cases, test coverage gaps, scope creep beyond the chunk, doc parity violations
+4. Address all Critic findings before merging
+
+### Janitor Pass
+
+Before wrapping a session, do a quick sweep:
+- Remove dead code, unused imports, leftover debug logs
+- Ensure no TODOs were left unresolved from this chunk
+- Verify CHANGELOG is updated
+- Confirm tests pass
+
+### Decision Framework
+
+Before adding code, changing architecture, or introducing dependencies:
+1. State the decision explicitly
+2. List alternatives considered
+3. Explain why this approach was chosen
+4. Note accepted trade-offs
+
+This applies to non-trivial choices. Use judgment — not every line needs a decision record.
