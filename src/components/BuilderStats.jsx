@@ -55,6 +55,7 @@ export default function BuilderStats() {
 
         totals.tokens = manifest.aggregateTokens?.total || 0;
         totals.fixes = manifest.aggregateFixes?.count || 0;
+        totals.prs = manifest.aggregatePRs?.merged || 0;
 
         setTotals(totals);
       })
@@ -81,6 +82,11 @@ export default function BuilderStats() {
   // Only show Fixes Shipped once the manifest carries a non-zero aggregate
   if (totals.fixes > 0) {
     stats.push({ label: "Fixes Shipped", value: formatBigNumber(totals.fixes), color: "#06b6d4" });
+  }
+
+  // Only show PRs Merged once the manifest carries a non-zero aggregate
+  if (totals.prs > 0) {
+    stats.push({ label: "PRs Merged", value: formatBigNumber(totals.prs), color: "#f97316" });
   }
 
   return (
