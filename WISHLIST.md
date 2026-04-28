@@ -37,6 +37,16 @@ Effort tags: 🟢 quick (<1 hr) · 🟡 medium (1-4 hr) · 🔴 big (multi-sessi
 - 🟡 **Recency indicator** — animated "Last cert earned: [date]" badge to show ongoing learning, not a stale list.
 - 🔴 **Auto-pull from Credly / similar** — if certs are on Credly, fetch live (so renewals reflect immediately and the site stays current with no edits).
 
+### Skills section (creative / live-show tools — the "you can't find this on my GitHub" story)
+- 🟡 **Pro-tools skill grid** — manually curated, grouped by domain. Tools like Photoshop, After Effects, Premiere, Watchout, Millumin, Resolume, QLab, Pro Tools, Avid, ProPresenter, etc. — anything from the live-events / broadcast / design world that GitHub stats can't surface. What makes this *land*:
+  - Grouped clusters by domain: **Live Show Control** (Watchout, Millumin, QLab, Resolume, ProPresenter) · **Video Production** (After Effects, Premiere, Resolve, Avid) · **Audio** (Pro Tools, etc.) · **Design** (Photoshop, Illustrator, Figma) · **Broadcast** (whatever's relevant)
+  - Each tool as a card or pill with the official logo (royalty-free where possible) + optional proficiency level (Daily / Comfortable / Familiar) + years-using count
+  - Hover/expand for context: "Used on [touring credit] / [project]" — links the skill to where it was applied
+  - Sort/filter: by domain, by proficiency, by years
+  - Story callout above the grid: "What GitHub doesn't show — 25 years of pro-tool fluency from the live-events side of my career"
+- 🟡 **Skill-to-credit linkage** — when you click Watchout, it highlights the touring credits where you used it. Live story-telling.
+- 🔴 **Auto-aggregated dev skills** (separate sub-section): word cloud derived from project tech tags — kept distinct from the curated pro-tools grid so the manual list doesn't get diluted.
+
 ---
 
 ## Quick wins (each <1 hr)
