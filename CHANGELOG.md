@@ -21,6 +21,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 - **Auto-detected language tags on every card** — collector now records languages >5% per repo (via GitHub languages API). Portfolio merges these with curated tags using a noise-filter + dedup util (`src/utils/languageTags.js`). Notse now shows "Python", PortHub shows "TypeScript". Other cards unchanged because their curated tags already cover the detected languages. (refs portfolio#1)
 - **AI Tokens stat in BuilderStats** — 5th headline stat (pink, "AI Tokens") summed across Anthropic + OpenAI lifetime usage (admin APIs) plus manual estimates in `project-assets/projects.yml#tokens.manual` for closed-source tools (Copilot, Cursor, Gemini). Hidden until non-zero so the stat doesn't render with no data. Manifest exposes a full breakdown at `_collect-meta.json#aggregateTokens`.
 
+### Added
+- **Pipeline section** — new `Pipeline.jsx` rendering two grouped sections ("Beta" with amber accent, "In Development" with teal). Each stage auto-hides if no projects are in that stage. Cards are text-forward (no logo viewport since WIP projects don't have shipped assets yet) with stage badge, title + subtitle, tagline, body, feature bullets, and tech tags. First entry: **UCI (Unified Comms Intelligence)** in In Development.
+
 ## [2026-04-13] — Builder Stats Bar, Commits Tracking
 
 ### Added

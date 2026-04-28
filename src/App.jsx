@@ -5,6 +5,7 @@ import FeaturedProject from "./components/FeaturedProject";
 import FeaturedTangleClaw from "./components/FeaturedTangleClaw";
 import FeaturedCierreSensei from "./components/FeaturedCierreSensei";
 import Projects from "./components/Projects";
+import Pipeline from "./components/Pipeline";
 import GPTs from "./components/GPTs";
 import ContactSection from "./components/ContactSection";
 
@@ -37,6 +38,7 @@ export default function App() {
       <FeaturedTangleClaw />
       <FeaturedCierreSensei />
       <Projects />
+      <Pipeline />
       <GPTs />
       <ContactSection />
 
