@@ -41,6 +41,13 @@ export default function FeaturedCierreSensei() {
     { label: "Subscription Plans", value: "2" },
   ];
 
+  // Conditionally append PRs Merged tile when collector reports a non-zero count.
+  // Cierre Sensei currently uses remoteStats so this stays hidden — but the code
+  // is in place for whenever the source flips to direct git collection.
+  if (liveStats?.prs?.merged > 0) {
+    stats.push({ label: "PRs Merged", value: String(liveStats.prs.merged) });
+  }
+
   const since = liveStats ? formatSince(liveStats.firstCommit) : "Sep 2024";
 
   const techStack = [

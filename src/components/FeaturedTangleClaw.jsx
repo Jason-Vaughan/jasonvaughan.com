@@ -60,6 +60,11 @@ export default function FeaturedTangleClaw() {
     { label: "npm Dependencies", value: liveStats ? String(liveStats.npmDeps) : "0" },
   ];
 
+  // Conditionally append PRs Merged tile when collector reports a non-zero count
+  if (liveStats?.prs?.merged > 0) {
+    stats.push({ label: "PRs Merged", value: String(liveStats.prs.merged) });
+  }
+
   const since = liveStats ? formatSince(liveStats.firstCommit) : null;
 
   const techStack = [

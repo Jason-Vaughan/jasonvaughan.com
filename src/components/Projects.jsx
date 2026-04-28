@@ -258,6 +258,12 @@ export default function Projects() {
                         <span><strong style={{ color: "#d4d4d8" }}>{statsBySlug[p.slug].commits}</strong> commits</span>
                       </>
                     )}
+                    {statsBySlug[p.slug].prs?.merged > 0 && (
+                      <>
+                        <span style={{ color: "#3f3f46" }}>·</span>
+                        <span><strong style={{ color: "#d4d4d8" }}>{statsBySlug[p.slug].prs.merged}</strong> PRs</span>
+                      </>
+                    )}
                   </div>
                 )}
 

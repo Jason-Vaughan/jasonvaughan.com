@@ -54,6 +54,7 @@ export default function BuilderStats() {
         );
 
         totals.tokens = manifest.aggregateTokens?.total || 0;
+        totals.fixes = manifest.aggregateFixes?.count || 0;
 
         setTotals(totals);
       })
@@ -75,6 +76,11 @@ export default function BuilderStats() {
   // Only show AI Tokens stat once it's a non-zero number
   if (totals.tokens > 0) {
     stats.push({ label: "AI Tokens", value: formatBigNumber(totals.tokens), color: "#f472b6" });
+  }
+
+  // Only show Fixes Shipped once the manifest carries a non-zero aggregate
+  if (totals.fixes > 0) {
+    stats.push({ label: "Fixes Shipped", value: formatBigNumber(totals.fixes), color: "#06b6d4" });
   }
 
   return (
