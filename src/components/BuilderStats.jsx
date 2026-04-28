@@ -122,8 +122,11 @@ export default function BuilderStats() {
             <div style={{
               marginTop: 18,
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
-              gap: 16,
+              // 110px min + 12px gap fits all 7 tiles on one row at the
+              // 960px-wrap container (~856px tile area) on desktop, while
+              // wrapping cleanly on tablet/mobile via `auto-fit`.
+              gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))",
+              gap: 12,
             }}>
               {stats.map((s) => (
                 <div key={s.label} style={{ textAlign: "center", padding: "8px 4px" }}>
