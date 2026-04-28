@@ -1,5 +1,6 @@
 import React from "react";
 import uciLogo from "../assets/projects/uci.png";
+import medusaLogo from "../assets/projects/medusa.png";
 
 // Stage palette — visually distinguishes Beta (closer to launch, warm amber)
 // from In Development (earlier, calm teal). Hidden if a stage's list is empty.
@@ -9,7 +10,7 @@ const STAGES = {
     subtitle: "Live testing — accepting testers and feedback",
     accent: "#f59e0b",
     accentLight: "#fbbf24",
-    badgeLabel: "Beta · Limited Access",
+    badgeLabel: "Public Beta",
   },
   dev: {
     title: "In Development",
@@ -21,6 +22,26 @@ const STAGES = {
 };
 
 const projects = [
+  {
+    stage: "beta",
+    title: "Medusa",
+    fullName: "Medusa-MCP v0.7.7-beta",
+    image: medusaLogo,
+    tagline:
+      "Autonomous AI-to-AI coordination — turning isolated agents into a collective swarm.",
+    blurb:
+      "Modern AI agents (Cursor, Claude Desktop, Windsurf) live in isolated workspaces, forcing humans to manually route context between them. Medusa is a decentralized coordination layer on top of the Model Context Protocol that lets agents communicate, negotiate tasks, and reconcile results across a mesh — turning the AI silo problem into a collective swarm.",
+    features: [
+      "Distributed gossip consensus — peer voting on redundant tasks",
+      "Collective strategy sharing — nodes defer to better-suited peers",
+      "Bidirectional terminal interface for AI ↔ human handoffs",
+      "ZombieDust autonomous monitoring — workspaces as wake-on-prompt endpoints",
+      "Cross-IDE: Cursor, Windsurf, Claude Desktop, Terminal",
+    ],
+    tags: ["MCP", "Python A2A Swarm", "Node.js Hub", "Autonomous Agents"],
+    link: "https://github.com/Jason-Vaughan/Medusa",
+    linkLabel: "View on GitHub",
+  },
   {
     stage: "dev",
     title: "UCI",
@@ -156,6 +177,19 @@ function PipelineCard({ project }) {
             {project.tags.map((t) => (
               <span key={t} style={tagStyle}>{t}</span>
             ))}
+          </div>
+        )}
+
+        {project.link && (
+          <div style={{ marginTop: 18 }}>
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noreferrer"
+              style={{ color: stage.accentLight, fontWeight: 600, fontSize: 14, textDecoration: "none" }}
+            >
+              {project.linkLabel || "Learn more"} →
+            </a>
           </div>
         )}
       </div>
