@@ -219,7 +219,7 @@ function StageSection({ stageKey, items }) {
           gap: 24,
         }}>
           {items.map((p) => (
-            <PipelineCard key={p.title} project={p} />
+            <PipelineCard key={`${stageKey}-${p.title}`} project={p} />
           ))}
         </div>
       </div>

@@ -24,12 +24,24 @@ export default function BuilderStats() {
 
   useEffect(() => {
     fetch(MANIFEST_URL, { cache: "no-store" })
-      .then((r) => (r.ok ? r.json() : null))
+      .then((r) => {
+        if (!r.ok) {
+          console.warn(`[BuilderStats] manifest fetch returned ${r.status}; bar hidden`);
+          return null;
+        }
+        return r.json();
+      })
       .then((manifest) => {
-        if (!manifest?.projects) return;
+        if (!manifest?.projects) {
+          if (manifest) console.warn("[BuilderStats] manifest has no `projects` key; bar hidden");
+          return;
+        }
 
         const successful = Object.values(manifest.projects).filter((p) => p.ok && p.stats);
-        if (successful.length === 0) return;
+        if (successful.length === 0) {
+          console.warn("[BuilderStats] manifest has zero successful projects; bar hidden");
+          return;
+        }
 
         const totals = successful.reduce(
           (acc, p) => ({
@@ -45,7 +57,9 @@ export default function BuilderStats() {
 
         setTotals(totals);
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.warn("[BuilderStats] manifest fetch failed:", err.message);
+      });
   }, []);
 
   // Hide section if no stats loaded yet
