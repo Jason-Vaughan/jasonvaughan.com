@@ -127,12 +127,11 @@ export default function BuilderStats() {
             <div style={{
               marginTop: 18,
               display: "grid",
-              // 96px min + 12px gap fits all 8 tiles on one row at the
-              // 960px-wrap container (~856px tile area) on desktop:
-              //   8*96 + 7*12 = 852 ≤ 856. Wraps cleanly on tablet/mobile
-              // via `auto-fit`.
-              gridTemplateColumns: "repeat(auto-fit, minmax(96px, 1fr))",
-              gap: 12,
+              // 80px min + 10px gap keeps all 8 tiles on one row well below
+              // the 960px container — wrap point drops from ~960px viewport
+              // to ~810px viewport. Math: 8*80 + 7*10 = 710px tile area.
+              gridTemplateColumns: "repeat(auto-fit, minmax(80px, 1fr))",
+              gap: 10,
             }}>
               {stats.map((s) => {
                 const isHovered = hoveredLabel === s.label;
@@ -149,15 +148,15 @@ export default function BuilderStats() {
                       cursor: hasTooltip ? "help" : "default",
                     }}
                   >
-                    <div style={{ fontSize: 28, fontWeight: 800, color: s.color, lineHeight: 1 }}>
+                    <div style={{ fontSize: 24, fontWeight: 800, color: s.color, lineHeight: 1 }}>
                       {s.value}
                     </div>
                     <div style={{
-                      fontSize: 11,
+                      fontSize: 10,
                       color: hasTooltip ? "#a1a1aa" : "#71717a",
                       marginTop: 6,
                       textTransform: "uppercase",
-                      letterSpacing: 1,
+                      letterSpacing: 0.5,
                       borderBottom: hasTooltip ? "1px dotted #52525b" : "none",
                       display: "inline-block",
                       paddingBottom: 1,
