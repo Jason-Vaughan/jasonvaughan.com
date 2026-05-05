@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- **Notse landing page now wired to live Stripe Payment Link** — pricing model changed from "one-time perpetual" placeholder to **$50/year annual subscription** matching the actual Stripe product. Page copy updated: pricing label "Single-Seat License" → "Annual License", price `$XXX` → `$50/year`, sub-line and bullet list reflect subscription terms (all updates while active, cancel anytime). Button text "Buy License" → "Get License" and href now points to `https://buy.stripe.com/5kQdR9a9k7Ek5aFcssaMU00`. Stripe product ID for reference: `prod_USki7sq4gY0Fpu`.
+
 ### Added
 - **Notse licensing landing page at `/notse`** — static HTML page (`public/notse/index.html`) with hero, feature grid, single-tier pricing card, volume/custom contact CTA, footer linking back to portfolio. Dark theme matches portfolio. Stripe Payment Link URL is a clearly-marked placeholder (`https://buy.stripe.com/REPLACE_ME`) — swap in once the Stripe product + Payment Link is created. Works on GitHub Pages out of the box (no SPA routing complexity); page is genuinely separate by design since the audience is product buyers, not portfolio visitors.
 
