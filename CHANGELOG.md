@@ -4,6 +4,12 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **Notse licensing landing page at `/notse`** — static HTML page (`public/notse/index.html`) with hero, feature grid, single-tier pricing card, volume/custom contact CTA, footer linking back to portfolio. Dark theme matches portfolio. Stripe Payment Link URL is a clearly-marked placeholder (`https://buy.stripe.com/REPLACE_ME`) — swap in once the Stripe product + Payment Link is created. Works on GitHub Pages out of the box (no SPA routing complexity); page is genuinely separate by design since the audience is product buyers, not portfolio visitors.
+
+### Changed
+- **Notse project card now links to `/notse`** — was `#contact` ("Contact for licensing"), now `/notse` ("View licensing"). Same-tab navigation for internal `/`-prefixed links (anchors still smooth-scroll, external still open in new tab).
+
 ## [2026-05-04] — Lines Refactored Stat + Tile Tooltips
 
 ### Added
