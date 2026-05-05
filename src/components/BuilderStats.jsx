@@ -61,25 +61,60 @@ export default function BuilderStats() {
   if (!totals) return null;
 
   const stats = [
-    { label: "Lines of Code", value: formatBigNumber(totals.loc), color: "#38bdf8" },
-    { label: "Commits", value: formatBigNumber(totals.commits), color: "#a78bfa" },
-    { label: "Tests Passing", value: formatBigNumber(totals.tests), color: "#34d399" },
-    { label: "Projects Shipped", value: String(totals.projects), color: "#fbbf24" },
+    {
+      label: "Lines of Code",
+      value: formatBigNumber(totals.loc),
+      color: "#38bdf8",
+      description: "Current snapshot of source files across all tracked repos — what lives in the codebase right now. Each repo has a per-language profile (e.g., TangleClaw counts only .js/.mjs). Different from lifetime-added, since refactoring removes lines as it adds new ones.",
+    },
+    {
+      label: "Commits",
+      value: formatBigNumber(totals.commits),
+      color: "#a78bfa",
+      description: "Total commits across all tracked repos, summed from `git rev-list HEAD` per repo. Includes both direct-to-main and squash-merged PRs.",
+    },
+    {
+      label: "Tests Passing",
+      value: formatBigNumber(totals.tests),
+      color: "#34d399",
+      description: "Sum of `it()` / `test()` calls across every test file (`*.test.*` / `*.spec.*`) in every repo. Counts assertions that exist in the codebase — not test runs.",
+    },
+    {
+      label: "Projects Shipped",
+      value: String(totals.projects),
+      color: "#fbbf24",
+      description: "Public + private repos in the live stats registry. Auto-discovered from GitHub, then filtered by `projects.yml` exclusions (archived experiments, scratch repos, asset-only repos).",
+    },
   ];
 
   // Only show AI Tokens stat once it's a non-zero number
   if (totals.tokens > 0) {
-    stats.push({ label: "AI Tokens", value: formatBigNumber(totals.tokens), color: "#f472b6" });
+    stats.push({
+      label: "AI Tokens",
+      value: formatBigNumber(totals.tokens),
+      color: "#f472b6",
+      description: "Lifetime tokens consumed across Anthropic, OpenAI, Cursor, Gemini, Copilot. Mix of admin-API totals (Anthropic, OpenAI) and lifetime estimates (Cursor CSV export, TypingMind prepaid). Refreshed daily.",
+    });
   }
 
   // Only show Fixes Shipped once the manifest carries a non-zero aggregate
   if (totals.fixes > 0) {
-    stats.push({ label: "Fixes Shipped", value: formatBigNumber(totals.fixes), color: "#06b6d4" });
+    stats.push({
+      label: "Fixes Shipped",
+      value: formatBigNumber(totals.fixes),
+      color: "#06b6d4",
+      description: "Commits whose subject is prefixed `fix:` / `fix(scope):` / `bugfix:` / `hotfix:` / `Fix ` / `Fixed ` / `Fixes ` (case-insensitive). Subject-only — `feat:` commits with fix bullets in the body don't count.",
+    });
   }
 
   // Only show PRs Merged once the manifest carries a non-zero aggregate
   if (totals.prs > 0) {
-    stats.push({ label: "PRs Merged", value: formatBigNumber(totals.prs), color: "#f97316" });
+    stats.push({
+      label: "PRs Merged",
+      value: formatBigNumber(totals.prs),
+      color: "#f97316",
+      description: "Pull requests merged to default branch across all GitHub repos. Forward-looking metric — most history is direct-to-main from before the 2026-04 PR-workflow shift, so this number is small but growing.",
+    });
   }
 
   // Lines Refactored — sums of git deletions across history (refactors,
