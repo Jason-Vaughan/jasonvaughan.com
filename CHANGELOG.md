@@ -5,6 +5,7 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 ## [Unreleased]
 
 ### Fixed
+- **Tile hover tooltips were clipped by the BuilderStats container** — removed `overflow: hidden` from the outer card so tooltips can float on top. Top accent bar now rounds its own corners (`borderRadius: "16px 16px 0 0"`) since the parent no longer clips it.
 - **BuilderStats wraps to 2 rows after 8th tile** — `gridTemplateColumns` minimum bumped from 110px → 96px (gap unchanged at 12px) so all 8 tiles fit on one row at the 960px-wrap container. Math: 8×96 + 7×12 = 852 ≤ 856px tile area.
 
 ### Changed
