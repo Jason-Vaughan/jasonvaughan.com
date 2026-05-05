@@ -32,8 +32,8 @@ const projects = [
     tags: ["Electron", "TypeScript", "Broadcast", "WebSockets"],
     accent: "#f59e0b",
     badge: { label: "Commercial · License", tone: "commercial" },
-    link: "#contact",
-    linkLabel: "Contact for licensing",
+    link: "/notse",
+    linkLabel: "View licensing",
     screenshots: null,
   },
   {
@@ -271,6 +271,7 @@ export default function Projects() {
                 <div style={{ marginTop: 16, display: "flex", gap: 16, alignItems: "center" }}>
                   {p.link && (() => {
                     const isAnchor = p.link.startsWith("#");
+                    const isInternal = p.link.startsWith("/");
                     return (
                       <a
                         href={p.link}
@@ -283,6 +284,8 @@ export default function Projects() {
                                   ?.scrollIntoView({ behavior: "smooth", block: "start" });
                               },
                             }
+                          : isInternal
+                          ? {}
                           : { target: "_blank", rel: "noreferrer" })}
                         style={{ color: "#38bdf8", fontWeight: 600, fontSize: 14, textDecoration: "none" }}
                       >
