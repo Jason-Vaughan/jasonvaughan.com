@@ -4,16 +4,18 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
-### Fixed
-- **Tile hover tooltips were clipped by the BuilderStats container** — removed `overflow: hidden` from the outer card so tooltips can float on top. Top accent bar now rounds its own corners (`borderRadius: "16px 16px 0 0"`) since the parent no longer clips it.
-- **BuilderStats wraps to 2 rows after 8th tile** — `gridTemplateColumns` minimum bumped from 110px → 96px (gap unchanged at 12px) so all 8 tiles fit on one row at the 960px-wrap container. Math: 8×96 + 7×12 = 852 ≤ 856px tile area.
-
-### Changed
-- **BuilderStats tiles condensed** — `minmax` 96px → 80px, gap 12 → 10, value font 28 → 24, label font 11 → 10, letter-spacing 1 → 0.5. Wrap-to-2-rows breakpoint drops from ~960px viewport to ~810px viewport. Tiles read tighter on desktop while staying legible on tablet/mobile.
+## [2026-05-04] — Lines Refactored Stat + Tile Tooltips
 
 ### Added
-- **Hover tooltips on every BuilderStats tile** — all 8 tiles now have a dotted-underline + `cursor: help` cue and a hover popup explaining methodology (what's measured, source, scope, non-obvious nuance). Notably, the Lines of Code tooltip clarifies "current snapshot vs lifetime-added" — addresses the recurring "why is the number lower than total commits added?" question. Tooltip content is data-driven via the existing optional `description` field on stat objects, so no new rendering logic.
-- **Lines Refactored stat in BuilderStats** — 8th headline tile (pink `#ec4899`, "Lines Refactored") summing `aggregateRefactored.count` from the centralized collector manifest. Counts lines deleted across history (true deletions, full rewrites, simplifications), scoped to each repo's LOC profile so the number is apples-to-apples with the existing `loc` stat. Hidden until non-zero, matching the AI Tokens / Fixes Shipped / PRs Merged pattern. **Hover tooltip** on the tile (dotted underline cue + `cursor: help`) explains the framing for non-dev viewers: "Lines removed across all repos — refactoring, cleanups, dead code removal, simplifications. A high number means the codebase is being revisited and improved, not just stacked on." Pairs with project-assets#6 which adds `countLinesRefactored` to the collector. Local sanity check across all tracked repos: ~93K lifetime deletions (~1:5 deletion-to-add ratio).
+- **Lines Refactored stat in BuilderStats** — 8th headline tile (pink `#ec4899`, "Lines Refactored") summing `aggregateRefactored.count` from the centralized collector manifest. Counts lines deleted across history (true deletions, full rewrites, simplifications), scoped to each repo's LOC profile so the number is apples-to-apples with the existing `loc` stat. Hidden until non-zero, matching the AI Tokens / Fixes Shipped / PRs Merged pattern. **Hover tooltip** on the tile (dotted underline cue + `cursor: help`) explains the framing for non-dev viewers: "Lines removed across all repos — refactoring, cleanups, dead code removal, simplifications. A high number means the codebase is being revisited and improved, not just stacked on." Pairs with project-assets#6 which adds `countLinesRefactored` to the collector. Live aggregate at release: **90,582 lines refactored across 14 repos** (~1:5 deletion-to-add ratio).
+- **Hover tooltips on every BuilderStats tile** — all 8 tiles now have a dotted-underline + `cursor: help` cue and a hover popup explaining methodology (what's measured, source, scope, non-obvious nuance). Notably, the Lines of Code tooltip clarifies "current snapshot vs lifetime-added" — addresses the recurring "why is the number lower than total commits added?" question. Tooltip content is data-driven via the optional `description` field on stat objects.
+
+### Changed
+- **BuilderStats tiles condensed** — `minmax` 110px → 80px, gap 12 → 10, value font 28 → 24, label font 11 → 10, letter-spacing 1 → 0.5. Wrap-to-2-rows breakpoint drops from ~960px viewport to ~810px viewport. Tiles read tighter on desktop while staying legible on tablet/mobile.
+
+### Fixed
+- **Tile hover tooltips were clipped by the BuilderStats container** — removed `overflow: hidden` from the outer card so tooltips can float on top. Top accent bar now rounds its own corners (`borderRadius: "16px 16px 0 0"`) since the parent no longer clips it.
+- **BuilderStats single-row layout for 8 tiles** — when the Lines Refactored tile pushed total count from 7 to 8, the 110px-min grid wrapped to 2 rows. Resolved via the condense above.
 
 ## [2026-04-28] — Stats Pipeline Maturity + Tests + Brainstorm
 
