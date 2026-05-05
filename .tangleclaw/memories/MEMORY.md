@@ -2,6 +2,26 @@
 
 This file persists context across AI sessions. Update it with key decisions, progress, and open questions.
 
+## Last Session (2026-05-04 — Lines Refactored stat + tile tooltips)
+
+**What happened:** User asked whether "lines deleted" was a stat we could collect — they wanted to surface that removing code is also work. Yes: `git log --numstat` gives it for free. Worked the question through, then shipped the full pipeline end-to-end across 5 portfolio PRs + 1 collector PR.
+
+**Shipped:**
+1. **`Jason-Vaughan/project-assets#6`** (collector) — `countLinesRefactored(dir, loc)` in `scripts/lib/git-stats.mjs`; sums deletions filtered by the same LOC profile each repo uses (apples-to-apples with `loc`). Per-repo `stats.linesRefactored.count` + manifest-level `aggregateRefactored.count`. 5 new node:test cases (rewrites, full-file deletes, node_modules exclusion, LOC include filter respect) — all 13 git-stats tests green.
+2. **`Jason-Vaughan/jasonvaughan.com#14`** — 8th BuilderStats tile ("Lines Refactored", pink `#ec4899`, hidden until non-zero) reading `manifest.aggregateRefactored.count`. Tile system extended with optional `description` field — when present, the tile renders with a dotted-underline cue + `cursor: help` and a hover popup explains the metric.
+3. **`#15`** (fix) — first attempt at the 8-tile row hit `minmax(110px)` × 8 + gap = 964px > 856px container, wrapping. Bumped to `minmax(96px)` so 8×96 + 7×12 = 852 ≤ 856.
+4. **`#16`** (fix) — user wanted tighter wrap point. Condensed: `minmax` 96→80, gap 12→10, value font 28→24, label font 11→10, letter-spacing 1→0.5. Wrap point dropped from ~960px viewport to ~810px viewport.
+5. **`#17`** — wired `description` text into the other 7 tiles (LOC, Commits, Tests, Projects, AI Tokens, Fixes, PRs). Each tooltip explains methodology (source, scope, non-obvious nuance), not just the label. The LOC tooltip notably clarifies "current snapshot vs lifetime-added" — addresses the recurring "why is the number lower than total commits added?" confusion.
+6. **`#18`** (fix) — tooltips were clipped by the outer card's `overflow: hidden`. Removed it; the top accent bar now rounds its own corners with `borderRadius: "16px 16px 0 0"`.
+
+**Live numbers after first cron run post-merge:** `aggregateRefactored.count = 90,582` across 14 git repos (~1:5 deletion-to-add ratio against ~477K lifetime adds). User noticed the LOC tile shows ~350K which seemed lower than expected — explained: 477K (lifetime added) − 93K (deleted) = 384K net, then ~34K gap mostly from my ad-hoc count including CSS that per-repo LOC profiles exclude. The new LOC tooltip captures this snapshot-vs-lifetime distinction.
+
+**Workflow notes:**
+- Cron is 5x/day at `0 3,9,13,17,22 * * *` UTC. After merging the collector PR, manually triggered the workflow via `gh workflow run collect-stats --repo Jason-Vaughan/project-assets` so the new `aggregateRefactored` field landed within ~1 min instead of waiting for the next scheduled run. Pattern worth reusing when shipping a new manifest field.
+- All 5 portfolio PRs merged in order with `--squash --delete-branch`, no `--auto` since each was user-facing/feature work the user wanted to eyeball first.
+
+**Design pattern adopted:** when adding a tooltip to a stat or metric, the tooltip text should explain *methodology* (what's measured, source, scope, non-obvious nuance), not restate the label. Decoration tooltips don't earn their existence; methodology tooltips do. The dotted-underline + `cursor: help` cue signals "there's more to read here."
+
 ## Last Session (2026-04-28 — release-cut + kill-recovery)
 
 **What happened:** Short cleanup session. The previous 2026-04-28 working session had pushed a release-cut wrap commit (`d087bb2`) and opened PR #11 ("chore: cut [2026-04-28] release + clean working tree") but was killed before the merge + post-wrap janitor finished. This session merged PR #11 (which had already been auto/externally merged by the time the local sync ran), pulled main, removed the two completed plan files from `.claude/plans/` (`stats-prs-and-fixes.md`, `stats-system-backup-and-docs.md` — both shipped, kept in git history if ever needed), and wrote this memory note.
