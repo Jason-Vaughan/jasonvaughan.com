@@ -127,10 +127,11 @@ export default function BuilderStats() {
             <div style={{
               marginTop: 18,
               display: "grid",
-              // 110px min + 12px gap fits all 7 tiles on one row at the
-              // 960px-wrap container (~856px tile area) on desktop, while
-              // wrapping cleanly on tablet/mobile via `auto-fit`.
-              gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))",
+              // 96px min + 12px gap fits all 8 tiles on one row at the
+              // 960px-wrap container (~856px tile area) on desktop:
+              //   8*96 + 7*12 = 852 ≤ 856. Wraps cleanly on tablet/mobile
+              // via `auto-fit`.
+              gridTemplateColumns: "repeat(auto-fit, minmax(96px, 1fr))",
               gap: 12,
             }}>
               {stats.map((s) => {

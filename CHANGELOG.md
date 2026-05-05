@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- **BuilderStats wraps to 2 rows after 8th tile** — `gridTemplateColumns` minimum bumped from 110px → 96px (gap unchanged at 12px) so all 8 tiles fit on one row at the 960px-wrap container. Math: 8×96 + 7×12 = 852 ≤ 856px tile area.
+
 ### Added
 - **Lines Refactored stat in BuilderStats** — 8th headline tile (pink `#ec4899`, "Lines Refactored") summing `aggregateRefactored.count` from the centralized collector manifest. Counts lines deleted across history (true deletions, full rewrites, simplifications), scoped to each repo's LOC profile so the number is apples-to-apples with the existing `loc` stat. Hidden until non-zero, matching the AI Tokens / Fixes Shipped / PRs Merged pattern. **Hover tooltip** on the tile (dotted underline cue + `cursor: help`) explains the framing for non-dev viewers: "Lines removed across all repos — refactoring, cleanups, dead code removal, simplifications. A high number means the codebase is being revisited and improved, not just stacked on." Pairs with project-assets#6 which adds `countLinesRefactored` to the collector. Local sanity check across all tracked repos: ~93K lifetime deletions (~1:5 deletion-to-add ratio).
 
