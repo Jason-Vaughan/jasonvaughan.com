@@ -141,11 +141,13 @@ export default function BuilderStats() {
             border: "1px solid #3f3f46",
             background: "linear-gradient(135deg, rgba(24,24,27,0.95), rgba(39,39,42,0.95))",
             boxShadow: "0 8px 24px rgba(0,0,0,.35)",
-            overflow: "hidden",
+            // No `overflow: hidden` — would clip the tile hover tooltips.
+            // Accent bar rounds its own top corners instead (below).
           }}
         >
-          {/* Accent bar */}
-          <div style={{ height: 3, background: "linear-gradient(90deg, #38bdf8, #a78bfa, #34d399, #fbbf24)" }} />
+          {/* Accent bar — rounds its own top corners since the parent
+              no longer clips with overflow:hidden. */}
+          <div style={{ height: 3, background: "linear-gradient(90deg, #38bdf8, #a78bfa, #34d399, #fbbf24)", borderRadius: "16px 16px 0 0" }} />
 
           <div style={{ padding: "20px 28px" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
