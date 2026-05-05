@@ -12,6 +12,7 @@ const MANIFEST_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-as
  */
 export default function BuilderStats() {
   const [totals, setTotals] = useState(null);
+  const [hoveredLabel, setHoveredLabel] = useState(null);
 
   useEffect(() => {
     fetch(MANIFEST_URL, { cache: "no-store" })
@@ -47,6 +48,7 @@ export default function BuilderStats() {
         totals.tokens = manifest.aggregateTokens?.total || 0;
         totals.fixes = manifest.aggregateFixes?.count || 0;
         totals.prs = manifest.aggregatePRs?.merged || 0;
+        totals.refactored = manifest.aggregateRefactored?.count || 0;
 
         setTotals(totals);
       })
@@ -78,6 +80,18 @@ export default function BuilderStats() {
   // Only show PRs Merged once the manifest carries a non-zero aggregate
   if (totals.prs > 0) {
     stats.push({ label: "PRs Merged", value: formatBigNumber(totals.prs), color: "#f97316" });
+  }
+
+  // Lines Refactored — sums of git deletions across history (refactors,
+  // dead-code removal, simplifications). Tooltip explains the framing since
+  // "deleted lines = good" isn't obvious to non-devs.
+  if (totals.refactored > 0) {
+    stats.push({
+      label: "Lines Refactored",
+      value: formatBigNumber(totals.refactored),
+      color: "#ec4899",
+      description: "Lines removed across all repos — refactoring, cleanups, dead code removal, simplifications. A high number means the codebase is being revisited and improved, not just stacked on.",
+    });
   }
 
   return (
@@ -119,16 +133,67 @@ export default function BuilderStats() {
               gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))",
               gap: 12,
             }}>
-              {stats.map((s) => (
-                <div key={s.label} style={{ textAlign: "center", padding: "8px 4px" }}>
-                  <div style={{ fontSize: 28, fontWeight: 800, color: s.color, lineHeight: 1 }}>
-                    {s.value}
+              {stats.map((s) => {
+                const isHovered = hoveredLabel === s.label;
+                const hasTooltip = !!s.description;
+                return (
+                  <div
+                    key={s.label}
+                    onMouseEnter={() => hasTooltip && setHoveredLabel(s.label)}
+                    onMouseLeave={() => hasTooltip && setHoveredLabel(null)}
+                    style={{
+                      textAlign: "center",
+                      padding: "8px 4px",
+                      position: "relative",
+                      cursor: hasTooltip ? "help" : "default",
+                    }}
+                  >
+                    <div style={{ fontSize: 28, fontWeight: 800, color: s.color, lineHeight: 1 }}>
+                      {s.value}
+                    </div>
+                    <div style={{
+                      fontSize: 11,
+                      color: hasTooltip ? "#a1a1aa" : "#71717a",
+                      marginTop: 6,
+                      textTransform: "uppercase",
+                      letterSpacing: 1,
+                      borderBottom: hasTooltip ? "1px dotted #52525b" : "none",
+                      display: "inline-block",
+                      paddingBottom: 1,
+                    }}>
+                      {s.label}
+                    </div>
+                    {hasTooltip && isHovered && (
+                      <div
+                        role="tooltip"
+                        style={{
+                          position: "absolute",
+                          bottom: "calc(100% + 8px)",
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          width: 240,
+                          padding: "10px 12px",
+                          background: "#09090b",
+                          border: "1px solid #3f3f46",
+                          borderRadius: 8,
+                          fontSize: 12,
+                          fontWeight: 400,
+                          lineHeight: 1.5,
+                          color: "#d4d4d8",
+                          textAlign: "left",
+                          textTransform: "none",
+                          letterSpacing: 0,
+                          boxShadow: "0 8px 24px rgba(0,0,0,.5)",
+                          zIndex: 10,
+                          pointerEvents: "none",
+                        }}
+                      >
+                        {s.description}
+                      </div>
+                    )}
                   </div>
-                  <div style={{ fontSize: 11, color: "#71717a", marginTop: 6, textTransform: "uppercase", letterSpacing: 1 }}>
-                    {s.label}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </motion.div>
