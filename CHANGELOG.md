@@ -4,14 +4,11 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
-### Changed
-- **Tip Jar section card now uses the real illustrated logo** — replaced the inline SVG mason-jar drawing with the user's actual tip-jar artwork (`src/assets/tipjar.png`, 320×320 PNG, 111KB resized from a 1024×1024 source). Header pill keeps its simple inline SVG since detailed art is illegible at 18px.
-
 ## [2026-05-05] — Notse Sales Pipeline + Tip Jar + SSL Fix
 
 ### Added
 - **Notse licensing landing page at `/notse`** — static HTML page (`public/notse/index.html`) with hero, feature grid, single-tier pricing card, volume/custom contact CTA, footer linking back to portfolio. Dark theme matches portfolio. Wired to the live Stripe Payment Link (`https://buy.stripe.com/5kQdR9a9k7Ek5aFcssaMU00`, product `prod_USki7sq4gY0Fpu`) for a **$50/year subscription** licensing model: "Per machine · all updates while active · cancel anytime". Works on GitHub Pages out of the box (no SPA routing complexity); page is genuinely separate by design since the audience is product buyers, not portfolio visitors.
-- **Tip Jar (header pill + section card)** — two opt-in CTAs for client/visitor tips, both pointing at the same Stripe Payment Link (Stripe's "customer chooses price" feature — customer picks any amount, with `$5/$10/$25/$50/$100` preset suggestions, "Donate" call-to-action button). Small amber pill above the "Jason Vaughan" header (subtle, always-visible at the top), plus a larger illustrated card placed between GPTs and Contact (inline SVG of a mason jar with bills sticking out + coins inside). New `TipJar.jsx` component. Live Stripe Payment Link: `https://buy.stripe.com/7sY5kD6X8bUA7iNfEEaMU01`, product `prod_USrEuQMbhr1sFL`.
+- **Tip Jar (header pill + section card)** — two opt-in CTAs for client/visitor tips, both pointing at the same Stripe Payment Link (Stripe's "customer chooses price" feature — customer picks any amount, with `$5/$10/$25/$50/$100` preset suggestions, "Donate" call-to-action button). Small amber pill above the "Jason Vaughan" header (subtle, always-visible at the top, simple inline SVG icon since detailed art is illegible at 18px). Larger illustrated card placed between GPTs and Contact, featuring the user's hand-illustrated tip-jar artwork (`src/assets/tipjar.png`, 320×320 PNG, 111KB — resized from a 1024×1024 source). New `TipJar.jsx` component. Live Stripe Payment Link: `https://buy.stripe.com/7sY5kD6X8bUA7iNfEEaMU01`, product `prod_USrEuQMbhr1sFL`.
 
 ### Changed
 - **Notse project card now links to `/notse`** — was `#contact` ("Contact for licensing"), now `/notse` ("View licensing"). Same-tab navigation for internal `/`-prefixed links (anchors still smooth-scroll, external still open in new tab).
