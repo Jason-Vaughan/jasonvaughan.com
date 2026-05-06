@@ -4,17 +4,20 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
-### Added
-- **Tip Jar (header pill + section card)** — two opt-in CTAs for client/visitor tips, both pointing at the same Stripe Payment Link (Stripe's "customer chooses price" feature — customer picks any amount, with `$5/$10/$25/$50/$100` preset suggestions). Small amber pill above the "Jason Vaughan" header (subtle, always-visible at the top), plus a larger illustrated card placed between GPTs and Contact (inline SVG of a mason jar with bills sticking out + coins inside). New `TipJar.jsx` component. Live Stripe Payment Link: `https://buy.stripe.com/7sY5kD6X8bUA7iNfEEaMU01`. Stripe product ID for reference: `prod_USrEuQMbhr1sFL`.
-
-### Changed
-- **Notse landing page now wired to live Stripe Payment Link** — pricing model changed from "one-time perpetual" placeholder to **$50/year annual subscription** matching the actual Stripe product. Page copy updated: pricing label "Single-Seat License" → "Annual License", price `$XXX` → `$50/year`, sub-line and bullet list reflect subscription terms (all updates while active, cancel anytime). Button text "Buy License" → "Get License" and href now points to `https://buy.stripe.com/5kQdR9a9k7Ek5aFcssaMU00`. Stripe product ID for reference: `prod_USki7sq4gY0Fpu`.
+## [2026-05-05] — Notse Sales Pipeline + Tip Jar + SSL Fix
 
 ### Added
-- **Notse licensing landing page at `/notse`** — static HTML page (`public/notse/index.html`) with hero, feature grid, single-tier pricing card, volume/custom contact CTA, footer linking back to portfolio. Dark theme matches portfolio. Stripe Payment Link URL is a clearly-marked placeholder (`https://buy.stripe.com/REPLACE_ME`) — swap in once the Stripe product + Payment Link is created. Works on GitHub Pages out of the box (no SPA routing complexity); page is genuinely separate by design since the audience is product buyers, not portfolio visitors.
+- **Notse licensing landing page at `/notse`** — static HTML page (`public/notse/index.html`) with hero, feature grid, single-tier pricing card, volume/custom contact CTA, footer linking back to portfolio. Dark theme matches portfolio. Wired to the live Stripe Payment Link (`https://buy.stripe.com/5kQdR9a9k7Ek5aFcssaMU00`, product `prod_USki7sq4gY0Fpu`) for a **$50/year subscription** licensing model: "Per machine · all updates while active · cancel anytime". Works on GitHub Pages out of the box (no SPA routing complexity); page is genuinely separate by design since the audience is product buyers, not portfolio visitors.
+- **Tip Jar (header pill + section card)** — two opt-in CTAs for client/visitor tips, both pointing at the same Stripe Payment Link (Stripe's "customer chooses price" feature — customer picks any amount, with `$5/$10/$25/$50/$100` preset suggestions, "Donate" call-to-action button). Small amber pill above the "Jason Vaughan" header (subtle, always-visible at the top), plus a larger illustrated card placed between GPTs and Contact (inline SVG of a mason jar with bills sticking out + coins inside). New `TipJar.jsx` component. Live Stripe Payment Link: `https://buy.stripe.com/7sY5kD6X8bUA7iNfEEaMU01`, product `prod_USrEuQMbhr1sFL`.
 
 ### Changed
 - **Notse project card now links to `/notse`** — was `#contact` ("Contact for licensing"), now `/notse` ("View licensing"). Same-tab navigation for internal `/`-prefixed links (anchors still smooth-scroll, external still open in new tab).
+
+### Fixed
+- **SSL cert provisioning on `jasonvaughan.com`** — Chrome was rejecting the site because GitHub Pages was serving its generic `*.github.io` wildcard cert instead of a Let's Encrypt cert for the custom domain. Cert provisioning had silently failed earlier in the domain's history. Fixed by clearing + re-adding the custom domain via the GitHub Pages API (`PUT /repos/.../pages` with `cname: null` then `cname: "jasonvaughan.com"`), which re-triggered Let's Encrypt issuance. Cert SAN now includes both `jasonvaughan.com` and `www.jasonvaughan.com`. `https_enforced` flipped to `true` once the cert was in place.
+
+### Infrastructure (lives in separate repos — noted here for portfolio context)
+- **`Jason-Vaughan/licensing-workers`** (new private repo) — Cloudflare Workers that bridge Stripe Payment Link checkouts → Keygen license creation → Resend email delivery. First Worker `notse-licensing` is live at `https://notse-licensing.jasonvaughan.workers.dev`. Stripe webhook (`checkout.session.completed`) registered, end-to-end test passed (license created in Keygen, key emailed to buyer). Resend domain `jasonvaughan.com` verified (SPF + DKIM + MX TXT/MX records published in GoDaddy DNS — apex Outlook MX untouched). One-Worker-per-product layout so future products (TiLT, ScrapeGoat, etc.) can be added by copying the `notse/` folder.
 
 ## [2026-05-04] — Lines Refactored Stat + Tile Tooltips
 
