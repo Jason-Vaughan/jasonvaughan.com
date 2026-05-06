@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **Tip Jar (header pill + section card)** — two opt-in CTAs for client/visitor tips, both pointing at the same Stripe Payment Link (Stripe's "customer chooses price" feature — customer picks any amount). Small amber pill above the "Jason Vaughan" header (subtle, always-visible at the top), plus a larger illustrated card placed between GPTs and Contact (inline SVG of a mason jar with bills sticking out + coins inside). New `TipJar.jsx` component. Stripe Payment Link URL is a clearly-marked placeholder (`https://buy.stripe.com/REPLACE_ME_TIP_JAR`) — swap in once the user creates the tip-jar Payment Link in Stripe.
+
 ### Changed
 - **Notse landing page now wired to live Stripe Payment Link** — pricing model changed from "one-time perpetual" placeholder to **$50/year annual subscription** matching the actual Stripe product. Page copy updated: pricing label "Single-Seat License" → "Annual License", price `$XXX` → `$50/year`, sub-line and bullet list reflect subscription terms (all updates while active, cancel anytime). Button text "Buy License" → "Get License" and href now points to `https://buy.stripe.com/5kQdR9a9k7Ek5aFcssaMU00`. Stripe product ID for reference: `prod_USki7sq4gY0Fpu`.
 
