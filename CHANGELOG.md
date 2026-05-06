@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **Live stats on Pipeline cards (Medusa + UCI)** — Pipeline.jsx now fetches the centralized collector manifest and renders a per-card stats row (LOC · tests · commits · PRs) matching the visual pattern used on the Projects grid cards. Stats only render when present (via the `slug` field on each project entry mapping to the manifest). Both repos were already counted in BuilderStats aggregate — this adds per-card visibility. Live values: Medusa 19.7K LOC / 45 commits / 5 tests / 6 PRs · UCI 28.6K LOC / 23 commits / 545 tests.
+
 ## [2026-05-05] — Notse Sales Pipeline + Tip Jar + SSL Fix
 
 ### Added
