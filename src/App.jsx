@@ -20,9 +20,8 @@ export default function App() {
           transition={{ duration: 0.5 }}
           style={{ marginBottom: 16 }}
         >
-          {/* TODO: replace href with Stripe Payment Link URL once user creates a "customer chooses price" link in Stripe Dashboard. */}
           <a
-            href="https://buy.stripe.com/REPLACE_ME_TIP_JAR"
+            href="https://buy.stripe.com/7sY5kD6X8bUA7iNfEEaMU01"
             target="_blank"
             rel="noreferrer"
             title="Drop a tip — coffee, dinner, or a new car. Entirely up to you."

@@ -3,8 +3,7 @@ import { motion } from "framer-motion";
 
 // Stripe Payment Link with "customer chooses price" enabled.
 // Same URL as the small pill in the header — both point at one Stripe link.
-// TODO: replace once the user creates the tip-jar Payment Link in Stripe.
-const TIP_JAR_URL = "https://buy.stripe.com/REPLACE_ME_TIP_JAR";
+const TIP_JAR_URL = "https://buy.stripe.com/7sY5kD6X8bUA7iNfEEaMU01";
 
 /**
  * Tip jar callout — illustrated mason jar + "Drop a Tip" CTA.
