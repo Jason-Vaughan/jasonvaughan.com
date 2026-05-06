@@ -30,10 +30,53 @@
       .brand { display: flex; align-items: center; gap: 12px; }
       .brand img { width: 40px; height: 40px; border-radius: 8px; background: #fff; object-fit: contain; padding: 4px; }
       .brand .name { font-size: 18px; font-weight: 700; color: #fafafa; }
-      .topbar a.back { font-size: 13px; color: #a1a1aa; }
-      .topbar a.back:hover { color: #f59e0b; }
+      .topbar-links { display: flex; gap: 20px; align-items: center; }
+      .topbar-link { font-size: 13px; color: #a1a1aa; white-space: nowrap; }
+      .topbar-link:hover { color: #f59e0b; }
 
       .hero { padding: 56px 0 40px; }
+
+      /* Hero logo — clickable to zoom */
+      .logo-zoom {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: zoom-in;
+        display: block;
+        margin: 0 auto 28px;
+      }
+      .logo-zoom img {
+        width: 240px;
+        max-width: 80vw;
+        height: auto;
+        display: block;
+        filter: drop-shadow(0 12px 32px rgba(0,0,0,.5));
+        transition: transform 0.2s;
+      }
+      .logo-zoom:hover img { transform: scale(1.04); }
+
+      /* Full-size logo modal (native <dialog>, no JS framework) */
+      .logo-modal {
+        border: none;
+        background: transparent;
+        padding: 0;
+        max-width: none;
+        max-height: none;
+      }
+      .logo-modal::backdrop {
+        background: rgba(0, 0, 0, 0.92);
+        backdrop-filter: blur(4px);
+      }
+      .logo-modal img {
+        display: block;
+        max-width: 90vw;
+        max-height: 90vh;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        cursor: zoom-out;
+        border-radius: 12px;
+      }
       .badge {
         display: inline-block;
         padding: 4px 10px;
@@ -193,13 +236,19 @@
           <img src="/notse/notse.png" alt="Notse logo" />
           <span class="name">Notse</span>
         </div>
-        <a class="back" href="https://jasonvaughan.com/">← Back to portfolio</a>
+        <div class="topbar-links">
+          <a class="topbar-link" href="https://github.com/Jason-Vaughan/notse-releases" target="_blank" rel="noreferrer">Releases ↗</a>
+          <a class="topbar-link" href="https://jasonvaughan.com/">← Back to portfolio</a>
+        </div>
       </div>
     </header>
 
     <main>
       <section class="hero">
         <div class="container">
+          <button type="button" class="logo-zoom" onclick="document.getElementById('logo-modal').showModal()" aria-label="View Notse logo full size">
+            <img src="/notse/notse.png" alt="Notse logo" />
+          </button>
           <span class="badge">Commercial · License</span>
           <h1>Live teleprompter system, built for broadcast.</h1>
           <p class="tagline">
@@ -269,5 +318,26 @@
         Built by <a href="https://jasonvaughan.com/">Jason Vaughan</a> — &copy; 2026
       </div>
     </footer>
+
+    <!-- Full-size logo modal — opened by the hero button. Closes on ESC (native
+         dialog behavior) or click on the dark backdrop area outside the image. -->
+    <dialog id="logo-modal" class="logo-modal">
+      <img src="/notse/notse.png" alt="Notse logo (full size)" />
+    </dialog>
+    <script>
+      // Click-outside-image closes the dialog. Native ESC-to-close also works.
+      (function () {
+        var modal = document.getElementById('logo-modal');
+        modal.addEventListener('click', function (e) {
+          // Click on the dialog itself (backdrop area) closes; clicks on the
+          // image bubble up but don't match (target = img, not dialog).
+          if (e.target === modal) modal.close();
+        });
+        // Click on the image also closes (matches the cursor: zoom-out cue).
+        modal.querySelector('img').addEventListener('click', function () {
+          modal.close();
+        });
+      })();
+    </script>
   </body>
 </html>

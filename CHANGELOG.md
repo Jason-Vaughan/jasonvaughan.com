@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- **`/notse` page hero now displays the full Notse logo prominently** — was a tiny 40×40 topbar logo only; now also features a 240px centered logo in the hero with click-to-zoom (native `<dialog>` modal opens the full 1024×1536 source). Modal closes on ESC, on click outside the image, or on click of the image. Topbar gains a **"Releases ↗"** link pointing to `https://github.com/Jason-Vaughan/notse-releases` (the public release-artifacts repo) so buyers have a clear path to find DMGs and changelog.
+
 ### Added
 - **Live stats on Pipeline cards (Medusa + UCI)** — Pipeline.jsx now fetches the centralized collector manifest and renders a per-card stats row (LOC · tests · commits · PRs) matching the visual pattern used on the Projects grid cards. Stats only render when present (via the `slug` field on each project entry mapping to the manifest). Both repos were already counted in BuilderStats aggregate — this adds per-card visibility. Live values: Medusa 19.7K LOC / 45 commits / 5 tests / 6 PRs · UCI 28.6K LOC / 23 commits / 545 tests.
 
