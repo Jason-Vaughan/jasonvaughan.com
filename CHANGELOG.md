@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- **Tip Jar section card now uses the real illustrated logo** — replaced the inline SVG mason-jar drawing with the user's actual tip-jar artwork (`src/assets/tipjar.png`, 320×320 PNG, 111KB resized from a 1024×1024 source). Header pill keeps its simple inline SVG since detailed art is illegible at 18px.
+
 ## [2026-05-05] — Notse Sales Pipeline + Tip Jar + SSL Fix
 
 ### Added
