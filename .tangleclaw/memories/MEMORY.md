@@ -2,6 +2,37 @@
 
 This file persists context across AI sessions. Update it with key decisions, progress, and open questions.
 
+## Last Session (2026-05-05 — Notse sales pipeline + tip jar + SSL fix)
+
+**What happened:** Long, multi-arc session. Three big shipped pieces, one critical fix, and one piece of forward infrastructure laid down.
+
+**Shipped:**
+
+1. **Notse `/notse` landing page** (PR #20) — static HTML at `public/notse/index.html` with hero, feature grid, pricing card, volume-licensing CTA. Notse Projects card switched from `#contact` to `/notse`. Internal `/`-prefixed links now stay in the same tab; anchors still smooth-scroll, external still opens new tab.
+2. **Notse $50/year subscription wired** (PR #21) — Stripe Payment Link `https://buy.stripe.com/5kQdR9a9k7Ek5aFcssaMU00` (product `prod_USki7sq4gY0Fpu`) plugged into the page, copy switched from one-time perpetual placeholder to subscription wording. Customer-facing checkout reads "Notse License — $50.00/year".
+3. **SSL cert fix on jasonvaughan.com** (no PR — Pages config) — Chrome was rejecting the site because the cert in the wild was GitHub's generic `*.github.io` (Let's Encrypt provisioning had silently failed for the custom domain). Fixed by clearing + re-adding the custom domain via the GitHub Pages API (`PUT /repos/.../pages` with `cname: null` then `cname: "jasonvaughan.com"`). Cert re-provisioned in seconds; SAN now covers `jasonvaughan.com` + `www.jasonvaughan.com`. `https_enforced: true`.
+4. **Full automated licensing pipeline** (new `Jason-Vaughan/licensing-workers` private repo) — Cloudflare Worker bridges Stripe Payment Link checkouts → Keygen license creation → Resend email delivery. First Worker `notse-licensing` is live at `https://notse-licensing.jasonvaughan.workers.dev`. End-to-end smoke-tested: real Keygen license issued, key emailed to ntehosting@gmail.com. Resend sending domain `jasonvaughan.com` verified (SPF + DKIM + MX records in GoDaddy DNS — apex Outlook MX untouched). See `project_licensing_pipeline.md` auto-memory for full architecture + IDs.
+5. **Tip Jar** (PR #22) — small amber pill above the H1 in the header (always-visible, low-pressure) + larger illustrated `TipJar.jsx` card between GPTs and ContactSection. Both link to one Stripe Payment Link with "customer chooses price" feature (`https://buy.stripe.com/7sY5kD6X8bUA7iNfEEaMU01`, product `prod_USrEuQMbhr1sFL`, `$5/$10/$25/$50/$100` preset suggestions, "Donate" call-to-action button). Inline SVG mason jar with bills + coins for the larger card.
+6. **FR #23 filed** for crypto tipping option (Coinbase Commerce path). Not implemented — tracked for later.
+
+**Workflow notes / patterns worth remembering:**
+- The user has multiple Macs (Cursatory, elkaholic). Wrangler OAuth is per-machine and doesn't transfer. Workaround: use a Cloudflare API token (`Edit Cloudflare Workers` template) and export as `CLOUDFLARE_API_TOKEN` env var — works from any machine.
+- The `workers.dev` subdomain registration is a one-time per-account step. If Cloudflare's UI sends you to a "Connect a domain" upsell page (paid plan picker), you're on the wrong page. Direct API path: `PUT /accounts/{id}/workers/subdomain` with `{"subdomain":"<name>"}`.
+- DNS records in GoDaddy: enter just the subdomain part as `Name` (e.g., `send` not `send.jasonvaughan.com`). GoDaddy auto-appends the apex.
+- Stripe Payment Link URLs are static — editing call-to-action ("Pay" → "Donate"), suggested amounts, etc. updates config on the same URL; URL never changes once created.
+- Keygen distinguishes Account ID (UUID) from Stripe's account ID (`acct_...` prefix) — easy to confuse if you have both dashboards open.
+- "DKIM key" ≠ "Resend API key" — DKIM is the public key in DNS, API key is for code → Resend authentication. Both come from Resend but are separate things.
+
+**Pending cleanup (non-blocking):**
+- Delete 3 test Keygen licenses from the smoke tests (search "Smoke Test" / "Jason (smoke test)" in Keygen Licenses).
+- Rotate secrets that hit chat: Keygen Product Token, Resend API key, Stripe webhook signing secret, Cloudflare API token. After each rotation, `wrangler secret put NAME` from inside `licensing-workers/notse/` to update the Worker.
+- File `[chore]` issues in the **Notse repo** (not portfolio) for code signing + notarization on macOS and Windows. User has Apple Developer account + Windows code signing cert set up but hasn't completed the Electron toolchain wiring. This is best done in a session anchored to the Notse repo (per cross-session boundary rule).
+
+**Open enhancements for the licensing pipeline** (not blocking, but obvious next steps):
+- Listen for `customer.subscription.deleted` → suspend Keygen license (cancellation handling)
+- Listen for `invoice.payment_failed` → suspend on threshold (failed renewals)
+- Both are ~10 lines of code added to `notse/src/index.js`.
+
 ## Last Session (2026-05-04 — Lines Refactored stat + tile tooltips)
 
 **What happened:** User asked whether "lines deleted" was a stat we could collect — they wanted to surface that removing code is also work. Yes: `git log --numstat` gives it for free. Worked the question through, then shipped the full pipeline end-to-end across 5 portfolio PRs + 1 collector PR.
