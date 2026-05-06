@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import tipJarLogo from "../assets/tipjar.png";
 
 // Stripe Payment Link with "customer chooses price" enabled.
 // Same URL as the small pill in the header — both point at one Stripe link.
@@ -37,45 +38,13 @@ export default function TipJar() {
             gap: 28,
             alignItems: "center",
           }}>
-            {/* Tip jar illustration */}
-            <svg width="120" height="140" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              {/* Bills sticking out the back of the jar */}
-              <g transform="translate(50 14) rotate(-18)">
-                <rect width="56" height="32" rx="3" fill="#34d399" stroke="#047857" strokeWidth="1.5"/>
-                <text x="28" y="22" textAnchor="middle" fill="#065f46" fontSize="16" fontWeight="bold">$</text>
-              </g>
-              <g transform="translate(95 8) rotate(12)">
-                <rect width="56" height="32" rx="3" fill="#10b981" stroke="#047857" strokeWidth="1.5"/>
-                <text x="28" y="22" textAnchor="middle" fill="#065f46" fontSize="16" fontWeight="bold">$</text>
-              </g>
+            {/* Tip jar logo */}
+            <img
+              src={tipJarLogo}
+              alt="Tip jar — illustrated mason jar full of bills and coins"
+              style={{ width: 140, height: 140, objectFit: "contain", flexShrink: 0 }}
+            />
 
-              {/* Jar lid (metallic band) */}
-              <path d="M 30 60 L 170 60 L 165 82 L 35 82 Z" fill="#52525b" stroke="#71717a" strokeWidth="2" strokeLinejoin="round"/>
-              {/* Lid highlight */}
-              <line x1="38" y1="68" x2="160" y2="68" stroke="#a1a1aa" strokeWidth="1.5" strokeLinecap="round"/>
-
-              {/* Jar neck (slight indent below lid) */}
-              <rect x="42" y="82" width="116" height="8" fill="#27272a" stroke="#52525b" strokeWidth="1.5"/>
-
-              {/* Glass jar body */}
-              <path d="M 38 90 Q 28 95 28 108 L 28 195 Q 28 210 45 210 L 155 210 Q 172 210 172 195 L 172 108 Q 172 95 162 90 Z"
-                    fill="rgba(56,189,248,0.04)" stroke="#71717a" strokeWidth="2.5" strokeLinejoin="round"/>
-
-              {/* Glass shine */}
-              <path d="M 50 110 Q 48 140 52 175" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="3" strokeLinecap="round"/>
-
-              {/* TIPS label */}
-              <text x="100" y="148" textAnchor="middle" fontSize="26" fontWeight="800" fill="#a1a1aa" letterSpacing="3">TIPS</text>
-
-              {/* Coins inside, at bottom */}
-              <circle cx="50" cy="195" r="8" fill="#fbbf24" stroke="#a16207" strokeWidth="1.2"/>
-              <circle cx="68" cy="198" r="7" fill="#fbbf24" stroke="#a16207" strokeWidth="1.2"/>
-              <circle cx="85" cy="195" r="9" fill="#fbbf24" stroke="#a16207" strokeWidth="1.2"/>
-              <circle cx="105" cy="198" r="7" fill="#fbbf24" stroke="#a16207" strokeWidth="1.2"/>
-              <circle cx="122" cy="195" r="9" fill="#fbbf24" stroke="#a16207" strokeWidth="1.2"/>
-              <circle cx="140" cy="197" r="7" fill="#fbbf24" stroke="#a16207" strokeWidth="1.2"/>
-              <circle cx="155" cy="195" r="8" fill="#fbbf24" stroke="#a16207" strokeWidth="1.2"/>
-            </svg>
 
             {/* Copy + CTA */}
             <div>
