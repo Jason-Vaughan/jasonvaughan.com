@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import uciLogo from "../assets/projects/uci.png";
 import medusaLogo from "../assets/projects/medusa.png";
+import { formatBigNumber } from "../utils/format";
+
+const MANIFEST_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/_collect-meta.json";
 
 // Stage palette — visually distinguishes Beta (closer to launch, warm amber)
 // from In Development (earlier, calm teal). Hidden if a stage's list is empty.
@@ -24,6 +27,7 @@ const STAGES = {
 const projects = [
   {
     stage: "beta",
+    slug: "medusa",
     title: "Medusa",
     fullName: "Medusa-MCP v0.7.7-beta",
     image: medusaLogo,
@@ -45,6 +49,7 @@ const projects = [
   },
   {
     stage: "dev",
+    slug: "uci",
     title: "UCI",
     fullName: "Unified Comms Intelligence",
     image: uciLogo,
@@ -64,7 +69,7 @@ const projects = [
   },
 ];
 
-function PipelineCard({ project }) {
+function PipelineCard({ project, stats }) {
   const stage = STAGES[project.stage];
   if (!stage) return null;
 
@@ -114,6 +119,16 @@ function PipelineCard({ project }) {
     lineHeight: 1.6,
     paddingLeft: 18,
     position: "relative",
+  };
+
+  const statsRow = {
+    marginTop: 16,
+    fontSize: 12,
+    color: "#71717a",
+    display: "flex",
+    flexWrap: "wrap",
+    gap: 10,
+    alignItems: "center",
   };
 
   const imgViewport = {
@@ -184,6 +199,32 @@ function PipelineCard({ project }) {
           </div>
         )}
 
+        {stats && (
+          <div style={statsRow}>
+            {stats.loc > 0 && (
+              <span><strong style={{ color: "#d4d4d8" }}>{formatBigNumber(stats.loc)}</strong> LOC</span>
+            )}
+            {stats.tests > 0 && (
+              <>
+                <span style={{ color: "#3f3f46" }}>·</span>
+                <span><strong style={{ color: "#d4d4d8" }}>{formatBigNumber(stats.tests)}</strong> tests</span>
+              </>
+            )}
+            {stats.commits > 0 && (
+              <>
+                <span style={{ color: "#3f3f46" }}>·</span>
+                <span><strong style={{ color: "#d4d4d8" }}>{stats.commits}</strong> commits</span>
+              </>
+            )}
+            {stats.prs?.merged > 0 && (
+              <>
+                <span style={{ color: "#3f3f46" }}>·</span>
+                <span><strong style={{ color: "#d4d4d8" }}>{stats.prs.merged}</strong> PRs</span>
+              </>
+            )}
+          </div>
+        )}
+
         {project.link && (
           <div style={{ marginTop: 18 }}>
             <a
@@ -201,7 +242,7 @@ function PipelineCard({ project }) {
   );
 }
 
-function StageSection({ stageKey, items }) {
+function StageSection({ stageKey, items, statsBySlug }) {
   if (items.length === 0) return null;
   const stage = STAGES[stageKey];
   return (
@@ -219,7 +260,11 @@ function StageSection({ stageKey, items }) {
           gap: 24,
         }}>
           {items.map((p) => (
-            <PipelineCard key={`${stageKey}-${p.title}`} project={p} />
+            <PipelineCard
+              key={`${stageKey}-${p.title}`}
+              project={p}
+              stats={p.slug ? statsBySlug[p.slug] : null}
+            />
           ))}
         </div>
       </div>
@@ -233,13 +278,29 @@ function StageSection({ stageKey, items }) {
  * Each stage section auto-hides if its list is empty.
  */
 export default function Pipeline() {
+  const [statsBySlug, setStatsBySlug] = useState({});
+
+  useEffect(() => {
+    fetch(MANIFEST_URL, { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((manifest) => {
+        if (!manifest?.projects) return;
+        const map = {};
+        for (const [slug, entry] of Object.entries(manifest.projects)) {
+          if (entry.ok && entry.stats) map[slug] = entry.stats;
+        }
+        setStatsBySlug(map);
+      })
+      .catch(() => {});
+  }, []);
+
   const beta = projects.filter((p) => p.stage === "beta");
   const dev = projects.filter((p) => p.stage === "dev");
 
   return (
     <>
-      <StageSection stageKey="beta" items={beta} />
-      <StageSection stageKey="dev" items={dev} />
+      <StageSection stageKey="beta" items={beta} statsBySlug={statsBySlug} />
+      <StageSection stageKey="dev" items={dev} statsBySlug={statsBySlug} />
     </>
   );
 }
