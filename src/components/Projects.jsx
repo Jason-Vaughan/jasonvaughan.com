@@ -28,8 +28,8 @@ const projects = [
     title: "Notse",
     image: notseLogo,
     blurb:
-      "Live teleprompter system built for broadcast production. Electron desktop app with real-time WebSocket sync, designed for on-set workflows across macOS and Windows. Closed-source — available under commercial license.",
-    tags: ["Electron", "TypeScript", "Broadcast", "WebSockets"],
+      "Networked teleprompter for broadcast and live event production. A Windows helper drives PowerPoint via Microsoft COM; the Mac app shows the prompter and writes notes back to slides on Cmd+E. Built from inside the workflow it serves. Closed-source — commercial license.",
+    tags: ["Electron", "PowerPoint COM", "WebSockets", "Broadcast"],
     accent: "#f59e0b",
     badge: { label: "Commercial · License", tone: "commercial" },
     link: "/notse",

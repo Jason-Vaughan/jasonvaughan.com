@@ -135,6 +135,15 @@
         margin: 0 0 8px;
       }
       .feature p { font-size: 14px; color: #a1a1aa; margin: 0; }
+      .feature code, .container code, p code {
+        font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+        font-size: 0.9em;
+        padding: 1px 6px;
+        background: rgba(245, 158, 11, 0.1);
+        border: 1px solid rgba(245, 158, 11, 0.25);
+        border-radius: 4px;
+        color: #fbbf24;
+      }
 
       .pricing {
         background: linear-gradient(135deg, rgba(24,24,27,0.95), rgba(39,39,42,0.95));
@@ -249,33 +258,125 @@
           <button type="button" class="logo-zoom" onclick="document.getElementById('logo-modal').showModal()" aria-label="View Notse logo full size">
             <img src="/notse/notse.png" alt="Notse logo" />
           </button>
-          <span class="badge">Commercial · License</span>
-          <h1>Live teleprompter system, built for broadcast.</h1>
+          <span class="badge">Commercial · License · v0.5.12</span>
+          <h1>Networked live teleprompter for broadcast.</h1>
           <p class="tagline">
-            Notse is a real-time teleprompter for on-set production workflows. Cross-platform desktop app with live WebSocket sync between operator and talent — no cloud round-trip, no lag.
+            Notse separates the talent-facing prompter from the slide-driving graphics rig — mirroring how pro broadcast workflows already operate. A Mac runs the prompter; a Windows helper drives PowerPoint via Microsoft COM in real time. Networked over LAN, no cloud round-trip.
           </p>
         </div>
       </section>
 
       <section class="section">
         <div class="container">
-          <h2>What it does</h2>
+          <h2>How it works</h2>
+          <p style="margin: 0 0 16px; color: #a1a1aa; font-size: 14px;">
+            A two-machine system. One drives the slides, the other shows the prompter.
+          </p>
           <div class="features">
             <div class="feature">
-              <h3>Real-time sync</h3>
-              <p>WebSocket-based scroll, font, and content sync between operator and talent screen — sub-frame precision.</p>
+              <h3>Graphics machine (Windows)</h3>
+              <p>Runs PowerPoint and a small Notse Helper service. The helper polls PowerPoint via Microsoft COM at high frequency, tracking slide position and click-triggered build animations. State changes push to the Mac instantly.</p>
             </div>
             <div class="feature">
-              <h3>Cross-platform</h3>
-              <p>Native Electron desktop app for macOS and Windows. No browser, no extensions, no cloud account.</p>
+              <h3>Operator machine (Mac)</h3>
+              <p>Runs Notse.app — the formatted prompter window the talent or operator reads from. Edits in the prompter (<code>Cmd+E</code>) write back to the PowerPoint file via COM, so prompter content and slide notes stay in sync. Arrow keys remote-control slides on the graphics machine.</p>
+            </div>
+          </div>
+          <p style="margin-top: 16px; font-size: 13px; color: #71717a;">
+            The two communicate over LAN via WebSocket on a configurable port (default <code>9816</code>).
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2>What it does today</h2>
+          <p style="margin: 0 0 16px; color: #71717a; font-size: 13px;">v0.5.12 — May 2026</p>
+          <div class="features">
+            <div class="feature">
+              <h3>Live PowerPoint integration</h3>
+              <p>The Windows helper polls PowerPoint via Microsoft COM and pushes slide-position and build-state changes to the Mac in real time.</p>
             </div>
             <div class="feature">
-              <h3>Production-ready</h3>
-              <p>Designed for the on-set workflow: hotkey-driven, mirror display, color presets, multi-script queue.</p>
+              <h3>Bidirectional note editing</h3>
+              <p><code>Cmd+E</code> writes prompter edits back to the PowerPoint file via COM. Keep prompter content and slide notes in sync without leaving the prompter.</p>
             </div>
             <div class="feature">
-              <h3>Closed source</h3>
-              <p>Available under commercial license only. Source code is not distributed.</p>
+              <h3>Build-aware rendering</h3>
+              <p>When slides have click-triggered animations, Notse shows build indicators so the operator knows exactly when to advance.</p>
+            </div>
+            <div class="feature">
+              <h3>Slide control from the Mac</h3>
+              <p>Arrow keys advance/reverse slides on the graphics machine. <code>Cmd+B</code> toggles slideshow, <code>s</code> opens jump-to-slide picker, <code>Cmd+O</code> opens the slide list panel.</p>
+            </div>
+            <div class="feature">
+              <h3>Pre-cached notes</h3>
+              <p>All slide notes are fetched when the slideshow starts, so jumping around feels instant — even with hundreds of slides.</p>
+            </div>
+            <div class="feature">
+              <h3>Dynamic prompter formatting</h3>
+              <p>Tick mark customization, bullet formatting, alternating row colors, live-resizable build indicators.</p>
+            </div>
+            <div class="feature">
+              <h3>macOS code-signed and notarized</h3>
+              <p>Apple Developer ID signed, notarized, stapled. Download, mount, drag to Applications, launch — no Gatekeeper friction. In-app updater for new versions.</p>
+            </div>
+            <div class="feature">
+              <h3>License + diagnostics built in</h3>
+              <p>Keygen.sh-backed activation with offline expiry and 3-machine fingerprinting. One-shot field-log push (Mac and Windows) for remote diagnosis.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2>Coming soon</h2>
+          <p style="margin: 0 0 16px; color: #71717a; font-size: 13px;">Active development — these aren't shipped yet.</p>
+          <div class="features">
+            <div class="feature">
+              <h3>Windows code signing <span style="font-size: 10px; padding: 2px 6px; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); color: #f59e0b; border-radius: 4px; margin-left: 6px; vertical-align: middle;">In progress</span></h3>
+              <p>Eliminates SmartScreen friction for the Windows helper installer. Imminent.</p>
+            </div>
+            <div class="feature">
+              <h3>NDI output <span style="font-size: 10px; padding: 2px 6px; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); color: #f59e0b; border-radius: 4px; margin-left: 6px; vertical-align: middle;">Coming</span></h3>
+              <p>Clean teleprompter feed broadcast over the network for ingest into video switchers (OBS, vMix, broadcast production setups). The headline pro broadcast feature.</p>
+            </div>
+            <div class="feature">
+              <h3>Solo Mode <span style="font-size: 10px; padding: 2px 6px; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); color: #f59e0b; border-radius: 4px; margin-left: 6px; vertical-align: middle;">Coming</span></h3>
+              <p>Read scripts from local files (<code>.md</code>, <code>.txt</code>, <code>.docx</code>) or Google Docs — no slideshow required. For solo presenters, podcasters, and security-conscious customers.</p>
+            </div>
+            <div class="feature">
+              <h3>PowerPoint Mac helper <span style="font-size: 10px; padding: 2px 6px; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); color: #f59e0b; border-radius: 4px; margin-left: 6px; vertical-align: middle;">Coming</span></h3>
+              <p>AppleScript-based helper to unblock Mac-only show rigs — no Windows machine required. Keynote and Google Slides helpers planned next.</p>
+            </div>
+            <div class="feature">
+              <h3>Primary/backup with auto-failover <span style="font-size: 10px; padding: 2px 6px; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); color: #f59e0b; border-radius: 4px; margin-left: 6px; vertical-align: middle;">Coming</span></h3>
+              <p>Source-switching with automatic failover for high-stakes broadcast. Redundancy that matches the rest of your show rig.</p>
+            </div>
+            <div class="feature">
+              <h3>Audio auto-follow <span style="font-size: 10px; padding: 2px 6px; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); color: #f59e0b; border-radius: 4px; margin-left: 6px; vertical-align: middle;">Coming</span></h3>
+              <p>Speech-to-text tracking that scrolls the prompter to match what the speaker has said. Hands-off operation for solo presenters.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2>System requirements</h2>
+          <div class="features">
+            <div class="feature">
+              <h3>Operator (Mac)</h3>
+              <p>macOS 12+ on Apple Silicon or Intel. Notse.app runs the prompter window.</p>
+            </div>
+            <div class="feature">
+              <h3>Graphics (Windows)</h3>
+              <p>Windows 10 or 11 with PowerPoint. Notse Helper service drives slide tracking via COM. Mac graphics-machine support is in development.</p>
+            </div>
+            <div class="feature">
+              <h3>Network</h3>
+              <p>Both machines on the same LAN. WebSocket on configurable port (default <code>9816</code>). No cloud account, no browser.</p>
             </div>
           </div>
         </div>
@@ -289,8 +390,8 @@
             <div class="price">$50<span class="cadence">/year</span></div>
             <div class="price-sub">Per machine · all updates while active · cancel anytime</div>
             <ul>
-              <li>One activated machine</li>
-              <li>All current platform builds (macOS + Windows)</li>
+              <li>One activated machine (Keygen.sh-backed, 3-machine fingerprint window)</li>
+              <li>Notse.app for Mac + Windows helper</li>
               <li>All updates while subscription is active</li>
               <li>Email support</li>
               <li>Cancel anytime</li>
@@ -308,6 +409,16 @@
             <p style="margin-top: 16px;">
               <a class="btn btn-secondary" href="mailto:hello@jasonvaughan.com?subject=Notse%20licensing%20inquiry">Email about licensing</a>
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2>Built from inside the workflow</h2>
+          <div class="contact-card" style="text-align: left;">
+            <p>Jason Vaughan is a working technical director and graphics operator in live event production. Notse is built from inside the workflow it serves — designed by someone who runs the show, not just builds for it.</p>
+            <p style="margin-top: 12px; font-size: 13px;">Source code is private. Public release artifacts (Mac DMGs, changelog) live at <a href="https://github.com/Jason-Vaughan/notse-releases" target="_blank" rel="noreferrer">github.com/Jason-Vaughan/notse-releases</a>.</p>
           </div>
         </div>
       </section>
