@@ -5,6 +5,17 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 ## [Unreleased]
 
 ### Changed
+- **`/notse` page rewritten for honesty + technical depth (verified-only facts)** — replaced overclaimed/hallucinated copy ("sub-frame precision", "cross-platform Electron desktop app", "mirror display", "multi-script queue") with the actual product reality from the user's review. New page structure:
+  - **Hero**: clarifies the two-machine networked architecture upfront
+  - **How it works** (new): graphics machine (Windows + PowerPoint helper via COM) + operator machine (Mac running Notse.app), networked over LAN WebSocket on port 9816
+  - **What it does today** (rewritten): 8 verified v0.5.12 features — live PowerPoint integration via COM, bidirectional note editing (Cmd+E writes back), build-aware rendering, slide control trio (Cmd+B / s / Cmd+O), pre-cached notes, dynamic prompter formatting, macOS code-signed/notarized, Keygen.sh-backed licensing
+  - **Coming soon** (new): 6 roadmap items clearly labeled — Windows code signing (in progress), NDI output, Solo Mode, PowerPoint Mac helper, primary/backup auto-failover, audio auto-follow
+  - **System requirements** (new): macOS 12+ for operator, Windows 10/11 for helper, same-LAN networking
+  - **License**: bullets corrected (Keygen.sh-backed activation, Mac app + Windows helper)
+  - **Built from inside the workflow** (new): credibility section noting Jason as a working TD/graphics operator, with link to the public `notse-releases` repo
+- **Notse project card on portfolio rewritten** — blurb now describes the actual two-machine architecture (Windows helper drives PowerPoint via COM; Mac app shows prompter and writes notes back on Cmd+E). Tags updated: `TypeScript` → `PowerPoint COM` (more distinctive than a language tag, which auto-detects anyway).
+
+### Changed
 - **`/notse` page hero now displays the full Notse logo prominently** — was a tiny 40×40 topbar logo only; now also features a 240px centered logo in the hero with click-to-zoom (native `<dialog>` modal opens the full 1024×1536 source). Modal closes on ESC, on click outside the image, or on click of the image. Topbar gains a **"Releases ↗"** link pointing to `https://github.com/Jason-Vaughan/notse-releases` (the public release-artifacts repo) so buyers have a clear path to find DMGs and changelog.
 
 ### Added
