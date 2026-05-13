@@ -5,6 +5,13 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 ## [Unreleased]
 
 ### Changed
+- **BuilderStats tile precision + exact values + 7-day deltas** — three related improvements so small daily/weekly changes are visible without losing the clean tile aesthetic:
+  - **More precision in `formatBigNumber`**: 1K-100K now shows one decimal (e.g., `5.8K+` instead of `5K+`); 100K-1M still shows whole K (already 3 sig figs). Lets you see "+53 tests this week" actually move the display from `5.8K+` to `5.9K+`.
+  - **Exact value in hover tooltip**: every tile's tooltip now shows the precise count (e.g., `Exact: 5,869`) below the methodology description, separated by a thin divider. One hover away from the full number.
+  - **7-day delta badge**: small green/red `+N / 7d` (or `−N / 7d`) below each tile label when the metric changed over the past week. Reads `manifest.aggregateDeltas.<key>` — populated by the collector's new 7-day diff (project-assets PR shipped separately). Gracefully hides when not present (so this PR is safe to ship before the collector updates).
+- New `formatDelta(n)` helper in `src/utils/format.js` for the delta badge. Tests added.
+
+### Changed
 - **`/notse` page rewritten for honesty + technical depth (verified-only facts)** — replaced overclaimed/hallucinated copy ("sub-frame precision", "cross-platform Electron desktop app", "mirror display", "multi-script queue") with the actual product reality from the user's review. New page structure:
   - **Hero**: clarifies the two-machine networked architecture upfront
   - **How it works** (new): graphics machine (Windows + PowerPoint helper via COM) + operator machine (Mac running Notse.app), networked over LAN WebSocket on port 9816
