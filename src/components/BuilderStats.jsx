@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { formatBigNumber } from "../utils/format";
+import { formatBigNumber, formatDelta } from "../utils/format";
 
 // Manifest produced by the centralized collector in project-assets.
 // Lists every collected repo + its stats; the aggregate bar sums across all of them
@@ -50,6 +50,11 @@ export default function BuilderStats() {
         totals.prs = manifest.aggregatePRs?.merged || 0;
         totals.refactored = manifest.aggregateRefactored?.count || 0;
 
+        // Week-over-week deltas come pre-computed in the manifest (added by
+        // the collector after PR-on-project-assets#TBD). Defaults to empty so
+        // older manifests degrade gracefully (no badges render).
+        totals.deltas = manifest.aggregateDeltas || null;
+
         setTotals(totals);
       })
       .catch((err) => {
@@ -60,28 +65,40 @@ export default function BuilderStats() {
   // Hide section if no stats loaded yet
   if (!totals) return null;
 
+  // `exact` = raw integer for the hover tooltip (precise value)
+  // `delta` = signed change vs the same metric 7 days ago, or null if the
+  //          manifest doesn't yet have aggregateDeltas (graceful degrade).
+  const d = totals.deltas;
   const stats = [
     {
       label: "Lines of Code",
       value: formatBigNumber(totals.loc),
+      exact: totals.loc,
+      delta: d ? d.loc : null,
       color: "#38bdf8",
       description: "Current snapshot of source files across all tracked repos — what lives in the codebase right now. Each repo has a per-language profile (e.g., TangleClaw counts only .js/.mjs). Different from lifetime-added, since refactoring removes lines as it adds new ones.",
     },
     {
       label: "Commits",
       value: formatBigNumber(totals.commits),
+      exact: totals.commits,
+      delta: d ? d.commits : null,
       color: "#a78bfa",
       description: "Total commits across all tracked repos, summed from `git rev-list HEAD` per repo. Includes both direct-to-main and squash-merged PRs.",
     },
     {
       label: "Tests Passing",
       value: formatBigNumber(totals.tests),
+      exact: totals.tests,
+      delta: d ? d.tests : null,
       color: "#34d399",
       description: "Sum of `it()` / `test()` calls across every test file (`*.test.*` / `*.spec.*`) in every repo. Counts assertions that exist in the codebase — not test runs.",
     },
     {
       label: "Projects Shipped",
       value: String(totals.projects),
+      exact: totals.projects,
+      delta: null, // headcount change is rare; not surfaced as a delta badge
       color: "#fbbf24",
       description: "Public + private repos in the live stats registry. Auto-discovered from GitHub, then filtered by `projects.yml` exclusions (archived experiments, scratch repos, asset-only repos).",
     },
@@ -92,6 +109,8 @@ export default function BuilderStats() {
     stats.push({
       label: "AI Tokens",
       value: formatBigNumber(totals.tokens),
+      exact: totals.tokens,
+      delta: null, // token deltas live in aggregateTokens.breakdown — surface later if useful
       color: "#f472b6",
       description: "Lifetime tokens consumed across Anthropic, OpenAI, Cursor, Gemini, Copilot. Mix of admin-API totals (Anthropic, OpenAI) and lifetime estimates (Cursor CSV export, TypingMind prepaid). Refreshed daily.",
     });
@@ -102,6 +121,8 @@ export default function BuilderStats() {
     stats.push({
       label: "Fixes Shipped",
       value: formatBigNumber(totals.fixes),
+      exact: totals.fixes,
+      delta: d ? d.fixes : null,
       color: "#06b6d4",
       description: "Commits whose subject is prefixed `fix:` / `fix(scope):` / `bugfix:` / `hotfix:` / `Fix ` / `Fixed ` / `Fixes ` (case-insensitive). Subject-only — `feat:` commits with fix bullets in the body don't count.",
     });
@@ -112,6 +133,8 @@ export default function BuilderStats() {
     stats.push({
       label: "PRs Merged",
       value: formatBigNumber(totals.prs),
+      exact: totals.prs,
+      delta: d ? d.prs : null,
       color: "#f97316",
       description: "Pull requests merged to default branch across all GitHub repos. Forward-looking metric — most history is direct-to-main from before the 2026-04 PR-workflow shift, so this number is small but growing.",
     });
@@ -124,6 +147,8 @@ export default function BuilderStats() {
     stats.push({
       label: "Lines Refactored",
       value: formatBigNumber(totals.refactored),
+      exact: totals.refactored,
+      delta: d ? d.refactored : null,
       color: "#ec4899",
       description: "Lines removed across all repos — refactoring, cleanups, dead code removal, simplifications. A high number means the codebase is being revisited and improved, not just stacked on.",
     });
@@ -173,6 +198,7 @@ export default function BuilderStats() {
               {stats.map((s) => {
                 const isHovered = hoveredLabel === s.label;
                 const hasTooltip = !!s.description;
+                const hasDelta = typeof s.delta === "number" && s.delta !== 0;
                 return (
                   <div
                     key={s.label}
@@ -200,6 +226,18 @@ export default function BuilderStats() {
                     }}>
                       {s.label}
                     </div>
+                    {hasDelta && (
+                      <div style={{
+                        marginTop: 3,
+                        fontSize: 10,
+                        fontWeight: 600,
+                        color: s.delta > 0 ? "#22c55e" : "#f87171",
+                        letterSpacing: 0.3,
+                      }}>
+                        {formatDelta(s.delta)}
+                        <span style={{ color: "#52525b", fontWeight: 400 }}> / 7d</span>
+                      </div>
+                    )}
                     {hasTooltip && isHovered && (
                       <div
                         role="tooltip"
@@ -226,6 +264,20 @@ export default function BuilderStats() {
                         }}
                       >
                         {s.description}
+                        {typeof s.exact === "number" && (
+                          <div style={{
+                            marginTop: 8,
+                            paddingTop: 8,
+                            borderTop: "1px solid #27272a",
+                            fontSize: 11,
+                            color: "#a1a1aa",
+                          }}>
+                            <span style={{ color: "#71717a" }}>Exact: </span>
+                            <span style={{ color: s.color, fontWeight: 600 }}>
+                              {s.exact.toLocaleString()}
+                            </span>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
