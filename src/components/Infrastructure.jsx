@@ -168,28 +168,20 @@ export default function Infrastructure() {
               language models over Tailscale. No cloud round-trip, no per-token bill, no rate limit.
             </p>
 
-            {/* Live stats */}
+            {/* Live stats — render only the fields that are populated.
+                Token-tracking stats land once LiteLLM is in place; until then
+                the banner below explains the gap. */}
             <div style={{ marginTop: 20, ...statRow }}>
-              <div style={statCell()}>
-                <div style={statValue()}>{tokensLifetime != null ? formatBigNumber(tokensLifetime) : "—"}</div>
-                <div style={statLabel}>Tokens served (lifetime)</div>
-              </div>
-              <div style={statCell()}>
-                <div style={statValue("#fbbf24")}>{costSavedLifetime != null ? formatUSD(costSavedLifetime) : "—"}</div>
-                <div style={statLabel}>Est. cloud cost avoided</div>
-              </div>
-              <div style={statCell()}>
-                <div style={statValue()}>{sustainedTokPerS != null ? `${sustainedTokPerS.toFixed(1)} tok/s` : "—"}</div>
-                <div style={statLabel}>Sustained eval throughput</div>
-              </div>
-              <div style={statCell()}>
-                <div style={statValue()}>{requestsLifetime != null ? formatBigNumber(requestsLifetime) : "—"}</div>
-                <div style={statLabel}>Inference requests served</div>
-              </div>
-              {tokensToday != null && (
+              {requestsLifetime != null && (
                 <div style={statCell()}>
-                  <div style={statValue()}>{formatBigNumber(tokensToday)}</div>
-                  <div style={statLabel}>Tokens today</div>
+                  <div style={statValue()}>{formatBigNumber(requestsLifetime)}</div>
+                  <div style={statLabel}>Inference requests served</div>
+                </div>
+              )}
+              {uptimeText && (
+                <div style={statCell()}>
+                  <div style={{ ...statValue(), fontSize: 15 }}>{uptimeText}</div>
+                  <div style={statLabel}>Uptime</div>
                 </div>
               )}
               {gpuTempC != null && (
@@ -198,7 +190,52 @@ export default function Infrastructure() {
                   <div style={statLabel}>GPU temp (live)</div>
                 </div>
               )}
+              {tokensLifetime != null && (
+                <div style={statCell()}>
+                  <div style={statValue()}>{formatBigNumber(tokensLifetime)}</div>
+                  <div style={statLabel}>Tokens served (lifetime)</div>
+                </div>
+              )}
+              {costSavedLifetime != null && (
+                <div style={statCell()}>
+                  <div style={statValue("#fbbf24")}>{formatUSD(costSavedLifetime)}</div>
+                  <div style={statLabel}>Est. cloud cost avoided</div>
+                </div>
+              )}
+              {sustainedTokPerS != null && (
+                <div style={statCell()}>
+                  <div style={statValue()}>{sustainedTokPerS.toFixed(1)} tok/s</div>
+                  <div style={statLabel}>Sustained eval throughput</div>
+                </div>
+              )}
+              {tokensToday != null && (
+                <div style={statCell()}>
+                  <div style={statValue()}>{formatBigNumber(tokensToday)}</div>
+                  <div style={statLabel}>Tokens today</div>
+                </div>
+              )}
             </div>
+
+            {/* "Coming soon" banner for the LiteLLM-dependent stats.
+                Shows whenever ANY of {tokensLifetime, costSavedLifetime,
+                sustainedTokPerS} is null. Once LiteLLM is integrated on
+                Monad-1 and those fields populate, this banner disappears
+                automatically — no portfolio change required. */}
+            {(tokensLifetime == null || costSavedLifetime == null || sustainedTokPerS == null) && (
+              <div style={{
+                marginTop: 14,
+                padding: "10px 14px",
+                background: "rgba(251,191,36,0.06)",
+                border: "1px dashed rgba(251,191,36,0.3)",
+                borderRadius: 8,
+                fontSize: 12,
+                color: "#a1a1aa",
+                lineHeight: 1.5,
+              }}>
+                <span style={{ color: "#fbbf24", fontWeight: 700, marginRight: 6 }}>Coming soon:</span>
+                Token accounting, cloud-cost-avoided, and sustained throughput land once the LiteLLM proxy is in place (planned alongside multi-GPU router work).
+              </div>
+            )}
 
             {/* Currently serving */}
             {currentModel && (
