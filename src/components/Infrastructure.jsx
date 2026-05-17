@@ -133,12 +133,12 @@ export default function Infrastructure() {
   const modelsHistory = monadStats?.modelsHistory || [];
 
   return (
-    <section id="infrastructure" style={section}>
+    <section id="research" style={section}>
       <style>{`@keyframes monad-pulse { 0%,100% { opacity:1 } 50% { opacity:0.4 } }`}</style>
       <div style={wrap}>
         <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
-          <h2 style={h2Style}>Infrastructure</h2>
-          <span style={subhead}>Systems and hardware built and operated in-house</span>
+          <h2 style={h2Style}>Current Research</h2>
+          <span style={subhead}>Active investigations and the systems that power them</span>
         </div>
 
         {/* Monad-1 card */}
