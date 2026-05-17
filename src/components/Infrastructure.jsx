@@ -288,8 +288,11 @@ export default function Infrastructure() {
           style={{
             ...card,
             marginTop: 20,
-            background: "linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%)",
-            borderColor: "#3f3f46",
+            // Lighter inside (zinc-700 → zinc-800) so the pure-black redaction
+            // bars actually pop. Original was darker than the surrounding cards
+            // which made black-on-near-black redactions invisible.
+            background: "linear-gradient(135deg, #3f3f46 0%, #27272a 100%)",
+            borderColor: "#52525b",
             position: "relative",
           }}
         >
