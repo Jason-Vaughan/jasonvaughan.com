@@ -4,6 +4,11 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **Current Research section** (new) between Pipeline and GPTs — for active investigations and the systems that power them. Frames Monad-1 and similar work as ongoing research, not just operational infrastructure. Section anchor: `#research`. Designed to scale to multiple research project cards over time.
+- **Monad-1 card** — hero phrase "Local-First AI Inference", live stats grid (tokens served lifetime, estimated cloud cost avoided, sustained eval throughput, inference requests, GPU temp, tokens today), hardware specs (RTX PRO 6000 Blackwell 96 GiB VRAM · Threadripper 9970X · 251 GiB RAM), currently-serving model line, models-tested tags, tech stack tags, pulsing-green "Active" status indicator with uptime, last-updated timestamp. Reads live data from `monad-stats.json` (published directly by an agent on the Monad-1 box to project-assets). Graceful degrade: hardware specs always shown, live stats render `—` when the stats file isn't published yet.
+- **Confidential Research teaser card** (in Infrastructure section) — styled like a redacted document with a "CLASSIFIED" stamp. Two lines of body text with `████` redaction blocks describing undisclosed engagement and recent work. CTA: "Contact under NDA →" linking to the contact section. Positions Jason as available for vetted direct AI consultation without exposing details. Visually distinct (darker background, red accent for the classified-doc aesthetic).
+
 ### Changed
 - **BuilderStats tile precision + exact values + 7-day deltas** — three related improvements so small daily/weekly changes are visible without losing the clean tile aesthetic:
   - **More precision in `formatBigNumber`**: 1K-100K now shows one decimal (e.g., `5.8K+` instead of `5K+`); 100K-1M still shows whole K (already 3 sig figs). Lets you see "+53 tests this week" actually move the display from `5.8K+` to `5.9K+`.

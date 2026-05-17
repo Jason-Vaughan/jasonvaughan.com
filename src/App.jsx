@@ -6,6 +6,7 @@ import FeaturedTangleClaw from "./components/FeaturedTangleClaw";
 import FeaturedCierreSensei from "./components/FeaturedCierreSensei";
 import Projects from "./components/Projects";
 import Pipeline from "./components/Pipeline";
+import Infrastructure from "./components/Infrastructure";
 import GPTs from "./components/GPTs";
 import TipJar from "./components/TipJar";
 import ContactSection from "./components/ContactSection";
@@ -92,6 +93,7 @@ export default function App() {
       <FeaturedCierreSensei />
       <Projects />
       <Pipeline />
+      <Infrastructure />
       <GPTs />
       <TipJar />
       <ContactSection />
