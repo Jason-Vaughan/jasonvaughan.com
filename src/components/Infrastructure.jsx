@@ -124,6 +124,8 @@ export default function Infrastructure() {
   const currentModelSize = monadStats?.currentModel?.size;
   const currentModelPrecision = monadStats?.currentModel?.precision;
   const gpuTempC = monadStats?.gpu?.temp;
+  const gpuUtilization = monadStats?.gpu?.utilization;
+  const gpuPowerDraw = monadStats?.gpu?.powerDraw;
   const techStack = monadStats?.stack || [
     "Bare-Metal Ollama",
     "Ubuntu 24.04",
@@ -139,6 +141,26 @@ export default function Infrastructure() {
   const uptimeText = typeof daysOnline === "number"
     ? (daysOnline === 1 ? "1 day" : `${daysOnline} days`)
     : null;
+
+  // Relative timestamp for "Stats updated" footer — "just now" / "X min ago" /
+  // "X hr ago" / fall back to absolute date for anything > 24h old. Reads
+  // fresher than a raw locale string, and a stale value becomes immediately
+  // visible if the publisher cron breaks.
+  let updatedRelative = null;
+  if (monadStats?.updatedAt) {
+    const updatedMs = new Date(monadStats.updatedAt).getTime();
+    const diffSec = Math.max(0, Math.floor((Date.now() - updatedMs) / 1000));
+    if (diffSec < 60) updatedRelative = "just now";
+    else if (diffSec < 3600) {
+      const m = Math.floor(diffSec / 60);
+      updatedRelative = `${m} minute${m === 1 ? "" : "s"} ago`;
+    } else if (diffSec < 86400) {
+      const h = Math.floor(diffSec / 3600);
+      updatedRelative = `${h} hour${h === 1 ? "" : "s"} ago`;
+    } else {
+      updatedRelative = new Date(monadStats.updatedAt).toLocaleDateString();
+    }
+  }
 
   return (
     <section id="research" style={section}>
@@ -196,6 +218,18 @@ export default function Infrastructure() {
                 <div style={statCell()}>
                   <div style={statValue()}>{gpuTempC}°C</div>
                   <div style={statLabel}>GPU temp (live)</div>
+                </div>
+              )}
+              {gpuUtilization != null && (
+                <div style={statCell()}>
+                  <div style={statValue()}>{gpuUtilization}%</div>
+                  <div style={statLabel}>GPU utilization</div>
+                </div>
+              )}
+              {gpuPowerDraw != null && (
+                <div style={statCell()}>
+                  <div style={statValue()}>{Math.round(gpuPowerDraw)}W</div>
+                  <div style={statLabel}>GPU power draw</div>
                 </div>
               )}
               {tokensLifetime != null && (
@@ -322,8 +356,10 @@ export default function Infrastructure() {
 
             {/* Footer note */}
             <div style={{ marginTop: 18, fontSize: 12, color: "#52525b" }}>
-              Private repo — internal infrastructure. {monadStats?.updatedAt && (
-                <span>Stats updated {new Date(monadStats.updatedAt).toLocaleString()}.</span>
+              Private repo — internal infrastructure. {updatedRelative && (
+                <span title={new Date(monadStats.updatedAt).toLocaleString()}>
+                  Stats updated {updatedRelative}.
+                </span>
               )}
             </div>
           </div>

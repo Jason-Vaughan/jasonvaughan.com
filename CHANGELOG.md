@@ -4,6 +4,12 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **GPU utilization + power-draw tiles on Monad-1 card** — surface two live fields the publisher already emits (`gpu.utilization`, `gpu.powerDraw`). Tiles render only when the field is present (graceful degrade preserved). Visually balances the live-stats grid alongside the existing GPU temp tile.
+
+### Changed
+- **Relative timestamp on Monad-1 "Stats updated" footer** — replaced the raw `toLocaleString()` output (e.g., `5/17/2026, 5:47:46 PM`) with relative formatting (`just now` / `7 minutes ago` / `3 hours ago` / falls back to absolute date past 24h). Absolute timestamp moved to a `title` tooltip on hover. Reads fresher and makes a stale publisher immediately visible.
+
 ### Fixed
 - **Monad-1 card field-name mismatch with live publisher** — portfolio component was reading the pre-spec shape (`tokens.lifetime`, `currentlyServing.displayName`, `hardware.gpuTempC`, `throughput.evalTokensPerSecond`, `techStack`, `uptime.humanText`) while the Monad-1 publisher emits the v1-spec shape (`tokens.total`, `currentModel.name`, `gpu.temp`, `throughput.tokensPerSec`, `stack`, `uptime.daysOnline`). With the mismatch, only the hardcoded hardware specs rendered — GPU temp, tech stack, uptime, and the currently-serving banner stayed blank despite the JSON being live and fresh. Renamed all field reads to match the published shape and now compute the uptime text client-side from `daysOnline`. The "Currently serving" banner now surfaces name + precision + size from `currentModel.{name,precision,size}` instead of the old `currentlyServing.vramResidentGB`.
 
