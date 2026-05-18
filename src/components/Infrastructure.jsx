@@ -115,22 +115,30 @@ export default function Infrastructure() {
 
   // Safe getters with fallbacks for when monad-stats.json hasn't been
   // published yet (graceful degrade — show specs, hide live numbers).
-  const tokensLifetime = monadStats?.tokens?.lifetime;
-  const tokensToday = monadStats?.tokens?.today;
-  const costSavedLifetime = monadStats?.tokens?.estimatedCloudCost?.lifetime;
-  const sustainedTokPerS = monadStats?.throughput?.evalTokensPerSecond;
-  const uptimeText = monadStats?.uptime?.humanText;
+  const tokensLifetime = monadStats?.tokens?.total;
+  const tokensToday = monadStats?.tokens?.last24h;
+  const costSavedLifetime = monadStats?.costSaved?.estimated;
+  const sustainedTokPerS = monadStats?.throughput?.tokensPerSec;
   const requestsLifetime = monadStats?.requests?.lifetime;
-  const currentModel = monadStats?.currentlyServing?.displayName;
-  const currentModelVram = monadStats?.currentlyServing?.vramResidentGB;
-  const gpuTempC = monadStats?.hardware?.gpuTempC;
-  const techStack = monadStats?.techStack || [
+  const currentModel = monadStats?.currentModel?.name;
+  const currentModelSize = monadStats?.currentModel?.size;
+  const currentModelPrecision = monadStats?.currentModel?.precision;
+  const gpuTempC = monadStats?.gpu?.temp;
+  const techStack = monadStats?.stack || [
     "Bare-Metal Ollama",
     "Ubuntu 24.04",
     "Tailscale Tailnet",
     "NVIDIA Blackwell",
   ];
   const modelsHistory = monadStats?.modelsHistory || [];
+
+  // Compute human-readable uptime from daysOnline + lastReboot.
+  // Publisher emits both; we render a short string here instead of asking
+  // the publisher to format it (locale + presentation are portfolio concerns).
+  const daysOnline = monadStats?.uptime?.daysOnline;
+  const uptimeText = typeof daysOnline === "number"
+    ? (daysOnline === 1 ? "1 day" : `${daysOnline} days`)
+    : null;
 
   return (
     <section id="research" style={section}>
@@ -252,9 +260,14 @@ export default function Infrastructure() {
                   Currently serving
                 </span>
                 <span style={{ fontWeight: 700, color: "#fafafa" }}>{currentModel}</span>
-                {currentModelVram && (
+                {currentModelPrecision && (
                   <span style={{ color: "#71717a", marginLeft: 8 }}>
-                    · {currentModelVram} GiB resident
+                    · {currentModelPrecision}
+                  </span>
+                )}
+                {currentModelSize && (
+                  <span style={{ color: "#71717a", marginLeft: 8 }}>
+                    · {currentModelSize}
                   </span>
                 )}
               </div>

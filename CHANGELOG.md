@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- **Monad-1 card field-name mismatch with live publisher** — portfolio component was reading the pre-spec shape (`tokens.lifetime`, `currentlyServing.displayName`, `hardware.gpuTempC`, `throughput.evalTokensPerSecond`, `techStack`, `uptime.humanText`) while the Monad-1 publisher emits the v1-spec shape (`tokens.total`, `currentModel.name`, `gpu.temp`, `throughput.tokensPerSec`, `stack`, `uptime.daysOnline`). With the mismatch, only the hardcoded hardware specs rendered — GPU temp, tech stack, uptime, and the currently-serving banner stayed blank despite the JSON being live and fresh. Renamed all field reads to match the published shape and now compute the uptime text client-side from `daysOnline`. The "Currently serving" banner now surfaces name + precision + size from `currentModel.{name,precision,size}` instead of the old `currentlyServing.vramResidentGB`.
+
 ### Added
 - **Current Research section** (new) between Pipeline and GPTs — for active investigations and the systems that power them. Frames Monad-1 and similar work as ongoing research, not just operational infrastructure. Section anchor: `#research`. Designed to scale to multiple research project cards over time.
 - **Monad-1 card** — hero phrase "Local-First AI Inference", live stats grid (tokens served lifetime, estimated cloud cost avoided, sustained eval throughput, inference requests, GPU temp, tokens today), hardware specs (RTX PRO 6000 Blackwell 96 GiB VRAM · Threadripper 9970X · 251 GiB RAM), currently-serving model line, models-tested tags, tech stack tags, pulsing-green "Active" status indicator with uptime, last-updated timestamp. Reads live data from `monad-stats.json` (published directly by an agent on the Monad-1 box to project-assets). Graceful degrade: hardware specs always shown, live stats render `—` when the stats file isn't published yet.
