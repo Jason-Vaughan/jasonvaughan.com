@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- **Hide the "Est. cloud cost avoided" tile when it rounds to $0** — early-life LiteLLM with a few hundred tokens served renders `$0`, which reads weaker than not showing the tile at all. Tile reappears automatically once the value clears $1.
+
 ### Added
 - **GPU utilization + power-draw tiles on Monad-1 card** — surface two live fields the publisher already emits (`gpu.utilization`, `gpu.powerDraw`). Tiles render only when the field is present (graceful degrade preserved). Visually balances the live-stats grid alongside the existing GPU temp tile.
 

@@ -238,7 +238,11 @@ export default function Infrastructure() {
                   <div style={statLabel}>Tokens served (lifetime)</div>
                 </div>
               )}
-              {costSavedLifetime != null && (
+              {/* Hide the cost-avoided tile when it rounds to $0 — early-life
+                  LiteLLM with a few hundred tokens served shows "$0" which
+                  reads weaker than not showing the tile at all. Re-appears
+                  automatically once enough inference accumulates to clear $1. */}
+              {typeof costSavedLifetime === "number" && costSavedLifetime >= 1 && (
                 <div style={statCell()}>
                   <div style={statValue("#fbbf24")}>{formatUSD(costSavedLifetime)}</div>
                   <div style={statLabel}>Est. cloud cost avoided</div>
