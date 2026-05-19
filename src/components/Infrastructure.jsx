@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { formatBigNumber } from "../utils/format";
+import ShareLink from "./ShareLink";
 
 // Monad-1 stats are published directly to project-assets by a small agent
 // running on the Monad-1 box (writes monad-stats.json, commits, pushes).
@@ -230,11 +231,12 @@ export default function Infrastructure() {
 
         {/* Monad-1 card */}
         <motion.div
+          id="monad-1"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
-          style={{ ...card, marginTop: 24 }}
+          style={{ ...card, marginTop: 24, scrollMarginTop: 24 }}
         >
           {/* Accent gradient bar */}
           <div style={{ height: 4, background: `linear-gradient(90deg, ${accent}, ${accentLight}, transparent)` }} />
@@ -422,21 +424,25 @@ export default function Infrastructure() {
             </div>
 
             {/* Footer note */}
-            <div style={{ marginTop: 18, fontSize: 12, color: "#52525b" }}>
-              {lastOutageText && (
-                <div style={{ marginBottom: 6 }}>{lastOutageText}</div>
-              )}
-              Private repo — internal infrastructure. {updatedRelative && (
-                <span title={new Date(monadStats.updatedAt).toLocaleString()}>
-                  Stats updated {updatedRelative}.
-                </span>
-              )}
+            <div style={{ marginTop: 18, fontSize: 12, color: "#52525b", display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 12, flexWrap: "wrap" }}>
+              <div>
+                {lastOutageText && (
+                  <div style={{ marginBottom: 6 }}>{lastOutageText}</div>
+                )}
+                Private repo — internal infrastructure. {updatedRelative && (
+                  <span title={new Date(monadStats.updatedAt).toLocaleString()}>
+                    Stats updated {updatedRelative}.
+                  </span>
+                )}
+              </div>
+              <ShareLink id="monad-1" />
             </div>
           </div>
         </motion.div>
 
         {/* Confidential Research — redacted-document teaser */}
         <motion.div
+          id="confidential-research"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -444,6 +450,7 @@ export default function Infrastructure() {
           style={{
             ...card,
             marginTop: 20,
+            scrollMarginTop: 24,
             // Lighter inside (zinc-700 → zinc-800) so the pure-black redaction
             // bars actually pop. Original was darker than the surrounding cards
             // which made black-on-near-black redactions invisible.
@@ -563,6 +570,10 @@ export default function Infrastructure() {
                   Contact under NDA →
                 </a>
               </p>
+            </div>
+
+            <div style={{ marginTop: 14, textAlign: "right" }}>
+              <ShareLink id="confidential-research" />
             </div>
           </div>
         </motion.div>

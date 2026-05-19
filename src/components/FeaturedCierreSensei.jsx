@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import cierreLogo from "../assets/projects/cierresensei.png";
+import ShareLink from "./ShareLink";
 
 const STATS_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/cierre-sensei-stats.json";
 
@@ -105,7 +106,7 @@ export default function FeaturedCierreSensei() {
   };
 
   return (
-    <section id="cierre-sensei" style={{ padding: "48px 0 0" }}>
+    <section id="cierre-sensei" style={{ padding: "48px 0 0", scrollMarginTop: 24 }}>
       <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px" }}>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -200,6 +201,7 @@ export default function FeaturedCierreSensei() {
               >
                 Inquire about Subscription
               </a>
+              <ShareLink id="cierre-sensei" style={{ marginLeft: "auto", alignSelf: "center" }} />
             </div>
           </div>
         </motion.div>

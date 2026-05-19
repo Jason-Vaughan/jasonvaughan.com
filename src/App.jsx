@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import BuilderStats from "./components/BuilderStats";
 import FeaturedProject from "./components/FeaturedProject";
@@ -13,8 +13,38 @@ import TipJar from "./components/TipJar";
 import ContactSection from "./components/ContactSection";
 
 export default function App() {
+  // Deep-link handler — when someone opens jasonvaughan.com/#<card-id>, scroll
+  // to that card and apply a brief accent-color glow so the eye lands on it.
+  // Pairs with the ShareLink component on each card that copies these URLs.
+  useEffect(() => {
+    const applyHighlight = () => {
+      const hash = window.location.hash.slice(1);
+      if (!hash) return;
+      const el = document.getElementById(hash);
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      el.classList.add("card-highlight-pulse");
+      window.setTimeout(() => el.classList.remove("card-highlight-pulse"), 2400);
+    };
+
+    // Slight delay so framer-motion / data-fetch settles before we scroll.
+    const initialTimeout = window.setTimeout(applyHighlight, 350);
+    window.addEventListener("hashchange", applyHighlight);
+    return () => {
+      window.clearTimeout(initialTimeout);
+      window.removeEventListener("hashchange", applyHighlight);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen text-gray-900" style={{ background: "#09090b" }}>
+      <style>{`
+        @keyframes card-highlight {
+          0%, 100% { box-shadow: 0 8px 24px rgba(0,0,0,.35); }
+          50% { box-shadow: 0 8px 24px rgba(0,0,0,.35), 0 0 0 4px rgba(245,158,11,0.55); }
+        }
+        .card-highlight-pulse { animation: card-highlight 1.2s ease-in-out 2; }
+      `}</style>
       <header className="py-16 px-6 text-center" style={{ background: "linear-gradient(180deg, #1a1a2e 0%, #09090b 100%)" }}>
         <motion.div
           initial={{ opacity: 0, y: 8 }}

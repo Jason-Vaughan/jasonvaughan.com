@@ -1,0 +1,84 @@
+import React, { useState } from "react";
+
+/**
+ * Small "Copy link" button that puts a deep link to the parent card on the
+ * clipboard. Pair with an `id` on the card's root element and the deep-link
+ * scroll-and-pulse handler in App.jsx — clicking the resulting link drops
+ * the visitor straight onto that card with a brief accent-color glow.
+ */
+export default function ShareLink({ id, style }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const url = `${window.location.origin}/#${id}`;
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(url).then(
+        () => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1800);
+        },
+        () => {
+          // Fallback path — clipboard API rejected (e.g., insecure context).
+          // Surface the link in the URL bar so the user can copy manually.
+          window.history.replaceState(null, "", `#${id}`);
+        },
+      );
+    } else {
+      window.history.replaceState(null, "", `#${id}`);
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleClick}
+      title={copied ? "Link copied!" : "Copy direct link to this card"}
+      aria-label={copied ? "Link copied" : "Copy direct link to this card"}
+      style={{
+        background: "transparent",
+        border: "1px solid rgba(255,255,255,0.1)",
+        borderRadius: 6,
+        color: copied ? "#10b981" : "#71717a",
+        cursor: "pointer",
+        padding: "4px 9px",
+        fontSize: 11,
+        fontWeight: 600,
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 5,
+        fontFamily: "inherit",
+        transition: "color 0.15s, border-color 0.15s",
+        ...style,
+      }}
+      onMouseEnter={(e) => {
+        if (copied) return;
+        e.currentTarget.style.color = "#a1a1aa";
+        e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)";
+      }}
+      onMouseLeave={(e) => {
+        if (copied) return;
+        e.currentTarget.style.color = "#71717a";
+        e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
+      }}
+    >
+      {copied ? (
+        <>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          Copied
+        </>
+      ) : (
+        <>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+          </svg>
+          Copy link
+        </>
+      )}
+    </button>
+  );
+}

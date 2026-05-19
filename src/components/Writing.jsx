@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import ShareLink from "./ShareLink";
 
 /**
  * Writing & Research section — long-form papers and policy proposals
@@ -63,6 +64,7 @@ export default function Writing() {
           {papers.map((p, idx) => (
             <motion.a
               key={p.slug}
+              id={p.slug}
               href={p.href}
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -73,6 +75,7 @@ export default function Writing() {
                 display: "block",
                 textDecoration: "none",
                 color: "inherit",
+                scrollMarginTop: 24,
                 transition: "transform 0.15s, border-color 0.15s",
               }}
               onMouseEnter={(e) => {
@@ -122,9 +125,12 @@ export default function Writing() {
 
               <div style={{ marginTop: 18, display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
                 <span style={{ fontSize: 12, color: "#71717a" }}>Last revised: {p.date}</span>
-                <span style={{ fontSize: 13, fontWeight: 600, color: accent }}>
-                  Read the full paper →
-                </span>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <ShareLink id={p.slug} />
+                  <span style={{ fontSize: 13, fontWeight: 600, color: accent }}>
+                    Read the full paper →
+                  </span>
+                </div>
               </div>
             </motion.a>
           ))}
