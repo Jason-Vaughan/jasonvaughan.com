@@ -4,6 +4,10 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **Writing & Research section** between Current Research and GPTs — long-form research artifacts surface publicly under `#writing`. Card-per-paper pattern designed to scale as more papers (e.g., upcoming Genesis docs) are added. First entry: **The Recall Ledger** white paper (v2, working draft, May 17 2026) with status badge, tagline, excerpt from executive summary, domain tags (Food safety, FSMA 204, Coordination networks, etc.), and CTA linking to the full-text page.
+- **Full-text paper page at `/writing/recall-ledger/`** — static HTML with serif typography for body, sans-serif for headings/topbar/meta. Renders the paper markdown client-side via marked.js (CDN, SRI-pinned) reading from `paper.md` in the same directory. Topbar links back to the portfolio and to `#research` / `#contact`. Hero block surfaces the working-draft status, version, last-revised date, and author. Same dark-mode visual treatment as `/notse`. No password / no gate — the paper is meant to be cited, shared, and indexed.
+
 ### Changed
 - **Monad-1 card: replace "Uptime" tile + header text with "Tracked"** — kernel uptime resets to 0 on a real poweroff (planned maintenance, hardware swap), which read as a regression to casual viewers and overlapped semantically with the adjacent "Planned availability" tile. Swapped both the tile and the header text to render tracking-window length from `uptime.trackedSince` (e.g., `4 days tracked`), answering "how long have we been watching this box" without overlapping the availability claim. Falls back to `{N} hours tracked` during the first 24h after a fresh publisher install so day-0 doesn't render as `0 days`. The publisher's `uptime.daysOnline` and `uptime.lastReboot` fields are retained in the JSON for any future use.
 
