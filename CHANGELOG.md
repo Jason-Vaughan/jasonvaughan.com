@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- **Monad-1 card: render the multi-model list from the new `currentModels` contract** — the publisher now ships both `currentModel` (singular, backward-compat) and `currentModels` (array, with per-entry `role` field: chat / code / etc.). The card no longer under-represents the rig — it lists every model the box is hosting simultaneously, each with a small role pill (chat, code) followed by name · precision · size. Header switches to "Currently serving (multi-model)" when more than one model is loaded. Gracefully degrades to single-line rendering when only `currentModel` is present.
+
 ### Added
 - **Rich link previews for shared cards (Open Graph + auto-generated thumbnails)** — sharing a portfolio card via iMessage / Slack / Discord / Twitter / etc. now produces a rich preview with title, description, and a 1200×630 screenshot of that specific card. Each card in the new `src/data/share-cards.js` registry generates a `public/share/<id>/index.html` stub with proper OG meta tags + a JS redirect to `/#<id>` (humans land on the card with the existing pulse animation; crawlers grab the meta tags before redirect). A Playwright-based screenshot generator boots the production-built site, captures each card by its anchor id, and produces consistently-framed 1200×630 PNGs. Both generators run as part of the GitHub Pages deploy workflow, so adding / removing / renaming cards in the registry keeps the previews in parity automatically — no commit churn for generated images. The `ShareLink` button on each card now copies `/share/<id>/` URLs instead of `/#<id>` so recipients get the rich preview.
 
