@@ -134,13 +134,13 @@ export default function Infrastructure() {
   ];
   const modelsHistory = monadStats?.modelsHistory || [];
 
-  // Compute human-readable uptime from daysOnline + lastReboot.
-  // Publisher emits both; we render a short string here instead of asking
-  // the publisher to format it (locale + presentation are portfolio concerns).
-  const daysOnline = monadStats?.uptime?.daysOnline;
-  const uptimeText = typeof daysOnline === "number"
-    ? (daysOnline === 1 ? "1 day" : `${daysOnline} days`)
-    : null;
+  // Tracking-window length — deliberately NOT kernel uptime. A real
+  // poweroff (planned maintenance, hardware swap) resets uptime.daysOnline
+  // to 0 and made the tile look like a regression to casual viewers. The
+  // "Planned availability" tile already carries the operational truth;
+  // "tracked" answers the simpler question "how long have we been watching
+  // this box?" without overlapping with that claim. uptime.daysOnline and
+  // uptime.lastReboot remain in the JSON for future use.
 
   // Planned-outage tracking — additive contract fields from the publisher.
   // All three are co-dependent: if any are missing the tile + footer hide
@@ -148,6 +148,21 @@ export default function Infrastructure() {
   const trackedSince = monadStats?.uptime?.trackedSince;
   const plannedOutages = monadStats?.uptime?.plannedOutages;
   const plannedDowntimeSeconds = monadStats?.uptime?.plannedDowntimeSeconds;
+
+  // Tracking-window length, formatted for the tile + header. Falls back to
+  // hours during the first 24h after a fresh publisher install so day-0
+  // doesn't render as "0 days".
+  let trackedText = null;
+  if (trackedSince) {
+    const trackedMs = Date.now() - new Date(trackedSince).getTime();
+    const trackedDays = Math.floor(trackedMs / 86400000);
+    if (trackedDays >= 1) {
+      trackedText = trackedDays === 1 ? "1 day" : `${trackedDays} days`;
+    } else {
+      const trackedHours = Math.max(0, Math.floor(trackedMs / 3600000));
+      trackedText = trackedHours === 1 ? "1 hour" : `${trackedHours} hours`;
+    }
+  }
 
   let availabilityText = null;
   let availabilityTitle = null;
@@ -232,7 +247,7 @@ export default function Infrastructure() {
               </h3>
               <span style={{ fontSize: 13, color: accentLight, fontWeight: 600 }}>
                 <span style={liveDot} />Active
-                {uptimeText && <span style={{ color: "#71717a", fontWeight: 400 }}> · {uptimeText} uptime</span>}
+                {trackedText && <span style={{ color: "#71717a", fontWeight: 400 }}> · {trackedText} tracked</span>}
               </span>
             </div>
             <p style={{ marginTop: 8, marginBottom: 0, fontSize: 14, color: "#a1a1aa", lineHeight: 1.6 }}>
@@ -250,10 +265,10 @@ export default function Infrastructure() {
                   <div style={statLabel}>Inference requests served</div>
                 </div>
               )}
-              {uptimeText && (
+              {trackedText && (
                 <div style={statCell()}>
-                  <div style={{ ...statValue(), fontSize: 15 }}>{uptimeText}</div>
-                  <div style={statLabel}>Uptime</div>
+                  <div style={{ ...statValue(), fontSize: 15 }}>{trackedText}</div>
+                  <div style={statLabel}>Tracked</div>
                 </div>
               )}
               {availabilityText && (

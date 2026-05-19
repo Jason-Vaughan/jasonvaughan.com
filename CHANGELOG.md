@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- **Monad-1 card: replace "Uptime" tile + header text with "Tracked"** — kernel uptime resets to 0 on a real poweroff (planned maintenance, hardware swap), which read as a regression to casual viewers and overlapped semantically with the adjacent "Planned availability" tile. Swapped both the tile and the header text to render tracking-window length from `uptime.trackedSince` (e.g., `4 days tracked`), answering "how long have we been watching this box" without overlapping the availability claim. Falls back to `{N} hours tracked` during the first 24h after a fresh publisher install so day-0 doesn't render as `0 days`. The publisher's `uptime.daysOnline` and `uptime.lastReboot` fields are retained in the JSON for any future use.
+
 ### Added
 - **Planned-availability tile + last-outage footer on Monad-1 card** — renders the additive `uptime.{trackedSince, plannedOutages, plannedDowntimeSeconds}` fields shipped by the publisher in `Monad-1` PR #15. New `Planned availability` tile in the live-stats grid (e.g., `99.5%`) with a hover tooltip showing the tracking window + count of outages logged. New subtle footer line above "Private repo — internal infrastructure" reading e.g. `Last planned outage: 27 min on May 18 (relocation)` — appends `(N logged)` when more than one outage exists. Both gracefully hide when the additive fields are absent (treats a publisher predating the May-19 contract identically to the missing-file path).
 
