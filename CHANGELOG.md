@@ -5,6 +5,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 ## [Unreleased]
 
 ### Added
+- **Rich link previews for shared cards (Open Graph + auto-generated thumbnails)** — sharing a portfolio card via iMessage / Slack / Discord / Twitter / etc. now produces a rich preview with title, description, and a 1200×630 screenshot of that specific card. Each card in the new `src/data/share-cards.js` registry generates a `public/share/<id>/index.html` stub with proper OG meta tags + a JS redirect to `/#<id>` (humans land on the card with the existing pulse animation; crawlers grab the meta tags before redirect). A Playwright-based screenshot generator boots the production-built site, captures each card by its anchor id, and produces consistently-framed 1200×630 PNGs. Both generators run as part of the GitHub Pages deploy workflow, so adding / removing / renaming cards in the registry keeps the previews in parity automatically — no commit churn for generated images. The `ShareLink` button on each card now copies `/share/<id>/` URLs instead of `/#<id>` so recipients get the rich preview.
+
+### Added
 - **Card-level deep links + "Copy link" buttons** — every major card now has a stable anchor (`#tilt`, `#tangleclaw`, `#cierre-sensei`, `#monad-1`, `#confidential-research`, `#recall-ledger`) and a small "Copy link" button that puts the deep URL on the clipboard. Visiting `jasonvaughan.com/#monad-1` (or any other anchor) scrolls the visitor straight to that card and pulses an amber accent ring around it for ~2.4s so the eye lands in the right place. New reusable `<ShareLink id="..." />` component drops in alongside any future card. Cleaner alternative to sharing screenshots in DMs / texts.
 
 ### Added
