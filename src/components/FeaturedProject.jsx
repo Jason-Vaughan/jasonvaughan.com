@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import tiltLogo from "../assets/tilt_logo.png";
 import { autoLanguageTags } from "../utils/languageTags";
+import ShareLink from "./ShareLink";
 
 const STATS_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/tilt-stats.json";
 
@@ -108,7 +109,7 @@ export default function FeaturedProject() {
   });
 
   return (
-    <section id="tilt" style={{ padding: "48px 0 0" }}>
+    <section id="tilt" style={{ padding: "48px 0 0", scrollMarginTop: 24 }}>
       <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px" }}>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -197,6 +198,7 @@ export default function FeaturedProject() {
               <a href="https://github.com/Jason-Vaughan/TiLT-showcase" target="_blank" rel="noreferrer" style={btnOutline("rgba(255,255,255,0.1)")}>
                 GitHub
               </a>
+              <ShareLink id="tilt" style={{ marginLeft: "auto", alignSelf: "center" }} />
             </div>
           </div>
         </motion.div>

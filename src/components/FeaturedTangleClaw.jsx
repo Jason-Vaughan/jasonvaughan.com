@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import ScreenshotModal from "./ScreenshotModal";
+import ShareLink from "./ShareLink";
 import tangleclawLogo from "../assets/projects/tangleclaw.png";
 import { autoLanguageTags } from "../utils/languageTags";
 
@@ -127,7 +128,7 @@ export default function FeaturedTangleClaw() {
   });
 
   return (
-    <section id="tangleclaw" style={{ padding: "48px 0 0" }}>
+    <section id="tangleclaw" style={{ padding: "48px 0 0", scrollMarginTop: 24 }}>
       <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px" }}>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -217,6 +218,7 @@ export default function FeaturedTangleClaw() {
               >
                 Screenshots
               </button>
+              <ShareLink id="tangleclaw" style={{ marginLeft: "auto", alignSelf: "center" }} />
             </div>
           </div>
         </motion.div>
