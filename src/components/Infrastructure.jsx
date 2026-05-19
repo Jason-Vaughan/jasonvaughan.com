@@ -121,9 +121,14 @@ export default function Infrastructure() {
   const costSavedLifetime = monadStats?.costSaved?.estimated;
   const sustainedTokPerS = monadStats?.throughput?.tokensPerSec;
   const requestsLifetime = monadStats?.requests?.lifetime;
-  const currentModel = monadStats?.currentModel?.name;
-  const currentModelSize = monadStats?.currentModel?.size;
-  const currentModelPrecision = monadStats?.currentModel?.precision;
+  // currentModels (plural) is the new contract — array of all models the rig
+  // is hosting simultaneously, with per-entry role ("chat" / "code" / etc.).
+  // The singular currentModel field is still emitted for backward compat
+  // (publisher sends the chat model as currentModel) — we read currentModels
+  // when present and fall back to wrapping currentModel in an array otherwise.
+  const currentModels = Array.isArray(monadStats?.currentModels)
+    ? monadStats.currentModels
+    : (monadStats?.currentModel ? [monadStats.currentModel] : []);
   const gpuTempC = monadStats?.gpu?.temp;
   const gpuUtilization = monadStats?.gpu?.utilization;
   const gpuPowerDraw = monadStats?.gpu?.powerDraw;
@@ -348,8 +353,10 @@ export default function Infrastructure() {
               </div>
             )}
 
-            {/* Currently serving */}
-            {currentModel && (
+            {/* Currently serving — supports multi-model hosting via the
+                currentModels array. Role pill (chat / code / etc.) helps the
+                viewer instantly grok why two models exist on the same rig. */}
+            {currentModels.length > 0 && (
               <div style={{
                 marginTop: 18,
                 padding: "12px 14px",
@@ -359,20 +366,37 @@ export default function Infrastructure() {
                 fontSize: 13,
                 color: "#d4d4d8",
               }}>
-                <span style={{ fontSize: 10, fontWeight: 700, color: accent, textTransform: "uppercase", letterSpacing: 1, marginRight: 8 }}>
-                  Currently serving
-                </span>
-                <span style={{ fontWeight: 700, color: "#fafafa" }}>{currentModel}</span>
-                {currentModelPrecision && (
-                  <span style={{ color: "#71717a", marginLeft: 8 }}>
-                    · {currentModelPrecision}
-                  </span>
-                )}
-                {currentModelSize && (
-                  <span style={{ color: "#71717a", marginLeft: 8 }}>
-                    · {currentModelSize}
-                  </span>
-                )}
+                <div style={{ fontSize: 10, fontWeight: 700, color: accent, textTransform: "uppercase", letterSpacing: 1, marginBottom: currentModels.length > 1 ? 8 : 0 }}>
+                  {currentModels.length > 1 ? "Currently serving (multi-model)" : "Currently serving"}
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  {currentModels.map((m, idx) => (
+                    <div key={m.name + idx} style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
+                      {m.role && (
+                        <span style={{
+                          fontSize: 9,
+                          fontWeight: 700,
+                          color: accentLight,
+                          textTransform: "uppercase",
+                          letterSpacing: 1,
+                          padding: "2px 7px",
+                          borderRadius: 9999,
+                          background: "rgba(16,185,129,0.12)",
+                          border: "1px solid rgba(16,185,129,0.3)",
+                        }}>
+                          {m.role}
+                        </span>
+                      )}
+                      <span style={{ fontWeight: 700, color: "#fafafa" }}>{m.name}</span>
+                      {m.precision && (
+                        <span style={{ color: "#71717a" }}>· {m.precision}</span>
+                      )}
+                      {m.size && (
+                        <span style={{ color: "#71717a" }}>· {m.size}</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
 
