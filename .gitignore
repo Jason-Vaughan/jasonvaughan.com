@@ -10,3 +10,8 @@ pnpm-debug.log*
 # Local-only stash dirs (private usage exports, scratch uploads, etc.)
 .uploads/
 cursor_usage/
+
+# Auto-generated share-page stubs + OG preview screenshots — regenerated on
+# every deploy by .github/workflows/deploy.yml from src/data/share-cards.js.
+public/share/
+public/share-images/

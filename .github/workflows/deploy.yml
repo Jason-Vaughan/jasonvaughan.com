@@ -26,7 +26,45 @@ jobs:
           cache: npm
 
       - run: npm ci
+
+      # Generate /share/<id>/index.html stubs BEFORE the build so they get
+      # copied from public/ into dist/ by the Vite build step.
+      - name: Generate share pages (OG-tagged redirect stubs)
+        run: npm run generate:share-pages
+
       - run: npm run build
+
+      # Boot a preview server against the built dist/ so the OG screenshots
+      # capture the exact HTML/CSS that will be deployed. `vite preview` runs
+      # on 4173 by default.
+      - name: Start preview server
+        run: |
+          npm run preview -- --port 4173 --host 127.0.0.1 &
+          echo "PREVIEW_PID=$!" >> "$GITHUB_ENV"
+
+      - name: Wait for preview server
+        run: npx wait-on http://127.0.0.1:4173 -t 30000
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Generate OG preview images
+        env:
+          OG_BASE_URL: http://127.0.0.1:4173
+        run: npm run generate:og-images
+
+      - name: Stop preview server
+        if: always()
+        run: kill "$PREVIEW_PID" || true
+
+      # The generators write into public/share/ and public/share-images/, which
+      # Vite already copied to dist/ during the build step. Re-copy here so the
+      # post-build screenshots land in the artifact that gets uploaded.
+      - name: Sync generated artifacts into dist/
+        run: |
+          mkdir -p dist/share dist/share-images
+          cp -R public/share/. dist/share/
+          cp -R public/share-images/. dist/share-images/
 
       - uses: actions/upload-pages-artifact@v3
         with:
