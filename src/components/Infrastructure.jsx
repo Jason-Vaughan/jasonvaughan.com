@@ -142,6 +142,48 @@ export default function Infrastructure() {
     ? (daysOnline === 1 ? "1 day" : `${daysOnline} days`)
     : null;
 
+  // Planned-outage tracking — additive contract fields from the publisher.
+  // All three are co-dependent: if any are missing the tile + footer hide
+  // gracefully (same behavior as if the JSON predates the May-19 contract).
+  const trackedSince = monadStats?.uptime?.trackedSince;
+  const plannedOutages = monadStats?.uptime?.plannedOutages;
+  const plannedDowntimeSeconds = monadStats?.uptime?.plannedDowntimeSeconds;
+
+  let availabilityText = null;
+  let availabilityTitle = null;
+  if (
+    trackedSince &&
+    typeof plannedDowntimeSeconds === "number" &&
+    Array.isArray(plannedOutages)
+  ) {
+    const trackedMs = Date.now() - new Date(trackedSince).getTime();
+    const trackedSec = Math.max(1, trackedMs / 1000);
+    const ratio = Math.max(0, (trackedSec - plannedDowntimeSeconds) / trackedSec);
+    availabilityText = `${(ratio * 100).toFixed(1)}%`;
+    const sinceLabel = new Date(trackedSince).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+    const n = plannedOutages.length;
+    availabilityTitle = `Since ${sinceLabel} · ${n} planned outage${n === 1 ? "" : "s"} logged`;
+  }
+
+  let lastOutageText = null;
+  if (Array.isArray(plannedOutages) && plannedOutages.length > 0) {
+    const last = plannedOutages[plannedOutages.length - 1];
+    const durMin = Math.round(last.durationSeconds / 60);
+    let durStr;
+    if (durMin >= 60) {
+      const h = Math.floor(durMin / 60);
+      const m = durMin % 60;
+      durStr = m > 0 ? `${h}h ${m}m` : `${h}h`;
+    } else {
+      durStr = `${durMin} min`;
+    }
+    const dateLabel = new Date(last.start).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+    const countSuffix = plannedOutages.length > 1
+      ? ` (${plannedOutages.length} logged)`
+      : "";
+    lastOutageText = `Last planned outage: ${durStr} on ${dateLabel} (${last.reason})${countSuffix}`;
+  }
+
   // Relative timestamp for "Stats updated" footer — "just now" / "X min ago" /
   // "X hr ago" / fall back to absolute date for anything > 24h old. Reads
   // fresher than a raw locale string, and a stale value becomes immediately
@@ -212,6 +254,12 @@ export default function Infrastructure() {
                 <div style={statCell()}>
                   <div style={{ ...statValue(), fontSize: 15 }}>{uptimeText}</div>
                   <div style={statLabel}>Uptime</div>
+                </div>
+              )}
+              {availabilityText && (
+                <div style={statCell()} title={availabilityTitle}>
+                  <div style={statValue()}>{availabilityText}</div>
+                  <div style={statLabel}>Planned availability</div>
                 </div>
               )}
               {gpuTempC != null && (
@@ -360,6 +408,9 @@ export default function Infrastructure() {
 
             {/* Footer note */}
             <div style={{ marginTop: 18, fontSize: 12, color: "#52525b" }}>
+              {lastOutageText && (
+                <div style={{ marginBottom: 6 }}>{lastOutageText}</div>
+              )}
               Private repo — internal infrastructure. {updatedRelative && (
                 <span title={new Date(monadStats.updatedAt).toLocaleString()}>
                   Stats updated {updatedRelative}.

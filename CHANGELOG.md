@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **Planned-availability tile + last-outage footer on Monad-1 card** — renders the additive `uptime.{trackedSince, plannedOutages, plannedDowntimeSeconds}` fields shipped by the publisher in `Monad-1` PR #15. New `Planned availability` tile in the live-stats grid (e.g., `99.5%`) with a hover tooltip showing the tracking window + count of outages logged. New subtle footer line above "Private repo — internal infrastructure" reading e.g. `Last planned outage: 27 min on May 18 (relocation)` — appends `(N logged)` when more than one outage exists. Both gracefully hide when the additive fields are absent (treats a publisher predating the May-19 contract identically to the missing-file path).
+
 ### Changed
 - **Hide the "Est. cloud cost avoided" tile when it rounds to $0** — early-life LiteLLM with a few hundred tokens served renders `$0`, which reads weaker than not showing the tile at all. Tile reappears automatically once the value clears $1.
 
