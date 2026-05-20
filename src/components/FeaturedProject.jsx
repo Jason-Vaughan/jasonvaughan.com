@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import tiltLogo from "../assets/tilt_logo.png";
 import tiltclawLogo from "../assets/projects/tiltclaw_logo.png";
+import tiltclawBanner from "../assets/projects/tiltclaw_banner.png";
 import { autoLanguageTags } from "../utils/languageTags";
 import ShareLink from "./ShareLink";
 
@@ -31,6 +32,7 @@ function formatSince(iso) {
  */
 export default function FeaturedProject() {
   const [liveStats, setLiveStats] = useState(null);
+  const [tiltclawExpanded, setTiltclawExpanded] = useState(false);
 
   useEffect(() => {
     fetch(STATS_URL)
@@ -168,43 +170,128 @@ export default function FeaturedProject() {
               eligibility, and complete audit trails — automatically.
             </p>
 
-            {/* TiLTClaw mention — kept deliberately compact so it reads as a
-                TiLT operational detail, not a competing product. Gold left-
-                accent matches TiLT's branding (was previously purple, which
-                stole too much visual weight). Single row, small logo, one-
-                line description. Anchor id retained for deep-link / share-
-                card OG preview. */}
+            {/* TiLTClaw mention — compact teaser by default, click to expand
+                into a full brag panel (banner, what-it-does bullets, why-it-
+                matters framing). Gold left-accent matches TiLT's branding;
+                the expand affordance is a small rotating chevron so the
+                whole thing still reads as a TiLT operational detail at rest. */}
             <div
               id="tiltclaw"
               style={{
                 marginTop: 18,
                 paddingLeft: 14,
                 borderLeft: "2px solid rgba(212,175,55,0.4)",
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
                 scrollMarginTop: 24,
               }}
             >
-              <img
-                src={tiltclawLogo}
-                alt=""
+              <button
+                type="button"
+                onClick={() => setTiltclawExpanded((v) => !v)}
+                aria-expanded={tiltclawExpanded}
+                aria-controls="tiltclaw-details"
                 style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: 8,
-                  objectFit: "cover",
-                  flexShrink: 0,
-                  background: "#fff",
+                  background: "transparent",
+                  border: "none",
+                  padding: 0,
+                  margin: 0,
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                  cursor: "pointer",
+                  textAlign: "left",
+                  fontFamily: "inherit",
+                  color: "inherit",
                 }}
-              />
-              <div style={{ fontSize: 13, color: "#a1a1aa", lineHeight: 1.5 }}>
-                <span style={{ fontSize: 9, fontWeight: 700, color: "#D4AF37", textTransform: "uppercase", letterSpacing: 2, marginRight: 8 }}>
-                  Built-in support
-                </span>
-                <strong style={{ color: "#fafafa", fontWeight: 700 }}>TiLTClaw</strong>
-                {" — OpenClaw AI agent triaging every support ticket via Discord. In production."}
-              </div>
+              >
+                <img
+                  src={tiltclawLogo}
+                  alt=""
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: 8,
+                    objectFit: "cover",
+                    flexShrink: 0,
+                    background: "#fff",
+                  }}
+                />
+                <div style={{ fontSize: 13, color: "#a1a1aa", lineHeight: 1.5, flex: 1 }}>
+                  <span style={{ fontSize: 9, fontWeight: 700, color: "#D4AF37", textTransform: "uppercase", letterSpacing: 2, marginRight: 8 }}>
+                    Built-in support
+                  </span>
+                  <strong style={{ color: "#fafafa", fontWeight: 700 }}>TiLTClaw</strong>
+                  {" — OpenClaw AI agent triaging every support ticket via Discord. In production."}
+                </div>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#71717a"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                  style={{
+                    flexShrink: 0,
+                    transform: tiltclawExpanded ? "rotate(90deg)" : "rotate(0deg)",
+                    transition: "transform 0.2s ease",
+                  }}
+                >
+                  <polyline points="9 6 15 12 9 18" />
+                </svg>
+              </button>
+
+              <AnimatePresence initial={false}>
+                {tiltclawExpanded && (
+                  <motion.div
+                    key="tiltclaw-details"
+                    id="tiltclaw-details"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    style={{ overflow: "hidden" }}
+                  >
+                    <div style={{ paddingTop: 14, paddingBottom: 4 }}>
+                      <img
+                        src={tiltclawBanner}
+                        alt="TiLTClaw banner — orange fist with multi-colored claws over a purple galaxy"
+                        style={{
+                          width: "100%",
+                          maxWidth: 480,
+                          height: 100,
+                          objectFit: "cover",
+                          objectPosition: "center",
+                          borderRadius: 8,
+                          display: "block",
+                          marginBottom: 14,
+                        }}
+                      />
+
+                      <div style={{ fontSize: 11, fontWeight: 700, color: "#D4AF37", textTransform: "uppercase", letterSpacing: 1.5, marginBottom: 8 }}>
+                        What it does
+                      </div>
+                      <ul style={{ margin: 0, paddingLeft: 20, color: "#a1a1aa", fontSize: 13, lineHeight: 1.7 }}>
+                        <li>Monitors every inbound TiLT support ticket 24/7</li>
+                        <li>Summarizes activity and routes to the right place</li>
+                        <li>Escalates urgent payroll issues to admins in minutes</li>
+                        <li>Accessed via a private Discord app by the TiLT ops team</li>
+                      </ul>
+
+                      <div style={{ fontSize: 11, fontWeight: 700, color: "#D4AF37", textTransform: "uppercase", letterSpacing: 1.5, marginTop: 16, marginBottom: 8 }}>
+                        Why it matters
+                      </div>
+                      <p style={{ margin: 0, fontSize: 13, color: "#a1a1aa", lineHeight: 1.6, maxWidth: 580 }}>
+                        Production deployment of the OpenClaw multi-agent framework — not a
+                        demo or a side experiment. Real-world proof that AI agents can carry
+                        operational load that used to need a full-time human on the ticket queue.
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* Stats grid */}
