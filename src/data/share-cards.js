@@ -29,6 +29,12 @@ export const SHARE_CARDS = [
       "IATSE pay tracking for the live events industry. Live product, subscription-based, built by Jason Vaughan.",
   },
   {
+    id: "tiltclaw",
+    title: "TiLTClaw — OpenClaw AI Support Agent (In Production)",
+    description:
+      "Live OpenClaw automation agent running TiLT's support triage. Monitors tickets 24/7, escalates urgent payroll issues, accessed via Discord. Real-world deployment of the OpenClaw multi-agent framework.",
+  },
+  {
     id: "tangleclaw",
     title: "TangleClaw — Multi-Project AI Operations Layer",
     description:

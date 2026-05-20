@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **TiLTClaw sub-card inside the TiLT card** — surfaces TiLTClaw, the OpenClaw automation agent running TiLT's support triage workflow (24/7 ticket monitoring, urgent payroll escalation to admins, Discord-accessed by the ops team). Nested visual treatment with a purple accent (vs TiLT's gold) to clearly differentiate while signaling subordination. Banner artwork at the top, eyebrow `OPENCLAW AGENT · IN PRODUCTION`, role pills (`Discord App`, `Internal · Private`), and a short blurb framing it as proof that the OpenClaw framework carries real operational load — not a demo. Sub-card has its own anchor (`#tiltclaw`) and a registered share card (`/share/tiltclaw/`) so it can be linked or shared independently of the TiLT card.
+
 ### Changed
 - **Recall Ledger paper now fetches from `project-assets` (self-publish convention extended from stats to content)** — the `/writing/recall-ledger/` page now tries `raw.githubusercontent.com/Jason-Vaughan/project-assets/main/content/papers/recall-ledger.md` first and falls back to the local `paper.md` if the project-assets file is missing or unreachable. Establishes a new general convention for self-published content (mirrors the `monad-1` stats pattern): `project-assets/content/<type>/<slug>` is the universal lane for any project-side session that wants to publish to its piece of the portfolio without round-tripping through the portfolio session. WhitePapers session will own the public v2 of the paper and republish whenever it materially changes; portfolio reflects updates immediately, no portfolio rebuild required.
 

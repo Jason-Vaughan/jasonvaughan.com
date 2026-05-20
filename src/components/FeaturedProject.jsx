@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import tiltLogo from "../assets/tilt_logo.png";
+import tiltclawBanner from "../assets/projects/tiltclaw_banner.png";
 import { autoLanguageTags } from "../utils/languageTags";
 import ShareLink from "./ShareLink";
 
@@ -166,6 +167,99 @@ export default function FeaturedProject() {
               configurable CBA rules engine that handles overtime, meal penalties, benefits
               eligibility, and complete audit trails — automatically.
             </p>
+
+            {/* TiLTClaw sub-card — OpenClaw agent running TiLT support triage.
+                Nested inside the TiLT card to position it as TiLT's operational
+                depth ("our support runs on an AI agent") AND as a real
+                production deployment of OpenClaw (the vanity angle). Distinct
+                purple accent to differentiate from TiLT's gold. */}
+            <div
+              id="tiltclaw"
+              style={{
+                marginTop: 24,
+                borderRadius: 12,
+                border: "1px solid #2e1b4e",
+                background: "linear-gradient(180deg, #1a0f2e 0%, #0e0a1f 100%)",
+                overflow: "hidden",
+                scrollMarginTop: 24,
+              }}
+            >
+              <img
+                src={tiltclawBanner}
+                alt="TiLTClaw banner — orange fist with multi-colored claws over a purple galaxy"
+                style={{
+                  width: "100%",
+                  height: 130,
+                  objectFit: "cover",
+                  objectPosition: "center",
+                  display: "block",
+                }}
+              />
+              <div style={{ padding: "16px 20px 18px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                  <span style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    color: "#a78bfa",
+                    textTransform: "uppercase",
+                    letterSpacing: 2,
+                  }}>
+                    OpenClaw Agent · In Production
+                  </span>
+                  <span style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    padding: "3px 9px",
+                    borderRadius: 9999,
+                    background: "rgba(139,92,246,0.15)",
+                    border: "1px solid rgba(139,92,246,0.4)",
+                    color: "#c4b5fd",
+                    textTransform: "uppercase",
+                    letterSpacing: 1,
+                  }}>
+                    Discord App
+                  </span>
+                  <span style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    padding: "3px 9px",
+                    borderRadius: 9999,
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    color: "#a1a1aa",
+                    textTransform: "uppercase",
+                    letterSpacing: 1,
+                  }}>
+                    Internal · Private
+                  </span>
+                </div>
+
+                <h4 style={{
+                  margin: "10px 0 0",
+                  fontSize: 18,
+                  fontWeight: 700,
+                  color: "#fafafa",
+                  letterSpacing: -0.2,
+                }}>
+                  TiLTClaw — AI Support Triage
+                </h4>
+
+                <p style={{
+                  margin: "8px 0 0",
+                  fontSize: 13.5,
+                  color: "#c4b5fd",
+                  lineHeight: 1.55,
+                  maxWidth: 620,
+                }}>
+                  A live OpenClaw automation agent built into TiLT's support workflow.
+                  Monitors every inbound ticket 24/7, summarizes activity, and escalates
+                  urgent payroll issues to admins in minutes. Production deployment of
+                  the OpenClaw multi-agent framework — accessed through Discord by the
+                  TiLT operations team. Real-world proof that AI agents can carry
+                  operational load that used to need a full-time human.
+                </p>
+              </div>
+            </div>
 
             {/* Stats grid */}
             <div style={{
