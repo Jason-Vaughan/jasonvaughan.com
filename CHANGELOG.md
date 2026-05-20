@@ -5,6 +5,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 ## [Unreleased]
 
 ### Changed
+- **Recall Ledger paper now fetches from `project-assets` (self-publish convention extended from stats to content)** — the `/writing/recall-ledger/` page now tries `raw.githubusercontent.com/Jason-Vaughan/project-assets/main/content/papers/recall-ledger.md` first and falls back to the local `paper.md` if the project-assets file is missing or unreachable. Establishes a new general convention for self-published content (mirrors the `monad-1` stats pattern): `project-assets/content/<type>/<slug>` is the universal lane for any project-side session that wants to publish to its piece of the portfolio without round-tripping through the portfolio session. WhitePapers session will own the public v2 of the paper and republish whenever it materially changes; portfolio reflects updates immediately, no portfolio rebuild required.
+
+### Changed
 - **Monad-1 card: render the multi-model list from the new `currentModels` contract** — the publisher now ships both `currentModel` (singular, backward-compat) and `currentModels` (array, with per-entry `role` field: chat / code / etc.). The card no longer under-represents the rig — it lists every model the box is hosting simultaneously, each with a small role pill (chat, code) followed by name · precision · size. Header switches to "Currently serving (multi-model)" when more than one model is loaded. Gracefully degrades to single-line rendering when only `currentModel` is present.
 
 ### Added
