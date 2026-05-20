@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import tiltLogo from "../assets/tilt_logo.png";
-import tiltclawBanner from "../assets/projects/tiltclaw_banner.png";
+import tiltclawLogo from "../assets/projects/tiltclaw_logo.png";
 import { autoLanguageTags } from "../utils/languageTags";
 import ShareLink from "./ShareLink";
 
@@ -168,96 +168,42 @@ export default function FeaturedProject() {
               eligibility, and complete audit trails — automatically.
             </p>
 
-            {/* TiLTClaw sub-card — OpenClaw agent running TiLT support triage.
-                Nested inside the TiLT card to position it as TiLT's operational
-                depth ("our support runs on an AI agent") AND as a real
-                production deployment of OpenClaw (the vanity angle). Distinct
-                purple accent to differentiate from TiLT's gold. */}
+            {/* TiLTClaw mention — kept deliberately compact so it reads as a
+                TiLT operational detail, not a competing product. Gold left-
+                accent matches TiLT's branding (was previously purple, which
+                stole too much visual weight). Single row, small logo, one-
+                line description. Anchor id retained for deep-link / share-
+                card OG preview. */}
             <div
               id="tiltclaw"
               style={{
-                marginTop: 24,
-                borderRadius: 12,
-                border: "1px solid #2e1b4e",
-                background: "linear-gradient(180deg, #1a0f2e 0%, #0e0a1f 100%)",
-                overflow: "hidden",
+                marginTop: 18,
+                paddingLeft: 14,
+                borderLeft: "2px solid rgba(212,175,55,0.4)",
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
                 scrollMarginTop: 24,
               }}
             >
               <img
-                src={tiltclawBanner}
-                alt="TiLTClaw banner — orange fist with multi-colored claws over a purple galaxy"
+                src={tiltclawLogo}
+                alt=""
                 style={{
-                  width: "100%",
-                  height: 130,
+                  width: 36,
+                  height: 36,
+                  borderRadius: 8,
                   objectFit: "cover",
-                  objectPosition: "center",
-                  display: "block",
+                  flexShrink: 0,
+                  background: "#fff",
                 }}
               />
-              <div style={{ padding: "16px 20px 18px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-                  <span style={{
-                    fontSize: 10,
-                    fontWeight: 700,
-                    color: "#a78bfa",
-                    textTransform: "uppercase",
-                    letterSpacing: 2,
-                  }}>
-                    OpenClaw Agent · In Production
-                  </span>
-                  <span style={{
-                    fontSize: 10,
-                    fontWeight: 700,
-                    padding: "3px 9px",
-                    borderRadius: 9999,
-                    background: "rgba(139,92,246,0.15)",
-                    border: "1px solid rgba(139,92,246,0.4)",
-                    color: "#c4b5fd",
-                    textTransform: "uppercase",
-                    letterSpacing: 1,
-                  }}>
-                    Discord App
-                  </span>
-                  <span style={{
-                    fontSize: 10,
-                    fontWeight: 700,
-                    padding: "3px 9px",
-                    borderRadius: 9999,
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    color: "#a1a1aa",
-                    textTransform: "uppercase",
-                    letterSpacing: 1,
-                  }}>
-                    Internal · Private
-                  </span>
-                </div>
-
-                <h4 style={{
-                  margin: "10px 0 0",
-                  fontSize: 18,
-                  fontWeight: 700,
-                  color: "#fafafa",
-                  letterSpacing: -0.2,
-                }}>
-                  TiLTClaw — AI Support Triage
-                </h4>
-
-                <p style={{
-                  margin: "8px 0 0",
-                  fontSize: 13.5,
-                  color: "#c4b5fd",
-                  lineHeight: 1.55,
-                  maxWidth: 620,
-                }}>
-                  A live OpenClaw automation agent built into TiLT's support workflow.
-                  Monitors every inbound ticket 24/7, summarizes activity, and escalates
-                  urgent payroll issues to admins in minutes. Production deployment of
-                  the OpenClaw multi-agent framework — accessed through Discord by the
-                  TiLT operations team. Real-world proof that AI agents can carry
-                  operational load that used to need a full-time human.
-                </p>
+              <div style={{ fontSize: 13, color: "#a1a1aa", lineHeight: 1.5 }}>
+                <span style={{ fontSize: 9, fontWeight: 700, color: "#D4AF37", textTransform: "uppercase", letterSpacing: 2, marginRight: 8 }}>
+                  Built-in support
+                </span>
+                <strong style={{ color: "#fafafa", fontWeight: 700 }}>TiLTClaw</strong>
+                {" — OpenClaw AI agent triaging every support ticket via Discord. In production."}
               </div>
             </div>
 
