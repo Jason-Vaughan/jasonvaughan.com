@@ -242,11 +242,24 @@
     <script>
       document.getElementById('year').textContent = new Date().getFullYear();
 
-      // Fetch + render the paper. Skip the YAML-ish frontmatter block (the
-      // "> **Status:** ... > **Last revised:** ..." lines) since we already
-      // surface that info in the hero metadata above the article.
-      fetch('./paper.md', { cache: 'no-store' })
-        .then(r => r.ok ? r.text() : Promise.reject(new Error('HTTP ' + r.status)))
+      // Paper content is self-published by the WhitePapers session to
+      // project-assets/content/papers/recall-ledger.md (same pattern Monad-1
+      // uses for monad-stats.json). Try that first; fall back to the local
+      // copy if the project-assets file is missing or unreachable, so the
+      // page never breaks during the bootstrap window.
+      const PRIMARY = 'https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/content/papers/recall-ledger.md';
+      const FALLBACK = './paper.md';
+
+      function loadPaper() {
+        return fetch(PRIMARY, { cache: 'no-store' })
+          .then(r => r.ok ? r.text() : Promise.reject(new Error('PRIMARY HTTP ' + r.status)))
+          .catch(() =>
+            fetch(FALLBACK, { cache: 'no-store' })
+              .then(r => r.ok ? r.text() : Promise.reject(new Error('FALLBACK HTTP ' + r.status)))
+          );
+      }
+
+      loadPaper()
         .then(md => {
           // Strip the title (we render it in the hero) and the metadata blockquote
           // immediately after it. Everything from the first "## " section onward
