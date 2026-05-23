@@ -16,9 +16,9 @@ const papers = [
       "An open, neutral coordination network for U.S. food safety recalls.",
     excerpt:
       "Food recalls remain a structural failure of the U.S. food supply chain — $1.92B in direct annual costs, 422 events in 2024, and a notification system that hasn't meaningfully evolved since the 1970s. The proposed Recall Ledger is a federated, tamper-evident coordination network built around a 501(c)(6) industry consortium, positioned as the implementation layer for FSMA 204 compliance ahead of the July 2028 deadline.",
-    status: "Working draft · v2",
+    status: "Working draft · v4",
     statusColor: "#10b981",
-    date: "May 17, 2026",
+    date: "May 22, 2026",
     tags: ["Food safety", "FSMA 204", "Coordination networks", "Public-ledger notarization", "501(c)(6)"],
     href: "/writing/recall-ledger/",
   },
