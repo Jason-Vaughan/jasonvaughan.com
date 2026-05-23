@@ -5,6 +5,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 ## [Unreleased]
 
 ### Changed
+- **Paper metadata now fetches dynamically from `project-assets/content/papers/<slug>.meta.json`** — closes the sidecar loop with the WhitePapers session. Title / tagline / status / version / lastRevised / tags are all read at runtime from a `meta.json` sidecar that WhitePapers self-publishes alongside the markdown. Hardcoded constants in `Writing.jsx` and `/writing/recall-ledger/index.html` are gone — replaced with last-known-good fallback values that only render if the meta fetch fails. New reusable `src/hooks/usePaperMetadata.js` hook + `formatPaperDate` helper handle the React side; the static paper page does the equivalent with a parallel-Promise pattern via `Promise.allSettled`. Future paper version bumps (v5, v6, …) now require zero portfolio PRs — WhitePapers edits the meta.json, runs `./publish.sh`, the portfolio reflects the change on next hard-reload.
+
+### Changed
 - **Recall Ledger paper metadata bumped to v4 (May 22, 2026)** — body content of the paper already fetches dynamically from `project-assets/content/papers/recall-ledger.md` (updates landed at runtime when WhitePapers PR #4 shipped v4), but the hardcoded version chip in the page header and the entry on the Writing card were still showing `v2 · May 17, 2026`. Bumped both: the share badge / "Last revised" label on `/writing/recall-ledger/` and the status / date on the Writing card now read v4 / May 22, 2026. Mechanical chip-bump only; no UX change.
 
 ### Changed
