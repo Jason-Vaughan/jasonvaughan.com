@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- **Monad-1 card: render the full model library, not just loaded models** — the publisher now ships an `availableModels` array with a `resident: true|false` flag per entry. The card now renders every installed model with a `● Loaded · {role}` pill (active models, bright accent, full opacity) or a `○ Cold · {role}` pill (installed but not in VRAM, dimmed). Section header changes from "Currently serving (multi-model)" to "Installed models · N loaded / M installed". Cold models render at 70% opacity so the eye still lands on active ones first. Falls back to wrapping `currentModels` (and ultimately the singular `currentModel`) when `availableModels` isn't published — backward-compat preserved.
+
 ### Added
 - **TiLTClaw built-in-support mention inside the TiLT card (click-to-expand brag panel)** — compact one-line callout by default with a small rotating chevron affordance; clicking expands a detail panel with the TiLTClaw banner, a "What it does" bullet list (24/7 ticket monitoring, routing, urgent payroll escalation, Discord access), and a "Why it matters" paragraph framing the production OpenClaw deployment. Smooth height-fade animation via `AnimatePresence`. Keeps the TiLT card visually quiet at rest while letting curious visitors dig in. Anchor id (`#tiltclaw`) and share-cards registry entry preserved for deep-linking and the auto-generated OG preview (`/share/tiltclaw/`) — OG screenshot captures the collapsed state, matching what most visitors see first.
 
