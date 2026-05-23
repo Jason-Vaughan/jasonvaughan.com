@@ -121,14 +121,31 @@ export default function Infrastructure() {
   const costSavedLifetime = monadStats?.costSaved?.estimated;
   const sustainedTokPerS = monadStats?.throughput?.tokensPerSec;
   const requestsLifetime = monadStats?.requests?.lifetime;
-  // currentModels (plural) is the new contract — array of all models the rig
-  // is hosting simultaneously, with per-entry role ("chat" / "code" / etc.).
-  // The singular currentModel field is still emitted for backward compat
-  // (publisher sends the chat model as currentModel) — we read currentModels
-  // when present and fall back to wrapping currentModel in an array otherwise.
+  // Model list — three contract layers, all read with graceful fallback:
+  //   - availableModels (newest): every model installed on the box, each with
+  //     a `resident: true|false` flag for whether it's currently loaded in VRAM
+  //   - currentModels (mid-era): array of currently-loaded models only
+  //   - currentModel (oldest, singular): the active chat model only
+  // We prefer availableModels when present (it's a strict superset); the
+  // resident flag on each entry tells us which are "loaded" vs "cold".
+  const availableModels = Array.isArray(monadStats?.availableModels)
+    ? monadStats.availableModels
+    : null;
   const currentModels = Array.isArray(monadStats?.currentModels)
     ? monadStats.currentModels
     : (monadStats?.currentModel ? [monadStats.currentModel] : []);
+  // Render source: availableModels (with synthesized resident flags from
+  // currentModels membership if availableModels is missing the field for any
+  // entry) takes precedence. Falls back to currentModels treated as all-resident.
+  const modelList = availableModels && availableModels.length > 0
+    ? availableModels.map((m) => ({
+        ...m,
+        resident: typeof m.resident === "boolean"
+          ? m.resident
+          : currentModels.some((c) => c.name === m.name),
+      }))
+    : currentModels.map((m) => ({ ...m, resident: true }));
+  const residentCount = modelList.filter((m) => m.resident).length;
   const gpuTempC = monadStats?.gpu?.temp;
   const gpuUtilization = monadStats?.gpu?.utilization;
   const gpuPowerDraw = monadStats?.gpu?.powerDraw;
@@ -353,10 +370,13 @@ export default function Infrastructure() {
               </div>
             )}
 
-            {/* Currently serving — supports multi-model hosting via the
-                currentModels array. Role pill (chat / code / etc.) helps the
-                viewer instantly grok why two models exist on the same rig. */}
-            {currentModels.length > 0 && (
+            {/* Model library — every model installed on the box (via
+                availableModels), with a "loaded" pill on the ones currently
+                resident in VRAM. Falls back to currentModels treated as all-
+                resident when availableModels isn't published. The cold/loaded
+                visual distinction is forward-looking: as more models are
+                installed, the inventory tells the bigger story. */}
+            {modelList.length > 0 && (
               <div style={{
                 marginTop: 18,
                 padding: "12px 14px",
@@ -366,13 +386,36 @@ export default function Infrastructure() {
                 fontSize: 13,
                 color: "#d4d4d8",
               }}>
-                <div style={{ fontSize: 10, fontWeight: 700, color: accent, textTransform: "uppercase", letterSpacing: 1, marginBottom: currentModels.length > 1 ? 8 : 0 }}>
-                  {currentModels.length > 1 ? "Currently serving (multi-model)" : "Currently serving"}
+                <div style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  color: accent,
+                  textTransform: "uppercase",
+                  letterSpacing: 1,
+                  marginBottom: 8,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  flexWrap: "wrap",
+                }}>
+                  <span>Installed models</span>
+                  <span style={{ color: "#71717a", fontWeight: 600, letterSpacing: 0.5 }}>
+                    · {residentCount} loaded / {modelList.length} installed
+                  </span>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                  {currentModels.map((m, idx) => (
-                    <div key={m.name + idx} style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
-                      {m.role && (
+                  {modelList.map((m, idx) => (
+                    <div
+                      key={m.name + idx}
+                      style={{
+                        display: "flex",
+                        alignItems: "baseline",
+                        gap: 8,
+                        flexWrap: "wrap",
+                        opacity: m.resident ? 1 : 0.7,
+                      }}
+                    >
+                      {m.resident ? (
                         <span style={{
                           fontSize: 9,
                           fontWeight: 700,
@@ -384,10 +427,26 @@ export default function Infrastructure() {
                           background: "rgba(16,185,129,0.12)",
                           border: "1px solid rgba(16,185,129,0.3)",
                         }}>
-                          {m.role}
+                          ● Loaded{m.role ? ` · ${m.role}` : ""}
+                        </span>
+                      ) : (
+                        <span style={{
+                          fontSize: 9,
+                          fontWeight: 700,
+                          color: "#71717a",
+                          textTransform: "uppercase",
+                          letterSpacing: 1,
+                          padding: "2px 7px",
+                          borderRadius: 9999,
+                          background: "rgba(255,255,255,0.03)",
+                          border: "1px solid rgba(255,255,255,0.08)",
+                        }}>
+                          ○ Cold{m.role ? ` · ${m.role}` : ""}
                         </span>
                       )}
-                      <span style={{ fontWeight: 700, color: "#fafafa" }}>{m.name}</span>
+                      <span style={{ fontWeight: 700, color: m.resident ? "#fafafa" : "#d4d4d8" }}>
+                        {m.name}
+                      </span>
                       {m.precision && (
                         <span style={{ color: "#71717a" }}>· {m.precision}</span>
                       )}
