@@ -217,12 +217,12 @@
 
     <div class="container">
       <div class="hero">
-        <div class="eyebrow">Working draft · Public</div>
-        <h1>The Recall Ledger</h1>
-        <p class="lede">An open, neutral coordination network for U.S. food safety recalls — positioned as the FSMA 204 implementation layer ahead of the July 2028 deadline.</p>
+        <div class="eyebrow" id="paper-eyebrow">Working draft · Public</div>
+        <h1 id="paper-title">The Recall Ledger</h1>
+        <p class="lede" id="paper-lede">An open, neutral coordination network for U.S. food safety recalls — positioned as the FSMA 204 implementation layer ahead of the July 2028 deadline.</p>
         <div class="meta-row">
-          <span class="badge">v4 · Revised</span>
-          <span>Last revised: May 22, 2026</span>
+          <span class="badge" id="paper-badge">v4 · Revised</span>
+          <span id="paper-last-revised">Last revised: May 22, 2026</span>
           <span>Author: Jason Vaughan</span>
         </div>
       </div>
@@ -242,11 +242,14 @@
     <script>
       document.getElementById('year').textContent = new Date().getFullYear();
 
-      // Paper content is self-published by the WhitePapers session to
-      // project-assets/content/papers/recall-ledger.md (same pattern Monad-1
-      // uses for monad-stats.json). Try that first; fall back to the local
-      // copy if the project-assets file is missing or unreachable, so the
-      // page never breaks during the bootstrap window.
+      // Paper body + metadata are both self-published by the WhitePapers
+      // session to project-assets/content/papers/. We fetch them in parallel:
+      //   - recall-ledger.md      → article body (with local fallback)
+      //   - recall-ledger.meta.json → title/tagline/status/version/lastRevised/tags
+      // The two fetches are independent — metadata failure doesn't block the
+      // article; article failure doesn't block the chip. Hardcoded values
+      // already in the HTML serve as the last-known-good fallback for both.
+      const META_URL = 'https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/content/papers/recall-ledger.meta.json';
       const PRIMARY = 'https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/content/papers/recall-ledger.md';
       const FALLBACK = './paper.md';
 
@@ -259,19 +262,53 @@
           );
       }
 
-      loadPaper()
-        .then(md => {
-          // Strip the title (we render it in the hero) and the metadata blockquote
-          // immediately after it. Everything from the first "## " section onward
-          // is the body.
+      function loadMeta() {
+        return fetch(META_URL, { cache: 'no-store' })
+          .then(r => r.ok ? r.json() : Promise.reject(new Error('META HTTP ' + r.status)));
+      }
+
+      function formatDate(iso) {
+        const m = (typeof iso === 'string') && iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+        if (!m) return iso;
+        const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        return months[Number(m[2]) - 1] + ' ' + Number(m[3]) + ', ' + Number(m[1]);
+      }
+
+      function applyMetadata(meta) {
+        if (!meta || typeof meta.title !== 'string' || typeof meta.version !== 'string') {
+          console.warn('[recall-ledger] meta.json invalid, keeping fallback chip values');
+          return;
+        }
+        document.getElementById('paper-title').textContent = meta.title;
+        if (meta.tagline) document.getElementById('paper-lede').textContent = meta.tagline;
+        document.getElementById('paper-badge').textContent = meta.version + ' · Revised';
+        if (meta.lastRevised) {
+          document.getElementById('paper-last-revised').textContent = 'Last revised: ' + formatDate(meta.lastRevised);
+        }
+        if (meta.status) {
+          document.getElementById('paper-eyebrow').textContent = meta.status + ' · Public';
+        }
+        document.title = meta.title + ' — Jason Vaughan';
+      }
+
+      // Kick off both fetches in parallel. Promise.allSettled so a metadata
+      // failure doesn't tank the body fetch and vice versa.
+      Promise.allSettled([loadMeta(), loadPaper()]).then(([metaR, paperR]) => {
+        if (metaR.status === 'fulfilled') {
+          applyMetadata(metaR.value);
+        } else {
+          console.warn('[recall-ledger] meta.json fetch failed, using hardcoded fallback:', metaR.reason && metaR.reason.message);
+        }
+        if (paperR.status === 'fulfilled') {
+          const md = paperR.value;
           const bodyStart = md.indexOf('\n## ');
           const body = bodyStart >= 0 ? md.slice(bodyStart + 1) : md;
           document.getElementById('paper-content').innerHTML = marked.parse(body);
-        })
-        .catch(err => {
+        } else {
           document.getElementById('paper-content').innerHTML =
-            '<p style="color:#dc2626">Could not load paper: ' + err.message + '</p>';
-        });
+            '<p style="color:#dc2626">Could not load paper: ' + (paperR.reason && paperR.reason.message) + '</p>';
+        }
+      });
     </script>
   </body>
 </html>

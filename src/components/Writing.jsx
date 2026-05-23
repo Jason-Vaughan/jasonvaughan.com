@@ -1,28 +1,124 @@
 import React from "react";
 import { motion } from "framer-motion";
 import ShareLink from "./ShareLink";
+import usePaperMetadata, { formatPaperDate } from "../hooks/usePaperMetadata";
 
 /**
  * Writing & Research section — long-form papers and policy proposals
  * hosted at /writing/<slug>/. Each paper card is a JSX entry below;
  * the actual paper renders on its own static page (see public/writing/).
  * Designed to scale to multiple papers over time (Genesis docs incoming).
+ *
+ * Per-paper metadata (title, tagline, status, version, lastRevised, tags)
+ * is fetched at runtime from
+ *   project-assets/content/papers/<slug>.meta.json
+ * via usePaperMetadata. The `fallback` block on each entry below is
+ * last-known-good — used until the meta.json fetch resolves and as a
+ * graceful degrade if the fetch ever fails. Excerpt + href stay in the
+ * portfolio (excerpt is curated marketing copy, href is portfolio-routing).
  */
-const papers = [
+const PAPERS = [
   {
     slug: "recall-ledger",
-    title: "The Recall Ledger",
-    tagline:
-      "An open, neutral coordination network for U.S. food safety recalls.",
+    href: "/writing/recall-ledger/",
     excerpt:
       "Food recalls remain a structural failure of the U.S. food supply chain — $1.92B in direct annual costs, 422 events in 2024, and a notification system that hasn't meaningfully evolved since the 1970s. The proposed Recall Ledger is a federated, tamper-evident coordination network built around a 501(c)(6) industry consortium, positioned as the implementation layer for FSMA 204 compliance ahead of the July 2028 deadline.",
-    status: "Working draft · v4",
-    statusColor: "#10b981",
-    date: "May 22, 2026",
-    tags: ["Food safety", "FSMA 204", "Coordination networks", "Public-ledger notarization", "501(c)(6)"],
-    href: "/writing/recall-ledger/",
+    fallback: {
+      title: "The Recall Ledger",
+      tagline:
+        "An open, neutral coordination network for U.S. food safety recalls.",
+      status: "Working draft",
+      version: "v4",
+      lastRevised: "2026-05-22",
+      tags: [
+        "Food safety",
+        "FSMA 204",
+        "Coordination networks",
+        "Public-ledger notarization",
+        "501(c)(6)",
+      ],
+    },
   },
 ];
+
+function PaperCard({ paper, idx, accent, card, tag }) {
+  const { metadata } = usePaperMetadata(paper.slug, paper.fallback);
+
+  return (
+    <motion.a
+      id={paper.slug}
+      href={paper.href}
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.5, delay: idx * 0.05 }}
+      style={{
+        ...card,
+        display: "block",
+        textDecoration: "none",
+        color: "inherit",
+        scrollMarginTop: 24,
+        transition: "transform 0.15s, border-color 0.15s",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "translateY(-2px)";
+        e.currentTarget.style.borderColor = accent;
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.borderColor = "#27272a";
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 700, color: accent, textTransform: "uppercase", letterSpacing: 2 }}>
+            White paper
+          </div>
+          <h3 style={{ margin: "6px 0 0", fontSize: 26, fontWeight: 800, color: "#fafafa", letterSpacing: -0.4 }}>
+            {metadata.title}
+          </h3>
+        </div>
+        <div style={{
+          fontSize: 11,
+          fontWeight: 700,
+          padding: "4px 12px",
+          borderRadius: 9999,
+          background: "rgba(16,185,129,0.08)",
+          border: "1px solid rgba(16,185,129,0.33)",
+          color: "#10b981",
+          whiteSpace: "nowrap",
+        }}>
+          {metadata.status} · {metadata.version}
+        </div>
+      </div>
+
+      <p style={{ marginTop: 10, marginBottom: 14, fontSize: 15, color: "#d4d4d8", lineHeight: 1.5, fontWeight: 500 }}>
+        {metadata.tagline}
+      </p>
+      <p style={{ margin: 0, fontSize: 14, color: "#a1a1aa", lineHeight: 1.65 }}>
+        {paper.excerpt}
+      </p>
+
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 16 }}>
+        {metadata.tags.map((t) => (
+          <span key={t} style={tag}>{t}</span>
+        ))}
+      </div>
+
+      <div style={{ marginTop: 18, display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
+        <span style={{ fontSize: 12, color: "#71717a" }}>
+          Last revised: {formatPaperDate(metadata.lastRevised) || metadata.lastRevised}
+        </span>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <ShareLink id={paper.slug} />
+          <span style={{ fontSize: 13, fontWeight: 600, color: accent }}>
+            Read the full paper →
+          </span>
+        </div>
+      </div>
+    </motion.a>
+  );
+}
 
 export default function Writing() {
   const accent = "#f59e0b";
@@ -61,78 +157,8 @@ export default function Writing() {
         </div>
 
         <div style={{ display: "grid", gap: 20, marginTop: 24 }}>
-          {papers.map((p, idx) => (
-            <motion.a
-              key={p.slug}
-              id={p.slug}
-              href={p.href}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.5, delay: idx * 0.05 }}
-              style={{
-                ...card,
-                display: "block",
-                textDecoration: "none",
-                color: "inherit",
-                scrollMarginTop: 24,
-                transition: "transform 0.15s, border-color 0.15s",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-2px)";
-                e.currentTarget.style.borderColor = accent;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.borderColor = border;
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-                <div>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: accent, textTransform: "uppercase", letterSpacing: 2 }}>
-                    White paper
-                  </div>
-                  <h3 style={{ margin: "6px 0 0", fontSize: 26, fontWeight: 800, color: "#fafafa", letterSpacing: -0.4 }}>
-                    {p.title}
-                  </h3>
-                </div>
-                <div style={{
-                  fontSize: 11,
-                  fontWeight: 700,
-                  padding: "4px 12px",
-                  borderRadius: 9999,
-                  background: "rgba(16,185,129,0.08)",
-                  border: `1px solid ${p.statusColor}55`,
-                  color: p.statusColor,
-                  whiteSpace: "nowrap",
-                }}>
-                  {p.status}
-                </div>
-              </div>
-
-              <p style={{ marginTop: 10, marginBottom: 14, fontSize: 15, color: "#d4d4d8", lineHeight: 1.5, fontWeight: 500 }}>
-                {p.tagline}
-              </p>
-              <p style={{ margin: 0, fontSize: 14, color: "#a1a1aa", lineHeight: 1.65 }}>
-                {p.excerpt}
-              </p>
-
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 16 }}>
-                {p.tags.map((t) => (
-                  <span key={t} style={tag}>{t}</span>
-                ))}
-              </div>
-
-              <div style={{ marginTop: 18, display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
-                <span style={{ fontSize: 12, color: "#71717a" }}>Last revised: {p.date}</span>
-                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                  <ShareLink id={p.slug} />
-                  <span style={{ fontSize: 13, fontWeight: 600, color: accent }}>
-                    Read the full paper →
-                  </span>
-                </div>
-              </div>
-            </motion.a>
+          {PAPERS.map((p, idx) => (
+            <PaperCard key={p.slug} paper={p} idx={idx} accent={accent} card={card} tag={tag} />
           ))}
         </div>
       </div>
