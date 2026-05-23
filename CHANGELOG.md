@@ -5,6 +5,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 ## [Unreleased]
 
 ### Changed
+- **Recall Ledger paper metadata bumped to v4 (May 22, 2026)** — body content of the paper already fetches dynamically from `project-assets/content/papers/recall-ledger.md` (updates landed at runtime when WhitePapers PR #4 shipped v4), but the hardcoded version chip in the page header and the entry on the Writing card were still showing `v2 · May 17, 2026`. Bumped both: the share badge / "Last revised" label on `/writing/recall-ledger/` and the status / date on the Writing card now read v4 / May 22, 2026. Mechanical chip-bump only; no UX change.
+
+### Changed
 - **Monad-1 card: render the full model library, not just loaded models** — the publisher now ships an `availableModels` array with a `resident: true|false` flag per entry. The card now renders every installed model with a `● Loaded · {role}` pill (active models, bright accent, full opacity) or a `○ Cold · {role}` pill (installed but not in VRAM, dimmed). Section header changes from "Currently serving (multi-model)" to "Installed models · N loaded / M installed". Cold models render at 70% opacity so the eye still lands on active ones first. Falls back to wrapping `currentModels` (and ultimately the singular `currentModel`) when `availableModels` isn't published — backward-compat preserved.
 
 ### Added
