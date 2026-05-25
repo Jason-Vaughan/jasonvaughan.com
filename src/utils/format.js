@@ -8,13 +8,17 @@
  *   - 1K-100K     → "N.NK+"    (one decimal — surfaces hundreds-level moves)
  *   - 100K-1M     → "NK+"      (whole K — value already has 3 sig figs)
  *   - 1M+         → "N.NM+"    (one decimal)
- *   - 1B+         → "N.NB+"    (one decimal)
+ *   - 1B+         → "N.NNB+"   (two decimals — so M-scale additions to a
+ *                                B-scale number are still visible. AI Tokens
+ *                                at billions-scale gets hit hardest: adding
+ *                                14M of local inference to 9.3B was invisible
+ *                                at 1 decimal precision)
  *
  * @param {number} n
  * @returns {string}
  */
 export function formatBigNumber(n) {
-  if (n >= 1_000_000_000) return `${(n / 1_000_000_000).toFixed(1)}B+`;
+  if (n >= 1_000_000_000) return `${(n / 1_000_000_000).toFixed(2)}B+`;
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M+`;
   if (n >= 100_000) return `${Math.floor(n / 1000)}K+`;
   if (n >= 1_000) return `${(n / 1000).toFixed(1)}K+`;

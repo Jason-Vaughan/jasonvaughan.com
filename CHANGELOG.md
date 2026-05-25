@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- **`formatBigNumber` — bump billion-scale precision from 1 to 2 decimals** — at 1 decimal, `9.3B` and `9.31B` rendered identically, which meant the local-inference addition to the AI Tokens tile (14M Monad+Volta) was mathematically applied but visibly invisible against the 9.3B cloud-provider baseline. Two decimals lets M-scale additions to a B-scale number actually move the displayed digit. M-scale and K-scale precision unchanged.
+
 ### Changed
 - **BuilderStats AI Tokens tile now includes local inference (Monad-1 + OpenClaw fleet)** — headline value sums cloud-provider tokens (Anthropic, OpenAI, Cursor, Gemini, Copilot) with every local-inference source that self-publishes a `tokens.total` (Monad-1 publisher, Volta, future agents). Reads as "total AI work done, anywhere I run it" instead of cloud-only. Hover tooltip surfaces the per-source breakdown — Cloud providers, Monad-1, Volta — so visitors can see the mix. URL list lives in `src/data/openclaw-sources.js` (single source of truth shared with the Monad-1 card aggregation); adding a new agent updates both surfaces in one place.
 
