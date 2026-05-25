@@ -35,6 +35,24 @@ export const SHARE_CARDS = [
       "Live OpenClaw automation agent running TiLT's support triage. Monitors tickets 24/7, escalates urgent payroll issues, accessed via Discord. Real-world deployment of the OpenClaw multi-agent framework.",
   },
   {
+    id: "volta",
+    title: "Volta — High-Voltage AI Orchestration (Stealth)",
+    description:
+      "Experimental OpenClaw orchestration platform running on Monad-1. Hosts a stack of agents collaborating on stealth-mode experimental projects. Self-publishes operational telemetry; the work itself stays redacted until first reveal.",
+  },
+  {
+    id: "rentalclaw",
+    title: "RentalClaw — Autonomous Vacation-Rental Management (In Development)",
+    description:
+      "Fully autonomous rental-management agent for vacation properties. Scalable, expandable, multi-agent architecture. Currently in development, redacted until launch.",
+  },
+  {
+    id: "openclaw-fleet",
+    title: "OpenClaw Fleet — Internal AI Agents in Production",
+    description:
+      "Card-per-agent view of every OpenClaw AI agent in production or active development. TiLTClaw (live), Volta (stealth), RentalClaw (in development), and more on the way.",
+  },
+  {
     id: "tangleclaw",
     title: "TangleClaw — Multi-Project AI Operations Layer",
     description:
