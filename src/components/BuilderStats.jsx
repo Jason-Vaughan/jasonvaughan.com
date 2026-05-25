@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { formatBigNumber, formatDelta } from "../utils/format";
+import {
+  MONAD_STATS_URL,
+  OPENCLAW_AGENT_STATS_URLS,
+  readTokenScalar,
+} from "../data/openclaw-sources";
 
 // Manifest produced by the centralized collector in project-assets.
 // Lists every collected repo + its stats; the aggregate bar sums across all of them
@@ -13,6 +18,33 @@ const MANIFEST_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-as
 export default function BuilderStats() {
   const [totals, setTotals] = useState(null);
   const [hoveredLabel, setHoveredLabel] = useState(null);
+  // Local-inference token breakdown — Monad-1 publisher + every OpenClaw
+  // agent that self-publishes. Used to add local tokens onto the AI Tokens
+  // tile and to render a per-source breakdown in the tooltip.
+  const [localTokens, setLocalTokens] = useState({ monad: 0, agents: [] });
+
+  useEffect(() => {
+    // Fetch monad-stats + every OpenClaw agent in parallel. allSettled so
+    // a single source being down doesn't tank the rest of the aggregation.
+    Promise.allSettled([
+      fetch(MONAD_STATS_URL, { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)),
+      ...OPENCLAW_AGENT_STATS_URLS.map((s) =>
+        fetch(s.url, { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)),
+      ),
+    ]).then((results) => {
+      const monadTotal = results[0].status === "fulfilled" && results[0].value
+        ? readTokenScalar(results[0].value?.tokens?.total)
+        : 0;
+      const agents = OPENCLAW_AGENT_STATS_URLS.map((s, i) => {
+        const r = results[i + 1]; // offset by 1 (Monad was first)
+        const total = r.status === "fulfilled" && r.value
+          ? readTokenScalar(r.value?.tokens?.total)
+          : 0;
+        return { name: s.name, total };
+      });
+      setLocalTokens({ monad: monadTotal, agents });
+    });
+  }, []);
 
   useEffect(() => {
     fetch(MANIFEST_URL, { cache: "no-store" })
@@ -104,15 +136,40 @@ export default function BuilderStats() {
     },
   ];
 
-  // Only show AI Tokens stat once it's a non-zero number
-  if (totals.tokens > 0) {
+  // AI Tokens = cloud-provider tokens (from the centralized manifest) + every
+  // local-inference source that self-publishes (Monad-1, Volta, …). Headline
+  // signal is "total AI work done, anywhere I run it" — the tooltip breakdown
+  // shows cloud vs. each local agent so visitors can see the mix.
+  const cloudTokens = totals.tokens; // already from manifest.aggregateTokens.total
+  const localAgentTotal = localTokens.agents.reduce((sum, a) => sum + a.total, 0);
+  const localTotal = localTokens.monad + localAgentTotal;
+  const allTokens = cloudTokens + localTotal;
+
+  if (allTokens > 0) {
+    // Build a multi-line breakdown for the tooltip. Hidden until a local
+    // source has populated; falls back to the cloud-only description otherwise.
+    const breakdownLines = [];
+    if (cloudTokens > 0) {
+      breakdownLines.push(`Cloud providers: ${formatBigNumber(cloudTokens)}`);
+    }
+    if (localTokens.monad > 0) {
+      breakdownLines.push(`Monad-1 (local inference): ${formatBigNumber(localTokens.monad)}`);
+    }
+    for (const a of localTokens.agents) {
+      if (a.total > 0) {
+        breakdownLines.push(`${a.name} (OpenClaw agent): ${formatBigNumber(a.total)}`);
+      }
+    }
+
     stats.push({
       label: "AI Tokens",
-      value: formatBigNumber(totals.tokens),
-      exact: totals.tokens,
-      delta: null, // token deltas live in aggregateTokens.breakdown — surface later if useful
+      value: formatBigNumber(allTokens),
+      exact: allTokens,
+      delta: null,
       color: "#f472b6",
-      description: "Lifetime tokens consumed across Anthropic, OpenAI, Cursor, Gemini, Copilot. Mix of admin-API totals (Anthropic, OpenAI) and lifetime estimates (Cursor CSV export, TypingMind prepaid). Refreshed daily.",
+      description:
+        "Lifetime tokens consumed across cloud providers (Anthropic, OpenAI, Cursor, Gemini, Copilot) plus local inference on Monad-1 and the OpenClaw fleet. Cloud totals refresh daily; local totals refresh every 15 min via each agent's self-published stats.",
+      breakdown: breakdownLines.length > 1 ? breakdownLines : null,
     });
   }
 
@@ -264,6 +321,19 @@ export default function BuilderStats() {
                         }}
                       >
                         {s.description}
+                        {s.breakdown && s.breakdown.length > 0 && (
+                          <div style={{
+                            marginTop: 8,
+                            paddingTop: 8,
+                            borderTop: "1px solid #27272a",
+                            fontSize: 11,
+                            color: "#a1a1aa",
+                          }}>
+                            {s.breakdown.map((line, i) => (
+                              <div key={i} style={{ marginTop: i === 0 ? 0 : 2 }}>{line}</div>
+                            ))}
+                          </div>
+                        )}
                         {typeof s.exact === "number" && (
                           <div style={{
                             marginTop: 8,

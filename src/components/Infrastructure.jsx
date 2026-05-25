@@ -11,17 +11,11 @@ import ShareLink from "./ShareLink";
 //   - Lets Monad-1 update independently of the hourly collector cron
 //   - The collector still picks up Monad-1's repo for first-commit / commit
 //     count if useful elsewhere
-const MONAD_STATS_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/monad-stats.json";
-
-// Each OpenClaw agent that runs inference on Monad-1 self-publishes its
-// own token telemetry to its own repo. The portfolio aggregates these
-// into the Monad-1 card's displayed totals so visitors see "total work
-// done on this rig" instead of just what the Monad publisher itself
-// happens to be counting. Add new OpenClaw stats URLs here as more
-// agents come online (e.g. future "habitat-stats", "ebay-stats", etc).
-const OPENCLAW_TOKEN_SOURCES = [
-  "https://raw.githubusercontent.com/Jason-Vaughan/volta-stats/main/stats.json",
-];
+// Monad-1 stats URL + the list of OpenClaw agents that self-publish their
+// own token telemetry are kept in src/data/openclaw-sources.js so the same
+// list drives both the Monad-1 card aggregation here AND the top-bar
+// BuilderStats AI Tokens tile. Add new agents in one place, both update.
+import { MONAD_STATS_URL, OPENCLAW_AGENT_STATS_URLS, readTokenScalar } from "../data/openclaw-sources";
 
 /**
  * Format a USD amount as "$1,234" or "$1.2K" or "$1.2M" depending on scale.
@@ -57,8 +51,8 @@ export default function Infrastructure() {
   useEffect(() => {
     let cancelled = false;
     Promise.allSettled(
-      OPENCLAW_TOKEN_SOURCES.map((url) =>
-        fetch(url, { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)),
+      OPENCLAW_AGENT_STATS_URLS.map((s) =>
+        fetch(s.url, { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)),
       ),
     ).then((results) => {
       if (cancelled) return;
@@ -67,13 +61,9 @@ export default function Infrastructure() {
         if (r.status !== "fulfilled" || !r.value) continue;
         const t = r.value.tokens;
         if (!t) continue;
-        // Each source's tokens.{total,last24h,last7d} may be a number OR an
-        // object like {input, output, total, requests} (Volta's shape).
-        // Read the scalar `total` field when nested.
-        const readScalar = (v) => (typeof v === "number" ? v : (v && typeof v.total === "number" ? v.total : 0));
-        acc.total   += readScalar(t.total);
-        acc.last24h += readScalar(t.last24h);
-        acc.last7d  += readScalar(t.last7d);
+        acc.total   += readTokenScalar(t.total);
+        acc.last24h += readTokenScalar(t.last24h);
+        acc.last7d  += readTokenScalar(t.last7d);
         acc.sourcesCounted += 1;
       }
       if (acc.sourcesCounted > 0) {
