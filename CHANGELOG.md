@@ -6,6 +6,7 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ### Fixed
 - **Volta banner — replace tight crop with padded version** — original 977×485 export had the logo running edge-to-edge, so the 130px banner strip on the OpenClaw Fleet card was cropping the wordmark and claw geometry. Replaced with a 1954×970 export that includes generous transparent padding; `object-fit: cover` now scales the logo down into the strip without clipping.
+- **Volta banner — eliminate "rectangle artifact" from transparent padding** — the padded image's painted background turned out to be pure black (sampled the actual pixels), so the transparent padding around the logo showed the card surface (#18181b) creating a visible darker rectangle around the logo. Per-entry `bannerFit` / `bannerBg` / `bannerHeight` overrides on the FLEET registry now let Volta render with `object-fit: contain` + black background + slightly taller (160px) strip — the transparent padding blends seamlessly with the logo's painted black bg, no rectangle artifact, full logo visible without crop.
 
 ### Added
 - **New "OpenClaw Fleet" section** between Current Research and Writing — card-per-agent home for every OpenClaw AI agent in production or active development. Designed to scale as new fleet members come online; each card has a stable anchor + `/share/<id>/` URL + auto-generated OG preview. First three cards:

@@ -49,6 +49,13 @@ const FLEET = [
     redacted: true,
     banner: voltaBanner,
     bannerAlt: "Volta — High Voltage AI Orchestration — silver wordmark on dark electric-blue lightning",
+    // Volta's painted logo background is pure black with transparent padding
+    // around it. Setting bannerBg to #000 makes the transparent areas blend
+    // into the painted bg seamlessly (no rectangle artifact against the card
+    // surface). `contain` keeps the full logo visible — no edge crop.
+    bannerFit: "contain",
+    bannerBg: "#000000",
+    bannerHeight: 160,
     blurb:
       "Experimental orchestration platform running on Monad-1. Hosts a stack of agents collaborating on stealth-mode experimental projects. Self-publishes operational telemetry; the work itself stays under wraps until the first project surfaces.",
     bullets: [
@@ -153,12 +160,22 @@ function FleetCard({ entry, idx }) {
         </div>
       )}
 
-      {/* Banner strip (TiLTClaw + Volta have one; RentalClaw uses a square logo inline) */}
+      {/* Banner strip (TiLTClaw + Volta have one; RentalClaw uses a square logo inline).
+          Per-entry `bannerFit` / `bannerBg` / `bannerHeight` overrides handle images
+          with their own painted backgrounds (Volta: contain + black bg so the logo's
+          painted pure-black background blends with the transparent padding around it). */}
       {entry.banner && (
         <img
           src={entry.banner}
           alt={entry.bannerAlt}
-          style={{ width: "100%", height: 130, objectFit: "cover", objectPosition: "center", display: "block" }}
+          style={{
+            width: "100%",
+            height: entry.bannerHeight || 130,
+            objectFit: entry.bannerFit || "cover",
+            objectPosition: "center",
+            display: "block",
+            background: entry.bannerBg || "transparent",
+          }}
         />
       )}
 
