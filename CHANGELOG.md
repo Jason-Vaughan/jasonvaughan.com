@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- **RentalClaw status: "In Development" → "Private Beta"** — badge, blurb, operational-status bullet, tag, and share-card description all updated. Card still REDACTED.
+
 ### Fixed
 - **Fleet banners — bump both TiLTClaw + Volta to 240px contain layout** — TiLTClaw was getting top/bottom crop from `object-fit: cover` (same root cause as Volta; logo art is centered in the file with dark edges, cover sliced the middle band and chopped the claws). Volta was using contain at 160px which left the wordmark too small to read. Both now: contain + matching edge color (TiLTClaw: `#0a061b` sampled dark navy · Volta: `#000`) + 240px tall. Logos are fully visible at readable size; no rectangle artifacts since the container bg matches each image's painted edge.
 - **Volta banner — replace tight crop with padded version** — original 977×485 export had the logo running edge-to-edge, so the 130px banner strip on the OpenClaw Fleet card was cropping the wordmark and claw geometry. Replaced with a 1954×970 export that includes generous transparent padding; `object-fit: cover` now scales the logo down into the strip without clipping.

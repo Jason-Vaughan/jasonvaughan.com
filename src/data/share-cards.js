@@ -42,9 +42,9 @@ export const SHARE_CARDS = [
   },
   {
     id: "rentalclaw",
-    title: "RentalClaw — Autonomous Vacation-Rental Management (In Development)",
+    title: "RentalClaw — Autonomous Vacation-Rental Management (Private Beta)",
     description:
-      "Fully autonomous rental-management agent for vacation properties. Scalable, expandable, multi-agent architecture. Currently in development, redacted until launch.",
+      "Fully autonomous rental-management agent for vacation properties. Scalable, expandable, multi-agent architecture. Currently in private beta with select operators, redacted until launch.",
   },
   {
     id: "openclaw-fleet",

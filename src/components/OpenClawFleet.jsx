@@ -79,20 +79,20 @@ const FLEET = [
     accent: "#2563eb",          // bright blue — pulls from the "Rental" wordmark
     accentSoft: "rgba(37,99,235,0.10)",
     accentBorder: "rgba(37,99,235,0.4)",
-    badgeText: "REDACTED · In Development",
+    badgeText: "REDACTED · Private Beta",
     redacted: true,
     banner: null,               // no banner; use square logo treatment
     logo: rentalclawLogo,
     logoAlt: "RentalClaw — red crab claws framing a yellow beach house with a palm tree",
     blurb:
-      "Fully autonomous rental-management agent for vacation properties. Scalable, expandable, multi-agent architecture. Currently in development; not yet running on the OpenClaw / Monad-1 stack.",
+      "Fully autonomous rental-management agent for vacation properties. Scalable, expandable, multi-agent architecture. Currently in private beta with select operators.",
     bullets: [
       "Multi-agent · autonomous end-to-end rental ops",
       "Target vertical · ███████████████ properties",
       "Integrations · ██████ · ██████ · ██████",
-      "Operational status · in development, pre-launch",
+      "Operational status · private beta · select operators",
     ],
-    tags: ["OpenClaw", "Multi-Agent", "Vacation Rentals", "In Development"],
+    tags: ["OpenClaw", "Multi-Agent", "Vacation Rentals", "Private Beta"],
   },
 ];
 
