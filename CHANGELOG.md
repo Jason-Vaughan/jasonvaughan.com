@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- **Volta banner — replace tight crop with padded version** — original 977×485 export had the logo running edge-to-edge, so the 130px banner strip on the OpenClaw Fleet card was cropping the wordmark and claw geometry. Replaced with a 1954×970 export that includes generous transparent padding; `object-fit: cover` now scales the logo down into the strip without clipping.
+
 ### Added
 - **New "OpenClaw Fleet" section** between Current Research and Writing — card-per-agent home for every OpenClaw AI agent in production or active development. Designed to scale as new fleet members come online; each card has a stable anchor + `/share/<id>/` URL + auto-generated OG preview. First three cards:
   - **TiLTClaw** (public, in production) — full banner-strip + 4-bullet description of its TiLT support-triage role. Pairs with the TiLT card via a "Powers TiLT →" footer link.
