@@ -5,6 +5,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 ## [Unreleased]
 
 ### Changed
+- **BuilderStats AI Tokens tile now includes local inference (Monad-1 + OpenClaw fleet)** — headline value sums cloud-provider tokens (Anthropic, OpenAI, Cursor, Gemini, Copilot) with every local-inference source that self-publishes a `tokens.total` (Monad-1 publisher, Volta, future agents). Reads as "total AI work done, anywhere I run it" instead of cloud-only. Hover tooltip surfaces the per-source breakdown — Cloud providers, Monad-1, Volta — so visitors can see the mix. URL list lives in `src/data/openclaw-sources.js` (single source of truth shared with the Monad-1 card aggregation); adding a new agent updates both surfaces in one place.
+
+### Changed
 - **RentalClaw status: "In Development" → "Private Beta"** — badge, blurb, operational-status bullet, tag, and share-card description all updated. Card still REDACTED.
 
 ### Fixed
