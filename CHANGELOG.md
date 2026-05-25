@@ -4,6 +4,14 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **New "OpenClaw Fleet" section** between Current Research and Writing — card-per-agent home for every OpenClaw AI agent in production or active development. Designed to scale as new fleet members come online; each card has a stable anchor + `/share/<id>/` URL + auto-generated OG preview. First three cards:
+  - **TiLTClaw** (public, in production) — full banner-strip + 4-bullet description of its TiLT support-triage role. Pairs with the TiLT card via a "Powers TiLT →" footer link.
+  - **Volta** (redacted · stealth) — High-Voltage AI Orchestration brand artwork as banner strip. Electric-blue `REDACTED` stamp. Operational bullets partially blacked-out (`████`) for the parts that aren't ready to disclose.
+  - **RentalClaw** (redacted · in development) — square logo + brand-blue `REDACTED` stamp. Framed as an autonomous vacation-rental management agent.
+- **TiLT card sub-mention trimmed to a one-liner pointer** — "Support runs on TiLTClaw — see OpenClaw Fleet ↓" replaces the previous click-to-expand sub-card. The TiLT card stays focused on the parent product; the full TiLTClaw story lives in the new fleet section.
+- **Monad-1 token totals now aggregate from per-agent self-published stats** — Infrastructure.jsx fetches `volta-stats.json` (and any future `OPENCLAW_TOKEN_SOURCES` entries) in parallel with Monad's own JSON and sums the `tokens.{total,last24h,last7d}` into the displayed Monad-1 tile values. Reads as "total inference work done on this rig" rather than only what the Monad publisher's source happens to capture. Pattern scales: future OpenClaw agents that connect to Monad just add one URL to the `OPENCLAW_TOKEN_SOURCES` array.
+
 ### Changed
 - **Paper metadata now fetches dynamically from `project-assets/content/papers/<slug>.meta.json`** — closes the sidecar loop with the WhitePapers session. Title / tagline / status / version / lastRevised / tags are all read at runtime from a `meta.json` sidecar that WhitePapers self-publishes alongside the markdown. Hardcoded constants in `Writing.jsx` and `/writing/recall-ledger/index.html` are gone — replaced with last-known-good fallback values that only render if the meta fetch fails. New reusable `src/hooks/usePaperMetadata.js` hook + `formatPaperDate` helper handle the React side; the static paper page does the equivalent with a parallel-Promise pattern via `Promise.allSettled`. Future paper version bumps (v5, v6, …) now require zero portfolio PRs — WhitePapers edits the meta.json, runs `./publish.sh`, the portfolio reflects the change on next hard-reload.
 

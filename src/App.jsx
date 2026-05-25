@@ -7,6 +7,7 @@ import FeaturedCierreSensei from "./components/FeaturedCierreSensei";
 import Projects from "./components/Projects";
 import Pipeline from "./components/Pipeline";
 import Infrastructure from "./components/Infrastructure";
+import OpenClawFleet from "./components/OpenClawFleet";
 import Writing from "./components/Writing";
 import GPTs from "./components/GPTs";
 import TipJar from "./components/TipJar";
@@ -125,6 +126,7 @@ export default function App() {
       <Projects />
       <Pipeline />
       <Infrastructure />
+      <OpenClawFleet />
       <Writing />
       <GPTs />
       <TipJar />

@@ -13,6 +13,16 @@ import ShareLink from "./ShareLink";
 //     count if useful elsewhere
 const MONAD_STATS_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/monad-stats.json";
 
+// Each OpenClaw agent that runs inference on Monad-1 self-publishes its
+// own token telemetry to its own repo. The portfolio aggregates these
+// into the Monad-1 card's displayed totals so visitors see "total work
+// done on this rig" instead of just what the Monad publisher itself
+// happens to be counting. Add new OpenClaw stats URLs here as more
+// agents come online (e.g. future "habitat-stats", "ebay-stats", etc).
+const OPENCLAW_TOKEN_SOURCES = [
+  "https://raw.githubusercontent.com/Jason-Vaughan/volta-stats/main/stats.json",
+];
+
 /**
  * Format a USD amount as "$1,234" or "$1.2K" or "$1.2M" depending on scale.
  */
@@ -31,12 +41,46 @@ function formatUSD(n) {
  */
 export default function Infrastructure() {
   const [monadStats, setMonadStats] = useState(null);
+  // Aggregate token totals from every OpenClaw agent that publishes its
+  // own stats.json. We sum these into Monad-1's displayed counts so the
+  // card reflects all inference done on the rig, not just whatever the
+  // Monad publisher itself happens to be reading.
+  const [openclawTokenSum, setOpenclawTokenSum] = useState(null);
 
   useEffect(() => {
     fetch(MONAD_STATS_URL, { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => d && setMonadStats(d))
       .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.allSettled(
+      OPENCLAW_TOKEN_SOURCES.map((url) =>
+        fetch(url, { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)),
+      ),
+    ).then((results) => {
+      if (cancelled) return;
+      const acc = { total: 0, last24h: 0, last7d: 0, sourcesCounted: 0 };
+      for (const r of results) {
+        if (r.status !== "fulfilled" || !r.value) continue;
+        const t = r.value.tokens;
+        if (!t) continue;
+        // Each source's tokens.{total,last24h,last7d} may be a number OR an
+        // object like {input, output, total, requests} (Volta's shape).
+        // Read the scalar `total` field when nested.
+        const readScalar = (v) => (typeof v === "number" ? v : (v && typeof v.total === "number" ? v.total : 0));
+        acc.total   += readScalar(t.total);
+        acc.last24h += readScalar(t.last24h);
+        acc.last7d  += readScalar(t.last7d);
+        acc.sourcesCounted += 1;
+      }
+      if (acc.sourcesCounted > 0) {
+        setOpenclawTokenSum(acc);
+      }
+    });
+    return () => { cancelled = true; };
   }, []);
 
   const accent = "#10b981";       // emerald — fresh, "operational" feel
@@ -116,8 +160,20 @@ export default function Infrastructure() {
 
   // Safe getters with fallbacks for when monad-stats.json hasn't been
   // published yet (graceful degrade — show specs, hide live numbers).
-  const tokensLifetime = monadStats?.tokens?.total;
-  const tokensToday = monadStats?.tokens?.last24h;
+  // Token totals = whatever the Monad publisher reports + sums from every
+  // OpenClaw agent that publishes its own stats. Reads as "all work done
+  // on Monad-1" rather than "what the Monad publisher's source captures".
+  // The OpenClaw add-ons are 0 if those URLs were unreachable or empty.
+  const monadTokensTotal = monadStats?.tokens?.total;
+  const monadTokensToday = monadStats?.tokens?.last24h;
+  const tokensLifetime =
+    typeof monadTokensTotal === "number" || openclawTokenSum
+      ? (monadTokensTotal || 0) + (openclawTokenSum?.total || 0)
+      : undefined;
+  const tokensToday =
+    typeof monadTokensToday === "number" || openclawTokenSum
+      ? (monadTokensToday || 0) + (openclawTokenSum?.last24h || 0)
+      : undefined;
   const costSavedLifetime = monadStats?.costSaved?.estimated;
   const sustainedTokPerS = monadStats?.throughput?.tokensPerSec;
   const requestsLifetime = monadStats?.requests?.lifetime;
