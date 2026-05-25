@@ -146,19 +146,17 @@ export default function BuilderStats() {
   const allTokens = cloudTokens + localTotal;
 
   if (allTokens > 0) {
-    // Build a multi-line breakdown for the tooltip. Hidden until a local
-    // source has populated; falls back to the cloud-only description otherwise.
+    // Build a multi-line breakdown for the tooltip. OpenClaw agents that
+    // run on Monad-1 (currently all of them — Volta, future agents) get
+    // rolled into the single "Monad-1 (local inference)" line since their
+    // tokens are Monad-1's tokens from a hardware perspective. If a future
+    // agent runs elsewhere, attribute it separately at that point.
     const breakdownLines = [];
     if (cloudTokens > 0) {
       breakdownLines.push(`Cloud providers: ${formatBigNumber(cloudTokens)}`);
     }
-    if (localTokens.monad > 0) {
-      breakdownLines.push(`Monad-1 (local inference): ${formatBigNumber(localTokens.monad)}`);
-    }
-    for (const a of localTokens.agents) {
-      if (a.total > 0) {
-        breakdownLines.push(`${a.name} (OpenClaw agent): ${formatBigNumber(a.total)}`);
-      }
+    if (localTotal > 0) {
+      breakdownLines.push(`Monad-1 (local inference): ${formatBigNumber(localTotal)}`);
     }
 
     stats.push({

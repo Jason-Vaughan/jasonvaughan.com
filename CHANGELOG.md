@@ -5,6 +5,7 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 ## [Unreleased]
 
 ### Fixed
+- **AI Tokens tooltip — roll OpenClaw agents into the Monad-1 line** — Volta (and any future OpenClaw agent running on Monad) was being listed as a separate breakdown line, which was confusing because its tokens *are* Monad-1 tokens from a hardware perspective. Tooltip now shows two lines only: `Cloud providers` and `Monad-1 (local inference)`. The Monad-1 line sums Monad's published total + every agent's contribution. Headline value unchanged.
 - **`formatBigNumber` — bump billion-scale precision from 1 to 2 decimals** — at 1 decimal, `9.3B` and `9.31B` rendered identically, which meant the local-inference addition to the AI Tokens tile (14M Monad+Volta) was mathematically applied but visibly invisible against the 9.3B cloud-provider baseline. Two decimals lets M-scale additions to a B-scale number actually move the displayed digit. M-scale and K-scale precision unchanged.
 
 ### Changed
