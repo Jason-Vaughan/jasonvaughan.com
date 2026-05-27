@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import uciLogo from "../assets/projects/uci.png";
 import medusaLogo from "../assets/projects/medusa.png";
 import { formatBigNumber } from "../utils/format";
+import useGitHubLatestRelease from "../hooks/useGitHubLatestRelease";
 
 const MANIFEST_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/_collect-meta.json";
 
@@ -29,7 +30,8 @@ const projects = [
     stage: "beta",
     slug: "medusa",
     title: "Medusa",
-    fullName: "Medusa-MCP v0.7.7-beta",
+    fullName: "Medusa-MCP",
+    repo: { owner: "Jason-Vaughan", repo: "Medusa" },
     image: medusaLogo,
     tagline:
       "Autonomous AI-to-AI coordination — turning isolated agents into a collective swarm.",
@@ -52,6 +54,7 @@ const projects = [
     slug: "uci",
     title: "UCI",
     fullName: "Unified Comms Intelligence",
+    repo: { owner: "Jason-Vaughan", repo: "UCI" },
     image: uciLogo,
     tagline:
       "Multi-channel comms with AI drafts and human-in-the-loop review that earns autonomy over time.",
@@ -70,6 +73,10 @@ const projects = [
 ];
 
 function PipelineCard({ project, stats }) {
+  // Live version chip — fetched from GitHub Releases when the project has a
+  // `repo` field. Returns null when the repo has no releases / fetch fails;
+  // we just don't render the version suffix in that case.
+  const liveVersion = useGitHubLatestRelease(project.repo?.owner, project.repo?.repo);
   const stage = STAGES[project.stage];
   if (!stage) return null;
 
@@ -166,7 +173,7 @@ function PipelineCard({ project, stats }) {
           {project.title}
           {project.fullName && (
             <span style={{ marginLeft: 10, fontSize: 14, fontWeight: 500, color: "#71717a", letterSpacing: 0 }}>
-              {project.fullName}
+              {project.fullName}{liveVersion ? ` ${liveVersion}` : ""}
             </span>
           )}
         </h3>

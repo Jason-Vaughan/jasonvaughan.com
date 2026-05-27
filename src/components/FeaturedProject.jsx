@@ -4,6 +4,7 @@ import tiltLogo from "../assets/tilt_logo.png";
 import tiltclawLogo from "../assets/projects/tiltclaw_logo.png";
 import { autoLanguageTags } from "../utils/languageTags";
 import ShareLink from "./ShareLink";
+import useGitHubLatestRelease from "../hooks/useGitHubLatestRelease";
 
 const STATS_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/tilt-stats.json";
 
@@ -31,6 +32,10 @@ function formatSince(iso) {
  */
 export default function FeaturedProject() {
   const [liveStats, setLiveStats] = useState(null);
+  // No-op today (TiLT-showcase repo has no releases yet) but the moment it
+  // ships its first GitHub release the version chip auto-appears alongside
+  // the other badges — no portfolio commit needed.
+  const liveVersion = useGitHubLatestRelease("Jason-Vaughan", "TiLT-showcase");
 
   useEffect(() => {
     fetch(STATS_URL)
@@ -142,6 +147,18 @@ export default function FeaturedProject() {
               }}>
                 SaaS · Subscription
               </span>
+              {liveVersion && (
+                <span style={{
+                  fontSize: 11, fontWeight: 700, textTransform: "uppercase",
+                  letterSpacing: 1, padding: "4px 12px", borderRadius: 9999,
+                  background: "rgba(255,255,255,0.06)",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                  color: "#e4e4e7",
+                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+                }}>
+                  {liveVersion}
+                </span>
+              )}
               {since && (
                 <span style={{
                   fontSize: 11, fontWeight: 600,

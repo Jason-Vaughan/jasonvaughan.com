@@ -4,6 +4,7 @@ import ScreenshotModal from "./ScreenshotModal";
 import ShareLink from "./ShareLink";
 import tangleclawLogo from "../assets/projects/tangleclaw.png";
 import { autoLanguageTags } from "../utils/languageTags";
+import useGitHubLatestRelease from "../hooks/useGitHubLatestRelease";
 
 const GH_ASSETS = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main";
 const tcScreenshots = `${GH_ASSETS}/tangleclaw-screenshots`;
@@ -67,6 +68,7 @@ export default function FeaturedTangleClaw() {
   }
 
   const since = liveStats ? formatSince(liveStats.firstCommit) : null;
+  const liveVersion = useGitHubLatestRelease("Jason-Vaughan", "TangleClaw");
 
   const techStack = [
     "Node.js", "tmux", "ttyd", "REST API", "Zero Dependencies",
@@ -160,6 +162,18 @@ export default function FeaturedTangleClaw() {
               }}>
                 Open Source · MIT
               </span>
+              {liveVersion && (
+                <span style={{
+                  fontSize: 11, fontWeight: 700, textTransform: "uppercase",
+                  letterSpacing: 1, padding: "4px 12px", borderRadius: 9999,
+                  background: "rgba(255,255,255,0.06)",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                  color: "#e4e4e7",
+                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+                }}>
+                  {liveVersion}
+                </span>
+              )}
               {since && (
                 <span style={{
                   fontSize: 11, fontWeight: 600,
