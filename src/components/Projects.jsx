@@ -16,6 +16,7 @@ const projects = [
     image: scrapegoatLogo,
     blurb:
       "PDF calendar extractor PWA — drop a PDF schedule, AI wizard builds a parsing template, export as ICS, CSV, JSON, or Markdown. Runs entirely in-browser, privacy-first. Your files never leave your device.",
+    repo: { owner: "Jason-Vaughan", repo: "ScrapeGoat" },
     link: "https://github.com/Jason-Vaughan/ScrapeGoat",
     linkLabel: "View on GitHub",
     tags: ["PWA", "Gemini AI", "PDF.js", "TypeScript"],
@@ -29,6 +30,7 @@ const projects = [
     image: notseLogo,
     blurb:
       "Networked teleprompter for broadcast and live event production. A Windows helper drives PowerPoint via Microsoft COM; the Mac app shows the prompter and writes notes back to slides on Cmd+E. Built from inside the workflow it serves. Closed-source — commercial license.",
+    repo: { owner: "Jason-Vaughan", repo: "notse-releases" },
     tags: ["Electron", "PowerPoint COM", "WebSockets", "Broadcast"],
     accent: "#f59e0b",
     badge: { label: "Commercial · License", tone: "commercial" },
@@ -42,6 +44,7 @@ const projects = [
     image: porthubLogo,
     blurb:
       "DHCP for developers — a port registry that prevents 'address already in use' errors across all your projects. Automatic lease management, real-time dashboard, conflict detection, and AI assistant integration.",
+    repo: { owner: "Jason-Vaughan", repo: "PortHub" },
     link: "https://github.com/Jason-Vaughan/PortHub",
     linkLabel: "View on GitHub",
     tags: ["Node.js", "CLI", "DevTools", "Networking"],
@@ -55,6 +58,7 @@ const projects = [
     image: refuctorLogo,
     blurb:
       "Snark-fueled technical debt detection CLI. Scans codebases for markdown lint, spelling, code quality, and security issues — then roasts you about it. Project is archived.",
+    repo: { owner: "Jason-Vaughan", repo: "refuctor" },
     link: "https://github.com/Jason-Vaughan/refuctor",
     linkLabel: "View on GitHub",
     tags: ["CLI", "Node.js", "DevTools"],
@@ -68,6 +72,7 @@ const projects = [
     image: clawbridgeLogo,
     blurb:
       "Host-side HTTP bridge that exposes Claude Code as a supervised build tool for automation systems. JSON API for spawning, managing, and streaming AI coding sessions — with structured permission review and test result detection.",
+    repo: { owner: "Jason-Vaughan", repo: "ClawBridge" },
     link: "https://github.com/Jason-Vaughan/ClawBridge",
     linkLabel: "View on GitHub",
     tags: ["Node.js", "Claude Code", "API", "DevOps"],
@@ -111,6 +116,36 @@ function formatCount(n) {
 export default function Projects() {
   const [modal, setModal] = useState(null);
   const [statsBySlug, setStatsBySlug] = useState({});
+  // Live release-tag versions per project, batch-fetched from the GitHub
+  // Releases API in one effect (avoids N hooks across the inline .map()).
+  // Entries are only present for projects that actually have a release;
+  // missing keys render no version chip — graceful no-op for repos without
+  // releases (e.g. archived experiments, pre-release projects).
+  const [versionsBySlug, setVersionsBySlug] = useState({});
+
+  useEffect(() => {
+    let cancelled = false;
+    const withRepos = projects.filter((p) => p.repo);
+    Promise.allSettled(
+      withRepos.map((p) =>
+        fetch(`https://api.github.com/repos/${p.repo.owner}/${p.repo.repo}/releases/latest`, {
+          headers: { Accept: "application/vnd.github+json" },
+        })
+          .then((r) => (r.ok ? r.json() : null))
+          .then((d) => ({ slug: p.slug, version: d?.tag_name || null }))
+      ),
+    ).then((results) => {
+      if (cancelled) return;
+      const map = {};
+      for (const r of results) {
+        if (r.status === "fulfilled" && r.value?.version) {
+          map[r.value.slug] = r.value.version;
+        }
+      }
+      setVersionsBySlug(map);
+    });
+    return () => { cancelled = true; };
+  }, []);
 
   useEffect(() => {
     fetch(MANIFEST_URL, { cache: "no-store" })
@@ -225,6 +260,20 @@ export default function Projects() {
                   {p.badge && (
                     <span style={{ ...badgeBase, ...(badgeStyles[p.badge.tone] || badgeStyles.openSource) }}>
                       {p.badge.label}
+                    </span>
+                  )}
+                  {versionsBySlug[p.slug] && (
+                    <span style={{
+                      fontSize: 10,
+                      fontWeight: 700,
+                      padding: "2px 8px",
+                      borderRadius: 9999,
+                      background: "rgba(255,255,255,0.06)",
+                      border: "1px solid rgba(255,255,255,0.12)",
+                      color: "#e4e4e7",
+                      fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+                    }}>
+                      {versionsBySlug[p.slug]}
                     </span>
                   )}
                 </div>
