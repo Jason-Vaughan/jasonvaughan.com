@@ -4,6 +4,11 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- **Re-aligned `formatBigNumber` tests with 2-decimal billion-scale precision** — the precision bump in PR #55 broke two test assertions (`1.0B+` / `9.3B+` / `12.5B+` cases that now produce `1.00B+` / `9.30B+` / `12.50B+`). Updated the test expectations and added a new assertion for the M-scale-additions-visible scenario (`9.31B+`) that justified the precision bump in the first place. All 20 tests now pass.
+
+## [2026-05-30] — OpenClaw Fleet · self-publishing telemetry · auto-versioned cards
+
 ### Added
 - **Auto-fetched live version chips on every project card with a GitHub repo** — new `src/hooks/useGitHubLatestRelease.js` hook fetches each project's latest release tag from the GitHub Releases API on page load and renders it next to the title (chip with monospace font + subtle outline). Cards wired: Medusa, UCI (Pipeline) · TangleClaw, TiLT (Featured cards) · ScrapeGoat, Notse, PortHub, Refuctor, ClawBridge (Projects grid). Future releases (and any future card with a `repo:` field) auto-light up — no portfolio commit needed to bump version chips. Repos with no published releases gracefully render no version. Discovered along the way: Medusa's hardcoded `v0.7.7-beta` was three releases behind actual (`v0.7.10-beta`); now self-corrects on every page load. Projects-grid version fetching uses a batch-fetch in one effect rather than N hooks (avoids hook-in-map pattern).
 
