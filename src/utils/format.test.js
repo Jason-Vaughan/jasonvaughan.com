@@ -31,10 +31,14 @@ describe("formatBigNumber", () => {
     expect(formatBigNumber(9_300_000)).toBe("9.3M+");
   });
 
-  test("formats billions with B+ suffix and one decimal", () => {
-    expect(formatBigNumber(1_000_000_000)).toBe("1.0B+");
-    expect(formatBigNumber(9_300_000_000)).toBe("9.3B+");
-    expect(formatBigNumber(12_500_000_000)).toBe("12.5B+");
+  test("formats billions with B+ suffix and two decimals", () => {
+    // 2 decimals at B-scale so M-scale additions (e.g. AI Tokens local
+    // inference adding ~14M to a 9.3B baseline) actually move the
+    // displayed digit instead of being absorbed by rounding.
+    expect(formatBigNumber(1_000_000_000)).toBe("1.00B+");
+    expect(formatBigNumber(9_300_000_000)).toBe("9.30B+");
+    expect(formatBigNumber(9_314_000_000)).toBe("9.31B+");
+    expect(formatBigNumber(12_500_000_000)).toBe("12.50B+");
   });
 
   test("boundary values cross to the next suffix tier", () => {
@@ -44,7 +48,7 @@ describe("formatBigNumber", () => {
     expect(formatBigNumber(100_000)).toBe("100K+");
     expect(formatBigNumber(999_999)).toBe("999K+");
     expect(formatBigNumber(1_000_000)).toBe("1.0M+");
-    expect(formatBigNumber(1_000_000_000)).toBe("1.0B+");
+    expect(formatBigNumber(1_000_000_000)).toBe("1.00B+");
   });
 });
 
