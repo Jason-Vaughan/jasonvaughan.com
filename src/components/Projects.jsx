@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import ScreenshotModal from "./ScreenshotModal";
 import { autoLanguageTags } from "../utils/languageTags";
 import notseLogo from "../assets/projects/notse.png";
-import porthubLogo from "../assets/projects/porthub.png";
-import refuctorLogo from "../assets/projects/refuctor.png";
 import scrapegoatLogo from "../assets/projects/scrapegoat.png";
 import clawbridgeLogo from "../assets/projects/clawbridge.png";
 
@@ -36,34 +34,6 @@ const projects = [
     badge: { label: "Commercial · License", tone: "commercial" },
     link: "/notse",
     linkLabel: "View licensing",
-    screenshots: null,
-  },
-  {
-    slug: "porthub",
-    title: "PortHub",
-    image: porthubLogo,
-    blurb:
-      "DHCP for developers — a port registry that prevents 'address already in use' errors across all your projects. Automatic lease management, real-time dashboard, conflict detection, and AI assistant integration.",
-    repo: { owner: "Jason-Vaughan", repo: "PortHub" },
-    link: "https://github.com/Jason-Vaughan/PortHub",
-    linkLabel: "View on GitHub",
-    tags: ["Node.js", "CLI", "DevTools", "Networking"],
-    accent: "#06b6d4",
-    badge: { label: "Open Source · MIT", tone: "openSource" },
-    screenshots: null,
-  },
-  {
-    slug: "refuctor",
-    title: "Refuctor",
-    image: refuctorLogo,
-    blurb:
-      "Snark-fueled technical debt detection CLI. Scans codebases for markdown lint, spelling, code quality, and security issues — then roasts you about it. Project is archived.",
-    repo: { owner: "Jason-Vaughan", repo: "refuctor" },
-    link: "https://github.com/Jason-Vaughan/refuctor",
-    linkLabel: "View on GitHub",
-    tags: ["CLI", "Node.js", "DevTools"],
-    accent: "#ef4444",
-    badge: { label: "Source Available · Archived", tone: "archived" },
     screenshots: null,
   },
   {
