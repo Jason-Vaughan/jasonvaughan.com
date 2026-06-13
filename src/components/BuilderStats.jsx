@@ -81,6 +81,7 @@ export default function BuilderStats() {
         totals.fixes = manifest.aggregateFixes?.count || 0;
         totals.prs = manifest.aggregatePRs?.merged || 0;
         totals.refactored = manifest.aggregateRefactored?.count || 0;
+        totals.authored = manifest.aggregateAuthored?.count || 0;
 
         // Week-over-week deltas come pre-computed in the manifest (added by
         // the collector after PR-on-project-assets#TBD). Defaults to empty so
@@ -195,6 +196,21 @@ export default function BuilderStats() {
     });
   }
 
+  // Lines Authored — sum of git insertions across history (every line ever
+  // written, including rewrites). The lifetime sibling to "Lines of Code":
+  // LoC is what's alive now, Authored is everything ever typed. Tooltip draws
+  // the distinction so the larger number doesn't read as inflated.
+  if (totals.authored > 0) {
+    stats.push({
+      label: "Lines Authored",
+      value: formatBigNumber(totals.authored),
+      exact: totals.authored,
+      delta: d ? d.authored : null, // null until a 7-day baseline exists (no launch-day spike badge)
+      color: "#818cf8",
+      description: "Every line ever written across all repos — the lifetime total of code authored, including rewrites. Different from Lines of Code (what's alive right now): write a function, rewrite it three times, and it counts here each time but stays ~1x in Lines of Code. Scoped to the same source/markup/docs profile, so it can't be padded by generated data.",
+    });
+  }
+
   // Lines Refactored — sums of git deletions across history (refactors,
   // dead-code removal, simplifications). Tooltip explains the framing since
   // "deleted lines = good" isn't obvious to non-devs.
@@ -244,9 +260,9 @@ export default function BuilderStats() {
             <div style={{
               marginTop: 18,
               display: "grid",
-              // 80px min + 10px gap keeps all 8 tiles on one row well below
-              // the 960px container — wrap point drops from ~960px viewport
-              // to ~810px viewport. Math: 8*80 + 7*10 = 710px tile area.
+              // 80px min + 10px gap fits up to 9 tiles on one row well below
+              // the 960px container. Math: 9*80 + 8*10 = 800px tile area.
+              // auto-fit reflows to fewer columns on narrower viewports.
               gridTemplateColumns: "repeat(auto-fit, minmax(80px, 1fr))",
               gap: 10,
             }}>
