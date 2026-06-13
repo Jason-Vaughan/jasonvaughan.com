@@ -4,9 +4,6 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
-### Added
-- **New "Lines Authored" BuilderStats tile — lifetime lines ever written (~1.3M)** — sums git insertions across all history in every repo (the `aggregateAuthored` field added by the collector in project-assets#14), scoped to the same source/markup/docs profile as Lines of Code so it can't be padded by generated data. Pairs with Lines of Code as its lifetime sibling: LoC is what's alive now (~796k), Authored is everything ever typed including rewrites (~1.3M). Tooltip draws the distinction so the larger number doesn't read as inflated. The week-over-week delta badge stays hidden until a 7-day baseline manifest exists (avoids a misleading "+1.3M this week" on launch). Builder Stats grid now holds up to 9 tiles.
-
 ### Fixed
 - **Lines of Code tooltip now describes the real (wide) language profile** — the tile previously said *"e.g., TangleClaw counts only .js/.mjs"*, which became false after the collector (project-assets#11) was widened to count all source, markup, styles, docs, and config (JS/TS, Python, HTML, CSS, Markdown, and more) across every repo, with generated/vendored files excluded. Tooltip copy updated for parity; no longer singles out TangleClaw's old narrow profile.
 - **Re-aligned `formatBigNumber` tests with 2-decimal billion-scale precision** — the precision bump in PR #55 broke two test assertions (`1.0B+` / `9.3B+` / `12.5B+` cases that now produce `1.00B+` / `9.30B+` / `12.50B+`). Updated the test expectations and added a new assertion for the M-scale-additions-visible scenario (`9.31B+`) that justified the precision bump in the first place. All 20 tests now pass.
