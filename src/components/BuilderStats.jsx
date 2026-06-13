@@ -108,7 +108,7 @@ export default function BuilderStats() {
       exact: totals.loc,
       delta: d ? d.loc : null,
       color: "#38bdf8",
-      description: "Current snapshot of source files across all tracked repos — what lives in the codebase right now. Each repo has a per-language profile (e.g., TangleClaw counts only .js/.mjs). Different from lifetime-added, since refactoring removes lines as it adds new ones.",
+      description: "Current snapshot of source files across all tracked repos — what lives in the codebase right now. Counts hand-written source, markup, styles, docs, and config (JS/TS, Python, HTML, CSS, Markdown, and more) across every repo; generated and vendored files (lockfiles, build output, node_modules) are excluded. Different from lifetime-added, since refactoring removes lines as it adds new ones.",
     },
     {
       label: "Commits",
