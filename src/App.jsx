@@ -8,6 +8,7 @@ import Projects from "./components/Projects";
 import Pipeline from "./components/Pipeline";
 import Infrastructure from "./components/Infrastructure";
 import OpenClawFleet from "./components/OpenClawFleet";
+import ClawHub from "./components/ClawHub";
 import Writing from "./components/Writing";
 import GPTs from "./components/GPTs";
 import TipJar from "./components/TipJar";
@@ -127,6 +128,7 @@ export default function App() {
       <Pipeline />
       <Infrastructure />
       <OpenClawFleet />
+      <ClawHub />
       <Writing />
       <GPTs />
       <TipJar />
