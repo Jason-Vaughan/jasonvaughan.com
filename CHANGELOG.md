@@ -5,6 +5,7 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 ## [Unreleased]
 
 ### Added
+- **ClawHub cards now show live download counts** — each skill/plugin card surfaces its ClawHub download count (skills sit at ~244/245) next to the version chip, sourced from the `downloads` field the daily clawhub-watch Action now writes to `clawhub-versions.json` (project-assets#23). Freshly-published items with no downloads yet render a "New" badge instead of a bare "0", so nothing reads as underwhelming. Auto-updates daily.
 - **New "Lines Authored" BuilderStats tile — lifetime lines ever written (~1.3M)** — sums git insertions across all history in every repo (the `aggregateAuthored` field added by the collector in project-assets#14), scoped to the same source/markup/docs profile as Lines of Code so it can't be padded by generated data. Pairs with Lines of Code as its lifetime sibling: LoC is what's alive now (~796k), Authored is everything ever typed including rewrites (~1.3M). Tooltip draws the distinction so the larger number doesn't read as inflated. The week-over-week delta badge stays hidden until a 7-day baseline manifest exists (avoids a misleading "+1.3M this week" on launch). Builder Stats grid now holds up to 9 tiles.
 
 ### Fixed

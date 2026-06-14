@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-// Live versions come from the same file the weekly clawhub-watch GitHub Action
-// maintains in project-assets — overlay by slug, same pattern Projects.jsx uses
-// with _collect-meta.json. Editorial copy (blurb/tags/accent) lives here.
+// Live version + download counts come from the same file the daily clawhub-watch
+// GitHub Action maintains in project-assets — overlay by slug, same pattern
+// Projects.jsx uses with _collect-meta.json. Editorial copy (blurb/tags/accent)
+// lives here.
 const VERSIONS_URL =
   "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/clawhub-versions.json";
 
@@ -76,11 +77,13 @@ const typeBadge = {
 
 /**
  * ClawHub catalog — the OpenClaw skills & plugins published to clawhub.ai.
- * Card style mirrors Projects.jsx; live version chips come from the
- * clawhub-watch Action's clawhub-versions.json.
+ * Card style mirrors Projects.jsx; live version chips + download counts come
+ * from the daily clawhub-watch Action's clawhub-versions.json. Items with no
+ * downloads yet render a "New" badge instead of a bare "0".
  */
 export default function ClawHub() {
-  const [versions, setVersions] = useState({});
+  // Keyed by slug → the live item ({ version, downloads, ... }) from the watcher.
+  const [live, setLive] = useState({});
 
   useEffect(() => {
     fetch(VERSIONS_URL, { cache: "no-store" })
@@ -88,8 +91,8 @@ export default function ClawHub() {
       .then((data) => {
         if (!data?.items) return;
         const map = {};
-        for (const it of data.items) map[it.slug] = it.version;
-        setVersions(map);
+        for (const it of data.items) map[it.slug] = it;
+        setLive(map);
       })
       .catch(() => {});
   }, []);
@@ -133,6 +136,29 @@ export default function ClawHub() {
     color: "#e4e4e7",
     fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
   };
+  // Live download count — green-tinted so it reads as a positive traction signal.
+  const dlChip = {
+    fontSize: 10,
+    fontWeight: 700,
+    padding: "2px 8px",
+    borderRadius: 9999,
+    background: "rgba(52, 211, 153, 0.12)",
+    border: "1px solid rgba(52, 211, 153, 0.30)",
+    color: "#34d399",
+    fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+  };
+  // Shown instead of "0 downloads" for freshly-published items.
+  const newChip = {
+    fontSize: 10,
+    fontWeight: 700,
+    padding: "2px 8px",
+    borderRadius: 9999,
+    background: "rgba(251, 191, 36, 0.12)",
+    border: "1px solid rgba(251, 191, 36, 0.30)",
+    color: "#fbbf24",
+    letterSpacing: 0.5,
+    textTransform: "uppercase",
+  };
   const tagStyle = {
     fontSize: 11,
     fontWeight: 600,
@@ -163,7 +189,15 @@ export default function ClawHub() {
                   <span style={{ ...badgeBase, ...typeBadge[it.type] }}>
                     {typeBadge[it.type].label}
                   </span>
-                  {versions[it.slug] && <span style={verChip}>v{versions[it.slug]}</span>}
+                  {live[it.slug]?.version && <span style={verChip}>v{live[it.slug].version}</span>}
+                  {live[it.slug] &&
+                    (live[it.slug].downloads > 0 ? (
+                      <span style={dlChip} title="Downloads on ClawHub">
+                        ↓ {live[it.slug].downloads.toLocaleString()}
+                      </span>
+                    ) : (
+                      <span style={newChip}>New</span>
+                    ))}
                 </div>
 
                 <p style={{ marginTop: 10, color: "#d4d4d8", lineHeight: 1.5, fontSize: 14, flex: 1 }}>
