@@ -57,18 +57,18 @@ const projects = [
     repo: { owner: "Jason-Vaughan", repo: "UCI" },
     image: uciLogo,
     tagline:
-      "Multi-channel comms with AI drafts and human-in-the-loop review that earns autonomy over time.",
+      "An AI comms assistant that learns to run a business's inbox — human corrections become RLHF training data until the model earns autonomy, channel by channel.",
     blurb:
-      "UCI unifies every inbound message a business gets — WhatsApp, Gmail, Airbnb, iMessage, Discord, and more — into a single review queue. The AI drafts each reply; a human approves, edits, or rejects with reason; the assistant gradually earns the right to send autonomously, one communication type at a time, never silently.",
+      "UCI is a machine-learning communications control plane. It unifies every inbound channel a business has — WhatsApp, Gmail, Airbnb, VRBO, iMessage, Discord — into one AI-assisted review queue, where a language model drafts every reply with a confidence score. Each human approve / edit / reject-with-reason is captured as labeled, RLHF-style training data, and that feedback loop continuously improves the model. A per-channel readiness signal then gates when the assistant may send on its own — so autonomy is measured and earned, one communication type at a time, never silent. Self-hosted on Chatwoot + Label Studio behind a custom control plane: per-type toggles, a readiness thermometer, a circuit breaker, and a full audit ledger.",
     features: [
-      "Multi-channel intake — every inbox in one place",
-      "AI-drafted replies with confidence scoring",
-      "Human review queue captures structured feedback",
-      "RLHF-style learning from every approval, edit, and rejection",
-      "Per-comm-type autonomy — earned, never silent",
-      "Audit trail for every decision, override, and automation flip",
+      "LLM-drafted replies with per-message confidence scoring",
+      "Every human approval, edit, and rejection captured as labeled training data",
+      "Continuous RLHF-style learning loop — the model improves from real corrections",
+      "Per-channel readiness model gates autonomy — measured, never silent",
+      "Multi-channel intake — every inbox unified in one queue",
+      "Full audit ledger for every decision, override, and automation flip",
     ],
-    tags: ["AI Assistant", "RLHF", "Multi-channel", "Human-in-the-Loop"],
+    tags: ["Machine Learning", "RLHF", "LLM", "Human-in-the-Loop", "Multi-channel"],
   },
 ];
 
