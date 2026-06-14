@@ -75,15 +75,35 @@ const typeBadge = {
   },
 };
 
+// Map the watcher's normalized scan status to a label + color for the hover panel.
+const SECURITY = {
+  pass: { label: "Passed", color: "#34d399" },
+  pending: { label: "Pending", color: "#fbbf24" },
+  unknown: { label: "—", color: "#a1a1aa" },
+};
+
+/** Format a ClawHub `lastPublished` ms timestamp as e.g. "Jun 4, 2026". */
+function formatClawhubDate(ms) {
+  if (!ms) return "—";
+  return new Date(ms).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
 /**
  * ClawHub catalog — the OpenClaw skills & plugins published to clawhub.ai.
  * Card style mirrors Projects.jsx; live version chips + download counts come
  * from the daily clawhub-watch Action's clawhub-versions.json. Items with no
- * downloads yet render a "New" badge instead of a bare "0".
+ * downloads yet render a "New" badge instead of a bare "0". Hovering a card
+ * reveals a stats panel (downloads, stars, security scan, last published).
  */
 export default function ClawHub() {
-  // Keyed by slug → the live item ({ version, downloads, ... }) from the watcher.
+  // Keyed by slug → the live item ({ version, downloads, stars, ... }) from the watcher.
   const [live, setLive] = useState({});
+  // Slug of the card currently hovered (drives the stats popover), or null.
+  const [hovered, setHovered] = useState(null);
 
   useEffect(() => {
     fetch(VERSIONS_URL, { cache: "no-store" })
@@ -109,7 +129,9 @@ export default function ClawHub() {
   };
   const card = {
     borderRadius: 16,
-    overflow: "hidden",
+    // No overflow:hidden — it would clip the hover stats popover. The accent
+    // bar rounds its own top corners instead (same approach as BuilderStats).
+    position: "relative",
     border: "1px solid #3f3f46",
     background: "#18181b",
     boxShadow: "0 8px 24px rgba(0,0,0,.35)",
@@ -168,6 +190,37 @@ export default function ClawHub() {
     border: "1px solid rgba(255,255,255,0.08)",
     color: "#a1a1aa",
   };
+  // Hover stats popover — floats above the card (needs card overflow:visible).
+  const tip = {
+    position: "absolute",
+    bottom: "calc(100% + 10px)",
+    left: 14,
+    right: 14,
+    background: "#0b0b0d",
+    border: "1px solid #3f3f46",
+    borderRadius: 12,
+    boxShadow: "0 12px 32px rgba(0,0,0,.55)",
+    padding: "12px 14px",
+    zIndex: 30,
+    pointerEvents: "none",
+  };
+  const tipHeader = {
+    fontSize: 10,
+    fontWeight: 700,
+    textTransform: "uppercase",
+    letterSpacing: 1.5,
+    color: "#71717a",
+    marginBottom: 8,
+  };
+  const tipRow = {
+    display: "flex",
+    justifyContent: "space-between",
+    gap: 16,
+    fontSize: 12.5,
+    padding: "3px 0",
+  };
+  const tipLabel = { color: "#a1a1aa" };
+  const tipVal = { color: "#e4e4e7", fontWeight: 600 };
 
   return (
     <section id="clawhub" style={section}>
@@ -178,9 +231,31 @@ export default function ClawHub() {
           that give an agent real-world hands (Google Workspace, eBay, Airbnb), no MCP gateway.
         </p>
         <div style={grid}>
-          {items.map((it) => (
-            <div key={it.slug} style={card}>
-              <div style={{ height: 4, background: `linear-gradient(90deg, ${it.accent}, transparent)` }} />
+          {items.map((it) => {
+            const L = live[it.slug];
+            const sec = SECURITY[L?.security] || SECURITY.unknown;
+            return (
+            <div
+              key={it.slug}
+              style={card}
+              onMouseEnter={() => setHovered(it.slug)}
+              onMouseLeave={() => setHovered((s) => (s === it.slug ? null : s))}
+            >
+              <div style={{ height: 4, background: `linear-gradient(90deg, ${it.accent}, transparent)`, borderRadius: "16px 16px 0 0" }} />
+
+              {hovered === it.slug && L && (
+                <div style={tip}>
+                  <div style={tipHeader}>ClawHub stats</div>
+                  {L.version && (
+                    <div style={tipRow}><span style={tipLabel}>Version</span><span style={tipVal}>v{L.version}</span></div>
+                  )}
+                  <div style={tipRow}><span style={tipLabel}>Downloads</span><span style={tipVal}>{(L.downloads ?? 0).toLocaleString()}</span></div>
+                  <div style={tipRow}><span style={tipLabel}>Stars</span><span style={tipVal}>{L.stars ?? 0}</span></div>
+                  <div style={tipRow}><span style={tipLabel}>Security scan</span><span style={{ ...tipVal, color: sec.color }}>{sec.label}</span></div>
+                  <div style={tipRow}><span style={tipLabel}>Last published</span><span style={tipVal}>{formatClawhubDate(L.lastPublished)}</span></div>
+                </div>
+              )}
+
               <div style={{ padding: 20, flex: 1, display: "flex", flexDirection: "column" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
                   <h3 style={{ fontSize: 20, fontWeight: 700, color: "#fafafa", margin: 0 }}>
@@ -189,11 +264,11 @@ export default function ClawHub() {
                   <span style={{ ...badgeBase, ...typeBadge[it.type] }}>
                     {typeBadge[it.type].label}
                   </span>
-                  {live[it.slug]?.version && <span style={verChip}>v{live[it.slug].version}</span>}
-                  {live[it.slug] &&
-                    (live[it.slug].downloads > 0 ? (
+                  {L?.version && <span style={verChip}>v{L.version}</span>}
+                  {L &&
+                    (L.downloads > 0 ? (
                       <span style={dlChip} title="Downloads on ClawHub">
-                        ↓ {live[it.slug].downloads.toLocaleString()}
+                        {L.downloads.toLocaleString()} downloads
                       </span>
                     ) : (
                       <span style={newChip}>New</span>
@@ -222,7 +297,8 @@ export default function ClawHub() {
                 </div>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
