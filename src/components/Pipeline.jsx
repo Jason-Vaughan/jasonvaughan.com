@@ -36,7 +36,7 @@ const projects = [
     tagline:
       "Autonomous AI-to-AI coordination — turning isolated agents into a collective swarm.",
     blurb:
-      "Modern AI agents (Cursor, Claude Desktop, Windsurf) live in isolated workspaces, forcing humans to manually route context between them. Medusa is a decentralized coordination layer on top of the Model Context Protocol that lets agents communicate, negotiate tasks, and reconcile results across a mesh — turning the AI silo problem into a collective swarm.",
+      "Modern AI agents (Cursor, Claude Desktop, Windsurf) live in isolated workspaces, forcing humans to manually route context between them. Medusa is a decentralized coordination layer on top of the Model Context Protocol that lets agents communicate, negotiate tasks, and reconcile results across a mesh — turning the AI silo problem into a collective swarm. The same fabric generalizes well beyond IDEs: letting parallel AI sessions talk instead of colliding (a direction for the next TangleClaw), fanning bulk work out across a fleet of machines, or cross-checking results between independent agents for higher-integrity output.",
     features: [
       "Distributed gossip consensus — peer voting on redundant tasks",
       "Collective strategy sharing — nodes defer to better-suited peers",
