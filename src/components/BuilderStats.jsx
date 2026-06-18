@@ -221,7 +221,7 @@ export default function BuilderStats() {
       exact: totals.refactored,
       delta: d ? d.refactored : null,
       color: "#ec4899",
-      description: "Lines removed across all repos — refactoring, cleanups, dead code removal, simplifications. A high number means the codebase is being revisited and improved, not just stacked on.",
+      description: "Lines rewritten or retired over the life of every repo — refactors, simplifications, dead-code cleanup. The counterpart to Lines Authored (not Lines of Code): of everything ever written, most is still in production and this is the slice that got sharpened along the way. Code that's revisited, not just stacked on.",
     });
   }
 
