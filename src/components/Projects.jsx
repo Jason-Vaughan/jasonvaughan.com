@@ -4,10 +4,25 @@ import { autoLanguageTags } from "../utils/languageTags";
 import notseLogo from "../assets/projects/notse.png";
 import scrapegoatLogo from "../assets/projects/scrapegoat.png";
 import clawbridgeLogo from "../assets/projects/clawbridge.png";
+import tanglebrainLogo from "../assets/projects/tanglebrain.png";
 
 const MANIFEST_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/_collect-meta.json";
 
 const projects = [
+  {
+    slug: "tanglebrain",
+    title: "TangleBrain",
+    image: tanglebrainLogo,
+    blurb:
+      "A local-first, config-driven LLM router. Routes each request across OpenAI-compatible backends you own — a local model server by default, with authenticated CLIs and bring-your-own-key APIs as opt-in overflow. The whole roster lives in one editable YAML file, so adding a backend is a config edit, not a code change. Every routed task is logged with an estimated cloud-equivalent cost.",
+    repo: { owner: "Jason-Vaughan", repo: "TangleBrain" },
+    link: "https://github.com/Jason-Vaughan/TangleBrain",
+    linkLabel: "View on GitHub",
+    tags: ["Python", "LLM Router", "Local-first", "Ollama", "MCP"],
+    accent: "#14b8a6",
+    badge: { label: "Open Source · MIT", tone: "openSource" },
+    screenshots: null,
+  },
   {
     slug: "scrapegoat",
     title: "ScrapeGoat",
