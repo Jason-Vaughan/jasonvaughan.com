@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import tanglebrainLogo from "../assets/projects/tanglebrain.png";
+import useGitHubLatestRelease from "../hooks/useGitHubLatestRelease";
+import ShareLink from "./ShareLink";
 
 const STATS_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/tanglebrain-stats.json";
-const RELEASE_URL = "https://api.github.com/repos/Jason-Vaughan/TangleBrain/releases/latest";
 
 const accent = "#14b8a6";
 const accentLight = "#2dd4bf";
@@ -27,16 +28,13 @@ function formatSince(iso) {
  */
 export default function FeaturedTangleBrain() {
   const [liveStats, setLiveStats] = useState(null);
-  const [version, setVersion] = useState(null);
+  // Centralized hook (project rule: every GitHub-repo card uses this, no inline fetch).
+  const version = useGitHubLatestRelease("Jason-Vaughan", "TangleBrain");
 
   useEffect(() => {
     fetch(STATS_URL, { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))
       .then(setLiveStats)
-      .catch(() => {});
-    fetch(RELEASE_URL, { headers: { Accept: "application/vnd.github+json" } })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => d?.tag_name && setVersion(d.tag_name))
       .catch(() => {});
   }, []);
 
@@ -113,7 +111,7 @@ export default function FeaturedTangleBrain() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.25 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
           style={card}
         >
           {/* Teal accent bar */}
@@ -209,6 +207,7 @@ export default function FeaturedTangleBrain() {
               <a href="https://github.com/Jason-Vaughan/TangleBrain/releases/latest" target="_blank" rel="noreferrer" style={btnOutline}>
                 Latest Release
               </a>
+              <ShareLink id="tanglebrain" style={{ marginLeft: "auto", alignSelf: "center" }} />
             </div>
           </div>
         </motion.div>
