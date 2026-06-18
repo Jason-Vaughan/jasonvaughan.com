@@ -170,13 +170,15 @@ export default function FeaturedTangleBrain() {
             </p>
 
             <p style={{ marginTop: 14, color: "#d4d4d8", lineHeight: 1.6, fontSize: 14, maxWidth: 640 }}>
-              TangleBrain routes each request to a backend you've configured — a free local model
-              server by default, with authenticated CLIs and bring-your-own-key APIs as opt-in
-              overflow. The whole roster of backends lives in one editable YAML file, so adding or
-              removing one is a config edit, not a code change. A cheap local classifier can
-              fast-path trivial requests, an orchestrator can delegate bulk sub-tasks to the local
-              backend over MCP, and every routed task is logged with an estimated cloud-equivalent
-              cost — rolled up by <code>tanglebrain --stats</code>.
+              Most AI tooling sends every request to a paid cloud API by default — even when you
+              already run capable models on hardware you own. TangleBrain keeps your whole roster of
+              backends in one editable YAML file and favors the credentials you already hold: local
+              models and OAuth-logged-in tools come first, while raw API keys stay a separate,
+              explicitly-gated opt-in (it never injects a key into a CLI). An optional classifier
+              routes by complexity — grunt work goes to your free local model — and every routed task
+              is logged with an estimated cloud-equivalent cost, so you can see what you're spending
+              versus avoiding. Runs standalone or drops in alongside TangleClaw and the wider Tangle
+              family.
             </p>
 
             {/* Stats grid */}
