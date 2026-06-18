@@ -59,6 +59,12 @@ export const SHARE_CARDS = [
       "Operations layer that coordinates AI coding agents across many projects on one machine. Open source.",
   },
   {
+    id: "tanglebrain",
+    title: "TangleBrain — Local-First LLM Router",
+    description:
+      "Config-driven router across the OpenAI-compatible AI backends you own. Local-first, opt-in overflow. Open source (MIT).",
+  },
+  {
     id: "cierre-sensei",
     title: "Cierre Sensei — Spanish Conversation Practice",
     description:

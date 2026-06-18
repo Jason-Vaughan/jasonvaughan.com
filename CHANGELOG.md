@@ -5,7 +5,7 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 ## [Unreleased]
 
 ### Added
-- **New TangleBrain project card** — added a card for [TangleBrain](https://github.com/Jason-Vaughan/TangleBrain) (v0.10.0, first public release): a local-first, config-driven LLM router across OpenAI-compatible backends, MIT-licensed, with its serpent-and-circuit-brain logo. Version chip auto-fetches from the GitHub Releases API; stats overlay populates once the collector auto-discovers the repo.
+- **New TangleBrain featured (hero) card** — added `FeaturedTangleBrain.jsx`, a full hero card for [TangleBrain](https://github.com/Jason-Vaughan/TangleBrain) (v0.10.0, first public release): a local-first, config-driven LLM router across OpenAI-compatible backends, MIT-licensed. Placed directly below the TangleClaw hero card to group the two "Tangle" siblings. Live stats grid (LOC/tests/commits/PRs) fetched from the collector's `tanglebrain-stats.json`; version chip auto-fetches from the GitHub Releases API. Initially shipped as a Projects-grid card, then promoted to a hero card.
 
 ### Changed
 - **Refreshed the TangleClaw logo** — replaced `src/assets/projects/tangleclaw.png` (used by the TangleClaw featured card) with the new coiled-serpent emblem. Master copy also updated in project-assets (`tangleclaw-logo.png`).
