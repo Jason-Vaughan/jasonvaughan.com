@@ -43,6 +43,7 @@ const projects = [
       "Bidirectional terminal interface for AI ↔ human handoffs",
       "ZombieDust autonomous monitoring — workspaces as wake-on-prompt endpoints",
       "Cross-IDE: Cursor, Windsurf, Claude Desktop, Terminal",
+      "Peer discovery via TangleClaw PortHub — slots into the same self-hosted AI-ops stack",
     ],
     tags: ["MCP", "Python A2A Swarm", "Node.js Hub", "Autonomous Agents"],
     link: "https://github.com/Jason-Vaughan/Medusa",
