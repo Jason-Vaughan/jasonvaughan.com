@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import BuilderStats from "./components/BuilderStats";
 import FeaturedProject from "./components/FeaturedProject";
 import FeaturedTangleClaw from "./components/FeaturedTangleClaw";
+import FeaturedTangleBrain from "./components/FeaturedTangleBrain";
 import FeaturedCierreSensei from "./components/FeaturedCierreSensei";
 import Projects from "./components/Projects";
 import Pipeline from "./components/Pipeline";
@@ -123,6 +124,7 @@ export default function App() {
       <BuilderStats />
       <FeaturedProject />
       <FeaturedTangleClaw />
+      <FeaturedTangleBrain />
       <FeaturedCierreSensei />
       <Projects />
       <Pipeline />
