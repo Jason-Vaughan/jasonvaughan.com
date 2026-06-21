@@ -35,10 +35,11 @@ function formatUSD(n) {
  */
 export default function Infrastructure() {
   const [monadStats, setMonadStats] = useState(null);
-  // Aggregate token totals from every OpenClaw agent that publishes its
-  // own stats.json. We sum these into Monad-1's displayed counts so the
-  // card reflects all inference done on the rig, not just whatever the
-  // Monad publisher itself happens to be reading.
+  // Legacy OpenClaw-agent token aggregation. Now a no-op: OPENCLAW_AGENT_STATS_URLS
+  // is empty by design because routed agents (Volta, etc.) are already inside
+  // Monad's published tokens.total (LiteLLM + Ollama tee) — summing them here
+  // double-counted the rig. Kept wired so a future *standalone* source could slot
+  // in, but the Monad card now shows Monad's own number only. See openclaw-sources.js.
   const [openclawTokenSum, setOpenclawTokenSum] = useState(null);
 
   useEffect(() => {
@@ -150,10 +151,10 @@ export default function Infrastructure() {
 
   // Safe getters with fallbacks for when monad-stats.json hasn't been
   // published yet (graceful degrade — show specs, hide live numbers).
-  // Token totals = whatever the Monad publisher reports + sums from every
-  // OpenClaw agent that publishes its own stats. Reads as "all work done
-  // on Monad-1" rather than "what the Monad publisher's source captures".
-  // The OpenClaw add-ons are 0 if those URLs were unreachable or empty.
+  // Token totals = the Monad publisher's tokens.total, which already counts all
+  // routed agent traffic (LiteLLM + Ollama tee). The openclawTokenSum add-on is
+  // 0 now (OPENCLAW_AGENT_STATS_URLS is empty by design — it double-counted), but
+  // the term is left in so a future standalone source could contribute.
   const monadTokensTotal = monadStats?.tokens?.total;
   const monadTokensToday = monadStats?.tokens?.last24h;
   const tokensLifetime =

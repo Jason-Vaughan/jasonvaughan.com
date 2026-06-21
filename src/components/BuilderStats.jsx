@@ -137,21 +137,21 @@ export default function BuilderStats() {
     },
   ];
 
-  // AI Tokens = cloud-provider tokens (from the centralized manifest) + every
-  // local-inference source that self-publishes (Monad-1, Volta, …). Headline
-  // signal is "total AI work done, anywhere I run it" — the tooltip breakdown
-  // shows cloud vs. each local agent so visitors can see the mix.
+  // AI Tokens = cloud-provider tokens (centralized manifest) + Monad-1's own
+  // tokens.total. Monad's publisher already counts every OpenClaw agent that
+  // routes to it (LiteLLM + Ollama tee), so agents are NOT added separately —
+  // that double-counted (see openclaw-sources.js). Headline signal: "total AI
+  // work done, anywhere I run it."
   const cloudTokens = totals.tokens; // already from manifest.aggregateTokens.total
   const localAgentTotal = localTokens.agents.reduce((sum, a) => sum + a.total, 0);
   const localTotal = localTokens.monad + localAgentTotal;
   const allTokens = cloudTokens + localTotal;
 
   if (allTokens > 0) {
-    // Build a multi-line breakdown for the tooltip. OpenClaw agents that
-    // run on Monad-1 (currently all of them — Volta, future agents) get
-    // rolled into the single "Monad-1 (local inference)" line since their
-    // tokens are Monad-1's tokens from a hardware perspective. If a future
-    // agent runs elsewhere, attribute it separately at that point.
+    // Build a multi-line breakdown for the tooltip. Local inference is a single
+    // "Monad-1" line: routed OpenClaw agents are already inside Monad's published
+    // tokens.total, so localTotal is just Monad's own number (no agent sum). A
+    // genuinely standalone rig — counted nowhere else — would get its own line.
     const breakdownLines = [];
     if (cloudTokens > 0) {
       breakdownLines.push(`Cloud providers: ${formatBigNumber(cloudTokens)}`);
