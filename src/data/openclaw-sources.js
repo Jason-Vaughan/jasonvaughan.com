@@ -1,24 +1,27 @@
-// Shared registry of self-publishing AI inference sources. Used in two places:
-//   - Infrastructure.jsx  → Monad-1 card aggregates Volta tokens into its display
-//   - BuilderStats.jsx    → top-bar AI Tokens tile adds local inference to the
-//                           cloud-provider totals so the headline counter
-//                           reflects "all AI work, anywhere I run it"
+// Shared registry of self-publishing AI inference sources, used by:
+//   - Infrastructure.jsx  → Monad-1 card "tokens served" tile
+//   - BuilderStats.jsx    → top-bar AI Tokens tile (local inference is added to the
+//                           cloud-provider manifest totals)
 //
-// Adding a new OpenClaw agent that publishes its own stats.json:
-//   1. Append { name, url } to OPENCLAW_AGENT_STATS_URLS below
-//   2. Make sure its `tokens` field shape matches readTokenScalar() — either
-//      scalar (`tokens.total: 1234`) OR nested (`tokens.total: { total: 1234 }`)
-//      Both Monad's contract and Volta's nested contract are handled.
+// OPENCLAW_AGENT_STATS_URLS is intentionally EMPTY — do not "fix" it by re-adding
+// an agent. OpenClaw agents (Volta, etc.) are CLIENTS that route their inference to
+// a backing rig/provider; they are NOT independent token sources. The Monad-1
+// publisher confirmed (2026-06) that its `tokens.total` ALREADY counts everything
+// agents route to it: LiteLLM proxy (:4000) + a direct-Ollama tee (:11435).
+// Cross-checked empirically — the tee's 61.4M ≈ Volta's self-reported 61.5M, i.e.
+// Volta's tokens were already inside Monad's number. Summing an agent here on top
+// of Monad (or on top of a cloud provider's account-level API) DOUBLE-COUNTS.
+//
+// Only add a source whose tokens are counted NOWHERE else — a genuinely standalone
+// rig with its own meter that no provider API or backing publisher already sees.
+// A routed agent is covered by its backing source's number; leave it out.
 
 export const MONAD_STATS_URL =
   "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/monad-stats.json";
 
-export const OPENCLAW_AGENT_STATS_URLS = [
-  {
-    name: "Volta",
-    url: "https://raw.githubusercontent.com/Jason-Vaughan/volta-stats/main/stats.json",
-  },
-];
+// Empty by design (see note above). Was [Volta]; removed 2026-06 as a proven
+// double-count of Monad-1's tokens.total.
+export const OPENCLAW_AGENT_STATS_URLS = [];
 
 /**
  * Read a tokens.* field which may be a plain number (Monad-style: tokens.total = N)
