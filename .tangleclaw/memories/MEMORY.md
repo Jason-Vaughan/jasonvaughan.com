@@ -2,7 +2,58 @@
 
 This file persists context across AI sessions. Update it with key decisions, progress, and open questions.
 
-## Last Session (2026-05-05 — Notse sales pipeline + tip jar + SSL fix)
+## Last Session (2026-06-22 — ccusage comparison → Codex token source + self-deploying stats agent)
+
+Started as a "compare ccusage vs what we do now" question; became a focused stats-pipeline session. All shipped & merged. **project-assets PRs #28/#29/#30** (issues #26/#27 closed); portfolio CHANGELOG + TODO direct to main. Token-counting work lives in project-assets; see auto-memory `project_stats_agent_tcc_fix` (updated this session).
+
+**Shipped:**
+1. **OpenAI Codex now counted** (project-assets #28) — Codex CLI usage (~14.5M, previously **zero**) folded into the `openai` token line as an additive `agent` source via `ccusage codex` → new `codex-usage.json`. Codex here is **ChatGPT-auth** (`auth_mode=chatgpt`) → subscription-billed, invisible to the OpenAI admin API → **no double-count**. Enforced as a **contract**: `refresh.sh` only counts a machine's Codex when `auth_mode==chatgpt` (habitat has none → skips cleanly). Found that ccusage *already* fed our Anthropic number (it was source #2 all along).
+2. **tokens.mjs hardened** (project-assets #29) — went **0 → 70 tests** (`tokens.test.mjs` new): injectable admin-API fetchers (`cfg.fetchers`), `sourceMix()` helper, `cfg.agentDir` test seam, `parse_total` stderr warnings on schema-change/zero-sum. Closed the api+agent double-count test blind spot the Critic flagged.
+3. **AI Tokens daily lag fixed** (project-assets #30) — discovered the launchd agent ran a **stale hand-copied snapshot** (`~/.claude-stats/refresh.sh`, frozen 2 days, lacked Codex). Replaced with a **self-deploying wrapper `run-agent.sh`** (pull → `install` repo script + parser → `exec` stable copy). Bumped **1×→4×/day** (05:30/11:30/17:30/23:30 PT); the collector is actually **hourly** (not 5×/day as the old TODO claimed). Freshness ~24h → ~6h. Deployed + `launchctl`-reloaded + live smoke-tested on Cursatory (Codex 14.5M counted, habitat guard skipped, pushed).
+
+**Key facts for next session:**
+- **Never hand-copy `refresh.sh` again.** Editing `local-agent/refresh.sh` in the repo + merging is sufficient — `run-agent.sh` (what launchd now fires) self-deploys it next tick. Agent runs **4×/day**.
+- **Codex folds into the `openai` breakdown line** (not its own). `ccusage codex` needs `ccusage@latest` (global 20.0.14 lacks the subcommand). The ccusage multi-agent list is per-package, not subcommands of the installed binary.
+- **`auth_mode` is the double-count gate** for any new token source that can auth two ways — only count ChatGPT-auth Codex; API-key-auth is already in the admin API.
+- `OPENCLAW_AGENT_STATS_URLS` still **empty by design** (routed agents double-count Monad). OpenClaw/Copilot deferred (Monad double-count / no local logs).
+
+**Open / next session:** highest-leverage UNDONE work remains the **portfolio interview → certs/creative-skills content** (picked at the start of the *prior* session too, still untouched). Strong secondary candidates surfaced this session: **accessibility/contrast pass** (WCAG AA fail on tag pills) and **expanded socials + Skills section**. Lingering: **stale Cursor 7B** static entry (frozen, ~44% of headline, user doesn't use Cursor — keep/retire decision pending).
+
+## Last Session (2026-06-17/18 — TangleBrain launch + hero card + Medusa positioning)
+
+**What happened:** Continued portfolio work. All shipped & merged (portfolio PRs #68–#72). Tests green (project-assets 46, portfolio 20).
+
+**Shipped:**
+1. **TangleBrain** (new public repo, v0.10.0 — local-first config-driven LLM router) added to the portfolio. First as a Projects-grid card (#68), then **promoted to a featured HERO card** (`FeaturedTangleBrain.jsx`, #69) placed directly below FeaturedTangleClaw to group the "Tangle" siblings. Hero card uses live stats (`tanglebrain-stats.json`) + `useGitHubLatestRelease` hook + ShareLink (`/share/tanglebrain/`). Auto-rolled into BuilderStats totals (LoC now ~813k, authored ~1.33M).
+2. **Logos** — project-assets is the **master asset store** (`<project>-logo.png` at repo root). Added `tanglebrain-logo.png` + refreshed `tangleclaw-logo.png` there (#25); portfolio keeps optimized 512px copies in `src/assets/projects/` (the masters are full-res 1254px). Hand-made logo art supplied by user.
+3. **TangleBrain hero copy refactored** (#70) to match the upgraded README (problem-first; OAuth/local-first credentials — keys gated, never injected into a CLI; prompt-aware routing; "standalone or part of the Tangle family"). Drafted the README's "Problem/Solution" section and handed it to the TangleBrain repo session (cross-session boundary) — they shipped it.
+4. **Medusa** — set GitHub repo description + 10 topics; portfolio card now cross-references TangleClaw PortHub (factual, README line 98) and reads as a **general coordination fabric** (parallel-sessions, fleet fan-out, cross-agent verification — each grounded in a real capability) (#71, #72). NOTE: Medusa↔UCI is provenance only (Medusa was spec'd from UCI originally) — NOT a runtime integration; do not claim one. Medusa's messy origin ("Bitch" project, near-abandonment) stays OFF the portfolio.
+5. **Lines Refactored tooltip reframed** (#71) — anchored to Lines Authored (lifetime), not current LoC, so visitors don't misread refactored÷LoC (~66%) as "most code thrown away." Correct framing: refactored÷authored ≈ 40% lifetime churn = healthy iteration. (Not a red flag.)
+
+**Open / next-session:** none pending on the portfolio. Monad-1 publisher still stale (project-assets#15, owned by the Monad session). If a real Medusa↔UCI integration ships, add it to the Medusa card.
+
+## Prior Session (2026-06-13/14 — stats accuracy overhaul + Lines Authored + ClawHub downloads)
+
+**What happened:** Long multi-arc session, all shipped & merged. Both `jasonvaughan.com` and `project-assets` touched. Tests green in both (46 + 46).
+
+**Shipped:**
+1. **Stats accuracy overhaul** — LOC now counts all source + HTML/CSS/Markdown (project-assets#11), dropped data/config exts after `.json` DB-dumps caused a false 11.8M reading (#12), removed TangleClaw's JS-only LOC override (now ~2x its LOC), portfolio tooltip parity (#59). LOC ~796k.
+2. **New "Lines Authored" BuilderStats tile** (project-assets#14 + portfolio#60) — lifetime git insertions ~1.3M, 9th tile. Critic-reviewed (caught a launch-day delta-spike, fixed).
+3. **Telemetry-repo exclusions** (project-assets#17) — dropped volta-stats/volta-bunker/notse-releases from stats; Commits de-inflated 4,885 → 3,108 (volta-stats was 1,735 `stats: <ts>` bot commits).
+4. **ClawHub download counts + hover stats** — added live downloads via the clawhub.ai API (project-assets#23), enriched with stars/security/lastPublished (#24), rendered on cards w/ "New" badge for 0 (portfolio#66), clearer "245 downloads" pill + hover popover (portfolio#67).
+5. **UCI card ML rewrite** (portfolio#65) — foregrounds the RLHF/earned-autonomy story; aimed at a Google ML role. (Authored by a parallel session; merged here.)
+6. **Vite dev-server Tailscale access** (portfolio#61) — `allowedHosts: ['.ts.net']` so the dev server is reachable cross-machine (Cursatory↔elkcaholic).
+
+**Found + handed off:**
+- **Monad-1 publisher stopped pushing 2026-06-01** (11 days stale) — `monad-stats.json` frozen, new models not showing. Filed project-assets#15; owned by the Monad-1 box session, not this one.
+
+**Important lesson (cross-session collision):** A parallel "Monad-1" session had already shipped the whole ClawHub feature (cards #64 + watcher #20). I nearly rebuilt it from scratch — caught it before opening a PR. **Before building in these shared repos, check merged/open PRs + existing files first.** User confirmed that 2nd session was accidental and stopped it. (Also fixed a self-inflicted premature merge: a chore PR branched off the unmerged Lines-Authored tile dragged it onto main; backed out via portfolio#62.)
+
+**Open / next-session:**
+- Monad publisher restart (project-assets#15) — Monad session.
+- No portfolio items pending; everything merged. All ClawHub/stats numbers self-refresh on cron.
+
+## Earlier Session (2026-05-05 — Notse sales pipeline + tip jar + SSL fix)
 
 **What happened:** Long, multi-arc session. Three big shipped pieces, one critical fix, and one piece of forward infrastructure laid down.
 

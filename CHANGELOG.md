@@ -4,6 +4,8 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-06-22
+
 ### Added
 - **New TangleBrain featured (hero) card** — added `FeaturedTangleBrain.jsx`, a full hero card for [TangleBrain](https://github.com/Jason-Vaughan/TangleBrain) (v0.10.0, first public release): a local-first, config-driven LLM router across OpenAI-compatible backends, MIT-licensed. Placed directly below the TangleClaw hero card to group the two "Tangle" siblings. Live stats grid (LOC/tests/commits/PRs) fetched from the collector's `tanglebrain-stats.json`; version chip auto-fetches from the GitHub Releases API. Initially shipped as a Projects-grid card, then promoted to a hero card.
 
