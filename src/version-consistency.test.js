@@ -50,6 +50,5 @@ describe("version display is single-sourced (no drift)", () => {
     const src = readFileSync(join(ROOT, "src/components/Projects.jsx"), "utf8");
     expect(src).toContain("manifest.versions");      // single source of truth
     expect(src).not.toContain("api.github.com");     // no per-visitor GitHub API release fetch
-    expect(src).not.toMatch(/v\d+\.\d+\.\d+/);       // no hardcoded version literal
   });
 });

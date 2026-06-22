@@ -88,10 +88,11 @@ export default function Projects() {
   const [statsBySlug, setStatsBySlug] = useState({});
   // Release-tag versions per project, keyed by slug. Sourced from the centralized
   // manifest's `versions` block (daily-synced server-side from releases/latest —
-  // latest STABLE tag, no pre-releases), NOT a per-visitor GitHub fetch. This is
-  // the single source of truth, so the card can never drift from the /notse page
-  // or other surfaces. Set in the manifest effect below; missing/null keys render
-  // no chip (graceful no-op for repos without a release).
+  // latest STABLE tag, no pre-releases), NOT a per-visitor GitHub fetch. The grid
+  // cards and the static /notse page both read this one block, so they can't drift
+  // from each other. (Featured*/Pipeline hero cards still version via the live
+  // useGitHubLatestRelease hook — a separate path, not unified here.) Set in the
+  // manifest effect below; missing/null keys render no chip (graceful no-op).
   const [versionsBySlug, setVersionsBySlug] = useState({});
 
   useEffect(() => {
