@@ -347,7 +347,7 @@ export default function Projects() {
                   return (
                     <div style={{ marginTop: 14 }}>
                       <div style={{ fontSize: 12, color: "#a1a1aa", marginBottom: 7, lineHeight: 1.4 }}>
-                        <strong style={{ color: "#e4e4e7" }}>Two-machine system</strong> — Mac prompter + Windows helper. Download both:
+                        <strong style={{ color: "#e4e4e7" }}>Download both apps</strong> — the Prompter (Mac) and the Helper (Windows):
                       </div>
                       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                         {mac && (
