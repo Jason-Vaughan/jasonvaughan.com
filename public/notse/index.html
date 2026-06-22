@@ -90,6 +90,37 @@
         letter-spacing: 1px;
         margin-bottom: 16px;
       }
+
+      /* Prominent download buttons, right under the logo. Wired live from the
+         stats manifest's downloads.notse (always the latest release assets). */
+      .downloads { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 16px; }
+      .dl-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 20px;
+        border-radius: 12px;
+        background: #f59e0b;
+        color: #09090b;
+        text-decoration: none;
+        border: 1px solid #f59e0b;
+        box-shadow: 0 6px 18px rgba(245, 158, 11, 0.25);
+        transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+      }
+      .dl-btn:hover {
+        background: #fbbf24;
+        transform: translateY(-1px);
+        box-shadow: 0 10px 24px rgba(245, 158, 11, 0.35);
+      }
+      .dl-btn .dl-icon { font-size: 18px; line-height: 1; }
+      .dl-btn .dl-text { display: flex; flex-direction: column; line-height: 1.15; text-align: left; }
+      .dl-btn .dl-main { font-size: 15px; font-weight: 800; }
+      .dl-btn .dl-sub { font-size: 11px; font-weight: 600; opacity: 0.82; }
+      .dl-help { font-size: 13px; color: #a1a1aa; margin: 0 0 6px; max-width: 640px; }
+      .dl-github { font-size: 13px; margin: 0 0 18px; }
+      .dl-github a { color: #71717a; text-decoration: none; }
+      .dl-github a:hover { color: #f59e0b; }
+
       h1 {
         font-size: 40px;
         font-weight: 800;
@@ -258,6 +289,28 @@
           <button type="button" class="logo-zoom" onclick="document.getElementById('logo-modal').showModal()" aria-label="View Notse logo full size">
             <img src="/notse/notse.png" alt="Notse logo" />
           </button>
+
+          <!-- Download buttons (filled by the script below from the stats manifest;
+               hidden until wired, so a missing build never shows a dead link). -->
+          <div class="downloads">
+            <a class="dl-btn" id="dl-mac" href="#" hidden>
+              <span class="dl-icon">⬇</span>
+              <span class="dl-text">
+                <span class="dl-main">Download for Mac</span>
+                <span class="dl-sub">Prompter app · Apple Silicon<span id="dl-mac-size"></span></span>
+              </span>
+            </a>
+            <a class="dl-btn" id="dl-win" href="#" hidden>
+              <span class="dl-icon">⬇</span>
+              <span class="dl-text">
+                <span class="dl-main">Download for Windows</span>
+                <span class="dl-sub">Helper · drives PowerPoint<span id="dl-win-size"></span></span>
+              </span>
+            </a>
+          </div>
+          <p class="dl-help">Mac: open the .dmg and drag Notse to Applications. &nbsp;·&nbsp; Windows: run the installer on the machine that runs PowerPoint.</p>
+          <p class="dl-github"><a href="https://github.com/Jason-Vaughan/notse-releases/releases">All versions &amp; release notes on GitHub →</a></p>
+
           <span class="badge">Commercial · License · <span class="notse-version">…</span></span>
           <h1>Networked live teleprompter for broadcast.</h1>
           <p class="tagline">
@@ -451,17 +504,29 @@
       })();
     </script>
     <script>
-      // Single source of truth for the Notse version: the centralized stats
-      // manifest's versions.notse (daily-synced from notse-releases' latest STABLE
-      // release). No hardcoded version on this page, so it can't drift from the
-      // portfolio card. If the fetch fails, the "…" placeholder stays — never a
-      // stale literal.
+      // Single source for the Notse version AND the download buttons: the
+      // centralized stats manifest (daily-synced from notse-releases' latest
+      // STABLE release). No hardcoded version or download URL on this page, so it
+      // can't drift — and the buttons ALWAYS point at the latest build. If the
+      // fetch fails, the version placeholder stays and the buttons stay hidden:
+      // never a stale literal, never a dead link.
+      function notseWireDownload(btnId, sizeId, asset) {
+        var btn = document.getElementById(btnId);
+        if (!btn || !asset) return;
+        btn.href = asset.url;
+        btn.hidden = false;
+        var sz = document.getElementById(sizeId);
+        if (sz && asset.size) sz.textContent = " · " + Math.round(asset.size / 1048576) + " MB";
+      }
       fetch("https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/_collect-meta.json", { cache: "no-store" })
         .then(function (r) { return r.ok ? r.json() : null; })
         .then(function (m) {
-          var v = m && m.versions && m.versions.notse;
-          if (!v) return;
-          document.querySelectorAll(".notse-version").forEach(function (el) { el.textContent = v; });
+          if (!m) return;
+          var v = m.versions && m.versions.notse;
+          if (v) document.querySelectorAll(".notse-version").forEach(function (el) { el.textContent = v; });
+          var dls = (m.downloads && m.downloads.notse) || [];
+          notseWireDownload("dl-mac", "dl-mac-size", dls.filter(function (a) { return /\.dmg$/i.test(a.name); })[0]);
+          notseWireDownload("dl-win", "dl-win-size", dls.filter(function (a) { return /\.(exe|msi)$/i.test(a.name); })[0]);
         })
         .catch(function () {});
     </script>
