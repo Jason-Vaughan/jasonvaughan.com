@@ -94,14 +94,19 @@ export default function Projects() {
   // useGitHubLatestRelease hook — a separate path, not unified here.) Set in the
   // manifest effect below; missing/null keys render no chip (graceful no-op).
   const [versionsBySlug, setVersionsBySlug] = useState({});
+  // Latest-release download assets per slug, from manifest.downloads (e.g. notse's
+  // .dmg + .exe). Rendered as direct-download pills; absent for projects with no
+  // release assets. Same single-source pattern as versionsBySlug.
+  const [downloadsBySlug, setDownloadsBySlug] = useState({});
 
   useEffect(() => {
     fetch(MANIFEST_URL, { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))
       .then((manifest) => {
         if (!manifest) return;
-        // Single source for version chips — see versionsBySlug above.
+        // Single source for version chips + download links — see state above.
         if (manifest.versions) setVersionsBySlug(manifest.versions);
+        if (manifest.downloads) setDownloadsBySlug(manifest.downloads);
         if (!manifest.projects) return;
         const map = {};
         for (const [slug, entry] of Object.entries(manifest.projects)) {
@@ -163,6 +168,23 @@ export default function Projects() {
     border: "none",
     padding: 0,
     cursor: "pointer",
+    textDecoration: "none",
+  };
+
+  // Download pills — amber to read as an action, sized like the tag pills so they
+  // match "the other things shown" on the card. Direct links to the latest
+  // release assets from manifest.downloads (categorized by filename below).
+  const downloadPill = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 4,
+    fontSize: 11,
+    fontWeight: 700,
+    padding: "3px 10px",
+    borderRadius: 9999,
+    background: "rgba(245,158,11,0.12)",
+    border: "1px solid rgba(245,158,11,0.35)",
+    color: "#fbbf24",
     textDecoration: "none",
   };
 
@@ -311,6 +333,29 @@ export default function Projects() {
                       Screenshots →
                     </button>
                   )}
+                  {/* Direct-download pills — always the latest build, from
+                      manifest.downloads (daily-synced from the repo's latest
+                      release). Categorized by filename: .dmg → Mac, .exe → Windows. */}
+                  {downloadsBySlug[p.slug] && (() => {
+                    const assets = downloadsBySlug[p.slug];
+                    const mac = assets.find((a) => /\.dmg$/i.test(a.name));
+                    const win = assets.find((a) => /\.(exe|msi)$/i.test(a.name));
+                    if (!mac && !win) return null;
+                    return (
+                      <span style={{ display: "inline-flex", gap: 8 }}>
+                        {mac && (
+                          <a href={mac.url} style={downloadPill} title={`Download ${mac.name}`}>
+                            ↓ Mac
+                          </a>
+                        )}
+                        {win && (
+                          <a href={win.url} style={downloadPill} title={`Download ${win.name}`}>
+                            ↓ Windows
+                          </a>
+                        )}
+                      </span>
+                    );
+                  })()}
                 </div>
               </div>
             </div>
