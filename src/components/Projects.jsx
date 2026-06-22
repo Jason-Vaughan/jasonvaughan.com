@@ -345,16 +345,18 @@ export default function Projects() {
                   const win = assets.find((a) => /\.(exe|msi)$/i.test(a.name));
                   if (!mac && !win) return null;
                   return (
-                    <div style={{ marginTop: 14, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-                      <span style={{ fontSize: 11, fontWeight: 700, color: "#a1a1aa", textTransform: "uppercase", letterSpacing: 0.5 }}>
-                        Try it — download both:
-                      </span>
-                      {mac && (
-                        <a href={mac.url} style={downloadPill} title={`Download ${mac.name}`}>↓ Mac</a>
-                      )}
-                      {win && (
-                        <a href={win.url} style={downloadPill} title={`Download ${win.name}`}>↓ Windows</a>
-                      )}
+                    <div style={{ marginTop: 14 }}>
+                      <div style={{ fontSize: 12, color: "#a1a1aa", marginBottom: 7, lineHeight: 1.4 }}>
+                        <strong style={{ color: "#e4e4e7" }}>Two-machine system</strong> — Mac prompter + Windows helper. Download both:
+                      </div>
+                      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                        {mac && (
+                          <a href={mac.url} style={downloadPill} title={`Download ${mac.name}`}>↓ Mac</a>
+                        )}
+                        {win && (
+                          <a href={win.url} style={downloadPill} title={`Download ${win.name}`}>↓ Windows</a>
+                        )}
+                      </div>
                     </div>
                   );
                 })()}
