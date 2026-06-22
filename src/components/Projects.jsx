@@ -333,30 +333,31 @@ export default function Projects() {
                       Screenshots →
                     </button>
                   )}
-                  {/* Direct-download pills — always the latest build, from
-                      manifest.downloads (daily-synced from the repo's latest
-                      release). Categorized by filename: .dmg → Mac, .exe → Windows. */}
-                  {downloadsBySlug[p.slug] && (() => {
-                    const assets = downloadsBySlug[p.slug];
-                    const mac = assets.find((a) => /\.dmg$/i.test(a.name));
-                    const win = assets.find((a) => /\.(exe|msi)$/i.test(a.name));
-                    if (!mac && !win) return null;
-                    return (
-                      <span style={{ display: "inline-flex", gap: 8 }}>
-                        {mac && (
-                          <a href={mac.url} style={downloadPill} title={`Download ${mac.name}`}>
-                            ↓ Mac
-                          </a>
-                        )}
-                        {win && (
-                          <a href={win.url} style={downloadPill} title={`Download ${win.name}`}>
-                            ↓ Windows
-                          </a>
-                        )}
-                      </span>
-                    );
-                  })()}
                 </div>
+
+                {/* Download row — labeled so it reads as "you need BOTH apps"
+                    (two-machine system), not either/or. Always the latest build
+                    from manifest.downloads; .dmg → Mac, .exe → Windows. */}
+                {(() => {
+                  const assets = downloadsBySlug[p.slug];
+                  if (!assets) return null;
+                  const mac = assets.find((a) => /\.dmg$/i.test(a.name));
+                  const win = assets.find((a) => /\.(exe|msi)$/i.test(a.name));
+                  if (!mac && !win) return null;
+                  return (
+                    <div style={{ marginTop: 14, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                      <span style={{ fontSize: 11, fontWeight: 700, color: "#a1a1aa", textTransform: "uppercase", letterSpacing: 0.5 }}>
+                        Try it — download both:
+                      </span>
+                      {mac && (
+                        <a href={mac.url} style={downloadPill} title={`Download ${mac.name}`}>↓ Mac</a>
+                      )}
+                      {win && (
+                        <a href={win.url} style={downloadPill} title={`Download ${win.name}`}>↓ Windows</a>
+                      )}
+                    </div>
+                  );
+                })()}
               </div>
             </div>
           ))}
