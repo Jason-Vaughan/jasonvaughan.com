@@ -86,42 +86,23 @@ function formatCount(n) {
 export default function Projects() {
   const [modal, setModal] = useState(null);
   const [statsBySlug, setStatsBySlug] = useState({});
-  // Live release-tag versions per project, batch-fetched from the GitHub
-  // Releases API in one effect (avoids N hooks across the inline .map()).
-  // Entries are only present for projects that actually have a release;
-  // missing keys render no version chip — graceful no-op for repos without
-  // releases (e.g. archived experiments, pre-release projects).
+  // Release-tag versions per project, keyed by slug. Sourced from the centralized
+  // manifest's `versions` block (daily-synced server-side from releases/latest —
+  // latest STABLE tag, no pre-releases), NOT a per-visitor GitHub fetch. The grid
+  // cards and the static /notse page both read this one block, so they can't drift
+  // from each other. (Featured*/Pipeline hero cards still version via the live
+  // useGitHubLatestRelease hook — a separate path, not unified here.) Set in the
+  // manifest effect below; missing/null keys render no chip (graceful no-op).
   const [versionsBySlug, setVersionsBySlug] = useState({});
-
-  useEffect(() => {
-    let cancelled = false;
-    const withRepos = projects.filter((p) => p.repo);
-    Promise.allSettled(
-      withRepos.map((p) =>
-        fetch(`https://api.github.com/repos/${p.repo.owner}/${p.repo.repo}/releases/latest`, {
-          headers: { Accept: "application/vnd.github+json" },
-        })
-          .then((r) => (r.ok ? r.json() : null))
-          .then((d) => ({ slug: p.slug, version: d?.tag_name || null }))
-      ),
-    ).then((results) => {
-      if (cancelled) return;
-      const map = {};
-      for (const r of results) {
-        if (r.status === "fulfilled" && r.value?.version) {
-          map[r.value.slug] = r.value.version;
-        }
-      }
-      setVersionsBySlug(map);
-    });
-    return () => { cancelled = true; };
-  }, []);
 
   useEffect(() => {
     fetch(MANIFEST_URL, { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))
       .then((manifest) => {
-        if (!manifest?.projects) return;
+        if (!manifest) return;
+        // Single source for version chips — see versionsBySlug above.
+        if (manifest.versions) setVersionsBySlug(manifest.versions);
+        if (!manifest.projects) return;
         const map = {};
         for (const [slug, entry] of Object.entries(manifest.projects)) {
           if (entry.ok && entry.stats) map[slug] = entry.stats;
