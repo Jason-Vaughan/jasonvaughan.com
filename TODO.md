@@ -21,7 +21,6 @@ Issues fixed in PRs are removed from this list — git history is the record. Us
 - [ ] **Skills section (creative / live-show tools)** — manually curated list of pro tools NOT visible from GitHub: Photoshop, After Effects, Watchout, Millumin, Premiere, Pro Tools, QLab, Resolume, etc. Grouped by domain (Live Show Control / Video Production / Audio / Design / Broadcast). This is a real differentiator from typical dev portfolios — combined with touring credits + IATSE badge, tells the "developer with deep live-events chops" story. The impressive visual version lives in `WISHLIST.md`.
 
 ### Stats System
-- [ ] **AI Tokens daily lag** — currently the local `~/.claude-stats/refresh.sh` agent runs once daily at 05:30 PT. The new 5x/day GitHub workflow doesn't refresh AI Tokens. Either (a) accept the lag, (b) bump the local agent to multiple times per day, or (c) skip token aggregation on workflow runs that don't have fresh agent data.
 - [ ] **Self-hosted LLM router** (Kimi 2.5 / DeepSeek) — when set up, expose `/api/tokens.json` and add `tokens.remote.<provider>` to `projects.yml` (~15 min wiring).
 - [ ] **PR-merged-by-author breakdown** — currently we count all merged PRs. If contributors ever land work, may want to split.
 - [ ] **CHANGELOG-derived version display per project** — surface the latest released version on each card, not just LOC.
@@ -45,6 +44,7 @@ Issues fixed in PRs are removed from this list — git history is the record. Us
 - [ ] **Medusa promotion** — Medusa is currently in Pipeline > Public Beta. Promote to a hero card when it graduates.
 
 ## Done (recent — keep until they roll into a CHANGELOG release)
+- [x] **AI Tokens lag fix** — shipped 2026-06-22. Local agent now runs 4x/day (05:30/11:30/17:30/23:30 PT) via a self-deploying wrapper (`run-agent.sh`) that re-syncs the script from the repo each run; freshness ~24h → ~6h. Also added Codex CLI as a token source. project-assets PRs #28/#30.
 - [x] **Fixes Shipped + PRs Merged stats** — shipped 2026-04-28, both aggregate (BuilderStats tiles) and per-card.
 - [x] **Stats workflow 5x daily** — bumped from 1x to 5x daily, anchored to Pacific.
 - [x] **Single-line BuilderStats + full-width dark bg** — shipped 2026-04-28.
