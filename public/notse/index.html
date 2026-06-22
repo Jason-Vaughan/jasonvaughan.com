@@ -258,7 +258,7 @@
           <button type="button" class="logo-zoom" onclick="document.getElementById('logo-modal').showModal()" aria-label="View Notse logo full size">
             <img src="/notse/notse.png" alt="Notse logo" />
           </button>
-          <span class="badge">Commercial · License · v0.5.12</span>
+          <span class="badge">Commercial · License · <span class="notse-version">…</span></span>
           <h1>Networked live teleprompter for broadcast.</h1>
           <p class="tagline">
             Notse separates the talent-facing prompter from the slide-driving graphics rig — mirroring how pro broadcast workflows already operate. A Mac runs the prompter; a Windows helper drives PowerPoint via Microsoft COM in real time. Networked over LAN, no cloud round-trip.
@@ -291,7 +291,7 @@
       <section class="section">
         <div class="container">
           <h2>What it does today</h2>
-          <p style="margin: 0 0 16px; color: #71717a; font-size: 13px;">v0.5.12 — May 2026</p>
+          <p style="margin: 0 0 16px; color: #71717a; font-size: 13px;"><span class="notse-version">…</span> — Latest release</p>
           <div class="features">
             <div class="feature">
               <h3>Live PowerPoint integration</h3>
@@ -449,6 +449,21 @@
           modal.close();
         });
       })();
+    </script>
+    <script>
+      // Single source of truth for the Notse version: the centralized stats
+      // manifest's versions.notse (daily-synced from notse-releases' latest STABLE
+      // release). No hardcoded version on this page, so it can't drift from the
+      // portfolio card. If the fetch fails, the "…" placeholder stays — never a
+      // stale literal.
+      fetch("https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/_collect-meta.json", { cache: "no-store" })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (m) {
+          var v = m && m.versions && m.versions.notse;
+          if (!v) return;
+          document.querySelectorAll(".notse-version").forEach(function (el) { el.textContent = v; });
+        })
+        .catch(function () {});
     </script>
   </body>
 </html>
