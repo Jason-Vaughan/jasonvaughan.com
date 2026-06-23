@@ -12,6 +12,7 @@ import OpenClawFleet from "./components/OpenClawFleet";
 import ClawHub from "./components/ClawHub";
 import Writing from "./components/Writing";
 import Skills from "./components/Skills";
+import Certifications from "./components/Certifications";
 import GPTs from "./components/GPTs";
 import TipJar from "./components/TipJar";
 import ContactSection from "./components/ContactSection";
@@ -134,6 +135,7 @@ export default function App() {
       <ClawHub />
       <Writing />
       <Skills />
+      <Certifications />
       <GPTs />
       <TipJar />
       <ContactSection />
