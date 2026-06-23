@@ -4,7 +4,8 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
-## [0.1.0] - 2026-06-22
+### Added
+- **New Skills section — creative / live-show / broadcast pro tools** — added `src/components/Skills.jsx` driven by `src/data/skills.js`, surfacing the tools that GitHub language tags can't (the "developer with deep live-events chops" differentiator). Grouped by domain into dark cards (`#18181b`, matching the site style): Media Servers (Millumin, Watchout, Pixera, Mitti, Q-Lab, Disguise), Screen Switchers (Barco E2/E3, Analog Way Ascender/Aquilon, Spyder X20), Broadcast / Signal Flow (SMPTE-2110, Dante, fiber optics, Cisco networking), Editing / Post (Premiere, After Effects), Design (Photoshop, Illustrator), and Audio (Pro Tools, live mixing). Each skill carries an optional `level` field that renders a proficiency pill only when set, so unset entries make no claim. Placed between Writing and GPTs. Data contract guarded by `src/data/skills.test.js` (6 tests).
 
 ### Added
 - **New TangleBrain featured (hero) card** — added `FeaturedTangleBrain.jsx`, a full hero card for [TangleBrain](https://github.com/Jason-Vaughan/TangleBrain) (v0.10.0, first public release): a local-first, config-driven LLM router across OpenAI-compatible backends, MIT-licensed. Placed directly below the TangleClaw hero card to group the two "Tangle" siblings. Live stats grid (LOC/tests/commits/PRs) fetched from the collector's `tanglebrain-stats.json`; version chip auto-fetches from the GitHub Releases API. Initially shipped as a Projects-grid card, then promoted to a hero card.
