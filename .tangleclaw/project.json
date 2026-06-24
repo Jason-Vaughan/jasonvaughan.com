@@ -2,6 +2,10 @@
   "engine": "claude",
   "methodology": "prawduct",
   "methodologyPhase": null,
+  "silentPrime": true,
+  "featureIndexEnabled": false,
+  "versionBumpEnabled": true,
+  "wrapSections": null,
   "rules": {
     "core": {
       "changelogPerChange": true,
@@ -46,5 +50,9 @@
     "heartbeatInterval": 300000,
     "baselineWindowDays": 14,
     "retentionDays": 90
-  }
+  },
+  "wrapV2": true,
+  "testCommand": null,
+  "lintCommand": null,
+  "lastWrapSha": "25729b2d542f9dff0487209127168fe1651973c5"
 }

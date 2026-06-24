@@ -2,22 +2,22 @@
 
 This file persists context across AI sessions. Update it with key decisions, progress, and open questions.
 
-## Last Session (2026-06-22 — ccusage comparison → Codex token source + self-deploying stats agent)
+## Last Session (2026-06-24 — Skills + Certifications sections + page-wide collapsible dropdowns)
 
-Started as a "compare ccusage vs what we do now" question; became a focused stats-pipeline session. All shipped & merged. **project-assets PRs #28/#29/#30** (issues #26/#27 closed); portfolio CHANGELOG + TODO direct to main. Token-counting work lives in project-assets; see auto-memory `project_stats_agent_tcc_fix` (updated this session).
+The long-deferred **portfolio interview** finally happened, then shipped end-to-end. All live on jasonvaughan.com via **portfolio PRs #83/#84/#85** (Critic-reviewed, Playwright-verified, all deploys green). See auto-memory `skills-certs-collapsible-shipped`.
 
 **Shipped:**
-1. **OpenAI Codex now counted** (project-assets #28) — Codex CLI usage (~14.5M, previously **zero**) folded into the `openai` token line as an additive `agent` source via `ccusage codex` → new `codex-usage.json`. Codex here is **ChatGPT-auth** (`auth_mode=chatgpt`) → subscription-billed, invisible to the OpenAI admin API → **no double-count**. Enforced as a **contract**: `refresh.sh` only counts a machine's Codex when `auth_mode==chatgpt` (habitat has none → skips cleanly). Found that ccusage *already* fed our Anthropic number (it was source #2 all along).
-2. **tokens.mjs hardened** (project-assets #29) — went **0 → 70 tests** (`tokens.test.mjs` new): injectable admin-API fetchers (`cfg.fetchers`), `sourceMix()` helper, `cfg.agentDir` test seam, `parse_total` stderr warnings on schema-change/zero-sum. Closed the api+agent double-count test blind spot the Critic flagged.
-3. **AI Tokens daily lag fixed** (project-assets #30) — discovered the launchd agent ran a **stale hand-copied snapshot** (`~/.claude-stats/refresh.sh`, frozen 2 days, lacked Codex). Replaced with a **self-deploying wrapper `run-agent.sh`** (pull → `install` repo script + parser → `exec` stable copy). Bumped **1×→4×/day** (05:30/11:30/17:30/23:30 PT); the collector is actually **hourly** (not 5×/day as the old TODO claimed). Freshness ~24h → ~6h. Deployed + `launchctl`-reloaded + live smoke-tested on Cursatory (Codex 14.5M counted, habitat guard skipped, pushed).
+1. **Skills section** (`src/components/Skills.jsx` + `src/data/skills.js`, 6 tests) — creative/live-show/broadcast/IT pro tools GitHub can't surface (the differentiator). Domains: Media Servers (Millumin/Watchout/Pixera/Mitti/Q-Lab/Disguise), Screen Switchers (Barco E2/E3, Analog Way Ascender/Aquilon, Spyder X20), Broadcast/Signal Flow/**IT** (SMPTE-2110, Dante, fiber, IP networking, switching/routing, Cisco), Editing (Premiere/AE), Design (PS/AI), Audio (Pro Tools, live mixing). Optional `level` pill — **left blank by user choice**.
+2. **Certifications section** (`src/components/Certifications.jsx` + `src/data/certifications.js`, 5 tests) — curated/current: 7-yr IATSE Local 16 stagecraft apprenticeship, Barco Video Eng Level A, OSHA 30, Google PM (Coursera, **2026** = currency signal), IATSE Training Trust Fund instructor. **Strategy decided: play the no-degree angle IN, never OUT** — never reference the degree's absence (it makes it the yardstick); NO hard anchor year (age-math risk); IATSE framed as *training*, never union advocacy.
+3. **Collapsible page** (#83) — everything below Builder Stats is a dropdown (emoji icon + one-line descriptor + CSS grid-rows expand). `Collapsible.jsx` + `sectionRegistry.js`. Deep-links open the enclosing dropdown + flash the target (card flashes the card; **section links flash the header panel**, #84 — the box-shadow ring is invisible on a big transparent section).
+4. **Share/deep-links** — card links = OG-rich `/share/<id>/`; section headers = clean `/#section`. **#85: added copy-links to every card that lacked one** (Projects, Pipeline/Medusa, ClawHub, GPTs). ShareLink clipboard now works on insecure tailnet HTTP (execCommand fallback).
 
-**Key facts for next session:**
-- **Never hand-copy `refresh.sh` again.** Editing `local-agent/refresh.sh` in the repo + merging is sufficient — `run-agent.sh` (what launchd now fires) self-deploys it next tick. Agent runs **4×/day**.
-- **Codex folds into the `openai` breakdown line** (not its own). `ccusage codex` needs `ccusage@latest` (global 20.0.14 lacks the subcommand). The ccusage multi-agent list is per-package, not subcommands of the installed binary.
-- **`auth_mode` is the double-count gate** for any new token source that can auth two ways — only count ChatGPT-auth Codex; API-key-auth is already in the admin API.
-- `OPENCLAW_AGENT_STATS_URLS` still **empty by design** (routed agents double-count Monad). OpenClaw/Copilot deferred (Monad double-count / no local logs).
+**Key facts / decisions:**
+- **Internal-fork pattern validated:** deploy is **main-only** (GitHub Pages), so a feature branch IS the private staging — nothing's public until merged. Dev preview = vite on **port 3300**, host 0.0.0.0, over the tailnet.
+- **Don't unmount collapsible content** a deep-link might target — keep mounted, CSS-hide (`grid-template-rows`+`inert`); the handler walks up to `[data-collapsible]`. Section id rides in the `data-collapsible` attr to avoid duplicate DOM ids (Critic finding). See learnings.md.
+- **Playwright-from-inside-the-project** is the verification tool for DOM/scroll/flash behavior (vitest is node/no-jsdom). Scripts must live in the project dir for ESM `node_modules` resolution.
 
-**Open / next session:** highest-leverage UNDONE work remains the **portfolio interview → certs/creative-skills content** (picked at the start of the *prior* session too, still untouched). Strong secondary candidates surfaced this session: **accessibility/contrast pass** (WCAG AA fail on tag pills) and **expanded socials + Skills section**. Lingering: **stale Cursor 7B** static entry (frozen, ~44% of headline, user doesn't use Cursor — keep/retire decision pending).
+**Open / next session:** **#81** show/hide refinement (partly addressed by collapsibles), **#82** cert + per-card OG-preview logos (new card links use plain `/#`, no social image), the minor **duplicate-`<h2>` trim** on wrapped sections (section shows its own heading + the dropdown label), and the lingering **accessibility/contrast pass** (WCAG AA fail on tag pills) + the **stale Cursor 7B** keep/retire decision.
 
 ## Last Session (2026-06-17/18 — TangleBrain launch + hero card + Medusa positioning)
 

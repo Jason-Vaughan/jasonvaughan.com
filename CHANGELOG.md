@@ -4,6 +4,8 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-06-24
+
 ### Added
 - **Copy-link on every project/GPT/skill card** — added deep-link copy buttons to the cards that were missing them: the Projects grid, Pipeline (Beta/In-Dev, e.g. Medusa & UCI), ClawHub items, and Custom GPTs. Each card root now has a stable `id` (its slug) and a `ShareLink` that copies a clean `/#<slug>` link; the GPT cards (which are `<a>` anchors) get the button floated on top via a relative wrapper. GPT ids are explicit to avoid collisions (the Cierre Sensei GPT uses `cierre-sensei-gpt` so it doesn't clash with the featured `cierre-sensei` section). All open the enclosing dropdown and flash the card; browser-verified (ids unique, deep-links resolve).
 - **Collapsible page sections — everything below Builder Stats is now a dropdown** — added `src/components/Collapsible.jsx` (+ `src/utils/sectionRegistry.js`, 4 tests). Every section except the always-open Builder Stats is wrapped in a dropdown with an emoji icon, a one-line descriptor, and a smooth CSS `grid-template-rows` expand. Collapsed content stays mounted (hidden via CSS + `inert`) so deep-link targets *inside* a section still resolve; the `App.jsx` deep-link handler walks from the hash target up to its enclosing `[data-collapsible]`, opens that dropdown, then scrolls + flashes the specific card — so links to nested cards (e.g. `#monad-1` inside Research) now work. Verified end-to-end in a real browser via Playwright.
