@@ -11,9 +11,13 @@ import Infrastructure from "./components/Infrastructure";
 import OpenClawFleet from "./components/OpenClawFleet";
 import ClawHub from "./components/ClawHub";
 import Writing from "./components/Writing";
+import Skills from "./components/Skills";
+import Certifications from "./components/Certifications";
 import GPTs from "./components/GPTs";
 import TipJar from "./components/TipJar";
 import ContactSection from "./components/ContactSection";
+import Collapsible from "./components/Collapsible";
+import { openSection } from "./utils/sectionRegistry";
 
 export default function App() {
   // Deep-link handler — when someone opens jasonvaughan.com/#<card-id>, scroll
@@ -23,11 +27,26 @@ export default function App() {
     const applyHighlight = () => {
       const hash = window.location.hash.slice(1);
       if (!hash) return;
+      // The target may be a card *inside* a collapsed section (e.g. #notse in
+      // the Projects grid). Content stays mounted while collapsed, so the
+      // element exists — walk up to its enclosing [data-collapsible] section
+      // and open that before scrolling, so the dropdown expands and the eye
+      // lands on the specific card, not a collapsed header.
       const el = document.getElementById(hash);
-      if (!el) return;
-      el.scrollIntoView({ behavior: "smooth", block: "center" });
-      el.classList.add("card-highlight-pulse");
-      window.setTimeout(() => el.classList.remove("card-highlight-pulse"), 2400);
+      const enclosing = el?.closest("[data-collapsible]");
+      // The enclosing dropdown's section id rides in the data-collapsible
+      // attribute (the wrapper may not carry a DOM id — see Collapsible).
+      const opened = enclosing
+        ? openSection(enclosing.getAttribute("data-collapsible"))
+        : openSection(hash);
+      const settle = opened ? 340 : 0;
+      window.setTimeout(() => {
+        const target = document.getElementById(hash);
+        if (!target) return;
+        target.scrollIntoView({ behavior: "smooth", block: "center" });
+        target.classList.add("card-highlight-pulse");
+        window.setTimeout(() => target.classList.remove("card-highlight-pulse"), 2400);
+      }, settle);
     };
 
     // Slight delay so framer-motion / data-fetch settles before we scroll.
@@ -121,20 +140,64 @@ export default function App() {
         </motion.p>
       </header>
 
+      {/* Builder Stats is the only always-exposed section; everything else is
+          a closed dropdown by default (deep-links open + flash their target). */}
       <BuilderStats />
-      <FeaturedProject />
-      <FeaturedTangleClaw />
-      <FeaturedTangleBrain />
-      <FeaturedCierreSensei />
-      <Projects />
-      <Pipeline />
-      <Infrastructure />
-      <OpenClawFleet />
-      <ClawHub />
-      <Writing />
-      <GPTs />
-      <TipJar />
-      <ContactSection />
+
+      <Collapsible id="tilt" title="TiLT" icon="⏱️"
+        description="Union timecard & pay tracking for live-events crews.">
+        <FeaturedProject />
+      </Collapsible>
+      <Collapsible id="tangleclaw" title="TangleClaw" icon="🧶"
+        description="Multi-project AI session orchestration & governance.">
+        <FeaturedTangleClaw />
+      </Collapsible>
+      <Collapsible id="tanglebrain" title="TangleBrain" icon="🧠"
+        description="Local-first LLM router across AI backends.">
+        <FeaturedTangleBrain />
+      </Collapsible>
+      <Collapsible id="cierre-sensei" title="Cierre Sensei" icon="🏠"
+        description="Mexican real-estate closing-cost engine.">
+        <FeaturedCierreSensei />
+      </Collapsible>
+      <Collapsible id="projects" title="Projects" icon="🛠️"
+        description="Shipped apps, tools & open-source projects.">
+        <Projects />
+      </Collapsible>
+      <Collapsible id="pipeline" title="Pipeline" icon="🚧" provideId
+        description="What's in active development next.">
+        <Pipeline />
+      </Collapsible>
+      <Collapsible id="research" title="Research & Infrastructure" icon="🔬"
+        description="Active investigations and the systems that power them.">
+        <Infrastructure />
+      </Collapsible>
+      <Collapsible id="openclaw-fleet" title="OpenClaw Fleet" icon="🤖"
+        description="Internal AI agents in production & development.">
+        <OpenClawFleet />
+      </Collapsible>
+      <Collapsible id="clawhub" title="ClawHub" icon="📦"
+        description="Published skills & plugins with live download stats.">
+        <ClawHub />
+      </Collapsible>
+      <Collapsible id="writing" title="Writing" icon="✍️"
+        description="Essays & technical write-ups.">
+        <Writing />
+      </Collapsible>
+      <Skills />
+      <Certifications />
+      <Collapsible id="gpts" title="Custom GPTs" icon="💬"
+        description="Purpose-built GPT assistants.">
+        <GPTs />
+      </Collapsible>
+      <Collapsible id="tip-jar" title="Tip Jar" icon="💰"
+        description="Support the work.">
+        <TipJar />
+      </Collapsible>
+      <Collapsible id="contact" title="Contact" icon="✉️"
+        description="Get in touch.">
+        <ContactSection />
+      </Collapsible>
 
       <footer className="py-8 text-center text-sm text-zinc-600">
         © {new Date().getFullYear()} Jason Vaughan
