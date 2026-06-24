@@ -3,6 +3,7 @@ import uciLogo from "../assets/projects/uci.png";
 import medusaLogo from "../assets/projects/medusa.png";
 import { formatBigNumber } from "../utils/format";
 import useGitHubLatestRelease from "../hooks/useGitHubLatestRelease";
+import ShareLink from "./ShareLink";
 
 const MANIFEST_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/_collect-meta.json";
 
@@ -159,7 +160,7 @@ function PipelineCard({ project, stats }) {
   };
 
   return (
-    <div style={card}>
+    <div style={card} id={project.slug}>
       <div style={{ height: 4, background: `linear-gradient(90deg, ${stage.accent}, ${stage.accentLight}, transparent)` }} />
 
       {project.image && (
@@ -233,8 +234,8 @@ function PipelineCard({ project, stats }) {
           </div>
         )}
 
-        {project.link && (
-          <div style={{ marginTop: 18 }}>
+        <div style={{ marginTop: 18, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+          {project.link ? (
             <a
               href={project.link}
               target="_blank"
@@ -243,8 +244,11 @@ function PipelineCard({ project, stats }) {
             >
               {project.linkLabel || "Learn more"} →
             </a>
-          </div>
-        )}
+          ) : (
+            <span />
+          )}
+          <ShareLink id={project.slug} mode="hash" />
+        </div>
       </div>
     </div>
   );
