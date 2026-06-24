@@ -96,7 +96,8 @@ export default function Collapsible({ id, title, icon, description, defaultOpen 
   return (
     <section data-collapsible={id} {...(provideId ? { id } : {})} style={section}>
       <div style={wrap}>
-        <div style={headerRow}>
+        <div style={headerRow} data-collapsible-header="">
+
           <button
             type="button"
             style={headerBtn}
