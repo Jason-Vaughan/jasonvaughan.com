@@ -1,18 +1,16 @@
+import Collapsible from "./Collapsible";
 import { skillGroups } from "../data/skills";
 
 /**
  * Skills section — creative / live-show / broadcast pro tools, grouped by
- * domain. One dark card per domain (matching the site's #18181b card style),
- * each listing its tools. A proficiency pill renders only when a skill has a
- * non-empty `level`, so unset entries make no claim.
+ * domain. One dark card per domain, each listing its tools. A proficiency pill
+ * renders only when a skill has a non-empty `level`. Wrapped in a Collapsible
+ * (default-closed) to keep the page short; opens + flashes on deep-link.
  *
  * @returns {JSX.Element} The rendered Skills section.
  */
 export default function Skills() {
-  const section = { background: "transparent", color: "#fafafa", padding: "32px 0" };
-  const wrap = { maxWidth: 960, margin: "0 auto", padding: "0 24px" };
-  const h2Style = { fontSize: 32, fontWeight: 800, letterSpacing: -0.5 };
-  const subStyle = { marginTop: 8, color: "#a1a1aa", fontSize: 15, maxWidth: 640, lineHeight: 1.5 };
+  const subStyle = { marginTop: 0, color: "#a1a1aa", fontSize: 15, maxWidth: 640, lineHeight: 1.5 };
   const grid = {
     marginTop: 20,
     display: "grid",
@@ -48,29 +46,28 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" style={section}>
-      <div style={wrap}>
-        <h2 style={h2Style}>Skills</h2>
-        <p style={subStyle}>
-          Pro tools from 25+ years of live events, broadcast, and video
-          production — the craft behind the code, and the real-world systems
-          experience I bring to every AI tool I build.
-        </p>
+    <Collapsible id="skills" title="Skills" bodyInWrap icon="🎛️"
+      description="Live-show, broadcast & creative tool fluency.">
 
-        <div style={grid}>
-          {skillGroups.map((group) => (
-            <div key={group.domain} style={card}>
-              <div style={domainStyle}>{group.domain}</div>
-              {group.skills.map((skill) => (
-                <div key={skill.name} style={row}>
-                  <span style={nameStyle}>{skill.name}</span>
-                  {skill.level ? <span style={pill}>{skill.level}</span> : null}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
+      <p style={subStyle}>
+        Pro tools from 25+ years of live events, broadcast, and video
+        production — the craft behind the code, and the real-world systems
+        experience I bring to every AI tool I build.
+      </p>
+
+      <div style={grid}>
+        {skillGroups.map((group) => (
+          <div key={group.domain} style={card}>
+            <div style={domainStyle}>{group.domain}</div>
+            {group.skills.map((skill) => (
+              <div key={skill.name} style={row}>
+                <span style={nameStyle}>{skill.name}</span>
+                {skill.level ? <span style={pill}>{skill.level}</span> : null}
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
-    </section>
+    </Collapsible>
   );
 }

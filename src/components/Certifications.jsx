@@ -1,18 +1,16 @@
+import Collapsible from "./Collapsible";
 import { certifications } from "../data/certifications";
 
 /**
  * Certifications section — a short, curated "experience-credentialed" proof
- * set in dark cards (matching the site's #18181b style). Each card shows the
- * cert name + issuer; a year chip renders only when a `year` is set, so
- * evergreen certs stay date-free and a recent year signals currency.
+ * set in dark cards. Each card shows the cert name + issuer; a year chip and a
+ * detail sub-line render only when set. Wrapped in a Collapsible (default-
+ * closed) to keep the page short; opens + flashes on deep-link.
  *
  * @returns {JSX.Element} The rendered Certifications section.
  */
 export default function Certifications() {
-  const section = { background: "transparent", color: "#fafafa", padding: "32px 0" };
-  const wrap = { maxWidth: 960, margin: "0 auto", padding: "0 24px" };
-  const h2Style = { fontSize: 32, fontWeight: 800, letterSpacing: -0.5 };
-  const subStyle = { marginTop: 8, color: "#a1a1aa", fontSize: 15, maxWidth: 640, lineHeight: 1.5 };
+  const subStyle = { marginTop: 0, color: "#a1a1aa", fontSize: 15, maxWidth: 640, lineHeight: 1.5 };
   const grid = {
     marginTop: 20,
     display: "grid",
@@ -47,27 +45,26 @@ export default function Certifications() {
   };
 
   return (
-    <section id="certifications" style={section}>
-      <div style={wrap}>
-        <h2 style={h2Style}>Certifications</h2>
-        <p style={subStyle}>
-          More than 25 years of field-verified credentials — and still leveling
-          up.
-        </p>
+    <Collapsible id="certifications" title="Certifications" bodyInWrap icon="🏅"
+      description="Field-earned credentials & training.">
 
-        <div style={grid}>
-          {certifications.map((cert) => (
-            <div key={`${cert.issuer}-${cert.name}`} style={card}>
-              <div style={topRow}>
-                <span style={nameStyle}>{cert.name}</span>
-                {cert.year ? <span style={yearChip}>{cert.year}</span> : null}
-              </div>
-              <span style={issuerStyle}>{cert.issuer}</span>
-              {cert.detail ? <span style={detailStyle}>{cert.detail}</span> : null}
+      <p style={subStyle}>
+        More than 25 years of field-verified credentials — and still leveling
+        up.
+      </p>
+
+      <div style={grid}>
+        {certifications.map((cert) => (
+          <div key={`${cert.issuer}-${cert.name}`} style={card}>
+            <div style={topRow}>
+              <span style={nameStyle}>{cert.name}</span>
+              {cert.year ? <span style={yearChip}>{cert.year}</span> : null}
             </div>
-          ))}
-        </div>
+            <span style={issuerStyle}>{cert.issuer}</span>
+            {cert.detail ? <span style={detailStyle}>{cert.detail}</span> : null}
+          </div>
+        ))}
       </div>
-    </section>
+    </Collapsible>
   );
 }
