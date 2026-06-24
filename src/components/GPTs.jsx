@@ -1,3 +1,4 @@
+import ShareLink from "./ShareLink";
 import barcoach from "../assets/gpts/barcoach.png";
 import cierresensei from "../assets/gpts/cierresensei.png";
 import engenius from "../assets/gpts/engenius.png";
@@ -5,6 +6,7 @@ import lensjester from "../assets/gpts/lensjester.png";
 
 const gpts = [
   {
+    id: "barcoach",
     title: "BarCoach",
     href: "https://chatgpt.com/g/g-68d9df5e526c81918bfe45c149d71cb7-barcoach",
     image: barcoach,
@@ -14,6 +16,7 @@ const gpts = [
       'Purpose-built GPT expert for operators of the <strong>Barco Event Master System</strong>— covering processors and consoles such as the <strong>E2, E3, S3, and EX</strong>. Gen\u00a01 provides expert guidance for show prep and live troubleshooting, with optional packaged reference files that raise the support level and enable image support.',
   },
   {
+    id: "barcoach-gen2",
     title: "BarCoach Gen\u00a02",
     href: "https://chatgpt.com/g/g-68daed11f3a4819197d550e561d77bab-barcoach-gen2-beta",
     image: barcoach,
@@ -23,6 +26,7 @@ const gpts = [
       'Second generation <strong>Barco Event Master</strong> expert with fully external reference data hosted on GitHub. Hooks directly into manuals, images, and documentation — no file uploads needed. Currently in beta.',
   },
   {
+    id: "cierre-sensei-gpt",
     title: "Cierre Sensei",
     href: "https://chatgpt.com/g/g-692d29fb16948191a5e007eb245e93d0-cierre-sensei",
     image: cierresensei,
@@ -31,6 +35,7 @@ const gpts = [
       "Your expert guide for <strong>Mexican real estate closing costs</strong>. Breaks down notary fees, taxes, acquisition costs, and hidden charges for buyers and sellers. The GPT that powered the original Cierre Sensei before it became a full web app.",
   },
   {
+    id: "engenius",
     title: "En-Genius4Dummies",
     href: "https://chatgpt.com/g/g-68f3ca3eb9108191acb99bbb16f2615a-en-genius4dummies-enh1350",
     image: engenius,
@@ -39,6 +44,7 @@ const gpts = [
       "A no-nonsense guide for the <strong>EnGenius ENH1350</strong> access point. Covers setup, configuration, troubleshooting, and deployment — written for people who just want the thing to work without reading a 200-page manual.",
   },
   {
+    id: "lensjester",
     title: "LensJester",
     href: "https://chatgpt.com/g/g-69cd9ef8f8408191a1588bad87215f83-lensjester",
     image: lensjester,
@@ -98,7 +104,8 @@ export default function GPTs() {
 
         <div style={grid}>
           {gpts.map((g) => (
-            <a key={g.title} href={g.href} target="_blank" rel="noreferrer" style={card}>
+            <div key={g.title} id={g.id} style={{ position: "relative", display: "flex" }}>
+            <a href={g.href} target="_blank" rel="noreferrer" style={card}>
               <div style={{ ...imgViewport, position: "relative" }}>
                 <img src={g.image} alt={g.alt} style={imgStyle} loading="lazy" />
                 {g.badge && (
@@ -121,6 +128,13 @@ export default function GPTs() {
                 <span style={linkStyle}>Open GPT →</span>
               </div>
             </a>
+            <ShareLink
+              id={g.id}
+              mode="hash"
+              compact
+              style={{ position: "absolute", top: 12, left: 12, background: "rgba(9,9,11,0.72)" }}
+            />
+            </div>
           ))}
         </div>
       </div>

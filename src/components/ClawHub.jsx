@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ShareLink from "./ShareLink";
 
 // Live version + download counts come from the same file the daily clawhub-watch
 // GitHub Action maintains in project-assets — overlay by slug, same pattern
@@ -237,6 +238,7 @@ export default function ClawHub() {
             return (
             <div
               key={it.slug}
+              id={it.slug}
               style={card}
               onMouseEnter={() => setHovered(it.slug)}
               onMouseLeave={() => setHovered((s) => (s === it.slug ? null : s))}
@@ -285,7 +287,7 @@ export default function ClawHub() {
                   ))}
                 </div>
 
-                <div style={{ marginTop: 16 }}>
+                <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
                   <a
                     href={it.url}
                     target="_blank"
@@ -294,6 +296,7 @@ export default function ClawHub() {
                   >
                     View on ClawHub →
                   </a>
+                  <ShareLink id={it.slug} mode="hash" />
                 </div>
               </div>
             </div>

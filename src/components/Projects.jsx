@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ScreenshotModal from "./ScreenshotModal";
+import ShareLink from "./ShareLink";
 import { autoLanguageTags } from "../utils/languageTags";
 import notseLogo from "../assets/projects/notse.png";
 import scrapegoatLogo from "../assets/projects/scrapegoat.png";
@@ -216,7 +217,7 @@ export default function Projects() {
         <h2 style={h2Style}>Projects</h2>
         <div style={grid}>
           {projects.map((p) => (
-            <div key={p.title} style={card}>
+            <div key={p.title} id={p.slug} style={card}>
               {/* Accent bar */}
               <div style={{ height: 4, background: `linear-gradient(90deg, ${p.accent}, transparent)` }} />
 
@@ -360,6 +361,10 @@ export default function Projects() {
                     </div>
                   );
                 })()}
+
+                <div style={{ marginTop: 16, display: "flex", justifyContent: "flex-end" }}>
+                  <ShareLink id={p.slug} mode="hash" />
+                </div>
               </div>
             </div>
           ))}
