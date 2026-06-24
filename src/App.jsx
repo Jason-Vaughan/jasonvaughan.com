@@ -34,7 +34,11 @@ export default function App() {
       // lands on the specific card, not a collapsed header.
       const el = document.getElementById(hash);
       const enclosing = el?.closest("[data-collapsible]");
-      const opened = enclosing ? openSection(enclosing.id) : openSection(hash);
+      // The enclosing dropdown's section id rides in the data-collapsible
+      // attribute (the wrapper may not carry a DOM id — see Collapsible).
+      const opened = enclosing
+        ? openSection(enclosing.getAttribute("data-collapsible"))
+        : openSection(hash);
       const settle = opened ? 340 : 0;
       window.setTimeout(() => {
         const target = document.getElementById(hash);
@@ -160,7 +164,7 @@ export default function App() {
         description="Shipped apps, tools & open-source projects.">
         <Projects />
       </Collapsible>
-      <Collapsible id="pipeline" title="Pipeline" icon="🚧"
+      <Collapsible id="pipeline" title="Pipeline" icon="🚧" provideId
         description="What's in active development next.">
         <Pipeline />
       </Collapsible>

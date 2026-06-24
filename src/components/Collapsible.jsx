@@ -29,10 +29,15 @@ import { registerSection, unregisterSection } from "../utils/sectionRegistry";
  *   content wrap. Use for pure-body sections (Skills/Certs) that don't bring
  *   their own width-wrapper; leave false when wrapping an existing section
  *   component that already wraps its own content.
+ * @param {boolean} [props.provideId=bodyInWrap] Whether the wrapper renders the
+ *   DOM `id` (it's the scroll target). Defaults to `bodyInWrap`. Set true when
+ *   wrapping a component that does NOT render its own `id={id}` (e.g. Pipeline),
+ *   so the deep-link target exists; leave false (the default) for components
+ *   that already render their own matching id — avoids duplicate DOM ids.
  * @param {React.ReactNode} props.children Section body.
  * @returns {JSX.Element} The collapsible section.
  */
-export default function Collapsible({ id, title, icon, description, defaultOpen = false, bodyInWrap = false, children }) {
+export default function Collapsible({ id, title, icon, description, defaultOpen = false, bodyInWrap = false, provideId = bodyInWrap, children }) {
   const [open, setOpen] = useState(defaultOpen);
 
   // Register an opener so the deep-link / jump-nav coordinator can expand this
@@ -81,8 +86,15 @@ export default function Collapsible({ id, title, icon, description, defaultOpen 
   };
   const collapseInner = { minHeight: 0, overflow: "hidden" };
 
+  // Avoid duplicate DOM ids: when wrapping an existing section component that
+  // already renders its own `id={id}`, DON'T also put that id on the wrapper —
+  // the section id stays unique on the inner element. The section id always
+  // rides in `data-collapsible` so the deep-link handler can resolve which
+  // dropdown to open regardless of where the id element lives. When the inner
+  // content has no id (Skills/Certs/Pipeline), `provideId` makes the wrapper
+  // carry the id so the deep-link target still exists.
   return (
-    <section id={id} data-collapsible="" style={section}>
+    <section data-collapsible={id} {...(provideId ? { id } : {})} style={section}>
       <div style={wrap}>
         <div style={headerRow}>
           <button
