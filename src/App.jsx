@@ -36,16 +36,22 @@ export default function App() {
       const enclosing = el?.closest("[data-collapsible]");
       // The enclosing dropdown's section id rides in the data-collapsible
       // attribute (the wrapper may not carry a DOM id — see Collapsible).
-      const opened = enclosing
-        ? openSection(enclosing.getAttribute("data-collapsible"))
-        : openSection(hash);
+      const sectionId = enclosing?.getAttribute("data-collapsible");
+      const opened = sectionId ? openSection(sectionId) : openSection(hash);
       const settle = opened ? 340 : 0;
       window.setTimeout(() => {
         const target = document.getElementById(hash);
         if (!target) return;
-        target.scrollIntoView({ behavior: "smooth", block: "center" });
-        target.classList.add("card-highlight-pulse");
-        window.setTimeout(() => target.classList.remove("card-highlight-pulse"), 2400);
+        // The amber pulse is a box-shadow ring — visible on a card-sized
+        // element but lost on a big transparent <section>. So for a
+        // section-level link (hash === the dropdown's id) flash the header
+        // panel instead; for a card-level link flash the card itself.
+        const isSectionLevel = sectionId === hash;
+        const flashEl =
+          (isSectionLevel && enclosing.querySelector("[data-collapsible-header]")) || target;
+        flashEl.scrollIntoView({ behavior: "smooth", block: "center" });
+        flashEl.classList.add("card-highlight-pulse");
+        window.setTimeout(() => flashEl.classList.remove("card-highlight-pulse"), 2400);
       }, settle);
     };
 
