@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- **ClawHub section descriptor now names the OpenClaw ecosystem** — appended "— for the OpenClaw ecosystem" to the ClawHub dropdown's one-line description, so the collapsed header reads "Published skills & plugins with live download stats — for the OpenClaw ecosystem."
+
 ## [0.2.0] - 2026-06-24
 
 ### Added

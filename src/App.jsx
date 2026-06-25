@@ -183,7 +183,7 @@ export default function App() {
         <OpenClawFleet />
       </Collapsible>
       <Collapsible id="clawhub" title="ClawHub" icon="📦"
-        description="Published skills & plugins with live download stats.">
+        description="Published skills & plugins with live download stats — for the OpenClaw ecosystem.">
         <ClawHub />
       </Collapsible>
       <Collapsible id="writing" title="Writing" icon="✍️"
