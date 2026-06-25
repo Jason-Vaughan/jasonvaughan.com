@@ -36,6 +36,9 @@ export function formatDelta(d) {
   if (d === 0) return "±0";
   const sign = d > 0 ? "+" : "−"; // unicode minus for visual symmetry with +
   const abs = Math.abs(d);
+  // Two decimals at B-scale, mirroring formatBigNumber — the AI Tokens delta is
+  // billions-scale, and "+6191.9M" reads worse than "+6.19B".
+  if (abs >= 1_000_000_000) return `${sign}${(abs / 1_000_000_000).toFixed(2)}B`;
   if (abs >= 1_000_000) return `${sign}${(abs / 1_000_000).toFixed(1)}M`;
   if (abs >= 1_000) return `${sign}${(abs / 1000).toFixed(abs >= 100_000 ? 0 : 1)}K`;
   return `${sign}${abs.toLocaleString()}`;

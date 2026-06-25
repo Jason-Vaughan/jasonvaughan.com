@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **"/ 7d" delta badge on the AI Tokens and Projects Shipped tiles** — these were the only two top-banner Builder Stats tiles without a week-over-week delta. The collector (project-assets) now emits `aggregateDeltas.tokens` and `aggregateDeltas.projects`, and `BuilderStats` reads them instead of hardcoding `null`. AI Tokens tracks **cloud-provider** token momentum (local Monad-1/fleet inference is live-fetched with no weekly baseline, so it's excluded from the delta — the headline number still shows cloud+local); Projects Shipped only shows when a repo is actually added/dropped (zero deltas stay hidden). Also added a billions (`B`) branch to `formatDelta` so the billions-scale token delta renders "+6.19B" instead of "+6191.9M" (test added).
+
 ### Changed
 - **ClawHub section descriptor now names the OpenClaw ecosystem** — appended "— for the OpenClaw ecosystem" to the ClawHub dropdown's one-line description, so the collapsed header reads "Published skills & plugins with live download stats — for the OpenClaw ecosystem."
 
