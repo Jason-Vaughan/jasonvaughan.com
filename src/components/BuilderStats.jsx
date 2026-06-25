@@ -131,7 +131,9 @@ export default function BuilderStats() {
       label: "Projects Shipped",
       value: String(totals.projects),
       exact: totals.projects,
-      delta: null, // headcount change is rare; not surfaced as a delta badge
+      // Net repo-count change over 7d. Headcount rarely moves, and zero deltas
+      // are hidden anyway, so the badge only shows in weeks a repo was added.
+      delta: d ? d.projects : null,
       color: "#fbbf24",
       description: "Public + private repos in the live stats registry. Auto-discovered from GitHub, then filtered by `projects.yml` exclusions (archived experiments, scratch repos, asset-only repos).",
     },
@@ -164,7 +166,11 @@ export default function BuilderStats() {
       label: "AI Tokens",
       value: formatBigNumber(allTokens),
       exact: allTokens,
-      delta: null,
+      // 7d delta of the *cloud* token total (manifest aggregateDeltas.tokens).
+      // Local inference (Monad-1 / the fleet) is live-fetched with no weekly
+      // baseline, so this badge tracks cloud-provider momentum, not the exact
+      // composite shown above. Null until the manifest carries the field.
+      delta: d ? d.tokens : null,
       color: "#f472b6",
       description:
         "Lifetime tokens consumed across cloud providers (Anthropic, OpenAI, Cursor, Gemini, Copilot) plus local inference on Monad-1 and the OpenClaw fleet. Cloud totals refresh daily; local totals refresh every 15 min via each agent's self-published stats.",

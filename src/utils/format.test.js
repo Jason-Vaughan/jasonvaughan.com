@@ -75,4 +75,10 @@ describe("formatDelta", () => {
     expect(formatDelta(1_500_000)).toBe("+1.5M");
     expect(formatDelta(-2_500)).toBe("−2.5K");
   });
+
+  test("B abbreviation for billions-scale deltas (AI Tokens)", () => {
+    expect(formatDelta(6_191_876_497)).toBe("+6.19B");
+    expect(formatDelta(1_000_000_000)).toBe("+1.00B");
+    expect(formatDelta(-2_500_000_000)).toBe("−2.50B");
+  });
 });
