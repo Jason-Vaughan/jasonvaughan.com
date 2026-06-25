@@ -131,9 +131,11 @@ export default function BuilderStats() {
       label: "Projects Shipped",
       value: String(totals.projects),
       exact: totals.projects,
-      // Net repo-count change over 7d. Headcount rarely moves, and zero deltas
-      // are hidden anyway, so the badge only shows in weeks a repo was added.
+      // Net repo-count change over 7d. Headcount rarely moves week-to-week, but
+      // we still show the badge at "±0" (alwaysShowDelta) so the field reads as
+      // present-and-steady rather than missing — shipping cadence isn't weekly.
       delta: d ? d.projects : null,
+      alwaysShowDelta: true,
       color: "#fbbf24",
       description: "Public + private repos in the live stats registry. Auto-discovered from GitHub, then filtered by `projects.yml` exclusions (archived experiments, scratch repos, asset-only repos).",
     },
@@ -275,7 +277,10 @@ export default function BuilderStats() {
               {stats.map((s) => {
                 const isHovered = hoveredLabel === s.label;
                 const hasTooltip = !!s.description;
-                const hasDelta = typeof s.delta === "number" && s.delta !== 0;
+                // Hide zero deltas by default (noise), unless a tile opts into
+                // always showing it (e.g. Projects Shipped reads "±0 / 7d").
+                const hasDelta =
+                  typeof s.delta === "number" && (s.delta !== 0 || s.alwaysShowDelta);
                 return (
                   <div
                     key={s.label}
@@ -308,7 +313,9 @@ export default function BuilderStats() {
                         marginTop: 3,
                         fontSize: 10,
                         fontWeight: 600,
-                        color: s.delta > 0 ? "#22c55e" : "#f87171",
+                        // Green up, red down, neutral gray at ±0 (an unchanged
+                        // count shouldn't read as a decline).
+                        color: s.delta > 0 ? "#22c55e" : s.delta < 0 ? "#f87171" : "#71717a",
                         letterSpacing: 0.3,
                       }}>
                         {formatDelta(s.delta)}
