@@ -1,3 +1,3 @@
-version: 0.0.0
-recorded_at: 2026-05-13T21:33:21Z
-source: package.json
+version: 0.1.0
+recorded_at: 2026-06-22T23:45:35Z
+source: CHANGELOG.md
