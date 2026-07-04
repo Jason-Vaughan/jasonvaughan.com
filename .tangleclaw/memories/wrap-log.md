@@ -2,6 +2,21 @@
 
 Older `Last Session` blocks demoted from `MEMORY.md` to keep it scannable. Most-recent first. The full canon for stats infrastructure lives in the auto-memory files (e.g. `project_stats_agent_tcc_fix`, `project_stats_system`).
 
+## Last Session (2026-06-24 — Skills + Certifications sections + page-wide collapsible dropdowns)
+
+The long-deferred **portfolio interview** finally happened, then shipped end-to-end. All live on jasonvaughan.com via **portfolio PRs #83/#84/#85** (Critic-reviewed, Playwright-verified, all deploys green). See auto-memory `skills-certs-collapsible-shipped`.
+
+**Shipped:**
+1. **Skills section** (`src/components/Skills.jsx` + `src/data/skills.js`, 6 tests) — creative/live-show/broadcast/IT pro tools GitHub can't surface (the differentiator). Domains: Media Servers (Millumin/Watchout/Pixera/Mitti/Q-Lab/Disguise), Screen Switchers (Barco E2/E3, Analog Way Ascender/Aquilon, Spyder X20), Broadcast/Signal Flow/**IT** (SMPTE-2110, Dante, fiber, IP networking, switching/routing, Cisco), Editing (Premiere/AE), Design (PS/AI), Audio (Pro Tools, live mixing). Optional `level` pill — **left blank by user choice**.
+2. **Certifications section** (`src/components/Certifications.jsx` + `src/data/certifications.js`, 5 tests) — curated/current: 7-yr IATSE Local 16 stagecraft apprenticeship, Barco Video Eng Level A, OSHA 30, Google PM (Coursera, **2026** = currency signal), IATSE Training Trust Fund instructor. **Strategy decided: play the no-degree angle IN, never OUT** — never reference the degree's absence (it makes it the yardstick); NO hard anchor year (age-math risk); IATSE framed as *training*, never union advocacy.
+3. **Collapsible page** (#83) — everything below Builder Stats is a dropdown (emoji icon + one-line descriptor + CSS grid-rows expand). `Collapsible.jsx` + `sectionRegistry.js`. Deep-links open the enclosing dropdown + flash the target (card flashes the card; **section links flash the header panel**, #84 — the box-shadow ring is invisible on a big transparent section).
+4. **Share/deep-links** — card links = OG-rich `/share/<id>/`; section headers = clean `/#section`. **#85: added copy-links to every card that lacked one** (Projects, Pipeline/Medusa, ClawHub, GPTs). ShareLink clipboard now works on insecure tailnet HTTP (execCommand fallback).
+
+**Key facts / decisions:**
+- **Internal-fork pattern validated:** deploy is **main-only** (GitHub Pages), so a feature branch IS the private staging — nothing's public until merged. Dev preview = vite on **port 3300**, host 0.0.0.0, over the tailnet.
+- **Don't unmount collapsible content** a deep-link might target — keep mounted, CSS-hide (`grid-template-rows`+`inert`); the handler walks up to `[data-collapsible]`. Section id rides in the `data-collapsible` attr to avoid duplicate DOM ids (Critic finding). See learnings.md.
+- **Playwright-from-inside-the-project** is the verification tool for DOM/scroll/flash behavior (vitest is node/no-jsdom). Scripts must live in the project dir for ESM `node_modules` resolution.
+
 ## Last Session (2026-06-22 — ccusage comparison → Codex token source + self-deploying stats agent)
 
 Started as a "compare ccusage vs what we do now" question; became a focused stats-pipeline session. All shipped & merged. **project-assets PRs #28/#29/#30** (issues #26/#27 closed); portfolio CHANGELOG + TODO direct to main. Token-counting work lives in project-assets; see auto-memory `project_stats_agent_tcc_fix` (updated this session).

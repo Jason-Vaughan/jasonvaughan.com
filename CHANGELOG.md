@@ -4,6 +4,8 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-07-03
+
 ### Added
 - **"/ 7d" delta badge on the AI Tokens and Projects Shipped tiles** — these were the only two top-banner Builder Stats tiles without a week-over-week delta. The collector (project-assets) now emits `aggregateDeltas.tokens` and `aggregateDeltas.projects`, and `BuilderStats` reads them instead of hardcoding `null`. AI Tokens tracks **cloud-provider** token momentum (local Monad-1/fleet inference is live-fetched with no weekly baseline, so it's excluded from the delta — the headline number still shows cloud+local). Projects Shipped always shows its badge via a per-tile `alwaysShowDelta` flag — reading "±0 / 7d" in steady weeks (neutral gray, not the red decline color) since shipping cadence isn't weekly — while every other tile keeps hiding zero deltas as noise. Also added a billions (`B`) branch to `formatDelta` so the billions-scale token delta renders "+6.19B" instead of "+6191.9M" (test added).
 

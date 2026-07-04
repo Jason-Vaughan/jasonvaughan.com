@@ -3,9 +3,11 @@
   "methodology": "prawduct",
   "methodologyPhase": null,
   "silentPrime": true,
-  "featureIndexEnabled": false,
+  "featureIndexEnabled": true,
+  "projectMapEnabled": true,
   "versionBumpEnabled": true,
   "wrapSections": null,
+  "orchestrationKeyRef": null,
   "rules": {
     "core": {
       "changelogPerChange": true,
@@ -54,5 +56,5 @@
   "wrapV2": true,
   "testCommand": null,
   "lintCommand": null,
-  "lastWrapSha": "25729b2d542f9dff0487209127168fe1651973c5"
+  "lastWrapSha": "ad3316952a5db2e6dfa0f504db4f389b48f887c1"
 }

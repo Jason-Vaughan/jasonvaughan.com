@@ -2,22 +2,23 @@
 
 This file persists context across AI sessions. Update it with key decisions, progress, and open questions.
 
-## Last Session (2026-06-24 — Skills + Certifications sections + page-wide collapsible dropdowns)
+## Last Session (2026-07-03 — TangleClaw 4.0 + TangleBrain-on-PyPI card refresh, v0.2.0 tagged, auto-merge enabled)
 
-The long-deferred **portfolio interview** finally happened, then shipped end-to-end. All live on jasonvaughan.com via **portfolio PRs #83/#84/#85** (Critic-reviewed, Playwright-verified, all deploys green). See auto-memory `skills-certs-collapsible-shipped`.
+Upstream news session: TangleClaw shipped **v4.0.0** (repo renamed `TangleClaw-v3` → `TangleClaw`) and TangleBrain hit **PyPI** (v0.17.0). Most of the page updated itself — both version chips (GitHub Releases hook) and the stats grids picked up the new numbers with zero code; the TC stats feed survived the disk rename (TC left a compat symlink). See learnings.md 2026-07-03.
 
 **Shipped:**
-1. **Skills section** (`src/components/Skills.jsx` + `src/data/skills.js`, 6 tests) — creative/live-show/broadcast/IT pro tools GitHub can't surface (the differentiator). Domains: Media Servers (Millumin/Watchout/Pixera/Mitti/Q-Lab/Disguise), Screen Switchers (Barco E2/E3, Analog Way Ascender/Aquilon, Spyder X20), Broadcast/Signal Flow/**IT** (SMPTE-2110, Dante, fiber, IP networking, switching/routing, Cisco), Editing (Premiere/AE), Design (PS/AI), Audio (Pro Tools, live mixing). Optional `level` pill — **left blank by user choice**.
-2. **Certifications section** (`src/components/Certifications.jsx` + `src/data/certifications.js`, 5 tests) — curated/current: 7-yr IATSE Local 16 stagecraft apprenticeship, Barco Video Eng Level A, OSHA 30, Google PM (Coursera, **2026** = currency signal), IATSE Training Trust Fund instructor. **Strategy decided: play the no-degree angle IN, never OUT** — never reference the degree's absence (it makes it the yardstick); NO hard anchor year (age-math risk); IATSE framed as *training*, never union advocacy.
-3. **Collapsible page** (#83) — everything below Builder Stats is a dropdown (emoji icon + one-line descriptor + CSS grid-rows expand). `Collapsible.jsx` + `sectionRegistry.js`. Deep-links open the enclosing dropdown + flash the target (card flashes the card; **section links flash the header panel**, #84 — the box-shadow ring is invisible on a big transparent section).
-4. **Share/deep-links** — card links = OG-rich `/share/<id>/`; section headers = clean `/#section`. **#85: added copy-links to every card that lacked one** (Projects, Pipeline/Medusa, ClawHub, GPTs). ShareLink clipboard now works on insecure tailnet HTTP (execCommand fallback).
+1. **PR #90** — TangleClaw hero description rewritten for the 4.x surface (session continuity/wrap protocols, Project Master control plane, orchestration profiles, secured remote access); TangleBrain hero gained an **"On PyPI" chip + monospace `pip install tanglebrain` CTA** (→ pypi.org/project/tanglebrain/); stale pre-fetch fallback stats bumped on both cards. New `src/featured-cards.test.js` (3 tests, 42 total) guards the PyPI links + no-hardcoded-version invariant. Full gates: cumulative Critic + independent PR reviewer, both 0 blocking/0 warning. Playwright + live-bundle verified.
+2. **PR #91** — claim polish after user challenged it: "zero-dependency" → **"zero npm dependencies"** (verified: the TangleClaw repo has NO `package.json` at all — Node built-ins only; tmux/ttyd/git/optional Caddy are system tools, disclosed in tags). Took the `check-pr-trivial` fast path (gates skipped legitimately).
+3. **v0.2.0 tagged + GitHub Release published** — the #86 cut had never been tagged; annotated tag anchored at the **cut commit `0b1a668`** (not HEAD) with hand-curated notes from the CHANGELOG section.
+4. **Repo auto-merge enabled** (`allow_auto_merge=true` via API) — `gh pr merge --auto` now works as the global rules intend.
+5. **Filed #89** — swap TC hero screenshots for 4.0 captures once they exist in project-assets (none yet, per user).
 
-**Key facts / decisions:**
-- **Internal-fork pattern validated:** deploy is **main-only** (GitHub Pages), so a feature branch IS the private staging — nothing's public until merged. Dev preview = vite on **port 3300**, host 0.0.0.0, over the tailnet.
-- **Don't unmount collapsible content** a deep-link might target — keep mounted, CSS-hide (`grid-template-rows`+`inert`); the handler walks up to `[data-collapsible]`. Section id rides in the `data-collapsible` attr to avoid duplicate DOM ids (Critic finding). See learnings.md.
-- **Playwright-from-inside-the-project** is the verification tool for DOM/scroll/flash behavior (vitest is node/no-jsdom). Scripts must live in the project dir for ESM `node_modules` resolution.
+**Key facts / gotchas (details in learnings.md):**
+- The first Pages deploy of #91 flaked ("Deployment failed, try again later" after a green build) — `gh run rerun <id> --failed` fixed it. **Verify deploys by bundle-hash change + grepping the new bundle**, not HTTP 200.
+- `product-hook check-operator-verification` crashes (`ModuleNotFoundError: lib`, blocked v1.5.2 framework sync). With no queue file + no flag, the gate is vacuously satisfied — don't stall on the traceback.
+- Backlog (from Critic notes): bake fallback stats at build time from collector manifests; fill in `.prawduct/artifacts/project-preferences.md`.
 
-**Open / next session:** **#81** show/hide refinement (partly addressed by collapsibles), **#82** cert + per-card OG-preview logos (new card links use plain `/#`, no social image), the minor **duplicate-`<h2>` trim** on wrapped sections (section shows its own heading + the dropdown label), and the lingering **accessibility/contrast pass** (WCAG AA fail on tag pills) + the **stale Cursor 7B** keep/retire decision.
+**Open / next session:** **#89** (4.0 screenshots, blocked on captures), **#82** cert + per-card OG-preview logos, **#81** show/hide refinement, the **duplicate-`<h2>` trim** on wrapped sections, **accessibility/contrast pass** (WCAG AA fail on tag pills), **stale Cursor 7B** keep/retire decision. CHANGELOG `[Unreleased]` now holds 2× Added + 3× Changed + Internal → next cut is **0.3.0 (minor)**.
 
 ## Last Session (2026-06-17/18 — TangleBrain launch + hero card + Medusa positioning)
 

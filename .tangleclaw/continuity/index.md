@@ -1,19 +1,20 @@
 # Continuity Index — JasonVaughanComPortfolio
 
 ## Current state
-Wire OpenAI Codex CLI usage into the stats collector as an additive, auth-mode-gated `openai` token source (~14.5M previously uncounted), harden tokens.mjs from 0 to 70 tests, and fix the AI Tokens daily lag with a self-deploying launchd wrapper that runs 4×/day instead of 1×. Shipped as project-assets PRs #28/#29/#30 (issues #26/#27 closed); portfolio CHANGELOG and TODO updated. Codex is ChatGPT-auth so it's invisible to the OpenAI admin API — additive with no double-count, enforced as a contract per machine.
+Ship the ClawHub "for the OpenClaw ecosystem" descriptor and cut the 0.2.0 release (#86), then add "/ 7d" delta badges to the AI Tokens and Projects Shipped BuilderStats tiles via a paired collector change (project-assets#31 + #87) and make Projects Shipped always render its badge (#88). The independent reviewer caught a stale-base phantom-duplicate on #86 that a rebase resolved; all four PRs merged with tests green.
 
 ## Next action
-- Portfolio interview → certifications + creative/live-events Skills content (highest-leverage undone work; picked at two session starts now, still untouched)
-- Accessibility/contrast pass (WCAG AA fail on tag-pill text) + mobile 375px sweep
-- Expanded social links (GitHub, npm) in the contact section
-- Decide keep-or-retire on the stale Cursor 7B static token entry (~44% of the headline, no longer used)
+- Tag `v0.2.0` — the release was cut in CHANGELOG/package.json but never tagged (`git tag -a v0.2.0` + `gh release create --notes-from-tag`).
+- #82 — add cert issuer logos + per-card OG-preview stubs (new card links use plain `/#`, no social image).
+- #81 — collapsible-section show/hide refinement (partly addressed by the dropdown redesign).
+- Trim the duplicate `<h2>` on wrapped sections (section renders its own heading plus the dropdown label).
+- Accessibility/contrast pass (WCAG AA fail on tag-pill text) + the stale Cursor 7B keep/retire decision.
 
 ## Map
 - **TBD** — `package.json` <!-- describe -->
 
 ## Freshness
-- written-at: 2026-06-22
-- sha: 25729b2
-- branch: wrap/20260622234501-jasonvaughancomportfolio
+- written-at: 2026-06-29
+- sha: ad33169
+- branch: wrap/20260629202635-jasonvaughancomportfolio
 - tier: no-plugin

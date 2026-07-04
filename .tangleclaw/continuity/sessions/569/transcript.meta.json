@@ -1,0 +1,12 @@
+{
+  "harness": "claude",
+  "claudeSessionId": "c509d72c-8441-416d-80ec-48ae9856db74",
+  "cwd": "/Users/jasonvaughan/Documents/Projects/JasonVaughanComPortfolio",
+  "capturedAt": "2026-06-29T20:26:35.295Z",
+  "bytes": 1348536,
+  "lineCount": 698,
+  "secretsFlagged": false,
+  "secretTypes": [],
+  "scanSkipped": false,
+  "source": "/Users/jasonvaughan/.claude/projects/-Users-jasonvaughan-Documents-Projects-JasonVaughanComPortfolio/c509d72c-8441-416d-80ec-48ae9856db74.jsonl"
+}
