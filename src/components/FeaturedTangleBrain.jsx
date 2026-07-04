@@ -39,9 +39,9 @@ export default function FeaturedTangleBrain() {
   }, []);
 
   const stats = [
-    { label: "Lines of Code", value: liveStats ? formatCount(liveStats.loc) : "7K+" },
-    { label: "Tests Passing", value: liveStats ? String(liveStats.tests) : "318" },
-    { label: "Commits", value: liveStats ? String(liveStats.commits) : "33" },
+    { label: "Lines of Code", value: liveStats ? formatCount(liveStats.loc) : "9K+" },
+    { label: "Tests Passing", value: liveStats ? String(liveStats.tests) : "400+" },
+    { label: "Commits", value: liveStats ? String(liveStats.commits) : "60" },
     { label: "Backend Tiers", value: "3" },
   ];
 
@@ -150,6 +150,21 @@ export default function FeaturedTangleBrain() {
                   {version}
                 </span>
               )}
+              <a
+                href="https://pypi.org/project/tanglebrain/"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  fontSize: 11, fontWeight: 700, textTransform: "uppercase",
+                  letterSpacing: 1.5, padding: "4px 12px", borderRadius: 9999,
+                  background: "rgba(255,255,255,0.06)",
+                  border: "1px solid rgba(255,255,255,0.14)",
+                  color: "#e4e4e7",
+                  textDecoration: "none",
+                }}
+              >
+                On PyPI
+              </a>
               {since && (
                 <span style={{
                   fontSize: 11, fontWeight: 600,
@@ -205,6 +220,14 @@ export default function FeaturedTangleBrain() {
             <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", gap: 12 }}>
               <a href="https://github.com/Jason-Vaughan/TangleBrain" target="_blank" rel="noreferrer" style={btnPrimary}>
                 View on GitHub
+              </a>
+              <a
+                href="https://pypi.org/project/tanglebrain/"
+                target="_blank"
+                rel="noreferrer"
+                style={{ ...btnOutline, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
+              >
+                pip install tanglebrain
               </a>
               <a href="https://github.com/Jason-Vaughan/TangleBrain/releases/latest" target="_blank" rel="noreferrer" style={btnOutline}>
                 Latest Release
