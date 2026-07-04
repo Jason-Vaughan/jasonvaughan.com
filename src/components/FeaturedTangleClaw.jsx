@@ -71,7 +71,7 @@ export default function FeaturedTangleClaw() {
   const liveVersion = useGitHubLatestRelease("Jason-Vaughan", "TangleClaw");
 
   const techStack = [
-    "Node.js", "tmux", "ttyd", "REST API", "Zero Dependencies",
+    "Node.js", "tmux", "ttyd", "REST API", "Zero npm Dependencies",
   ];
 
   const accent = "#8b5cf6";
@@ -194,7 +194,7 @@ export default function FeaturedTangleClaw() {
             </p>
 
             <p style={{ marginTop: 14, color: "#d4d4d8", lineHeight: 1.6, fontSize: 14, maxWidth: 640 }}>
-              A zero-dependency Node.js server that orchestrates persistent tmux sessions
+              A Node.js server with zero npm dependencies that orchestrates persistent tmux sessions
               for AI coding engines — Claude Code, Aider, Codex, and Cursor. Now at 4.0:
               session continuity with wrap protocols, a Project Master control plane,
               orchestration profiles, and secured remote access join the browser dashboard,
