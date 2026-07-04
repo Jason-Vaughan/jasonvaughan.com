@@ -55,9 +55,9 @@ export default function FeaturedTangleClaw() {
   }, []);
 
   const stats = [
-    { label: "Lines of Code", value: liveStats ? formatCount(liveStats.loc) : "39K+" },
-    { label: "Tests Passing", value: liveStats ? liveStats.tests.toLocaleString() : "1,520" },
-    { label: "Commits", value: liveStats ? formatCount(liveStats.commits) : "150+" },
+    { label: "Lines of Code", value: liveStats ? formatCount(liveStats.loc) : "100K+" },
+    { label: "Tests Passing", value: liveStats ? liveStats.tests.toLocaleString() : "3,900+" },
+    { label: "Commits", value: liveStats ? formatCount(liveStats.commits) : "370+" },
     { label: "AI Engines", value: liveStats ? String(liveStats.engines) : "4" },
     { label: "npm Dependencies", value: liveStats ? String(liveStats.npmDeps) : "0" },
   ];
@@ -194,11 +194,12 @@ export default function FeaturedTangleClaw() {
             </p>
 
             <p style={{ marginTop: 14, color: "#d4d4d8", lineHeight: 1.6, fontSize: 14, maxWidth: 640 }}>
-              A zero-dependency Node.js server that manages persistent tmux sessions for
-              AI coding engines — Claude Code, Aider, Codex, and Cursor. Provides a
-              browser-based dashboard with mobile access via ttyd, methodology enforcement,
-              shared document management, port conflict detection, and session memory across
-              every project on your machine.
+              A zero-dependency Node.js server that orchestrates persistent tmux sessions
+              for AI coding engines — Claude Code, Aider, Codex, and Cursor. Now at 4.0:
+              session continuity with wrap protocols, a Project Master control plane,
+              orchestration profiles, and secured remote access join the browser dashboard,
+              mobile access via ttyd, methodology enforcement, shared documents, port
+              management, and session memory across every project on your machine.
             </p>
 
             {/* Stats grid */}
