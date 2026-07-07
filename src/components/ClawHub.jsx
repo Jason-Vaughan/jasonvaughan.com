@@ -59,6 +59,16 @@ const items = [
     accent: "#0064D2",
     url: "https://clawhub.ai/plugins/@jason-vaughan/openclaw-ebay-research",
   },
+  {
+    slug: "decomtangle",
+    title: "DecomTangle",
+    type: "skill",
+    blurb:
+      "Atomic tool-call decomposer for OpenClaw-style agents. Enforces an execution-time discipline for multi-step procedures: one observable action per tool call to prevent parser stalls.",
+    tags: ["Atomic Calls", "Orchestration", "Reliability", "Local Models"],
+    accent: "#8B5CF6",
+    url: "https://clawhub.ai/jason-vaughan/decomtangle",
+  },
 ];
 
 const typeBadge = {
@@ -226,7 +236,7 @@ export default function ClawHub() {
   return (
     <section id="clawhub" style={section}>
       <div style={wrap}>
-        <h2 style={h2Style}>ClawHub</h2>
+        <h2 style={h2Style}>ClawHub Skills and Tools</h2>
         <p style={sub}>
           OpenClaw skills &amp; plugins published to clawhub.ai — direct-OAuth integrations
           that give an agent real-world hands (Google Workspace, eBay, Airbnb), no MCP gateway.

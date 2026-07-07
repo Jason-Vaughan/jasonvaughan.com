@@ -1,40 +1,4 @@
 {
-  "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "startup|clear|resume",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR/tools/product-hook\" clear",
-            "statusMessage": "Preparing session..."
-          }
-        ]
-      },
-      {
-        "matcher": "startup",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/Users/jasonvaughan/Documents/Projects/TangleClaw/data/hooks/sessionstart-prime.sh",
-            "statusMessage": "Loading session prime..."
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR/tools/product-hook\" stop",
-            "statusMessage": "Checking governance gates..."
-          }
-        ]
-      }
-    ]
-  },
   "companyAnnouncements": [
     " ▗▟███▙▖    \u001b[1mJasonVaughanComPortfolio\u001b[0m \u001b[38;2;153;153;153m— Built with Prawduct v1.5.2\u001b[0m\n ▐┘ █ ▝▌    \u001b[38;2;153;153;153mDescribe an idea, say \u001b[0m\u001b[1mhello\u001b[0m\u001b[38;2;153;153;153m for an overview, or say \u001b[0m\u001b[1mkeep going\u001b[0m\u001b[38;2;153;153;153m to continue WIP\u001b[0m\n ▝▜███▛▘    \u001b[38;2;153;153;153m★ New in v1.5.1: regen-views is scope-aware + verify-resolutions exposed as CLI\u001b[0m"
   ]

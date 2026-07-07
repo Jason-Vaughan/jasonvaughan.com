@@ -182,7 +182,7 @@ export default function App() {
         description="Internal AI agents in production & development.">
         <OpenClawFleet />
       </Collapsible>
-      <Collapsible id="clawhub" title="ClawHub" icon="📦"
+      <Collapsible id="clawhub" title="ClawHub Skills and Tools" icon="📦"
         description="Published skills & plugins with live download stats — for the OpenClaw ecosystem.">
         <ClawHub />
       </Collapsible>

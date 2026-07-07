@@ -1,11 +1,12 @@
 {
-  "engine": "claude",
+  "engine": "antigravity",
   "methodology": "prawduct",
   "methodologyPhase": null,
   "silentPrime": true,
   "featureIndexEnabled": true,
   "projectMapEnabled": true,
   "versionBumpEnabled": true,
+  "wrapAutoPrEnabled": true,
   "wrapSections": null,
   "orchestrationKeyRef": null,
   "rules": {
@@ -56,5 +57,5 @@
   "wrapV2": true,
   "testCommand": null,
   "lintCommand": null,
-  "lastWrapSha": "ad3316952a5db2e6dfa0f504db4f389b48f887c1"
+  "lastWrapSha": "f0fd7c3e23480f2a500aff60bbbda9f069add297"
 }

@@ -4,6 +4,12 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **DecomTangle skill to ClawHub** — added `decomtangle` to the ClawHub item registry (`src/components/ClawHub.jsx`), listing the new atomic tool-call decomposer skill for OpenClaw-style agents (v0.1.0, published to clawhub.ai). Added `decomtangle` to the daily watcher registry (`clawhub-versions.json` in `project-assets`) to track its version, downloads, and security status.
+
+### Changed
+- **Renamed ClawHub section to ClawHub Skills and Tools** — updated both the collapsible section title in `src/App.jsx` and the inner section header in `src/components/ClawHub.jsx` to "ClawHub Skills and Tools" to improve clarity.
+
 ## [0.3.0] - 2026-07-03
 
 ### Added
