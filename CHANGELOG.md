@@ -5,6 +5,7 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 ## [Unreleased]
 
 ### Added
+- **Cumulative statistics to collapsible category headers** — added a `statPill` prop to the `Collapsible` component (`src/components/Collapsible.jsx`) to display a visual pill next to the title when collapsed. Wired it up in `src/App.jsx` to fetch `clawhub-versions.json` on mount and show combined ClawHub downloads (e.g. "1,259 downloads") directly in the category header.
 - **DecomTangle skill to ClawHub** — added `decomtangle` to the ClawHub item registry (`src/components/ClawHub.jsx`), listing the new atomic tool-call decomposer skill for OpenClaw-style agents (v0.1.0, published to clawhub.ai). Added `decomtangle` to the daily watcher registry (`clawhub-versions.json` in `project-assets`) to track its version, downloads, and security status.
 
 ### Changed

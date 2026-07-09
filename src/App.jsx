@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import BuilderStats from "./components/BuilderStats";
 import FeaturedProject from "./components/FeaturedProject";
@@ -20,6 +20,19 @@ import Collapsible from "./components/Collapsible";
 import { openSection } from "./utils/sectionRegistry";
 
 export default function App() {
+  const [clawhubDownloads, setClawhubDownloads] = useState(null);
+
+  useEffect(() => {
+    fetch("https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/clawhub-versions.json", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (!data?.items) return;
+        const total = data.items.reduce((sum, item) => sum + (item.downloads || 0), 0);
+        setClawhubDownloads(total);
+      })
+      .catch(() => {});
+  }, []);
+
   // Deep-link handler — when someone opens jasonvaughan.com/#<card-id>, scroll
   // to that card and apply a brief accent-color glow so the eye lands on it.
   // Pairs with the ShareLink component on each card that copies these URLs.
@@ -183,6 +196,7 @@ export default function App() {
         <OpenClawFleet />
       </Collapsible>
       <Collapsible id="clawhub" title="ClawHub Skills and Tools" icon="📦"
+        statPill={clawhubDownloads !== null ? `${clawhubDownloads.toLocaleString()} downloads` : null}
         description="Published skills & plugins with live download stats — for the OpenClaw ecosystem.">
         <ClawHub />
       </Collapsible>

@@ -37,7 +37,7 @@ import { registerSection, unregisterSection } from "../utils/sectionRegistry";
  * @param {React.ReactNode} props.children Section body.
  * @returns {JSX.Element} The collapsible section.
  */
-export default function Collapsible({ id, title, icon, description, defaultOpen = false, bodyInWrap = false, provideId = bodyInWrap, children }) {
+export default function Collapsible({ id, title, icon, description, statPill, defaultOpen = false, bodyInWrap = false, provideId = bodyInWrap, children }) {
   const [open, setOpen] = useState(defaultOpen);
 
   // Register an opener so the deep-link / jump-nav coordinator can expand this
@@ -99,15 +99,31 @@ export default function Collapsible({ id, title, icon, description, defaultOpen 
         <div style={headerRow} data-collapsible-header="">
 
           <button
-            type="button"
-            style={headerBtn}
-            aria-expanded={open}
-            aria-controls={`${id}-body`}
-            onClick={() => setOpen((v) => !v)}
-          >
+             type="button"
+             style={headerBtn}
+             aria-expanded={open}
+             aria-controls={`${id}-body`}
+             onClick={() => setOpen((v) => !v)}
+           >
             {icon ? <span style={iconStyle} aria-hidden="true">{icon}</span> : null}
             <span style={titleBlock}>
-              <h2 style={h2Style}>{title}</h2>
+              <span style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+                <h2 style={h2Style}>{title}</h2>
+                {statPill && (
+                  <span style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    padding: "2px 8px",
+                    borderRadius: 9999,
+                    background: "rgba(56, 189, 248, 0.10)",
+                    border: "1px solid rgba(56, 189, 248, 0.25)",
+                    color: "#38bdf8",
+                    fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+                  }}>
+                    {statPill}
+                  </span>
+                )}
+              </span>
               {description ? <p style={descStyle}>{description}</p> : null}
             </span>
             <svg style={chevron} viewBox="0 0 24 24" fill="none" aria-hidden="true">
