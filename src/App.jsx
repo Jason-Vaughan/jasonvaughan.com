@@ -723,7 +723,7 @@ export default function App() {
             <form onSubmit={handlePasswordSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               <input
                 type="password"
-                placeholder="Enter password (e.g. jason2026)"
+                placeholder="Enter access password"
                 value={passwordInput}
                 onChange={(e) => setPasswordInput(e.target.value)}
                 autoFocus
