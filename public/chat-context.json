@@ -63,10 +63,16 @@
       "details": "Developed and launched commercial SaaS products (TiLT labor tracker, Cierre Sensei real-estate calc) using Node.js, SQLite, Stripe billing, and user auth. Built and published TangleClaw remote shell orchestrator and TangleBrain local LLM router."
     },
     {
-      "company": "ACT Video Head & Freelance Technical Director",
-      "role": "Technical Director & Crew Operations Lead",
-      "period": "2007 - 2025",
-      "details": "Led onsite technical video production and fiber digital signal routing for 100+ global corporate events (Salesforce Dreamforce, AWS re:Invent, Google Next). Managed stage hand crews of 40+ technicians under tight live broadcast schedules. Programmed Barco E2 screens, media servers, and taught stagecraft as IATSE Local 16 apprentice instructor."
+      "company": "ACT (American Conservatory Theater)",
+      "role": "Video Head",
+      "period": "2016 - 2025",
+      "details": "Directed video operations, staging setups, projection mapping layouts, and optical signal flows for major theatrical productions. Managed equipment budgets and safety compliance. Taught advanced stagecraft and electrical safety as a union apprentice mentor."
+    },
+    {
+      "company": "Freelance Live Event Specialist",
+      "role": "Graphics Operator, Video Engineer & Technical Director",
+      "period": "2004 - Present",
+      "details": "Led onsite technical video production, fiber-optic distribution grids, and signal flow networks for 100+ global corporate keynotes (Salesforce Dreamforce, AWS re:Invent, Google Next). Programmed high-end video switchers (Barco E2), media servers (Disguise), and managed technicians crews."
     },
     {
       "company": "iPolis Webcasting",

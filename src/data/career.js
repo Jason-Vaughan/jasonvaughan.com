@@ -84,28 +84,53 @@ export const careerData = [
     }
   },
   {
-    company: "ACT Video Head & Freelance Technical Director",
-    role: "Technical Director & Crew Operations Lead",
-    period: "2007 - 2025",
+    company: "ACT (American Conservatory Theater)",
+    role: "Video Head",
+    period: "2016 - 2025",
     bullets: {
       Recruiter: [
-        "Led onsite technical production and signal routing for 100+ large-scale corporate keynotes (Salesforce Dreamforce, AWS re:Invent).",
-        "Managed large, cross-functional stage crews of 40+ technicians under tight, high-stress load-in and broadcast schedules.",
-        "Mentored and trained current-generation union apprentices, masterfully teaching stagecraft, signal distribution, and safety."
+        "Served as Video Head managing complex theatrical productions and live event operations.",
+        "Coordinated multi-department stage logistics, equipment budgets, and safety compliance protocols.",
+        "Mentored and trained union apprentices, teaching advanced stagecraft, electrical safety, and signal flow."
       ],
       Engineer: [
-        "Configured high-capacity local area networks, fiber signal paths, and terminal switch systems for live broadcast stages.",
-        "Programmed advanced video processors, including Barco E2 and Disguise media servers, ensuring stable output configurations."
+        "Configured stable local networks and digital signal distributions for complex multi-screen theatrical staging environments.",
+        "Programmed local video playback server clusters and automated show control cues."
       ],
       EventPro: [
-        "Served as ACT Video Head, designing fiber-optic infrastructure and digital signal paths for multi-screen stage environments.",
-        "Managed onsite video switchers, backup power loops, and media servers to ensure broadcast reliability with zero single points of failure.",
-        "Collaborated with creative marketing directors to configure live digital backdrops, screen ratios, and real-time feeds."
+        "Served as ACT Video Head, managing video systems, projection mapping layouts, and optical signal flow setups.",
+        "Designed backup power loops, switcher configurations, and media server systems to ensure zero show interruptions."
       ],
       Default: [
-        "Served as ACT Video Head, managing staging, crew scheduling, and safety protocols for high-visibility event programs.",
-        "Coordinated massive fiber optic infrastructure, signal switches, and backup paths for global corporate conferences.",
-        "Taught stagecraft, video engineering, and live signal flow courses as a mentor for industry apprentices."
+        "Served as ACT Video Head, directing staging setups, crew assignments, and safety protocols for major theatrical productions.",
+        "Engineered multi-screen projection mapping, video playback setups, and fiber distribution lines.",
+        "Taught advanced stagecraft and video signal distribution as a union apprentice mentor."
+      ]
+    }
+  },
+  {
+    company: "Freelance Live Event Specialist",
+    role: "Graphics Operator, Video Engineer & Technical Director",
+    period: "2004 - Present",
+    bullets: {
+      Recruiter: [
+        "Led onsite technical production and signal routing for 100+ high-stakes corporate keynotes (Salesforce Dreamforce, AWS re:Invent, Google Next).",
+        "Managed cross-functional crews of up to 40+ technicians under compressed, high-stress load-in and broadcast schedules.",
+        "Collaborated with production agencies (Jack Morton, etc.) to resource equipment packages and coordinate local labor crews."
+      ],
+      Engineer: [
+        "Designed and deployed temporary network backbones, fiber distribution loops, and hardware switches for large-scale corporate arenas.",
+        "Programmed high-end video processors, including Barco E2, Analog Way, and Disguise media servers."
+      ],
+      EventPro: [
+        "Served as Video Lead and TD, directing multi-camera show feeds and live digital backdrop configurations.",
+        "Managed massive fiber patch grids and optical conversion hardware to distribute UHD feeds to main and overflow screens.",
+        "Troubleshot complex AV setups under tight timelines to maintain live broadcast integrity."
+      ],
+      Default: [
+        "Freelance graphics operator, video engineer, and technical director for global tech summits and corporate shows.",
+        "Coordinated signal distributions, backup power systems, and multi-display screen grids.",
+        "Programmed advanced media servers and video processors for high-visibility client events."
       ]
     }
   },
