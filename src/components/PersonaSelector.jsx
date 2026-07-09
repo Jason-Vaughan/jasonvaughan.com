@@ -1,30 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const PERSONAS = {
   Recruiter: {
     label: "Recruiter Mode",
-    desc: "Focus on technical leadership, enterprise experience, and certifications.",
+    bannerText: "It looks like you're here to evaluate Jason for a job. I'm highlighting the most relevant experience, certifications, and resume.",
     sections: ["about", "certifications", "contact"],
   },
   Engineer: {
     label: "Engineer Mode",
-    desc: "Inspect open-source codebases, CLI architectures, and stack benchmarks.",
+    bannerText: "Looks like you're interested in AI development. I've expanded Jason's engineering projects and the OpenClaw ecosystem.",
     sections: ["tangleclaw", "tanglebrain", "clawhub", "projects"],
   },
   EventPro: {
     label: "Event Pro Mode",
-    desc: "Explore signal flow, fiber systems, LED switchers, and broadcast experience.",
+    bannerText: "It looks like you're a live event or broadcast professional. I've highlighted Jason's signal routing, fiber systems, and production history.",
     sections: ["skills", "certifications", "writing"],
   },
   OpenClaw: {
     label: "OpenClaw Mode",
-    desc: "Track published agent tools, framework releases, and downloads.",
+    bannerText: "Looks like you're interested in the OpenClaw community. I've highlighted published agent tools, framework specs, and downloads.",
     sections: ["openclaw-fleet", "clawhub", "projects"],
   },
   Investor: {
     label: "Investor / Founder",
-    desc: "Review subscription traction, SaaS products, and the pipeline roadmap.",
+    bannerText: "It looks like you're evaluating Jason's SaaS projects. I've highlighted active subscription metrics, products, and the pipeline roadmap.",
     sections: ["tilt", "cierre-sensei", "pipeline"],
   },
 };
@@ -65,6 +65,18 @@ export function inferPersona() {
  */
 export function PersonaDropdown({ current, onSelect }) {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleOutsideClick = (e) => {
+      // Close dropdown if click is outside the data-persona-dropdown wrapper
+      if (!e.target.closest("[data-persona-dropdown]")) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("click", handleOutsideClick);
+    return () => document.removeEventListener("click", handleOutsideClick);
+  }, [open]);
 
   const container = {
     position: "relative",
@@ -117,7 +129,7 @@ export function PersonaDropdown({ current, onSelect }) {
   });
 
   return (
-    <div style={container} onMouseLeave={() => setOpen(false)}>
+    <div data-persona-dropdown="" style={container}>
       <button style={trigger} onClick={() => setOpen(!open)}>
         <span>{PERSONAS[current]?.label || "Personalize View ▾"}</span>
         {!current && (

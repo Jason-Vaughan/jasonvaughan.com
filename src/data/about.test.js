@@ -52,7 +52,7 @@ describe("Persona Selector Configurations", () => {
   it("should configure valid sections for each persona", () => {
     Object.entries(PERSONAS).forEach(([key, info]) => {
       expect(typeof info.label).toBe("string");
-      expect(typeof info.desc).toBe("string");
+      expect(typeof info.bannerText).toBe("string");
       expect(Array.isArray(info.sections)).toBe(true);
       expect(info.sections.length).toBeGreaterThan(0);
     });
