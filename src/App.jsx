@@ -20,6 +20,7 @@ import Collapsible from "./components/Collapsible";
 import { openSection, closeAllSections } from "./utils/sectionRegistry";
 import ChatWidget from "./components/ChatWidget";
 import About from "./components/About";
+import Career from "./components/Career";
 import { PERSONAS, inferPersona, PersonaDropdown } from "./components/PersonaSelector";
 
 export default function App() {
@@ -261,6 +262,15 @@ export default function App() {
           highlighted={isSectionHighlighted("about")}
           description="Who I am — narrative, pillars, milestones, and AI interview.">
           <About visitorType={visitorType} />
+        </Collapsible>
+      )}
+
+      {/* New Career History section, visible in preview mode */}
+      {isPreviewMode && (
+        <Collapsible id="career" title="Career History" icon="💼" bodyInWrap provideId
+          highlighted={isSectionHighlighted("career")}
+          description="Professional highlights — dynamically weighted to your background.">
+          <Career visitorType={visitorType} />
         </Collapsible>
       )}
 

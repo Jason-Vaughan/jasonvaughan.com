@@ -5,27 +5,27 @@ export const PERSONAS = {
   Recruiter: {
     label: "Recruiter Mode",
     bannerText: "It looks like you're here to evaluate Jason for a job. I'm highlighting the most relevant experience, certifications, and resume.",
-    sections: ["about", "certifications", "contact"],
+    sections: ["about", "career", "certifications", "contact"],
   },
   Engineer: {
     label: "Engineer Mode",
     bannerText: "Looks like you're interested in AI development. I've expanded Jason's engineering projects and the OpenClaw ecosystem.",
-    sections: ["tangleclaw", "tanglebrain", "clawhub", "projects"],
+    sections: ["tangleclaw", "tanglebrain", "clawhub", "career", "projects"],
   },
   EventPro: {
     label: "Event Pro Mode",
     bannerText: "It looks like you're a live event or broadcast professional. I've highlighted Jason's signal routing, fiber systems, and production history.",
-    sections: ["skills", "certifications", "writing"],
+    sections: ["skills", "certifications", "career", "writing"],
   },
   OpenClaw: {
     label: "OpenClaw Mode",
     bannerText: "Looks like you're interested in the OpenClaw community. I've highlighted published agent tools, framework specs, and downloads.",
-    sections: ["openclaw-fleet", "clawhub", "projects"],
+    sections: ["openclaw-fleet", "clawhub", "career", "projects"],
   },
   Investor: {
     label: "Investor / Founder",
     bannerText: "It looks like you're evaluating Jason's SaaS projects. I've highlighted active subscription metrics, products, and the pipeline roadmap.",
-    sections: ["tilt", "cierre-sensei", "pipeline"],
+    sections: ["tilt", "cierre-sensei", "career", "pipeline"],
   },
 };
 

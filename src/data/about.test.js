@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { aboutData } from "./about";
+import { careerData } from "./career";
 import { PERSONAS } from "../components/PersonaSelector";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -71,6 +72,23 @@ describe("Persona Selector Configurations", () => {
           expect(appSource).toMatch(idPattern);
         }
       });
+    });
+  });
+});
+
+describe("Career Data Integrity", () => {
+  it("should contain a valid list of jobs", () => {
+    expect(Array.isArray(careerData)).toBe(true);
+    expect(careerData.length).toBeGreaterThan(0);
+  });
+
+  it("should contain valid fields for all jobs", () => {
+    careerData.forEach((job) => {
+      expect(typeof job.company).toBe("string");
+      expect(typeof job.role).toBe("string");
+      expect(typeof job.period).toBe("string");
+      expect(job.bullets).toBeDefined();
+      expect(Array.isArray(job.bullets.Default)).toBe(true);
     });
   });
 });
