@@ -20,7 +20,7 @@ import Collapsible from "./components/Collapsible";
 import { openSection, closeAllSections } from "./utils/sectionRegistry";
 import ChatWidget from "./components/ChatWidget";
 import About from "./components/About";
-import { PERSONAS, PersonaOverlay, PersonaDropdown } from "./components/PersonaSelector";
+import { PERSONAS, inferPersona, PersonaDropdown } from "./components/PersonaSelector";
 
 export default function App() {
   const [clawhubDownloads, setClawhubDownloads] = useState(null);
@@ -40,9 +40,18 @@ export default function App() {
     return localStorage.getItem("previewMode") === "true";
   });
 
-  // Selected visitor type (Recruiter, Engineer, etc.)
+  // Selected visitor type (Recruiter, Engineer, etc.), with automatic referrer inference
   const [visitorType, setVisitorType] = useState(() => {
-    return localStorage.getItem("visitorType") || "";
+    const saved = localStorage.getItem("visitorType");
+    if (saved !== null) return saved; // could be "" for reset to default
+    
+    // Attempt to infer persona on first landing
+    const inferred = inferPersona();
+    if (inferred) {
+      localStorage.setItem("visitorType", inferred);
+      return inferred;
+    }
+    return "";
   });
 
   const handleSelectPersona = (personaKey) => {
@@ -132,13 +141,37 @@ export default function App() {
         }
         .card-highlight-pulse { animation: card-highlight 1.2s ease-in-out 2; }
       `}</style>
-      <header className="py-16 px-6 text-center" style={{ background: "linear-gradient(180deg, #1a1a2e 0%, #09090b 100%)", position: "relative" }}>
-        {isPreviewMode && (
-          <div style={{ position: "absolute", top: 24, right: 24, zIndex: 10 }}>
-            <PersonaDropdown current={visitorType} onSelect={handleSelectPersona} />
-          </div>
-        )}
-        
+      
+      {/* Dynamic Top Banner for Gated Preview Mode */}
+      {isPreviewMode && (
+        <div style={{
+          background: visitorType ? "linear-gradient(90deg, #fbbf24 0%, #d97706 100%)" : "rgba(24, 24, 27, 0.8)",
+          color: visitorType ? "#000" : "#a1a1aa",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+          textAlign: "center",
+          padding: "8px 24px",
+          fontSize: 13,
+          fontWeight: 600,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          gap: 12,
+          position: "sticky",
+          top: 0,
+          zIndex: 1001,
+          backdropFilter: visitorType ? "none" : "blur(8px)",
+        }}>
+          {visitorType ? (
+            <span>Viewing site customized for <strong>{PERSONAS[visitorType]?.label}</strong>.</span>
+          ) : (
+            <span>Welcome! Personalize this portfolio for your background:</span>
+          )}
+          <PersonaDropdown current={visitorType} onSelect={handleSelectPersona} />
+        </div>
+      )}
+
+      <header className="py-16 px-6 text-center" style={{ background: "linear-gradient(180deg, #1a1a2e 0%, #09090b 100%)" }}>
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -302,11 +335,6 @@ export default function App() {
       </footer>
 
       <ChatWidget />
-
-      {/* Visitor Segment selector overlay (modal) */}
-      {isPreviewMode && !visitorType && (
-        <PersonaOverlay onSelect={handleSelectPersona} />
-      )}
     </div>
   );
 }

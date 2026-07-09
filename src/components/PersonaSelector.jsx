@@ -3,111 +3,65 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export const PERSONAS = {
   Recruiter: {
-    label: "Recruiter / Hiring Manager",
+    label: "Recruiter Mode",
     desc: "Focus on technical leadership, enterprise experience, and certifications.",
     sections: ["about", "certifications", "contact"],
   },
   Engineer: {
-    label: "Software Engineer",
+    label: "Engineer Mode",
     desc: "Inspect open-source codebases, CLI architectures, and stack benchmarks.",
     sections: ["tangleclaw", "tanglebrain", "clawhub", "projects"],
   },
   EventPro: {
-    label: "Event Professional",
+    label: "Event Pro Mode",
     desc: "Explore signal flow, fiber systems, LED switchers, and broadcast experience.",
     sections: ["skills", "certifications", "writing"],
   },
   OpenClaw: {
-    label: "OpenClaw Community",
+    label: "OpenClaw Mode",
     desc: "Track published agent tools, framework releases, and downloads.",
     sections: ["openclaw-fleet", "clawhub", "projects"],
   },
   Investor: {
-    label: "Founder / Investor",
+    label: "Investor / Founder",
     desc: "Review subscription traction, SaaS products, and the pipeline roadmap.",
     sections: ["tilt", "cierre-sensei", "pipeline"],
   },
 };
 
 /**
- * Full-screen modal overlay that prompts the visitor to select a persona.
+ * Infer the visitor persona based on referrer and landing query parameters.
  */
-export function PersonaOverlay({ onSelect }) {
-  const backdrop = {
-    position: "fixed",
-    top: 0, left: 0, right: 0, bottom: 0,
-    background: "rgba(9, 9, 11, 0.92)",
-    backdropFilter: "blur(16px)",
-    zIndex: 9999,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 24,
-  };
+export function inferPersona() {
+  if (typeof window === "undefined") return "";
 
-  const modal = {
-    maxWidth: 500,
-    width: "100%",
-    background: "#18181b",
-    border: "1px solid #27272a",
-    borderRadius: 24,
-    padding: 32,
-    boxShadow: "0 20px 50px rgba(0,0,0,0.6)",
-    display: "flex",
-    flexDirection: "column",
-    gap: 20,
-  };
-
-  const optionBtn = {
-    width: "100%",
-    padding: "16px 20px",
-    background: "rgba(255,255,255,0.03)",
-    border: "1px solid rgba(255,255,255,0.06)",
-    borderRadius: 12,
-    textAlign: "left",
-    cursor: "pointer",
-    display: "flex",
-    flexDirection: "column",
-    gap: 4,
-    color: "#fff",
-    transition: "border-color 0.2s, background 0.2s",
-  };
-
-  return (
-    <div style={backdrop}>
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        style={modal}
-      >
-        <div style={{ textAlign: "center" }}>
-          <h2 style={{ fontSize: 24, fontWeight: 800, color: "#fff", margin: 0 }}>What brings you here?</h2>
-          <p style={{ color: "#71717a", fontSize: 14, marginTop: 8, marginBottom: 0 }}>
-            Choose a mode to customize my portfolio layout and highlight the work that matters to you.
-          </p>
-        </div>
-
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          {Object.entries(PERSONAS).map(([key, info]) => (
-            <motion.button
-              key={key}
-              onClick={() => onSelect(key)}
-              whileHover={{ scale: 1.02, backgroundColor: "rgba(251,191,36,0.06)", borderColor: "rgba(251,191,36,0.35)" }}
-              whileTap={{ scale: 0.98 }}
-              style={optionBtn}
-            >
-              <span style={{ fontWeight: 700, color: "#fbbf24", fontSize: 15 }}>{info.label}</span>
-              <span style={{ color: "#a1a1aa", fontSize: 12.5, lineHeight: 1.4 }}>{info.desc}</span>
-            </motion.button>
-          ))}
-        </div>
-      </motion.div>
-    </div>
-  );
+  const referrer = (document.referrer || "").toLowerCase();
+  const search = window.location.search.toLowerCase();
+  
+  // 1. Explicit query parameters (takes priority)
+  if (search.includes("resume") || search.includes("hiring")) return "Recruiter";
+  if (search.includes("tanglebrain") || search.includes("tangleclaw") || search.includes("code") || search.includes("developer")) return "Engineer";
+  if (search.includes("barco") || search.includes("e2") || search.includes("event") || search.includes("instructor")) return "EventPro";
+  if (search.includes("openclaw") || search.includes("clawhub")) return "OpenClaw";
+  if (search.includes("saas") || search.includes("invest") || search.includes("cierre")) return "Investor";
+  
+  // 2. Referrer headers
+  if (referrer.includes("linkedin.com")) return "Recruiter";
+  if (referrer.includes("github.com")) return "Engineer";
+  if (referrer.includes("clawhub.ai")) return "OpenClaw";
+  
+  // 3. Search Engine query terms (safeguard check if query keywords are passed in referrer/landing URL)
+  if (referrer.includes("google.") || referrer.includes("bing.com") || referrer.includes("yahoo.com")) {
+    if (search.includes("resume") || search.includes("cv")) return "Recruiter";
+    if (search.includes("tangle") || search.includes("git")) return "Engineer";
+    if (search.includes("barco") || search.includes("instructor") || search.includes("event")) return "EventPro";
+  }
+  
+  return "";
 }
 
 /**
- * Dropdown selector for the Header to allow visitors to toggle persona modes.
+ * Dropdown selector to allow visitors to toggle persona modes.
  */
 export function PersonaDropdown({ current, onSelect }) {
   const [open, setOpen] = useState(false);
@@ -121,41 +75,41 @@ export function PersonaDropdown({ current, onSelect }) {
     display: "inline-flex",
     alignItems: "center",
     gap: 8,
-    padding: "8px 16px",
-    borderRadius: 12,
-    background: "rgba(251, 191, 36, 0.08)",
-    border: "1px solid rgba(251, 191, 36, 0.35)",
-    color: "#fbbf24",
-    fontSize: 13,
+    padding: "6px 12px",
+    borderRadius: 8,
+    background: current ? "rgba(0, 0, 0, 0.2)" : "rgba(251, 191, 36, 0.15)",
+    border: "1px solid rgba(0, 0, 0, 0.15)",
+    color: current ? "#000" : "#fbbf24",
+    fontSize: 12.5,
     fontWeight: 700,
     cursor: "pointer",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+    boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
   };
 
   const menu = {
     position: "absolute",
-    top: 44,
+    top: 36,
     right: 0,
-    width: 280,
+    width: 200,
     background: "#18181b",
     border: "1px solid #27272a",
-    borderRadius: 12,
-    padding: 8,
+    borderRadius: 8,
+    padding: 6,
     boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
     zIndex: 1000,
     display: "flex",
     flexDirection: "column",
-    gap: 4,
+    gap: 3,
   };
 
   const itemStyle = (isActive) => ({
     width: "100%",
-    padding: "10px 12px",
+    padding: "8px 10px",
     background: isActive ? "rgba(251,191,36,0.12)" : "transparent",
     border: "none",
-    borderRadius: 8,
+    borderRadius: 6,
     color: isActive ? "#fbbf24" : "#e4e4e7",
-    fontSize: 13,
+    fontSize: 12.5,
     fontWeight: isActive ? 700 : 500,
     textAlign: "left",
     cursor: "pointer",
@@ -165,19 +119,21 @@ export function PersonaDropdown({ current, onSelect }) {
   return (
     <div style={container} onMouseLeave={() => setOpen(false)}>
       <button style={trigger} onClick={() => setOpen(!open)}>
-        <span>View: {PERSONAS[current]?.label || "Default"}</span>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-          <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+        <span>{PERSONAS[current]?.label || "Personalize View ▾"}</span>
+        {!current && (
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        )}
       </button>
 
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.15 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.1 }}
             style={menu}
           >
             {Object.entries(PERSONAS).map(([key, info]) => (
@@ -192,6 +148,17 @@ export function PersonaDropdown({ current, onSelect }) {
                 {info.label}
               </button>
             ))}
+            {current && (
+              <button
+                onClick={() => {
+                  onSelect("");
+                  setOpen(false);
+                }}
+                style={{ ...itemStyle(false), color: "#f87171", borderTop: "1px solid #27272a", marginTop: 4, paddingTop: 8 }}
+              >
+                Reset to Default
+              </button>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
