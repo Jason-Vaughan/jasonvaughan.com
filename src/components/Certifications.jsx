@@ -9,7 +9,7 @@ import { certifications } from "../data/certifications";
  *
  * @returns {JSX.Element} The rendered Certifications section.
  */
-export default function Certifications() {
+export default function Certifications({ highlighted = false }) {
   const subStyle = { marginTop: 0, color: "#a1a1aa", fontSize: 15, maxWidth: 640, lineHeight: 1.5 };
   const grid = {
     marginTop: 20,
@@ -45,7 +45,7 @@ export default function Certifications() {
   };
 
   return (
-    <Collapsible id="certifications" title="Certifications" bodyInWrap icon="🏅"
+    <Collapsible id="certifications" title="Certifications" bodyInWrap icon="🏅" highlighted={highlighted}
       description="Field-earned credentials & training.">
 
       <p style={subStyle}>

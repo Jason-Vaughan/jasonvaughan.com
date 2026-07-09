@@ -37,7 +37,7 @@ import { registerSection, unregisterSection } from "../utils/sectionRegistry";
  * @param {React.ReactNode} props.children Section body.
  * @returns {JSX.Element} The collapsible section.
  */
-export default function Collapsible({ id, title, icon, description, statPill, defaultOpen = false, bodyInWrap = false, provideId = bodyInWrap, children }) {
+export default function Collapsible({ id, title, icon, description, statPill, defaultOpen = false, bodyInWrap = false, provideId = bodyInWrap, highlighted = false, children }) {
   const [open, setOpen] = useState(defaultOpen);
 
   // Register an opener so the deep-link / jump-nav coordinator can expand this
@@ -121,6 +121,22 @@ export default function Collapsible({ id, title, icon, description, statPill, de
                     fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
                   }}>
                     {statPill}
+                  </span>
+                )}
+                {highlighted && (
+                  <span style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: 0.5,
+                    padding: "2px 6px",
+                    borderRadius: 4,
+                    background: "rgba(251, 191, 36, 0.1)",
+                    border: "1px solid rgba(251, 191, 36, 0.35)",
+                    color: "#fbbf24",
+                    fontFamily: "inherit",
+                  }}>
+                    Highly Relevant
                   </span>
                 )}
               </span>

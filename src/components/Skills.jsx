@@ -9,7 +9,7 @@ import { skillGroups } from "../data/skills";
  *
  * @returns {JSX.Element} The rendered Skills section.
  */
-export default function Skills() {
+export default function Skills({ highlighted = false }) {
   const subStyle = { marginTop: 0, color: "#a1a1aa", fontSize: 15, maxWidth: 640, lineHeight: 1.5 };
   const grid = {
     marginTop: 20,
@@ -46,7 +46,7 @@ export default function Skills() {
   };
 
   return (
-    <Collapsible id="skills" title="Skills" bodyInWrap icon="🎛️"
+    <Collapsible id="skills" title="Skills" bodyInWrap icon="🎛️" highlighted={highlighted}
       description="Live-show, broadcast & creative tool fluency.">
 
       <p style={subStyle}>

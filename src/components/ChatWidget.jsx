@@ -5,14 +5,7 @@ const WORKER_URL = import.meta.env.DEV
   ? "http://localhost:8787"
   : "https://portfolio-chat.jasonvaughan.workers.dev";
 
-const SUGGESTIONS = [
-  "Why did you build TangleClaw?",
-  "What is your background in live events?",
-  "Tell me about TiLT and its stats.",
-  "What is your philosophy on self-learning?",
-];
-
-export default function ChatWidget() {
+export default function ChatWidget({ visitorType }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -92,6 +85,25 @@ export default function ChatWidget() {
     }, 5000);
     return () => clearTimeout(timer);
   }, [isOpen]);
+
+  // Dynamic intent-aware greeting update
+  useEffect(() => {
+    if (messages.length === 1 && messages[0].role === "assistant") {
+      let content = "Hi! I'm Jason's AI assistant. Ask me anything about his projects, technical experience, or self-learning philosophy!";
+      if (visitorType === "Recruiter") {
+        content = "Welcome! I noticed you may be evaluating Jason professionally. I can answer questions about his Google TPM role, technical leadership, certifications, or resume. Ask me anything, or try one of the suggestions below!";
+      } else if (visitorType === "Engineer") {
+        content = "Interested in the code? I'm Jason's AI assistant. Ask me about the architecture of TangleClaw, local AI routing in TangleBrain, the Medusa agent, or his testing strategy.";
+      } else if (visitorType === "EventPro") {
+        content = "Hello show pro! Ask me about Jason's broadcast and live event history, from managing Barco E2 screens to Disguise media servers and SMPTE-2110 IP video networks.";
+      } else if (visitorType === "OpenClaw") {
+        content = "Welcome to the OpenClaw workspace! Ask me about the OpenClaw agent ecosystem, published Node/Python modules, CLI configurations, and developer tools.";
+      } else if (visitorType === "Investor") {
+        content = "Hello! I can answer questions about the business viability, active user metrics, and feature roadmap for SaaS products like TiLT and Cierre Sensei.";
+      }
+      setMessages([{ role: "assistant", content }]);
+    }
+  }, [visitorType]);
 
   // Listen for open event from external components (e.g. About AI Interview CTA)
   useEffect(() => {
@@ -275,7 +287,6 @@ export default function ChatWidget() {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Quick Suggestions (only visible on initial state) */}
             {messages.length === 1 && !isLoading && (
               <div style={{
                 padding: "0 16px 12px 16px",
@@ -285,7 +296,52 @@ export default function ChatWidget() {
               }}>
                 <p style={{ margin: "0 0 2px 0", fontSize: 11, color: "#71717a", fontWeight: 600 }}>SUGGESTIONS:</p>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                  {SUGGESTIONS.map((text, idx) => (
+                  {(() => {
+                    switch (visitorType) {
+                      case "Recruiter":
+                        return [
+                          "Has Jason managed large technical teams?",
+                          "Tell me about Jason's TPM experience at Google.",
+                          "What certifications does Jason hold?",
+                          "Where can I download his resume?",
+                        ];
+                      case "Engineer":
+                        return [
+                          "How does local AI routing work in TangleBrain?",
+                          "Tell me about TangleClaw's architecture.",
+                          "What is Medusa's agent strategy?",
+                          "What is Jason's testing philosophy?",
+                        ];
+                      case "EventPro":
+                        return [
+                          "What live event tech does Jason specialize in?",
+                          "Tell me about Jason's experience with Barco E2.",
+                          "Has Jason worked with fiber and SMPTE-2110?",
+                          "What roles did he perform at major corporate events?",
+                        ];
+                      case "OpenClaw":
+                        return [
+                          "What is OpenClaw?",
+                          "Tell me about the tools published on ClawHub.",
+                          "What is ClawBridge?",
+                          "How can I get started with OpenClaw?",
+                        ];
+                      case "Investor":
+                        return [
+                          "Tell me about the monetization of TiLT.",
+                          "What is Cierre Sensei's market fit?",
+                          "What is next on the roadmap for these products?",
+                          "Does Jason do consulting?",
+                        ];
+                      default:
+                        return [
+                          "Why did you build TangleClaw?",
+                          "What is your background in live events?",
+                          "Tell me about TiLT and its stats.",
+                          "What is your philosophy on self-learning?",
+                        ];
+                    }
+                  })().map((text, idx) => (
                     <button
                       key={idx}
                       onClick={() => handleSend(text)}

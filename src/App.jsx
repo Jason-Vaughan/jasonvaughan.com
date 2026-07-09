@@ -69,6 +69,13 @@ export default function App() {
     }
   };
 
+  // Helper to check if a section is recommended for the active persona
+  const isSectionHighlighted = (secId) => {
+    if (!isPreviewMode || !visitorType) return false;
+    const info = PERSONAS[visitorType];
+    return info?.sections?.includes(secId) || false;
+  };
+
   // Auto-expand default sections on mode change or mount
   useEffect(() => {
     if (isPreviewMode && visitorType) {
@@ -163,7 +170,9 @@ export default function App() {
           backdropFilter: visitorType ? "none" : "blur(8px)",
         }}>
           {visitorType ? (
-            <span>Viewing site customized for <strong>{PERSONAS[visitorType]?.label}</strong>.</span>
+            <span style={{ fontSize: 13, lineHeight: 1.4 }}>
+              {PERSONAS[visitorType]?.bannerText || `Viewing site customized for ${PERSONAS[visitorType]?.label}.`}
+            </span>
           ) : (
             <span>Welcome! Personalize this portfolio for your background:</span>
           )}
@@ -249,83 +258,97 @@ export default function App() {
       {/* New narrative-driven About section, visible in preview mode */}
       {isPreviewMode && (
         <Collapsible id="about" title="About" icon="👤" bodyInWrap provideId
+          highlighted={isSectionHighlighted("about")}
           description="Who I am — narrative, pillars, milestones, and AI interview.">
           <About visitorType={visitorType} />
         </Collapsible>
       )}
 
       <Collapsible id="tilt" title="TiLT" icon="⏱️"
+        highlighted={isSectionHighlighted("tilt")}
         statPill={projectStats?.tilt?.tests ? `${projectStats.tilt.tests.toLocaleString()} tests passing` : null}
         description="Union timecard & pay tracking for live-events crews.">
         <FeaturedProject />
       </Collapsible>
       
       <Collapsible id="tangleclaw" title="TangleClaw" icon="🧶"
+        highlighted={isSectionHighlighted("tangleclaw")}
         statPill={projectStats?.tangleclaw?.tests ? `${projectStats.tangleclaw.tests.toLocaleString()} tests passing` : null}
         description="Multi-project AI session orchestration & governance.">
         <FeaturedTangleClaw />
       </Collapsible>
       
       <Collapsible id="tanglebrain" title="TangleBrain" icon="🧠"
+        highlighted={isSectionHighlighted("tanglebrain")}
         statPill={projectStats?.tanglebrain?.tests ? `${projectStats.tanglebrain.tests.toLocaleString()} tests passing` : null}
         description="Local-first LLM router across AI backends.">
         <FeaturedTangleBrain />
       </Collapsible>
       
       <Collapsible id="cierre-sensei" title="Cierre Sensei" icon="🏠"
+        highlighted={isSectionHighlighted("cierre-sensei")}
         description="Mexican real-estate closing-cost engine.">
         <FeaturedCierreSensei />
       </Collapsible>
       
       <Collapsible id="projects" title="Projects" icon="🛠️"
+        highlighted={isSectionHighlighted("projects")}
         statPill={projectStats ? `${Object.keys(projectStats).length} projects shipped` : null}
         description="Shipped apps, tools & open-source projects.">
         <Projects />
       </Collapsible>
       
       <Collapsible id="pipeline" title="Pipeline" icon="🚧" provideId
+        highlighted={isSectionHighlighted("pipeline")}
         description="What's in active development next.">
         <Pipeline />
       </Collapsible>
       
       <Collapsible id="research" title="Research & Infrastructure" icon="🔬"
+        highlighted={isSectionHighlighted("research")}
         description="Active investigations and the systems that power them.">
         <Infrastructure />
       </Collapsible>
       
       <Collapsible id="openclaw-fleet" title="OpenClaw Fleet" icon="🤖"
+        highlighted={isSectionHighlighted("openclaw-fleet")}
         description="Internal AI agents in production & development.">
         <OpenClawFleet />
       </Collapsible>
       
       <Collapsible id="clawhub" title="ClawHub Skills and Tools" icon="📦"
+        highlighted={isSectionHighlighted("clawhub")}
         statPill={clawhubDownloads !== null ? `${clawhubDownloads.toLocaleString()} downloads` : null}
         description="Published skills & plugins with live download stats — for the OpenClaw ecosystem.">
         <ClawHub />
       </Collapsible>
       
       <Collapsible id="writing" title="Writing" icon="✍️"
+        highlighted={isSectionHighlighted("writing")}
         statPill="3 papers"
         description="Essays & technical write-ups.">
         <Writing />
       </Collapsible>
       
-      <Skills />
+      <Skills highlighted={isSectionHighlighted("skills")} />
       
-      <Certifications />
+      <Certifications highlighted={isSectionHighlighted("certifications")} />
       
       <Collapsible id="gpts" title="Custom GPTs" icon="💬"
+        highlighted={isSectionHighlighted("gpts")}
         statPill="5 custom GPTs"
         description="Purpose-built GPT assistants.">
         <GPTs />
       </Collapsible>
       
       <Collapsible id="tip-jar" title="Tip Jar" icon="💰"
+        highlighted={isSectionHighlighted("tip-jar")}
         description="Support the work.">
         <TipJar />
       </Collapsible>
       
       <Collapsible id="contact" title="Contact" icon="✉️"
+        highlighted={isSectionHighlighted("contact")}
         description="Get in touch.">
         <ContactSection />
       </Collapsible>
@@ -334,7 +357,7 @@ export default function App() {
         © {new Date().getFullYear()} Jason Vaughan
       </footer>
 
-      <ChatWidget />
+      <ChatWidget visitorType={visitorType} />
     </div>
   );
 }
