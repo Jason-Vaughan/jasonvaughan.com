@@ -5,7 +5,7 @@ const WORKER_URL = import.meta.env.DEV
   ? "http://localhost:8787"
   : "https://portfolio-chat.jasonvaughan.workers.dev";
 
-export default function ChatWidget({ visitorType }) {
+export default function ChatWidget({ visitorType, onTriggerModal }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -31,6 +31,43 @@ export default function ChatWidget({ visitorType }) {
     if (!text.trim()) return;
 
     if (!textToSend) setInput("");
+
+    // Check for modal trigger commands
+    const normalized = text.toLowerCase().trim();
+    let triggeredType = null;
+    
+    if (normalized.includes("work examples") || normalized.includes("curated portfolio") || normalized.includes("strongest examples")) {
+      triggeredType = "recruiterPortfolio";
+    } else if (normalized.includes("job description") || normalized.includes("match") || normalized.includes("jd")) {
+      triggeredType = "jobMatch";
+    } else if (normalized.includes("ai projects") || normalized.includes("developer projects") || normalized.includes("technical proof")) {
+      triggeredType = "developerProjects";
+    } else if (normalized.includes("production work") || normalized.includes("live event") || normalized.includes("production proof")) {
+      triggeredType = "productionTech";
+    } else if (normalized.includes("google experience") || normalized.includes("google support")) {
+      triggeredType = "googleExperience";
+    }
+
+    if (normalized.includes("download resume")) {
+      if (onTriggerModal) onTriggerModal("downloadResume");
+      setMessages((prev) => [
+        ...prev,
+        { role: "user", content: text },
+        { role: "assistant", content: "I have triggered the password gate for downloading Jason's resume. Please enter the password in the prompt!" }
+      ]);
+      return;
+    }
+
+    if (triggeredType) {
+      if (onTriggerModal) onTriggerModal(triggeredType);
+      setMessages((prev) => [
+        ...prev,
+        { role: "user", content: text },
+        { role: "assistant", content: "I opened a curated portfolio view for you. You can ask me to narrow it by role, company, technology, or project type." }
+      ]);
+      return;
+    }
+
     setIsLoading(true);
 
     const updatedMessages = [...messages, { role: "user", content: text }];
@@ -111,9 +148,20 @@ export default function ChatWidget({ visitorType }) {
       setIsOpen(true);
       setHasNewMessage(false);
     };
+    const handleExternalSend = (e) => {
+      setIsOpen(true);
+      setHasNewMessage(false);
+      if (e.detail?.text) {
+        handleSend(e.detail.text);
+      }
+    };
     window.addEventListener("open-portfolio-chat", handleOpenChat);
-    return () => window.removeEventListener("open-portfolio-chat", handleOpenChat);
-  }, []);
+    window.addEventListener("send-portfolio-chat", handleExternalSend);
+    return () => {
+      window.removeEventListener("open-portfolio-chat", handleOpenChat);
+      window.removeEventListener("send-portfolio-chat", handleExternalSend);
+    };
+  }, [messages]);
 
   return (
     <div style={{ position: "fixed", bottom: 24, right: 24, zIndex: 1000, fontFamily: "inherit" }}>

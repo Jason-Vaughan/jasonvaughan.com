@@ -21,6 +21,7 @@ import { openSection, closeAllSections } from "./utils/sectionRegistry";
 import ChatWidget from "./components/ChatWidget";
 import About from "./components/About";
 import Career from "./components/Career";
+import PortfolioModal from "./components/PortfolioModal";
 import { PERSONAS, inferPersona, PersonaDropdown } from "./components/PersonaSelector";
 
 export default function App() {
@@ -100,6 +101,23 @@ export default function App() {
     } else {
       setPasswordError(true);
     }
+  };
+
+  // Concierge Portfolio Modal states
+  const [isPortfolioModalOpen, setIsPortfolioModalOpen] = useState(false);
+  const [portfolioModalType, setPortfolioModalType] = useState("recruiterPortfolio");
+
+  const handleTriggerModal = (modalType) => {
+    if (modalType === "downloadResume") {
+      handleResumeClick();
+    } else {
+      setPortfolioModalType(modalType);
+      setIsPortfolioModalOpen(true);
+    }
+  };
+
+  const handleAskChatbot = (text) => {
+    window.dispatchEvent(new CustomEvent("send-portfolio-chat", { detail: { text } }));
   };
 
   const handleSelectPersona = (personaKey) => {
@@ -507,6 +525,145 @@ export default function App() {
         </div>
       )}
 
+      {/* Inline AI Concierge CTA Block - Hero Adjacent */}
+      {isPreviewMode && (
+        <div style={{ maxWidth: 960, margin: "0 auto 24px auto", padding: "0 24px" }}>
+          <div style={{
+            borderRadius: 16,
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            background: "linear-gradient(135deg, rgba(24, 24, 27, 0.5) 0%, rgba(9, 9, 11, 0.6) 100%)",
+            padding: 24,
+            boxShadow: "0 8px 32px rgba(0,0,0,0.25)",
+            display: "flex",
+            flexDirection: "column",
+            gap: 16
+          }}>
+            <div>
+              <span style={{ fontSize: 11, fontWeight: 800, textTransform: "uppercase", letterSpacing: 1.5, color: "#fbbf24", display: "flex", alignItems: "center", gap: 6 }}>
+                🤖 Ask Jason’s AI Portfolio Guide
+              </span>
+              <p style={{ margin: "4px 0 0", color: "#a1a1aa", fontSize: 13.5, lineHeight: 1.4 }}>
+                Get a fast, tailored summary of Jason’s experience, projects, technical leadership, and career fit.
+              </p>
+            </div>
+
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              <button
+                onClick={() => handleAskChatbot("Why should we hire Jason?")}
+                style={{
+                  padding: "8px 16px",
+                  borderRadius: 8,
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  color: "#d4d4d8",
+                  fontSize: 12.5,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  transition: "all 0.15s"
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#fbbf24"; e.currentTarget.style.color = "#fbbf24"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "#d4d4d8"; }}
+              >
+                Why should we hire Jason?
+              </button>
+
+              <button
+                onClick={() => handleTriggerModal("recruiterPortfolio")}
+                style={{
+                  padding: "8px 16px",
+                  borderRadius: 8,
+                  background: "rgba(251, 191, 36, 0.08)",
+                  border: "1px solid rgba(251, 191, 36, 0.25)",
+                  color: "#fbbf24",
+                  fontSize: 12.5,
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  transition: "all 0.15s"
+                }}
+              >
+                Show Curated Examples
+              </button>
+
+              <button
+                onClick={() => handleTriggerModal("googleExperience")}
+                style={{
+                  padding: "8px 16px",
+                  borderRadius: 8,
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  color: "#d4d4d8",
+                  fontSize: 12.5,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  transition: "all 0.15s"
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#fbbf24"; e.currentTarget.style.color = "#fbbf24"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "#d4d4d8"; }}
+              >
+                Summarize Google Experience
+              </button>
+
+              <button
+                onClick={() => handleTriggerModal("jobMatch")}
+                style={{
+                  padding: "8px 16px",
+                  borderRadius: 8,
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  color: "#d4d4d8",
+                  fontSize: 12.5,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  transition: "all 0.15s"
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#fbbf24"; e.currentTarget.style.color = "#fbbf24"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "#d4d4d8"; }}
+              >
+                Match Jason to a Role
+              </button>
+
+              <button
+                onClick={() => handleTriggerModal("developerProjects")}
+                style={{
+                  padding: "8px 16px",
+                  borderRadius: 8,
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  color: "#d4d4d8",
+                  fontSize: 12.5,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  transition: "all 0.15s"
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#fbbf24"; e.currentTarget.style.color = "#fbbf24"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "#d4d4d8"; }}
+              >
+                Show AI Projects
+              </button>
+
+              <button
+                onClick={() => handleTriggerModal("productionTech")}
+                style={{
+                  padding: "8px 16px",
+                  borderRadius: 8,
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  color: "#d4d4d8",
+                  fontSize: 12.5,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  transition: "all 0.15s"
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#fbbf24"; e.currentTarget.style.color = "#fbbf24"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "#d4d4d8"; }}
+              >
+                Show Production Proof
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Builder Stats - only shown here for non-Recruiter modes */}
       {visitorType !== "Recruiter" && (
         <BuilderStats visitorType={visitorType} />
@@ -673,6 +830,45 @@ export default function App() {
         <ContactSection />
       </Collapsible>
 
+      {/* Selected Work Footer Concierge CTA Panel */}
+      {isPreviewMode && (
+        <div style={{ maxWidth: 960, margin: "24px auto", padding: "0 24px", textAlign: "center" }}>
+          <div style={{
+            borderRadius: 16,
+            border: "1px solid rgba(255, 255, 255, 0.06)",
+            background: "rgba(24, 24, 27, 0.3)",
+            padding: 24,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 12
+          }}>
+            <h4 style={{ margin: 0, fontSize: 16, color: "#fff", fontWeight: 700 }}>
+              Want the curated version? Ask the AI guide.
+            </h4>
+            <p style={{ margin: 0, fontSize: 13, color: "#a1a1aa", maxWidth: 480, lineHeight: 1.45 }}>
+              Jason's AI Concierge can launch dedicated portfolio slides mapped to your specific hiring, code, or production interests.
+            </p>
+            <button
+              onClick={() => handleTriggerModal("recruiterPortfolio")}
+              style={{
+                padding: "8px 20px",
+                borderRadius: 8,
+                background: "linear-gradient(135deg, #fbbf24 0%, #d97706 100%)",
+                border: "none",
+                color: "#000",
+                fontSize: 13,
+                fontWeight: 700,
+                cursor: "pointer",
+                marginTop: 4
+              }}
+            >
+              Open Curated Portfolio
+            </button>
+          </div>
+        </div>
+      )}
+
       <footer className="py-8 text-center text-sm text-zinc-600">
         © {new Date().getFullYear()} Jason Vaughan
       </footer>
@@ -784,7 +980,16 @@ export default function App() {
         </div>
       )}
 
-      <ChatWidget visitorType={visitorType} />
+      <ChatWidget visitorType={visitorType} onTriggerModal={handleTriggerModal} />
+
+      <PortfolioModal
+        isOpen={isPortfolioModalOpen}
+        onClose={() => setIsPortfolioModalOpen(false)}
+        modalType={portfolioModalType}
+        onSetModalType={setPortfolioModalType}
+        onDownloadResume={handleResumeClick}
+        onAskChatbot={handleAskChatbot}
+      />
     </div>
   );
 }
