@@ -21,16 +21,25 @@ import { openSection } from "./utils/sectionRegistry";
 
 export default function App() {
   const [clawhubDownloads, setClawhubDownloads] = useState(null);
+  const [projectStats, setProjectStats] = useState(null);
 
   useEffect(() => {
-    fetch("https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/clawhub-versions.json", { cache: "no-store" })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((data) => {
-        if (!data?.items) return;
-        const total = data.items.reduce((sum, item) => sum + (item.downloads || 0), 0);
+    Promise.allSettled([
+      fetch("https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/clawhub-versions.json", { cache: "no-store" }).then(r => r.ok ? r.json() : null),
+      fetch("https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/_collect-meta.json", { cache: "no-store" }).then(r => r.ok ? r.json() : null)
+    ]).then(([clawhubRes, manifestRes]) => {
+      if (clawhubRes.status === "fulfilled" && clawhubRes.value?.items) {
+        const total = clawhubRes.value.items.reduce((sum, item) => sum + (item.downloads || 0), 0);
         setClawhubDownloads(total);
-      })
-      .catch(() => {});
+      }
+      if (manifestRes.status === "fulfilled" && manifestRes.value?.projects) {
+        const stats = {};
+        for (const [slug, p] of Object.entries(manifestRes.value.projects)) {
+          if (p.ok && p.stats) stats[slug] = p.stats;
+        }
+        setProjectStats(stats);
+      }
+    });
   }, []);
 
   // Deep-link handler — when someone opens jasonvaughan.com/#<card-id>, scroll
@@ -164,14 +173,17 @@ export default function App() {
       <BuilderStats />
 
       <Collapsible id="tilt" title="TiLT" icon="⏱️"
+        statPill={projectStats?.tilt?.tests ? `${projectStats.tilt.tests.toLocaleString()} tests passing` : null}
         description="Union timecard & pay tracking for live-events crews.">
         <FeaturedProject />
       </Collapsible>
       <Collapsible id="tangleclaw" title="TangleClaw" icon="🧶"
+        statPill={projectStats?.tangleclaw?.tests ? `${projectStats.tangleclaw.tests.toLocaleString()} tests passing` : null}
         description="Multi-project AI session orchestration & governance.">
         <FeaturedTangleClaw />
       </Collapsible>
       <Collapsible id="tanglebrain" title="TangleBrain" icon="🧠"
+        statPill={projectStats?.tanglebrain?.tests ? `${projectStats.tanglebrain.tests.toLocaleString()} tests passing` : null}
         description="Local-first LLM router across AI backends.">
         <FeaturedTangleBrain />
       </Collapsible>
@@ -180,6 +192,7 @@ export default function App() {
         <FeaturedCierreSensei />
       </Collapsible>
       <Collapsible id="projects" title="Projects" icon="🛠️"
+        statPill={projectStats ? `${Object.keys(projectStats).length} projects shipped` : null}
         description="Shipped apps, tools & open-source projects.">
         <Projects />
       </Collapsible>
@@ -201,12 +214,14 @@ export default function App() {
         <ClawHub />
       </Collapsible>
       <Collapsible id="writing" title="Writing" icon="✍️"
+        statPill="3 papers"
         description="Essays & technical write-ups.">
         <Writing />
       </Collapsible>
       <Skills />
       <Certifications />
       <Collapsible id="gpts" title="Custom GPTs" icon="💬"
+        statPill="5 custom GPTs"
         description="Purpose-built GPT assistants.">
         <GPTs />
       </Collapsible>
