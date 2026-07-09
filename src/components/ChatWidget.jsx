@@ -192,7 +192,7 @@ export default function ChatWidget() {
               }} />
               <div>
                 <h3 style={{ margin: 0, fontSize: 15, fontWeight: 700, color: "#fff" }}>Ask my Portfolio</h3>
-                <p style={{ margin: 0, fontSize: 11, color: "#a1a1aa" }}>Powered by Claude 3.5</p>
+                <p style={{ margin: 0, fontSize: 11, color: "#a1a1aa" }}>Powered by Gemini</p>
               </div>
             </div>
 
