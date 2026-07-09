@@ -58,6 +58,50 @@ export default function App() {
   // Dynamic sub-role filter within Recruiter mode
   const [targetRole, setTargetRole] = useState("");
 
+  // Password-gated resume states
+  const [isResumeUnlocked, setIsResumeUnlocked] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return localStorage.getItem("resumeUnlocked") === "true";
+  });
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+
+  const triggerResumeDownload = () => {
+    const link = document.createElement("a");
+    link.href = "/Jason_Vaughan_Resume_secure_2026.pdf";
+    link.download = "Jason_Vaughan_Resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleResumeClick = (e) => {
+    if (e) e.preventDefault();
+    if (isResumeUnlocked) {
+      triggerResumeDownload();
+    } else {
+      setIsPasswordModalOpen(true);
+      setPasswordError(false);
+      setPasswordInput("");
+    }
+  };
+
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    const normalized = passwordInput.trim().toLowerCase();
+    if (normalized === "jason2026" || normalized === "tpm2026" || normalized === "moscone") {
+      setIsResumeUnlocked(true);
+      if (typeof window !== "undefined") {
+        localStorage.setItem("resumeUnlocked", "true");
+      }
+      setIsPasswordModalOpen(false);
+      triggerResumeDownload();
+    } else {
+      setPasswordError(true);
+    }
+  };
+
   const handleSelectPersona = (personaKey) => {
     setVisitorType(personaKey);
     localStorage.setItem("visitorType", personaKey);
@@ -289,8 +333,8 @@ export default function App() {
             }}
           >
             <a
-              href="/Jason_Vaughan_Resume.pdf"
-              download="Jason_Vaughan_Resume.pdf"
+              href="#"
+              onClick={handleResumeClick}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -473,7 +517,7 @@ export default function App() {
         <Collapsible id="about" title="About" icon="👤" bodyInWrap provideId
           highlighted={isSectionHighlighted("about")}
           description="Who I am — narrative, pillars, milestones, and AI interview.">
-          <About visitorType={visitorType} />
+          <About visitorType={visitorType} onDownloadResume={handleResumeClick} />
         </Collapsible>
       )}
 
@@ -632,6 +676,113 @@ export default function App() {
       <footer className="py-8 text-center text-sm text-zinc-600">
         © {new Date().getFullYear()} Jason Vaughan
       </footer>
+
+      {/* Password Gating Modal */}
+      {isPasswordModalOpen && (
+        <div style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          background: "rgba(9, 9, 11, 0.8)",
+          backdropFilter: "blur(8px)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 1002,
+          padding: 20
+        }}>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            style={{
+              width: "100%",
+              maxWidth: 400,
+              background: "#18181b",
+              border: "1px solid #3f3f46",
+              borderRadius: 16,
+              padding: 28,
+              boxShadow: "0 20px 50px rgba(0,0,0,0.6)",
+              display: "flex",
+              flexDirection: "column",
+              gap: 16
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <span style={{ fontSize: 22 }}>🔒</span>
+              <h3 style={{ fontSize: 18, fontWeight: 800, color: "#fff", margin: 0 }}>
+                Resume Password Required
+              </h3>
+            </div>
+            
+            <p style={{ margin: 0, fontSize: 13, color: "#a1a1aa", lineHeight: 1.5 }}>
+              Jason's detailed resume is password-protected. Please enter the access password. If you don't have one, feel free to request it via the contact form or chatbot!
+            </p>
+
+            <form onSubmit={handlePasswordSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <input
+                type="password"
+                placeholder="Enter password (e.g. jason2026)"
+                value={passwordInput}
+                onChange={(e) => setPasswordInput(e.target.value)}
+                autoFocus
+                style={{
+                  width: "100%",
+                  padding: "10px 14px",
+                  borderRadius: 8,
+                  border: passwordError ? "1px solid #ef4444" : "1px solid #3f3f46",
+                  background: "#09090b",
+                  color: "#fff",
+                  fontSize: 14,
+                  outline: "none",
+                  boxSizing: "border-box"
+                }}
+              />
+              
+              {passwordError && (
+                <span style={{ fontSize: 12, color: "#ef4444", fontWeight: 600 }}>
+                  ❌ Invalid password. Please try again.
+                </span>
+              )}
+
+              <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginTop: 8 }}>
+                <button
+                  type="button"
+                  onClick={() => setIsPasswordModalOpen(false)}
+                  style={{
+                    padding: "8px 16px",
+                    borderRadius: 8,
+                    background: "transparent",
+                    border: "1px solid rgba(255,255,255,0.15)",
+                    color: "#a1a1aa",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    cursor: "pointer"
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  style={{
+                    padding: "8px 16px",
+                    borderRadius: 8,
+                    background: "linear-gradient(135deg, #fbbf24 0%, #d97706 100%)",
+                    border: "none",
+                    color: "#000",
+                    fontSize: 13,
+                    fontWeight: 700,
+                    cursor: "pointer"
+                  }}
+                >
+                  Unlock & Download
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      )}
 
       <ChatWidget visitorType={visitorType} />
     </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { aboutData as d } from "../data/about";
 
-export default function About({ visitorType }) {
+export default function About({ visitorType, onDownloadResume }) {
   const containerStyle = {
     display: "flex",
     flexDirection: "column",
@@ -74,8 +74,11 @@ export default function About({ visitorType }) {
         </p>
         {visitorType === "Recruiter" && (
           <a
-            href="/Jason_Vaughan_Resume.pdf"
-            download="Jason_Vaughan_Resume.pdf"
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              onDownloadResume();
+            }}
             style={{
               display: "inline-flex",
               alignItems: "center",
