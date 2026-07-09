@@ -5,6 +5,7 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 ## [Unreleased]
 
 ### Added
+- **"Ask my portfolio" Claude Chatbot** — built a sleek, collapsible floating chat client (`src/components/ChatWidget.jsx`) matching the dark/amber portfolio design. Powered by a Cloudflare Worker proxy (`licensing-workers/portfolio-chat`) that fetches `chat-context.json` (bio/philosophy/project sparks) and `_collect-meta.json` (live stats) in parallel on demand, dynamically assembling a grounded system instruction prompt for secure proxying to the Anthropic/Gemini APIs.
 - **Cumulative statistics to collapsible category headers** — added a `statPill` prop to the `Collapsible` component (`src/components/Collapsible.jsx`) to display a visual pill next to the title when collapsed. Wired it up in `src/App.jsx` to fetch `clawhub-versions.json` and `_collect-meta.json` in parallel on mount and show combined ClawHub downloads (e.g. "1,259 downloads"), total projects shipped, test counts for TiLT / TangleClaw / TangleBrain, paper count for Writing, and GPT count for Custom GPTs directly in their respective category headers.
 - **DecomTangle skill to ClawHub** — added `decomtangle` to the ClawHub item registry (`src/components/ClawHub.jsx`), listing the new atomic tool-call decomposer skill for OpenClaw-style agents (v0.1.0, published to clawhub.ai). Added `decomtangle` to the daily watcher registry (`clawhub-versions.json` in `project-assets`) to track its version, downloads, and security status.
 

@@ -18,6 +18,7 @@ import TipJar from "./components/TipJar";
 import ContactSection from "./components/ContactSection";
 import Collapsible from "./components/Collapsible";
 import { openSection } from "./utils/sectionRegistry";
+import ChatWidget from "./components/ChatWidget";
 
 export default function App() {
   const [clawhubDownloads, setClawhubDownloads] = useState(null);
@@ -237,6 +238,8 @@ export default function App() {
       <footer className="py-8 text-center text-sm text-zinc-600">
         © {new Date().getFullYear()} Jason Vaughan
       </footer>
+
+      <ChatWidget />
     </div>
   );
 }

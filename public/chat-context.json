@@ -1,0 +1,35 @@
+{
+  "bio": {
+    "name": "Jason Vaughan",
+    "title": "Full-Stack Builder & Renaissance Developer",
+    "background": "25 years of experience spanning live events, broadcast, SaaS development, and AI-assisted engineering.",
+    "philosophy": "A lifelong self-learner who believes the most important skill is the ability to teach oneself any capability. Dives in, gets hands dirty, and prioritizes real-world, practical execution over formal credentials. Values polyglot versatility and common sense over academic theory.",
+    "software_origin": "Credits designing iPolis, a first-of-its-kind SaaS webcasting service, for establishing a base understanding of software development. Constant in-depth software design, research, and coding over the past two years have refined this base into highly robust system engineering."
+  },
+  "projects": {
+    "tilt": {
+      "name": "TiLT",
+      "spark": "Born from personal frustration with the complexity of tracking earnings, benefits, and union hours as a live-events operator. After maintaining complex spreadsheets for years, used early AI capabilities to build a personal tracking system. When colleagues saw it and requested access, expanded it from a local utility into a fully hosted, enterprise-grade job, payment, and benefit management system during time off."
+    },
+    "tangleclaw": {
+      "name": "TangleClaw",
+      "spark": "Sparked by a frustrating trip to Mexico where remote SSH dev connections kept getting disconnected due to VPN disconnects, closing the laptop lid, or computer sleep. After bricking a remote dev server, built a remote TTYD and AI orchestration plane to prevent getting stranded again. It allows pausing a session and picking it up seamlessly from a phone or other device. Extended it to replace Cursor/Windsurf, drastically streamlining dev environment management and boosting productivity."
+    },
+    "tanglebrain": {
+      "name": "TangleBrain",
+      "spark": "Created after building a custom local inference hardware cluster ('Monad'). Realized a need for a robust, local-first, config-driven LLM router. Designed from day one to either stand alone or integrate cleanly as the routing engine for the TangleClaw system."
+    },
+    "notse": {
+      "name": "Notse",
+      "description": "Networked teleprompter for broadcast and live event production, connecting Windows/macOS over WebSockets."
+    },
+    "scrapegoat": {
+      "name": "ScrapeGoat",
+      "description": "PDF calendar schedule extractor PWA driven by local AI parsing template generation."
+    },
+    "cierre_sensei": {
+      "name": "Cierre Sensei",
+      "description": "Mexican real-estate closing-cost engine supporting all 32 Mexican states."
+    }
+  }
+}
