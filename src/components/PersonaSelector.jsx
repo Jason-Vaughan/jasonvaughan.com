@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export const PERSONAS = {
   Recruiter: {
     label: "Recruiter Mode",
-    bannerText: "It looks like you're here to evaluate Jason for a job. I'm highlighting the most relevant experience, certifications, and resume.",
+    bannerText: "Welcome! It looks like you're evaluating Jason professionally. We've highlighted his experience, certifications, and resume to help you quickly assess his background.",
     sections: ["about", "career", "certifications", "contact"],
   },
   Engineer: {

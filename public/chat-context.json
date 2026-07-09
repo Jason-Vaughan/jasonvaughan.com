@@ -42,5 +42,31 @@
       "description": "Mexican real-estate closing-cost engine supporting all 32 Mexican states.",
       "license": "Commercial SaaS"
     }
-  }
+  },
+  "career": [
+    {
+      "company": "Google (Event Technology Team)",
+      "role": "Technical Program Manager & Systems Operator",
+      "period": "2025 - Present",
+      "details": "Technical producer managing capacity planning, contractor lifecycles (SOWs, JDs), and budget forecasting ($15M+ programs) for Google's global flagship events. Programmed Sheets/Apps Script automation engines to track staffing over 100+ concurrent projects. Coordinates keynote stage signal routing, multi-screen LED configurations, and broadcast systems."
+    },
+    {
+      "company": "Independent Software & AI Builder",
+      "role": "Lead Systems Architect & Product Developer",
+      "period": "2024 - Present",
+      "details": "Developed and launched commercial SaaS products (TiLT labor tracker, Cierre Sensei real-estate calc) using Node.js, SQLite, Stripe billing, and user auth. Built and published TangleClaw remote shell orchestrator and TangleBrain local LLM router."
+    },
+    {
+      "company": "ACT Video Head & Freelance Technical Director",
+      "role": "Technical Director & Crew Operations Lead",
+      "period": "2007 - 2025",
+      "details": "Led onsite technical video production and fiber digital signal routing for 100+ global corporate events (Salesforce Dreamforce, AWS re:Invent, Google Next). Managed stage hand crews of 40+ technicians under tight live broadcast schedules. Programmed Barco E2 screens, media servers, and taught stagecraft as IATSE Local 16 apprentice instructor."
+    },
+    {
+      "company": "iPolis Webcasting",
+      "role": "Co-Founder & Technology Director",
+      "period": "2000 - 2007",
+      "details": "Co-founded early webcasting SaaS service, building transcoding video ingestion pipelines, secure municipal broadcast platforms, and leading to a successful $2M acquisition."
+    }
+  ]
 }

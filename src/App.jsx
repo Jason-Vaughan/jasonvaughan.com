@@ -463,8 +463,10 @@ export default function App() {
         </div>
       )}
 
-      {/* Builder Stats */}
-      <BuilderStats visitorType={visitorType} />
+      {/* Builder Stats - only shown here for non-Recruiter modes */}
+      {visitorType !== "Recruiter" && (
+        <BuilderStats visitorType={visitorType} />
+      )}
 
       {/* New narrative-driven About section, visible in preview mode */}
       {isPreviewMode && (
@@ -531,6 +533,11 @@ export default function App() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Builder Stats - shifted down for Recruiter mode */}
+      {visitorType === "Recruiter" && (
+        <BuilderStats visitorType={visitorType} />
       )}
 
       <Collapsible id="tilt" title="TiLT" icon="⏱️"

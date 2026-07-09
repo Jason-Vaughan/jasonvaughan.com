@@ -91,7 +91,7 @@ export default function ChatWidget({ visitorType }) {
     if (messages.length === 1 && messages[0].role === "assistant") {
       let content = "Hi! I'm Jason's AI assistant. Ask me anything about his projects, technical experience, or self-learning philosophy!";
       if (visitorType === "Recruiter") {
-        content = "Welcome! I noticed you may be evaluating Jason professionally. I can answer questions about his Google TPM role, technical leadership, certifications, or resume. Ask me anything, or try one of the suggestions below!";
+        content = "Hi! I'm Jason's AI portfolio guide. I can answer detailed questions about his background, projects, leadership, and technical experience.";
       } else if (visitorType === "Engineer") {
         content = "Interested in the code? I'm Jason's AI assistant. Ask me about the architecture of TangleClaw, local AI routing in TangleBrain, the Medusa agent, or his testing strategy.";
       } else if (visitorType === "EventPro") {
@@ -300,10 +300,12 @@ export default function ChatWidget({ visitorType }) {
                     switch (visitorType) {
                       case "Recruiter":
                         return [
-                          "Has Jason managed large technical teams?",
-                          "Tell me about Jason's TPM experience at Google.",
-                          "What certifications does Jason hold?",
-                          "Where can I download his resume?",
+                          "Why should I hire Jason?",
+                          "Summarize his Google experience.",
+                          "What leadership experience does he have?",
+                          "Show AI projects.",
+                          "Download resume.",
+                          "Compare Jason to this job description.",
                         ];
                       case "Engineer":
                         return [
