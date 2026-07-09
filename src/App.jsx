@@ -540,7 +540,7 @@ export default function App() {
           }}>
             <div>
               <span style={{ fontSize: 11, fontWeight: 800, textTransform: "uppercase", letterSpacing: 1.5, color: "#fbbf24", display: "flex", alignItems: "center", gap: 6 }}>
-                🤖 Ask Jason’s AI Portfolio Guide
+                🤖 AI Portfolio Concierge
               </span>
               <p style={{ margin: "4px 0 0", color: "#a1a1aa", fontSize: 13.5, lineHeight: 1.4 }}>
                 Get a fast, tailored summary of Jason’s experience, projects, technical leadership, and career fit.
