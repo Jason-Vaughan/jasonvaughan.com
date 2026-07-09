@@ -30,6 +30,33 @@ export const careerData = [
     }
   },
   {
+    company: "ASM Global (Moscone Center)",
+    role: "Signal Flow Lead & Fiber Optics Specialist",
+    period: "2015 - Present",
+    bullets: {
+      Recruiter: [
+        "Direct fiber-optic communications and broadcast signal flow operations across the entire Moscone Center campus, supporting major corporate keynotes.",
+        "Coordinate directly with client engineering and technical program leads (Google, Apple, Salesforce) to scope, test, and commission temporary show networks.",
+        "Lead specialized on-site patching teams, managing tight execution timelines and safety protocols under high-stakes conditions."
+      ],
+      Engineer: [
+        "Design and deploy high-capacity single-mode fiber backbones and temporary network topologies for enterprise-level show footprints.",
+        "Troubleshoot layer-1 physical fiber issues (optical loss, connector integrity) and configure managed network switch routing.",
+        "Program redundant optical transceivers, multiplexers, and distribution terminals to ensure absolute network availability."
+      ],
+      EventPro: [
+        "Serve as Signal Flow Lead, designing and distributing fiber loops for primary keynote screens, broadcast production trucks, and overflow stages.",
+        "Manage massive fiber patch panels and optical conversion grids to route UHD video feeds across multiple exhibition halls.",
+        "Collaborate with staging and broadcast partners to set up stable signal feeds with zero single points of failure."
+      ],
+      Default: [
+        "Serve as Signal Flow Lead and Fiber Optics Specialist at the Moscone Center under ASM Global management.",
+        "Design temporary fiber-optic distribution loops and network backbones for global enterprise technology keynotes.",
+        "Coordinate high-bandwidth broadcast signal routing between show stages and broadcast production trucks."
+      ]
+    }
+  },
+  {
     company: "Independent Software & AI Builder",
     role: "Lead Systems Architect & Product Developer",
     period: "2024 - Present",
