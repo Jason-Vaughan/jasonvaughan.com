@@ -15,7 +15,7 @@ const MANIFEST_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-as
 /**
  * Builder stats bar — fetches stats from all projects and displays aggregated totals.
  */
-export default function BuilderStats() {
+export default function BuilderStats({ visitorType }) {
   const [totals, setTotals] = useState(null);
   const [hoveredLabel, setHoveredLabel] = useState(null);
   // Local-inference token breakdown — Monad-1 publisher + every OpenClaw
@@ -233,6 +233,36 @@ export default function BuilderStats() {
     });
   }
 
+  // If Recruiter Mode, restrict to exactly four simplified headline metrics.
+  const finalStats = visitorType === "Recruiter"
+    ? [
+        {
+          label: "Projects",
+          value: String(totals.projects),
+          color: "#fbbf24",
+          description: "Public + private repos in the live stats registry. Auto-discovered from GitHub, then filtered by projects.yml exclusions.",
+        },
+        {
+          label: "Years",
+          value: "25+",
+          color: "#f59e0b",
+          description: "Over 25 years of professional tech sector experience spanning software architect, technical program management, and live event production.",
+        },
+        {
+          label: "LOC",
+          value: formatBigNumber(totals.loc),
+          color: "#38bdf8",
+          description: "Current snapshot of source files across all tracked repos — what lives in the codebase right now.",
+        },
+        {
+          label: "Commits",
+          value: formatBigNumber(totals.commits),
+          color: "#a78bfa",
+          description: "Total commits across all tracked repos, summed from git rev-list HEAD per repo.",
+        }
+      ]
+    : stats;
+
   return (
     <section id="builder-stats" style={{ padding: "24px 0" }}>
       <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px" }}>
@@ -274,7 +304,7 @@ export default function BuilderStats() {
               gridTemplateColumns: "repeat(auto-fit, minmax(80px, 1fr))",
               gap: 10,
             }}>
-              {stats.map((s) => {
+              {finalStats.map((s) => {
                 const isHovered = hoveredLabel === s.label;
                 const hasTooltip = !!s.description;
                 // Hide zero deltas by default (noise), unless a tile opts into

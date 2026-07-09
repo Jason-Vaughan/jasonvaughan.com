@@ -55,9 +55,13 @@ export default function App() {
     return "";
   });
 
+  // Dynamic sub-role filter within Recruiter mode
+  const [targetRole, setTargetRole] = useState("");
+
   const handleSelectPersona = (personaKey) => {
     setVisitorType(personaKey);
     localStorage.setItem("visitorType", personaKey);
+    setTargetRole(""); // Reset role filter on primary persona change
     
     closeAllSections();
     const info = PERSONAS[personaKey];
@@ -68,6 +72,24 @@ export default function App() {
         }, 100);
       });
     }
+  };
+
+  const handleSelectRole = (roleKey, sections) => {
+    if (targetRole === roleKey) {
+      // Toggle off
+      setTargetRole("");
+      return;
+    }
+    setTargetRole(roleKey);
+    closeAllSections();
+    
+    // Auto-open baseline sections + specific role target sections
+    const targetSecs = ["about", "career", ...sections];
+    targetSecs.forEach(secId => {
+      setTimeout(() => {
+        openSection(secId);
+      }, 100);
+    });
   };
 
   // Helper to check if a section is recommended for the active persona
@@ -172,7 +194,7 @@ export default function App() {
         }}>
           {visitorType ? (
             <span style={{ fontSize: 13, lineHeight: 1.4 }}>
-              {PERSONAS[visitorType]?.bannerText || `Viewing site customized for ${PERSONAS[visitorType]?.label}.`}
+              <strong>Recruiter View:</strong> {PERSONAS[visitorType]?.bannerText || `Viewing site customized for ${PERSONAS[visitorType]?.label}.`}
             </span>
           ) : (
             <span>Welcome! Personalize this portfolio for your background:</span>
@@ -246,15 +268,203 @@ export default function App() {
           transition={{ duration: 0.7 }}
           className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-400"
         >
-          Full-stack builder with 25 years across live events, SaaS, and
-          AI-assisted development. I ship products that solve real problems —
-          from union pay tracking to broadcast tools to developer infrastructure.
+          {isPreviewMode && visitorType === "Recruiter"
+            ? "Technical Program Manager | AI Builder | Production Technology Leader"
+            : "Full-stack builder with 25 years across live events, SaaS, and AI-assisted development. I ship products that solve real problems — from union pay tracking to broadcast tools to developer infrastructure."
+          }
         </motion.p>
+
+        {/* Aggressive Recruiter CTA Buttons right in the Hero */}
+        {isPreviewMode && visitorType === "Recruiter" && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+            style={{
+              marginTop: 28,
+              display: "flex",
+              justifyContent: "center",
+              gap: 12,
+              flexWrap: "wrap"
+            }}
+          >
+            <a
+              href="/Jason_Vaughan_Resume.pdf"
+              download="Jason_Vaughan_Resume.pdf"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "10px 20px",
+                borderRadius: 8,
+                background: "linear-gradient(135deg, #fbbf24 0%, #d97706 100%)",
+                border: "none",
+                color: "#000",
+                fontSize: 13.5,
+                fontWeight: 700,
+                textDecoration: "none",
+                boxShadow: "0 4px 12px rgba(217, 119, 6, 0.2)"
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Download Resume
+            </a>
+            <a
+              href="https://www.linkedin.com/in/jason-vaughan-b8993477/"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "10px 20px",
+                borderRadius: 8,
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(255,255,255,0.15)",
+                color: "#fff",
+                fontSize: 13.5,
+                fontWeight: 700,
+                textDecoration: "none",
+                transition: "border-color 0.15s"
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#fbbf24"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)"; }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg>
+              LinkedIn
+            </a>
+            <a
+              href="#contact"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "10px 20px",
+                borderRadius: 8,
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(255,255,255,0.15)",
+                color: "#fff",
+                fontSize: 13.5,
+                fontWeight: 700,
+                textDecoration: "none",
+                transition: "border-color 0.15s"
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#fbbf24"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)"; }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zM22 6l-10 7L2 6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Get in Touch
+            </a>
+          </motion.div>
+        )}
       </header>
 
-      {/* Builder Stats is the only always-exposed section; everything else is
-          a closed dropdown by default. */}
-      <BuilderStats />
+      {/* Recruiter Summary Card & Trusted Clients Grayscale logos */}
+      {isPreviewMode && visitorType === "Recruiter" && (
+        <div style={{ maxWidth: 960, margin: "0 auto 24px auto", padding: "0 24px" }}>
+          <div style={{
+            borderRadius: 16,
+            border: "1px solid rgba(251, 191, 36, 0.35)",
+            background: "linear-gradient(135deg, rgba(24, 24, 27, 0.9) 0%, rgba(9, 9, 11, 0.95) 100%)",
+            padding: 24,
+            boxShadow: "0 12px 40px rgba(0,0,0,0.5)",
+            display: "flex",
+            flexDirection: "column",
+            gap: 16
+          }}>
+            <div>
+              <h2 style={{ fontSize: 22, fontWeight: 800, color: "#fff", margin: 0 }}>Why companies hire Jason</h2>
+              <p style={{ margin: "4px 0 0", color: "#fbbf24", fontSize: 13.5, fontWeight: 700 }}>
+                25+ years leading high-risk technical productions | 18+ years supporting Google's flagship events
+              </p>
+            </div>
+            
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+              gap: 16,
+              borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+              paddingTop: 16
+            }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                <span style={{ fontWeight: 700, color: "#fafafa", fontSize: 14 }}>💼 Leadership & Operations</span>
+                <span style={{ fontSize: 13, color: "#a1a1aa", lineHeight: 1.4 }}>
+                  Technical Program Manager and Production Technology Leader. Directing complex event-tech programs, capacity planning, and budgets.
+                </span>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                <span style={{ fontWeight: 700, color: "#fafafa", fontSize: 14 }}>🛠️ Software & AI Architecture</span>
+                <span style={{ fontSize: 13, color: "#a1a1aa", lineHeight: 1.4 }}>
+                  Full-stack software developer and AI systems engineer. Building custom CBA compliance calculators, remote execution terminals, and LLM routers.
+                </span>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                <span style={{ fontWeight: 700, color: "#fafafa", fontSize: 14 }}>🎓 Mentorship & Credentials</span>
+                <span style={{ fontSize: 13, color: "#a1a1aa", lineHeight: 1.4 }}>
+                  Experienced stagecraft union apprentice instructor. Google Project Management Certified. Available for full-time leadership opportunities.
+                </span>
+              </div>
+            </div>
+
+            {/* AI-Generated Executive Summary */}
+            <div style={{
+              background: "rgba(251, 191, 36, 0.03)",
+              border: "1px dashed rgba(251, 191, 36, 0.25)",
+              borderRadius: 12,
+              padding: 16,
+              display: "flex",
+              flexDirection: "column",
+              gap: 6
+            }}>
+              <span style={{ fontWeight: 700, color: "#fbbf24", fontSize: 11.5, textTransform: "uppercase", letterSpacing: 0.5 }}>
+                ✨ AI-Generated Executive Summary
+              </span>
+              <p style={{ margin: 0, fontSize: 13, color: "#d4d4d8", lineHeight: 1.5 }}>
+                Jason Vaughan is a Technical Program Manager and software builder with 25+ years of experience leading complex live production systems for organizations including Google, AWS, Adobe, and Salesforce. He combines large-scale operational leadership with modern AI software development, maintaining an active portfolio of 25 shipped products spanning developer tooling, SaaS, and autonomous AI systems.
+              </p>
+            </div>
+
+            {/* Grayscale Client Logos */}
+            <div style={{
+              borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+              paddingTop: 16,
+              display: "flex",
+              flexDirection: "column",
+              gap: 10
+            }}>
+              <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, color: "#71717a" }}>
+                Trusted by work performed for
+              </span>
+              <div style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                gap: 20,
+                fontSize: 14,
+                fontWeight: 800,
+                color: "#52525b"
+              }}>
+                <span style={{ letterSpacing: 1 }}>GOOGLE</span>
+                <span style={{ letterSpacing: 1 }}>AWS</span>
+                <span style={{ letterSpacing: 1 }}>ADOBE</span>
+                <span style={{ letterSpacing: 1 }}>SALESFORCE</span>
+                <span style={{ letterSpacing: 1 }}>ACT</span>
+                <span style={{ letterSpacing: 1 }}>MOSCONE</span>
+                <span style={{ letterSpacing: 1 }}>JACK MORTON</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Builder Stats */}
+      <BuilderStats visitorType={visitorType} />
 
       {/* New narrative-driven About section, visible in preview mode */}
       {isPreviewMode && (
@@ -272,6 +482,55 @@ export default function App() {
           description="Professional highlights — dynamically weighted to your background.">
           <Career visitorType={visitorType} />
         </Collapsible>
+      )}
+
+      {/* Dynamic Sub-role Filtering panel for Recruiters, sitting right after About/Career */}
+      {isPreviewMode && visitorType === "Recruiter" && (
+        <div style={{ maxWidth: 960, margin: "16px auto", padding: "0 24px" }}>
+          <div style={{
+            borderRadius: 16,
+            border: "1px solid rgba(255,255,255,0.06)",
+            background: "rgba(24, 24, 27, 0.4)",
+            padding: 20,
+            display: "flex",
+            flexDirection: "column",
+            gap: 12
+          }}>
+            <span style={{ fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, color: "#a1a1aa" }}>
+              Tailor this page for a specific opening:
+            </span>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              {[
+                { label: "Technical Program Manager", key: "TPM", sections: ["certifications", "tilt", "contact"] },
+                { label: "Engineering Manager", key: "EM", sections: ["tangleclaw", "tanglebrain", "projects", "contact"] },
+                { label: "AI Infrastructure", key: "AI", sections: ["tangleclaw", "tanglebrain", "research", "openclaw-fleet", "clawhub"] },
+                { label: "Production Technology", key: "Production", sections: ["skills", "certifications", "writing", "contact"] },
+                { label: "Principal Engineer", key: "Principal", sections: ["tangleclaw", "tanglebrain", "projects", "research"] }
+              ].map((role) => {
+                const isActive = targetRole === role.key;
+                return (
+                  <button
+                    key={role.key}
+                    onClick={() => handleSelectRole(role.key, role.sections)}
+                    style={{
+                      padding: "8px 16px",
+                      borderRadius: 8,
+                      background: isActive ? "rgba(251, 191, 36, 0.12)" : "rgba(255,255,255,0.02)",
+                      border: isActive ? "1px solid #fbbf24" : "1px solid rgba(255,255,255,0.1)",
+                      color: isActive ? "#fbbf24" : "#d4d4d8",
+                      fontSize: 13,
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      transition: "all 0.2s"
+                    }}
+                  >
+                    {role.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       )}
 
       <Collapsible id="tilt" title="TiLT" icon="⏱️"
