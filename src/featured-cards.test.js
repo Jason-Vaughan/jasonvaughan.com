@@ -21,7 +21,8 @@ function cardSource(name) {
 describe("featured Tangle cards", () => {
   it("TangleBrain card links to its PyPI package with an install CTA", () => {
     const src = cardSource("FeaturedTangleBrain.jsx");
-    expect(src).toContain("https://pypi.org/project/tanglebrain/");
+    const dataSrc = readFileSync(join(ROOT, "src/data/projects.js"), "utf8");
+    expect(dataSrc).toContain("https://pypi.org/project/tanglebrain/");
     expect(src).toContain("pip install tanglebrain");
   });
 

@@ -2,56 +2,9 @@ import React, { useEffect, useState } from "react";
 import ScreenshotModal from "./ScreenshotModal";
 import ShareLink from "./ShareLink";
 import { autoLanguageTags } from "../utils/languageTags";
-import notseLogo from "../assets/projects/notse.png";
-import scrapegoatLogo from "../assets/projects/scrapegoat.png";
-import clawbridgeLogo from "../assets/projects/clawbridge.png";
+import { gridProjects as projects } from "../data/projects";
 
 const MANIFEST_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/_collect-meta.json";
-
-const projects = [
-  {
-    slug: "scrapegoat",
-    title: "ScrapeGoat",
-    image: scrapegoatLogo,
-    blurb:
-      "PDF calendar extractor PWA — drop a PDF schedule, AI wizard builds a parsing template, export as ICS, CSV, JSON, or Markdown. Runs entirely in-browser, privacy-first. Your files never leave your device.",
-    repo: { owner: "Jason-Vaughan", repo: "ScrapeGoat" },
-    link: "https://github.com/Jason-Vaughan/ScrapeGoat",
-    linkLabel: "View on GitHub",
-    tags: ["PWA", "Gemini AI", "PDF.js", "TypeScript"],
-    accent: "#3b82f6",
-    badge: { label: "Open Source · MIT", tone: "openSource" },
-    screenshots: null,
-  },
-  {
-    slug: "notse",
-    title: "Notse",
-    image: notseLogo,
-    blurb:
-      "Networked teleprompter for broadcast and live event production. A Windows helper drives PowerPoint via Microsoft COM; the Mac app shows the prompter and writes notes back to slides on Cmd+E. Built from inside the workflow it serves. Closed-source — commercial license.",
-    repo: { owner: "Jason-Vaughan", repo: "notse-releases" },
-    tags: ["Electron", "PowerPoint COM", "WebSockets", "Broadcast"],
-    accent: "#f59e0b",
-    badge: { label: "Commercial · License", tone: "commercial" },
-    link: "/notse",
-    linkLabel: "View licensing",
-    screenshots: null,
-  },
-  {
-    slug: "clawbridge",
-    title: "ClawBridge",
-    image: clawbridgeLogo,
-    blurb:
-      "Host-side HTTP bridge that exposes Claude Code as a supervised build tool for automation systems. JSON API for spawning, managing, and streaming AI coding sessions — with structured permission review and test result detection.",
-    repo: { owner: "Jason-Vaughan", repo: "ClawBridge" },
-    link: "https://github.com/Jason-Vaughan/ClawBridge",
-    linkLabel: "View on GitHub",
-    tags: ["Node.js", "Claude Code", "API", "DevOps"],
-    accent: "#a855f7",
-    badge: { label: "Open Source · MIT", tone: "openSource" },
-    screenshots: null,
-  },
-];
 
 const badgeStyles = {
   commercial: {

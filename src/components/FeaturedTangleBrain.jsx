@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import tanglebrainLogo from "../assets/projects/tanglebrain.png";
 import useGitHubLatestRelease from "../hooks/useGitHubLatestRelease";
 import ShareLink from "./ShareLink";
+import { featuredProjects } from "../data/projects";
 
-const STATS_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/tanglebrain-stats.json";
-
-const accent = "#14b8a6";
-const accentLight = "#2dd4bf";
+const p = featuredProjects.tanglebrain;
 
 function formatCount(n) {
   if (n >= 1000) return `${Math.floor(n / 1000)}K+`;
@@ -28,32 +25,32 @@ function formatSince(iso) {
  */
 export default function FeaturedTangleBrain() {
   const [liveStats, setLiveStats] = useState(null);
-  // Centralized hook (project rule: every GitHub-repo card uses this, no inline fetch).
-  const version = useGitHubLatestRelease("Jason-Vaughan", "TangleBrain");
+  const version = useGitHubLatestRelease(p.repo.owner, p.repo.repo);
 
   useEffect(() => {
-    fetch(STATS_URL, { cache: "no-store" })
+    fetch(p.statsUrl, { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))
       .then(setLiveStats)
       .catch(() => {});
   }, []);
 
-  const stats = [
-    { label: "Lines of Code", value: liveStats ? formatCount(liveStats.loc) : "9K+" },
-    { label: "Tests Passing", value: liveStats ? String(liveStats.tests) : "400+" },
-    { label: "Commits", value: liveStats ? String(liveStats.commits) : "60" },
-    { label: "Backend Tiers", value: "3" },
-  ];
+  const stats = p.statConfig.map((cfg) => {
+    let value = cfg.fallback;
+    if (liveStats) {
+      if (cfg.valueOverride) {
+        value = cfg.valueOverride;
+      } else if (liveStats[cfg.key] !== undefined) {
+        value = cfg.key === "tests" ? liveStats[cfg.key].toLocaleString() : formatCount(liveStats[cfg.key]);
+      }
+    }
+    return { label: cfg.label, value };
+  });
 
   if (liveStats?.prs?.merged > 0) {
     stats.push({ label: "PRs Merged", value: String(liveStats.prs.merged) });
   }
 
   const since = liveStats ? formatSince(liveStats.firstCommit) : "Jun 2026";
-
-  const techStack = [
-    "Python", "Ollama", "OpenAI-compatible", "LiteLLM", "MCP", "Self-hosted", "CLI",
-  ];
 
   const card = {
     borderRadius: 16,
@@ -89,7 +86,7 @@ export default function FeaturedTangleBrain() {
     fontWeight: 600,
     fontSize: 14,
     textDecoration: "none",
-    background: `linear-gradient(135deg, ${accent}, ${accentLight})`,
+    background: `linear-gradient(135deg, ${p.accent}, ${p.accentLight})`,
     color: "#042f2a",
   };
 
@@ -102,7 +99,7 @@ export default function FeaturedTangleBrain() {
     fontSize: 14,
     textDecoration: "none",
     border: "1px solid rgba(20,184,166,0.35)",
-    color: accentLight,
+    color: p.accentLight,
   };
 
   return (
@@ -115,28 +112,28 @@ export default function FeaturedTangleBrain() {
           style={card}
         >
           {/* Teal accent bar */}
-          <div style={{ height: 4, background: `linear-gradient(90deg, ${accent}, ${accentLight}, transparent)` }} />
+          <div style={{ height: 4, background: `linear-gradient(90deg, ${p.accent}, ${p.accentLight}, transparent)` }} />
 
           <div style={{ padding: 32 }}>
             {/* Title row */}
             <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
-              <img src={tanglebrainLogo} alt="TangleBrain logo" style={{ height: 48, width: 48, objectFit: "contain" }} />
-              <h3 style={{ fontSize: 28, fontWeight: 700, color: "#fafafa", margin: 0 }}>TangleBrain</h3>
+              <img src={p.logo} alt={`${p.title} logo`} style={{ height: 48, width: 48, objectFit: "contain" }} />
+              <h3 style={{ fontSize: 28, fontWeight: 700, color: "#fafafa", margin: 0 }}>{p.title}</h3>
               <span style={{
                 fontSize: 11, fontWeight: 700, textTransform: "uppercase",
                 letterSpacing: 1.5, padding: "4px 12px", borderRadius: 9999,
-                background: accent, color: "#042f2a",
+                background: p.accent, color: "#042f2a",
               }}>
-                Open Source
+                {p.type}
               </span>
               <span style={{
                 fontSize: 11, fontWeight: 700, textTransform: "uppercase",
                 letterSpacing: 1.5, padding: "4px 12px", borderRadius: 9999,
                 background: "rgba(20,184,166,0.12)",
                 border: "1px solid rgba(20,184,166,0.35)",
-                color: accentLight,
+                color: p.accentLight,
               }}>
-                CLI · LLM Router
+                {p.pricing}
               </span>
               {version && (
                 <span style={{
@@ -150,28 +147,30 @@ export default function FeaturedTangleBrain() {
                   {version}
                 </span>
               )}
-              <a
-                href="https://pypi.org/project/tanglebrain/"
-                target="_blank"
-                rel="noreferrer"
-                style={{
-                  fontSize: 11, fontWeight: 700, textTransform: "uppercase",
-                  letterSpacing: 1.5, padding: "4px 12px", borderRadius: 9999,
-                  background: "rgba(255,255,255,0.06)",
-                  border: "1px solid rgba(255,255,255,0.14)",
-                  color: "#e4e4e7",
-                  textDecoration: "none",
-                }}
-              >
-                On PyPI
-              </a>
+              {p.links.pypi && (
+                <a
+                  href={p.links.pypi}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    fontSize: 11, fontWeight: 700, textTransform: "uppercase",
+                    letterSpacing: 1.5, padding: "4px 12px", borderRadius: 9999,
+                    background: "rgba(255,255,255,0.06)",
+                    border: "1px solid rgba(255,255,255,0.14)",
+                    color: "#e4e4e7",
+                    textDecoration: "none",
+                  }}
+                >
+                  On PyPI
+                </a>
+              )}
               {since && (
                 <span style={{
                   fontSize: 11, fontWeight: 600,
                   padding: "4px 10px", borderRadius: 9999,
                   background: "rgba(20,184,166,0.08)",
                   border: "1px solid rgba(20,184,166,0.25)",
-                  color: accentLight,
+                  color: p.accentLight,
                 }}>
                   Building since {since}
                 </span>
@@ -180,20 +179,12 @@ export default function FeaturedTangleBrain() {
 
             <p style={{ marginTop: 4, fontSize: 13, color: "#71717a" }}>Local-first, config-driven LLM router</p>
 
-            <p style={{ marginTop: 12, fontSize: 18, fontWeight: 600, color: accentLight }}>
-              Route across the AI backends you own.
+            <p style={{ marginTop: 12, fontSize: 18, fontWeight: 600, color: p.accentLight }}>
+              {p.subtitle}
             </p>
 
             <p style={{ marginTop: 14, color: "#d4d4d8", lineHeight: 1.6, fontSize: 14, maxWidth: 640 }}>
-              Most AI tooling sends every request to a paid cloud API by default — even when you
-              already run capable models on hardware you own. TangleBrain keeps your whole roster of
-              backends in one editable YAML file and favors the credentials you already hold: local
-              models and OAuth-logged-in tools come first, while raw API keys stay a separate,
-              explicitly-gated opt-in (it never injects a key into a CLI). An optional classifier
-              routes by complexity — grunt work goes to your free local model — and every routed task
-              is logged with an estimated cloud-equivalent cost, so you can see what you're spending
-              versus avoiding. Runs standalone or drops in alongside TangleClaw and the wider Tangle
-              family.
+              {p.blurb}
             </p>
 
             {/* Stats grid */}
@@ -203,7 +194,7 @@ export default function FeaturedTangleBrain() {
             }}>
               {stats.map((s) => (
                 <div key={s.label} style={statBox}>
-                  <div style={{ fontSize: 22, fontWeight: 700, color: accentLight }}>{s.value}</div>
+                  <div style={{ fontSize: 22, fontWeight: 700, color: p.accentLight }}>{s.value}</div>
                   <div style={{ fontSize: 11, color: "#71717a", marginTop: 4 }}>{s.label}</div>
                 </div>
               ))}
@@ -211,27 +202,33 @@ export default function FeaturedTangleBrain() {
 
             {/* Tech stack */}
             <div style={{ marginTop: 20, display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {techStack.map((t) => (
+              {p.techStack.map((t) => (
                 <span key={t} style={tagStyle}>{t}</span>
               ))}
             </div>
 
             {/* CTAs */}
             <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", gap: 12 }}>
-              <a href="https://github.com/Jason-Vaughan/TangleBrain" target="_blank" rel="noreferrer" style={btnPrimary}>
-                View on GitHub
-              </a>
-              <a
-                href="https://pypi.org/project/tanglebrain/"
-                target="_blank"
-                rel="noreferrer"
-                style={{ ...btnOutline, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
-              >
-                pip install tanglebrain
-              </a>
-              <a href="https://github.com/Jason-Vaughan/TangleBrain/releases/latest" target="_blank" rel="noreferrer" style={btnOutline}>
-                Latest Release
-              </a>
+              {p.links.github && (
+                <a href={p.links.github} target="_blank" rel="noreferrer" style={btnPrimary}>
+                  View on GitHub
+                </a>
+              )}
+              {p.links.pypi && (
+                <a
+                  href={p.links.pypi}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ ...btnOutline, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
+                >
+                  pip install tanglebrain
+                </a>
+              )}
+              {p.links.releases && (
+                <a href={p.links.releases} target="_blank" rel="noreferrer" style={btnOutline}>
+                  Latest Release
+                </a>
+              )}
               <ShareLink id="tanglebrain" style={{ marginLeft: "auto", alignSelf: "center" }} />
             </div>
           </div>

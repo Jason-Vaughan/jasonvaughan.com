@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import tiltLogo from "../assets/tilt_logo.png";
-import tiltclawLogo from "../assets/projects/tiltclaw_logo.png";
 import { autoLanguageTags } from "../utils/languageTags";
 import ShareLink from "./ShareLink";
 import useGitHubLatestRelease from "../hooks/useGitHubLatestRelease";
+import { featuredProjects } from "../data/projects";
 
-const STATS_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/tilt-stats.json";
+const p = featuredProjects.tilt;
 
 /**
  * Format a number with K+ suffix for thousands.
@@ -32,25 +31,26 @@ function formatSince(iso) {
  */
 export default function FeaturedProject() {
   const [liveStats, setLiveStats] = useState(null);
-  // No-op today (TiLT-showcase repo has no releases yet) but the moment it
-  // ships its first GitHub release the version chip auto-appears alongside
-  // the other badges — no portfolio commit needed.
-  const liveVersion = useGitHubLatestRelease("Jason-Vaughan", "TiLT-showcase");
+  const liveVersion = useGitHubLatestRelease(p.repo.owner, p.repo.repo);
 
   useEffect(() => {
-    fetch(STATS_URL)
+    fetch(p.statsUrl)
       .then((r) => r.json())
       .then(setLiveStats)
       .catch(() => {});
   }, []);
 
-  const stats = [
-    { label: "Lines of Code", value: liveStats ? formatCount(liveStats.loc) : "114K+" },
-    { label: "API Endpoints", value: liveStats ? String(liveStats.endpoints) : "146" },
-    { label: "Tests Passing", value: liveStats ? liveStats.tests.toLocaleString() : "842" },
-    { label: "Commits", value: liveStats ? formatCount(liveStats.commits) : "1.5K+" },
-    { label: "CBA Rule Types", value: "12" },
-  ];
+  const stats = p.statConfig.map((cfg) => {
+    let value = cfg.fallback;
+    if (liveStats) {
+      if (cfg.valueOverride) {
+        value = cfg.valueOverride;
+      } else if (liveStats[cfg.key] !== undefined) {
+        value = cfg.key === "tests" ? liveStats[cfg.key].toLocaleString() : formatCount(liveStats[cfg.key]);
+      }
+    }
+    return { label: cfg.label, value };
+  });
 
   // Conditionally append PRs Merged tile when collector reports a non-zero count
   if (liveStats?.prs?.merged > 0) {
@@ -58,11 +58,6 @@ export default function FeaturedProject() {
   }
 
   const since = liveStats ? formatSince(liveStats.firstCommit) : null;
-
-  const techStack = [
-    "Next.js 15", "React 19", "TypeScript", "PostgreSQL",
-    "Prisma", "Tailwind CSS", "Vercel",
-  ];
 
   const card = {
     borderRadius: 16,
@@ -129,23 +124,23 @@ export default function FeaturedProject() {
           <div style={{ padding: 32 }}>
             {/* Title row */}
             <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
-              <img src={tiltLogo} alt="TiLT logo" style={{ height: 48, width: 48, objectFit: "contain" }} />
-              <h3 style={{ fontSize: 28, fontWeight: 700, color: "#fafafa", margin: 0 }}>TiLT</h3>
+              <img src={p.logo} alt={`${p.title} logo`} style={{ height: 48, width: 48, objectFit: "contain" }} />
+              <h3 style={{ fontSize: 28, fontWeight: 700, color: "#fafafa", margin: 0 }}>{p.title}</h3>
               <span style={{
                 fontSize: 11, fontWeight: 700, textTransform: "uppercase",
                 letterSpacing: 1.5, padding: "4px 12px", borderRadius: 9999,
-                background: "#D4AF37", color: "#0f1419",
+                background: p.accent, color: "#0f1419",
               }}>
-                Live Product
+                {p.type}
               </span>
               <span style={{
                 fontSize: 11, fontWeight: 700, textTransform: "uppercase",
                 letterSpacing: 1.5, padding: "4px 12px", borderRadius: 9999,
                 background: "rgba(212,175,55,0.12)",
                 border: "1px solid rgba(212,175,55,0.35)",
-                color: "#D4AF37",
+                color: p.accent,
               }}>
-                SaaS · Subscription
+                {p.pricing}
               </span>
               {liveVersion && (
                 <span style={{
@@ -165,7 +160,7 @@ export default function FeaturedProject() {
                   padding: "4px 10px", borderRadius: 9999,
                   background: "rgba(212,175,55,0.08)",
                   border: "1px solid rgba(212,175,55,0.25)",
-                  color: "#D4AF37",
+                  color: p.accent,
                 }}>
                   Building since {since}
                 </span>
@@ -174,61 +169,57 @@ export default function FeaturedProject() {
 
             <p style={{ marginTop: 4, fontSize: 13, color: "#71717a" }}>Time I Logged Today</p>
 
-            <p style={{ marginTop: 12, fontSize: 18, fontWeight: 600, color: "#D4AF37" }}>
-              Union Time & Pay Tracking — Solved.
+            <p style={{ marginTop: 12, fontSize: 18, fontWeight: 600, color: p.accent }}>
+              {p.subtitle}
             </p>
 
             <p style={{ marginTop: 14, color: "#d4d4d8", lineHeight: 1.6, fontSize: 14, maxWidth: 640 }}>
-              A full-stack web application that automates union-compliant time tracking
-              and pay calculations for IATSE members. Replaces manual spreadsheets with a
-              configurable CBA rules engine that handles overtime, meal penalties, benefits
-              eligibility, and complete audit trails — automatically.
+              {p.blurb}
             </p>
 
-            {/* TiLTClaw one-liner pointer — the full TiLTClaw story now lives
-                in the OpenClaw Fleet section. Keep a compact mention here so
-                the TiLT card still signals "we have an AI ops layer", but
-                without competing for attention with the parent product. */}
-            <div
-              style={{
-                marginTop: 18,
-                paddingLeft: 14,
-                borderLeft: "2px solid rgba(212,175,55,0.4)",
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-              }}
-            >
-              <img
-                src={tiltclawLogo}
-                alt=""
+            {/* TiLTClaw one-liner pointer */}
+            {p.tiltclawLogo && (
+              <div
                 style={{
-                  width: 28,
-                  height: 28,
-                  borderRadius: 6,
-                  objectFit: "cover",
-                  flexShrink: 0,
-                  background: "#fff",
+                  marginTop: 18,
+                  paddingLeft: 14,
+                  borderLeft: `2px solid rgba(212,175,55,0.4)`,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
                 }}
-              />
-              <div style={{ fontSize: 13, color: "#a1a1aa", lineHeight: 1.5 }}>
-                <span style={{ fontSize: 9, fontWeight: 700, color: "#D4AF37", textTransform: "uppercase", letterSpacing: 2, marginRight: 8 }}>
-                  Built-in support
-                </span>
-                Support runs on{" "}
-                <a
-                  href="#tiltclaw"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.querySelector("#tiltclaw")?.scrollIntoView({ behavior: "smooth", block: "start" });
+              >
+                <img
+                  src={p.tiltclawLogo}
+                  alt=""
+                  style={{
+                    width: 28,
+                    height: 28,
+                    borderRadius: 6,
+                    objectFit: "cover",
+                    flexShrink: 0,
+                    background: "#fff",
                   }}
-                  style={{ color: "#D4AF37", fontWeight: 700, textDecoration: "none" }}
-                >
-                  TiLTClaw
-                </a>
-                {" — see OpenClaw Fleet ↓"}
+                />
+                <div style={{ fontSize: 13, color: "#a1a1aa", lineHeight: 1.5 }}>
+                  <span style={{ fontSize: 9, fontWeight: 700, color: p.accent, textTransform: "uppercase", letterSpacing: 2, marginRight: 8 }}>
+                    Built-in support
+                  </span>
+                  Support runs on{" "}
+                  <a
+                    href="#tiltclaw"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.querySelector("#tiltclaw")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }}
+                    style={{ color: p.accent, fontWeight: 700, textDecoration: "none" }}
+                  >
+                    TiLTClaw
+                  </a>
+                  {" — see OpenClaw Fleet ↓"}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Stats grid */}
             <div style={{
@@ -237,7 +228,7 @@ export default function FeaturedProject() {
             }}>
               {stats.map((s) => (
                 <div key={s.label} style={statBox}>
-                  <div style={{ fontSize: 22, fontWeight: 700, color: "#D4AF37" }}>{s.value}</div>
+                  <div style={{ fontSize: 22, fontWeight: 700, color: p.accent }}>{s.value}</div>
                   <div style={{ fontSize: 11, color: "#71717a", marginTop: 4 }}>{s.label}</div>
                 </div>
               ))}
@@ -245,22 +236,28 @@ export default function FeaturedProject() {
 
             {/* Tech stack — curated + auto-detected languages from stats */}
             <div style={{ marginTop: 20, display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {[...techStack, ...autoLanguageTags(liveStats?.languages, techStack)].map((t) => (
+              {[...p.techStack, ...autoLanguageTags(liveStats?.languages, p.techStack)].map((t) => (
                 <span key={t} style={tagStyle}>{t}</span>
               ))}
             </div>
 
             {/* CTAs */}
             <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", gap: 12 }}>
-              <a href="https://tilt-v2.vercel.app/sign-up?tour=true" target="_blank" rel="noreferrer" style={btnPrimary}>
-                Sign Up for the Tour
-              </a>
-              <a href="https://tilt-v2.vercel.app" target="_blank" rel="noreferrer" style={btnOutline("rgba(212,175,55,0.3)")}>
-                View Live Site
-              </a>
-              <a href="https://github.com/Jason-Vaughan/TiLT-showcase" target="_blank" rel="noreferrer" style={btnOutline("rgba(255,255,255,0.1)")}>
-                GitHub
-              </a>
+              {p.links.tour && (
+                <a href={p.links.tour} target="_blank" rel="noreferrer" style={btnPrimary}>
+                  Sign Up for the Tour
+                </a>
+              )}
+              {p.links.live && (
+                <a href={p.links.live} target="_blank" rel="noreferrer" style={btnOutline("rgba(212,175,55,0.3)")}>
+                  View Live Site
+                </a>
+              )}
+              {p.links.github && (
+                <a href={p.links.github} target="_blank" rel="noreferrer" style={btnOutline("rgba(255,255,255,0.1)")}>
+                  GitHub
+                </a>
+              )}
               <ShareLink id="tilt" style={{ marginLeft: "auto", alignSelf: "center" }} />
             </div>
           </div>

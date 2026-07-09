@@ -2,24 +2,11 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import ScreenshotModal from "./ScreenshotModal";
 import ShareLink from "./ShareLink";
-import tangleclawLogo from "../assets/projects/tangleclaw.png";
 import { autoLanguageTags } from "../utils/languageTags";
 import useGitHubLatestRelease from "../hooks/useGitHubLatestRelease";
+import { featuredProjects } from "../data/projects";
 
-const GH_ASSETS = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main";
-const tcScreenshots = `${GH_ASSETS}/tangleclaw-screenshots`;
-const STATS_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/tangleclaw-stats.json";
-
-const screenshots = [
-  { src: `${tcScreenshots}/project%20splash%20screen%20with%20sampele%20cards.png`, alt: "Dashboard — Projects Directory" },
-  { src: `${tcScreenshots}/project%20info%20panel%20expanded.png`, alt: "Project Info Panel" },
-  { src: `${tcScreenshots}/porthub-registry%20list%20example.png`, alt: "PortHub Registry & Port Leases" },
-  { src: `${tcScreenshots}/ai%20model%20select%20modal.png`, alt: "Engine & Methodology Selection" },
-  { src: `${tcScreenshots}/global%20rules%20modal.png`, alt: "Global Rules Configuration" },
-  { src: `${tcScreenshots}/openclaw%20modal.png`, alt: "OpenClaw Integration" },
-  { src: `${tcScreenshots}/shared%20directories%20and%20files%20between%20groups%20modal.png`, alt: "Shared Documents & Groups" },
-  { src: `${tcScreenshots}/port%20conflict%20example%20warning.png`, alt: "Port Conflict Warning" },
-];
+const p = featuredProjects.tangleclaw;
 
 /**
  * Format a number with K+ suffix for thousands.
@@ -48,19 +35,23 @@ export default function FeaturedTangleClaw() {
   const [liveStats, setLiveStats] = useState(null);
 
   useEffect(() => {
-    fetch(STATS_URL)
+    fetch(p.statsUrl)
       .then((r) => r.json())
       .then(setLiveStats)
       .catch(() => {});
   }, []);
 
-  const stats = [
-    { label: "Lines of Code", value: liveStats ? formatCount(liveStats.loc) : "100K+" },
-    { label: "Tests Passing", value: liveStats ? liveStats.tests.toLocaleString() : "3,900+" },
-    { label: "Commits", value: liveStats ? formatCount(liveStats.commits) : "370+" },
-    { label: "AI Engines", value: liveStats ? String(liveStats.engines) : "4" },
-    { label: "npm Dependencies", value: liveStats ? String(liveStats.npmDeps) : "0" },
-  ];
+  const stats = p.statConfig.map((cfg) => {
+    let value = cfg.fallback;
+    if (liveStats) {
+      if (cfg.valueOverride) {
+        value = cfg.valueOverride;
+      } else if (liveStats[cfg.key] !== undefined) {
+        value = cfg.key === "tests" ? liveStats[cfg.key].toLocaleString() : formatCount(liveStats[cfg.key]);
+      }
+    }
+    return { label: cfg.label, value };
+  });
 
   // Conditionally append PRs Merged tile when collector reports a non-zero count
   if (liveStats?.prs?.merged > 0) {
@@ -68,14 +59,7 @@ export default function FeaturedTangleClaw() {
   }
 
   const since = liveStats ? formatSince(liveStats.firstCommit) : null;
-  const liveVersion = useGitHubLatestRelease("Jason-Vaughan", "TangleClaw");
-
-  const techStack = [
-    "Node.js", "tmux", "ttyd", "REST API", "Zero npm Dependencies",
-  ];
-
-  const accent = "#8b5cf6";
-  const accentLight = "#a78bfa";
+  const liveVersion = useGitHubLatestRelease(p.repo.owner, p.repo.repo);
 
   const card = {
     borderRadius: 16,
@@ -111,7 +95,7 @@ export default function FeaturedTangleClaw() {
     fontWeight: 600,
     fontSize: 14,
     textDecoration: "none",
-    background: `linear-gradient(135deg, ${accent}, ${accentLight})`,
+    background: `linear-gradient(135deg, ${p.accent}, ${p.accentLight})`,
     color: "#fff",
   };
 
@@ -124,7 +108,7 @@ export default function FeaturedTangleClaw() {
     fontSize: 14,
     textDecoration: "none",
     border: `1px solid ${color}`,
-    color: color === "rgba(139,92,246,0.3)" ? accent : "#71717a",
+    color: color === "rgba(139,92,246,0.3)" ? p.accent : "#71717a",
     background: "none",
     cursor: "pointer",
   });
@@ -139,19 +123,19 @@ export default function FeaturedTangleClaw() {
           style={card}
         >
           {/* Purple accent bar */}
-          <div style={{ height: 4, background: `linear-gradient(90deg, ${accent}, ${accentLight}, transparent)` }} />
+          <div style={{ height: 4, background: `linear-gradient(90deg, ${p.accent}, ${p.accentLight}, transparent)` }} />
 
           <div style={{ padding: 32 }}>
             {/* Title row */}
             <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
-              <img src={tangleclawLogo} alt="TangleClaw logo" style={{ height: 48, width: 48, objectFit: "contain" }} />
-              <h3 style={{ fontSize: 28, fontWeight: 700, color: "#fafafa", margin: 0 }}>TangleClaw</h3>
+              <img src={p.logo} alt={`${p.title} logo`} style={{ height: 48, width: 48, objectFit: "contain" }} />
+              <h3 style={{ fontSize: 28, fontWeight: 700, color: "#fafafa", margin: 0 }}>{p.title}</h3>
               <span style={{
                 fontSize: 11, fontWeight: 700, textTransform: "uppercase",
                 letterSpacing: 1.5, padding: "4px 12px", borderRadius: 9999,
-                background: accent, color: "#fff",
+                background: p.accent, color: "#fff",
               }}>
-                Developer Tool
+                {p.type}
               </span>
               <span style={{
                 fontSize: 11, fontWeight: 700, textTransform: "uppercase",
@@ -160,7 +144,7 @@ export default function FeaturedTangleClaw() {
                 border: "1px solid rgba(52, 211, 153, 0.35)",
                 color: "#34d399",
               }}>
-                Open Source · MIT
+                {p.pricing}
               </span>
               {liveVersion && (
                 <span style={{
@@ -180,7 +164,7 @@ export default function FeaturedTangleClaw() {
                   padding: "4px 10px", borderRadius: 9999,
                   background: "rgba(139,92,246,0.08)",
                   border: "1px solid rgba(139,92,246,0.25)",
-                  color: accent,
+                  color: p.accent,
                 }}>
                   Building since {since}
                 </span>
@@ -189,17 +173,12 @@ export default function FeaturedTangleClaw() {
 
             <p style={{ marginTop: 4, fontSize: 13, color: "#71717a" }}>AI Coding Session Orchestrator</p>
 
-            <p style={{ marginTop: 12, fontSize: 18, fontWeight: 600, color: accent }}>
-              Multi-Engine AI Development — Orchestrated.
+            <p style={{ marginTop: 12, fontSize: 18, fontWeight: 600, color: p.accent }}>
+              {p.subtitle}
             </p>
 
             <p style={{ marginTop: 14, color: "#d4d4d8", lineHeight: 1.6, fontSize: 14, maxWidth: 640 }}>
-              A Node.js server with zero npm dependencies that orchestrates persistent tmux sessions
-              for AI coding engines — Claude Code, Aider, Codex, and Cursor. Now at 4.0:
-              session continuity with wrap protocols, a Project Master control plane,
-              orchestration profiles, and secured remote access join the browser dashboard,
-              mobile access via ttyd, methodology enforcement, shared documents, port
-              management, and session memory across every project on your machine.
+              {p.blurb}
             </p>
 
             {/* Stats grid */}
@@ -209,7 +188,7 @@ export default function FeaturedTangleClaw() {
             }}>
               {stats.map((s) => (
                 <div key={s.label} style={statBox}>
-                  <div style={{ fontSize: 22, fontWeight: 700, color: accent }}>{s.value}</div>
+                  <div style={{ fontSize: 22, fontWeight: 700, color: p.accent }}>{s.value}</div>
                   <div style={{ fontSize: 11, color: "#71717a", marginTop: 4 }}>{s.label}</div>
                 </div>
               ))}
@@ -217,22 +196,26 @@ export default function FeaturedTangleClaw() {
 
             {/* Tech stack — curated + auto-detected languages from stats */}
             <div style={{ marginTop: 20, display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {[...techStack, ...autoLanguageTags(liveStats?.languages, techStack)].map((t) => (
+              {[...p.techStack, ...autoLanguageTags(liveStats?.languages, p.techStack)].map((t) => (
                 <span key={t} style={tagStyle}>{t}</span>
               ))}
             </div>
 
             {/* CTAs */}
             <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", gap: 12 }}>
-              <a href="https://github.com/Jason-Vaughan/TangleClaw" target="_blank" rel="noreferrer" style={btnPrimary}>
-                View on GitHub
-              </a>
-              <button
-                onClick={() => setModal({ images: screenshots })}
-                style={btnOutline("rgba(139,92,246,0.3)")}
-              >
-                Screenshots
-              </button>
+              {p.links.github && (
+                <a href={p.links.github} target="_blank" rel="noreferrer" style={btnPrimary}>
+                  View on GitHub
+                </a>
+              )}
+              {p.screenshots && (
+                <button
+                  onClick={() => setModal({ images: p.screenshots })}
+                  style={btnOutline("rgba(139,92,246,0.3)")}
+                >
+                  Screenshots
+                </button>
+              )}
               <ShareLink id="tangleclaw" style={{ marginLeft: "auto", alignSelf: "center" }} />
             </div>
           </div>
