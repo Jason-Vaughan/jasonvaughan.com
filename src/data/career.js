@@ -115,7 +115,7 @@ export const careerData = [
     period: "2000 - 2007",
     bullets: {
       Recruiter: [
-        "Co-founded a pioneering webcasting company, securing municipal city contracts and building it to a successful acquisition.",
+        "Co-founded a pioneering webcasting company, securing municipal city contracts and building it to a successful acquisition in 2007.",
         "Translated technical streaming capabilities into business propositions for government, education, and corporate clients.",
         "Created resourcing, pricing, and execution models that scaled operations while maintaining profitability."
       ],
@@ -125,12 +125,12 @@ export const careerData = [
       ],
       Investor: [
         "Navigated the early SaaS landscape, securing contracts with the City of San Francisco and bootstrapping to cash-flow positive.",
-        "Facilitated and executed a successful acquisition, managing technical due diligence and IP transitions."
+        "Facilitated and executed a successful acquisition in 2007, managing technical due diligence and IP transitions."
       ],
       Default: [
         "Co-founded iPolis, an early SaaS webcasting service that pioneered video streaming for municipal governments.",
         "Designed real-time network streaming pipelines, transcoders, and video distribution systems.",
-        "Led company through product-market fit, client growth, and a successful acquisition."
+        "Led company through product-market fit, client growth, and a successful acquisition in 2007."
       ]
     }
   }
