@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { aboutData as d } from "../data/about";
 
-export default function About() {
+export default function About({ visitorType }) {
   const containerStyle = {
     display: "flex",
     flexDirection: "column",
@@ -72,6 +72,35 @@ export default function About() {
         <p style={{ marginTop: 12, color: "#a1a1aa", fontSize: 15, lineHeight: 1.6 }}>
           {d.hero.subtitle}
         </p>
+        {visitorType === "Recruiter" && (
+          <a
+            href="/Jason_Vaughan_Resume.pdf"
+            download="Jason_Vaughan_Resume.pdf"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              marginTop: 16,
+              padding: "8px 18px",
+              borderRadius: 8,
+              background: "rgba(251, 191, 36, 0.1)",
+              border: "1px solid rgba(251, 191, 36, 0.4)",
+              color: "#fbbf24",
+              fontSize: 13,
+              fontWeight: 600,
+              textDecoration: "none",
+              alignSelf: "flex-start",
+              transition: "background 0.15s"
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(251,191,36,0.18)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(251,191,36,0.1)"; }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Download PDF Resume
+          </a>
+        )}
       </div>
 
       {/* 2. My Story & AI Interview Callout */}

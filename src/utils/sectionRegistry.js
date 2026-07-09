@@ -1,56 +1,61 @@
 /**
- * Tiny registry that lets collapsible sections be opened by id from a single
- * coordinator (the deep-link / jump-nav handler in App.jsx).
- *
- * Each <Collapsible> registers an `open` callback under its id on mount and
- * unregisters on unmount. When a deep-link (`#skills`) or a future section-nav
- * link targets that id, the handler calls `openSection(id)` to expand it BEFORE
- * scrolling + flashing — so the section is open by the time the eye lands.
- *
- * Module-level singleton Map: there is exactly one section list per page.
+ * Tiny registry that lets collapsible sections be opened or closed by id
+ * from a single coordinator (the deep-link handler or visitor mode switch).
  */
 
-/** @type {Map<string, () => void>} */
-const openers = new Map();
+/** @type {Map<string, { open: () => void, close: () => void }>} */
+const registry = new Map();
 
 /**
- * Register a section's open callback under its id.
- * @param {string} id Section id (matches the element id and deep-link hash).
- * @param {() => void} open Callback that expands the section.
- * @returns {void}
+ * Register a section's open and close callbacks.
+ * @param {string} id Section id.
+ * @param {() => void} open Callback to expand.
+ * @param {() => void} close Callback to collapse.
  */
-export function registerSection(id, open) {
-  openers.set(id, open);
+export function registerSection(id, open, close) {
+  registry.set(id, { open, close });
 }
 
 /**
- * Remove a section's registration (call on unmount).
- * @param {string} id Section id.
- * @returns {void}
+ * Remove registration.
  */
 export function unregisterSection(id) {
-  openers.delete(id);
+  registry.delete(id);
 }
 
 /**
- * Open the registered section with this id, if any. Safe to call for ids that
- * aren't collapsible (no-op) — non-collapsible deep-link targets just scroll.
- * @param {string} id Section id.
- * @returns {boolean} True if a collapsible was found and opened.
+ * Expand a registered section.
  */
 export function openSection(id) {
-  const open = openers.get(id);
-  if (open) {
-    open();
+  const cell = registry.get(id);
+  if (cell) {
+    cell.open();
     return true;
   }
   return false;
 }
 
 /**
- * Test/cleanup helper — clears all registrations.
- * @returns {void}
+ * Collapse a registered section.
  */
+export function closeSection(id) {
+  const cell = registry.get(id);
+  if (cell) {
+    cell.close();
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Collapse all registered sections.
+ */
+export function closeAllSections() {
+  registry.forEach((cell) => {
+    cell.close();
+  });
+}
+
 export function __resetSectionRegistry() {
-  openers.clear();
+  registry.clear();
 }

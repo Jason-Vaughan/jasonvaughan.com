@@ -43,7 +43,7 @@ export default function Collapsible({ id, title, icon, description, statPill, de
   // Register an opener so the deep-link / jump-nav coordinator can expand this
   // section by id before it scrolls + flashes.
   useEffect(() => {
-    registerSection(id, () => setOpen(true));
+    registerSection(id, () => setOpen(true), () => setOpen(false));
     return () => unregisterSection(id);
   }, [id]);
 

@@ -17,7 +17,7 @@ import GPTs from "./components/GPTs";
 import TipJar from "./components/TipJar";
 import ContactSection from "./components/ContactSection";
 import Collapsible from "./components/Collapsible";
-import { openSection } from "./utils/sectionRegistry";
+import { openSection, closeAllSections } from "./utils/sectionRegistry";
 import ChatWidget from "./components/ChatWidget";
 import About from "./components/About";
 import { PERSONAS, PersonaOverlay, PersonaDropdown } from "./components/PersonaSelector";
@@ -49,6 +49,7 @@ export default function App() {
     setVisitorType(personaKey);
     localStorage.setItem("visitorType", personaKey);
     
+    closeAllSections();
     const info = PERSONAS[personaKey];
     if (info && info.sections) {
       info.sections.forEach(secId => {
@@ -216,7 +217,7 @@ export default function App() {
       {isPreviewMode && (
         <Collapsible id="about" title="About" icon="👤" bodyInWrap provideId
           description="Who I am — narrative, pillars, milestones, and AI interview.">
-          <About />
+          <About visitorType={visitorType} />
         </Collapsible>
       )}
 
