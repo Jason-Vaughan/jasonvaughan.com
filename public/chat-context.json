@@ -9,27 +9,38 @@
   "projects": {
     "tilt": {
       "name": "TiLT",
-      "spark": "Born from personal frustration with the complexity of tracking earnings, benefits, and union hours as a live-events operator. After maintaining complex spreadsheets for years, used early AI capabilities to build a personal tracking system. When colleagues saw it and requested access, expanded it from a local utility into a fully hosted, enterprise-grade job, payment, and benefit management system during time off."
+      "spark": "Born from personal frustration with the complexity of tracking earnings, benefits, and union hours as a live-events operator. After maintaining complex spreadsheets for years, used early AI capabilities to build a personal tracking system. When colleagues saw it and requested access, expanded it from a local utility into a fully hosted, enterprise-grade job, payment, and benefit management system during time off.",
+      "github": "https://github.com/Jason-Vaughan/TiLT-showcase",
+      "license": "Closed Source (Showcase repository available)"
     },
     "tangleclaw": {
       "name": "TangleClaw",
-      "spark": "Sparked by a frustrating trip to Mexico where remote SSH dev connections kept getting disconnected due to VPN disconnects, closing the laptop lid, or computer sleep. After bricking a remote dev server, built a remote TTYD and AI orchestration plane to prevent getting stranded again. It allows pausing a session and picking it up seamlessly from a phone or other device. Extended it to replace Cursor/Windsurf, drastically streamlining dev environment management and boosting productivity."
+      "spark": "Sparked by a frustrating trip to Mexico where remote SSH dev connections kept getting disconnected due to VPN disconnects, closing the laptop lid, or computer sleep. After bricking a remote dev server, built a remote TTYD and AI orchestration plane to prevent getting stranded again. It allows pausing a session and picking it up seamlessly from a phone or other device. Extended it to replace Cursor/Windsurf, drastically streamlining dev environment management and boosting productivity.",
+      "github": "https://github.com/Jason-Vaughan/TangleClaw",
+      "license": "Open Source (MIT)"
     },
     "tanglebrain": {
       "name": "TangleBrain",
-      "spark": "Created after building a custom local inference hardware cluster ('Monad'). Realized a need for a robust, local-first, config-driven LLM router. Designed from day one to either stand alone or integrate cleanly as the routing engine for the TangleClaw system."
+      "spark": "Created after building a custom local inference hardware cluster ('Monad'). Realized a need for a robust, local-first, config-driven LLM router. Designed from day one to either stand alone or integrate cleanly as the routing engine for the TangleClaw system.",
+      "github": "https://github.com/Jason-Vaughan/TangleBrain",
+      "license": "Open Source (MIT)"
     },
     "notse": {
       "name": "Notse",
-      "description": "Networked teleprompter for broadcast and live event production, connecting Windows/macOS over WebSockets."
+      "description": "Networked teleprompter for broadcast and live event production, connecting Windows/macOS over WebSockets.",
+      "github": "https://github.com/Jason-Vaughan/notse-releases",
+      "license": "Commercial / Closed Source"
     },
     "scrapegoat": {
       "name": "ScrapeGoat",
-      "description": "PDF calendar schedule extractor PWA driven by local AI parsing template generation."
+      "description": "PDF calendar schedule extractor PWA driven by local AI parsing template generation.",
+      "github": "https://github.com/Jason-Vaughan/ScrapeGoat",
+      "license": "Open Source (MIT)"
     },
     "cierre_sensei": {
       "name": "Cierre Sensei",
-      "description": "Mexican real-estate closing-cost engine supporting all 32 Mexican states."
+      "description": "Mexican real-estate closing-cost engine supporting all 32 Mexican states.",
+      "license": "Commercial SaaS"
     }
   }
 }
