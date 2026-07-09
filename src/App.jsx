@@ -549,25 +549,6 @@ export default function App() {
 
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               <button
-                onClick={() => handleAskChatbot("Why should we hire Jason?")}
-                style={{
-                  padding: "8px 16px",
-                  borderRadius: 8,
-                  background: "rgba(255,255,255,0.02)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  color: "#d4d4d8",
-                  fontSize: 12.5,
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  transition: "all 0.15s"
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#fbbf24"; e.currentTarget.style.color = "#fbbf24"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "#d4d4d8"; }}
-              >
-                Why should we hire Jason?
-              </button>
-
-              <button
                 onClick={() => handleTriggerModal("recruiterPortfolio")}
                 style={{
                   padding: "8px 16px",
@@ -581,7 +562,7 @@ export default function App() {
                   transition: "all 0.15s"
                 }}
               >
-                Show Curated Examples
+                Show strongest examples
               </button>
 
               <button
@@ -600,7 +581,7 @@ export default function App() {
                 onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#fbbf24"; e.currentTarget.style.color = "#fbbf24"; }}
                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "#d4d4d8"; }}
               >
-                Summarize Google Experience
+                Summarize Google experience
               </button>
 
               <button
@@ -619,45 +600,7 @@ export default function App() {
                 onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#fbbf24"; e.currentTarget.style.color = "#fbbf24"; }}
                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "#d4d4d8"; }}
               >
-                Match Jason to a Role
-              </button>
-
-              <button
-                onClick={() => handleTriggerModal("developerProjects")}
-                style={{
-                  padding: "8px 16px",
-                  borderRadius: 8,
-                  background: "rgba(255,255,255,0.02)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  color: "#d4d4d8",
-                  fontSize: 12.5,
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  transition: "all 0.15s"
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#fbbf24"; e.currentTarget.style.color = "#fbbf24"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "#d4d4d8"; }}
-              >
-                Show AI Projects
-              </button>
-
-              <button
-                onClick={() => handleTriggerModal("productionTech")}
-                style={{
-                  padding: "8px 16px",
-                  borderRadius: 8,
-                  background: "rgba(255,255,255,0.02)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  color: "#d4d4d8",
-                  fontSize: 12.5,
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  transition: "all 0.15s"
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#fbbf24"; e.currentTarget.style.color = "#fbbf24"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "#d4d4d8"; }}
-              >
-                Show Production Proof
+                Match to job description
               </button>
             </div>
           </div>
@@ -844,10 +787,10 @@ export default function App() {
             gap: 12
           }}>
             <h4 style={{ margin: 0, fontSize: 16, color: "#fff", fontWeight: 700 }}>
-              Want the curated version? Ask the AI guide.
+              Still curious?
             </h4>
             <p style={{ margin: 0, fontSize: 13, color: "#a1a1aa", maxWidth: 480, lineHeight: 1.45 }}>
-              Jason's AI Concierge can launch dedicated portfolio slides mapped to your specific hiring, code, or production interests.
+              Open the AI Portfolio Guide for a curated view.
             </p>
             <button
               onClick={() => handleTriggerModal("recruiterPortfolio")}
@@ -863,7 +806,7 @@ export default function App() {
                 marginTop: 4
               }}
             >
-              Open Curated Portfolio
+              Open AI Portfolio Guide
             </button>
           </div>
         </div>
