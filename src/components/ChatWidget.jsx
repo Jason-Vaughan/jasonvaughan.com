@@ -93,6 +93,16 @@ export default function ChatWidget() {
     return () => clearTimeout(timer);
   }, [isOpen]);
 
+  // Listen for open event from external components (e.g. About AI Interview CTA)
+  useEffect(() => {
+    const handleOpenChat = () => {
+      setIsOpen(true);
+      setHasNewMessage(false);
+    };
+    window.addEventListener("open-portfolio-chat", handleOpenChat);
+    return () => window.removeEventListener("open-portfolio-chat", handleOpenChat);
+  }, []);
+
   return (
     <div style={{ position: "fixed", bottom: 24, right: 24, zIndex: 1000, fontFamily: "inherit" }}>
       {/* Floating Toggle Button */}
