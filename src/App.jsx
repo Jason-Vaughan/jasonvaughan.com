@@ -602,6 +602,25 @@ export default function App() {
               >
                 Match to job description
               </button>
+
+              <button
+                onClick={() => handleAskChatbot("Let's start a virtual interview. Please introduce yourself as Jason's virtual guide and ask how you can help me evaluate Jason.")}
+                style={{
+                  padding: "8px 16px",
+                  borderRadius: 8,
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  color: "#d4d4d8",
+                  fontSize: 12.5,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  transition: "all 0.15s"
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#fbbf24"; e.currentTarget.style.color = "#fbbf24"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "#d4d4d8"; }}
+              >
+                Virtual interview
+              </button>
             </div>
           </div>
         </div>
@@ -790,7 +809,7 @@ export default function App() {
               Still curious?
             </h4>
             <p style={{ margin: 0, fontSize: 13, color: "#a1a1aa", maxWidth: 480, lineHeight: 1.45 }}>
-              Open the AI Portfolio Guide for a curated view.
+              Open the AI Portfolio Concierge for a curated view.
             </p>
             <button
               onClick={() => handleTriggerModal("recruiterPortfolio")}
@@ -806,7 +825,7 @@ export default function App() {
                 marginTop: 4
               }}
             >
-              Open AI Portfolio Guide
+              Open AI Portfolio Concierge
             </button>
           </div>
         </div>
