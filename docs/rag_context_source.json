@@ -1,0 +1,47 @@
+{
+  "tpm_google_ett": {
+    "philosophy": "Stay calm, act decisively, and prevent visible sweat backstage. 50% of a project is completed in the planning phase.",
+    "anecdotes": [
+      {
+        "id": "ett-llm-load-limitations",
+        "category": "TPM / Google ETT",
+        "context": "Staging a live AI LLM demo for a keynote presentation.",
+        "incident": "During pre-planning, mapped out failure scenarios one-on-one with the demoer. However, the system response under a live room of 1,500 people could not be simulated, which caused unexpected latency behaviors during the show.",
+        "action": "Managed the live pivot backstage, coordinated communication across departments on comms, and saved the segment flow.",
+        "learning": "Simulated capacity load testing is essential for live AI demos, but is resource-intensive. TPM must assess client risk tolerance early: sometimes the juice is not worth the squeeze, but if they want zero failure, the simulation process is mandatory."
+      },
+      {
+        "id": "keynote-app-crash",
+        "category": "Live Staging / Emergency Response",
+        "context": "Main application crashes 60 seconds before presenter walks on stage.",
+        "incident": "Visual server app quit right at the entrance boundary.",
+        "action": "Stayed calm, asserted authority on comms, coordinated support in the headset, and resolved the configuration error directly on the show machine in under a minute.",
+        "learning": "Ten seconds on stage feels like ten minutes. Calmness is contagious; acting decisively and keeping a steady hand backstage allows you to save the show without the client or audience ever realizing there was a crisis."
+      }
+    ]
+  },
+  "project_management_adu": {
+    "context": " California ADU (Accessory Dwelling Unit) Construction Project Manager (Pandemic role).",
+    "philosophy": "Diligent planning, thorough vendor vetting, and aggressive quote negotiation.",
+    "strategy": [
+      "Selecting the right contractor for each specific segment.",
+      "Liaising directly with local utilities, municipal planning departments, and structural engineers.",
+      "Strict RFP process: Require a minimum of 3, preferably 5 qualified bids before decisioning.",
+      "Conducting active callback negotiations to match competitive quotes or demand breakdowns of high estimates, saving clients tens of thousands of dollars.",
+      "Vetting references and checking evidence rather than accepting verbal assurances."
+    ]
+  },
+  "engineering_bridge": {
+    "role": "Technical bridge between product engineering teams and the live production environment.",
+    "credentials": "Self-taught developer, active builder (TangleClaw, TiLT, Monad), and Google Project Management Certified.",
+    "anecdotes": [
+      {
+        "id": "cursor-ceo-encounter",
+        "category": "Technical Respect",
+        "context": "Freelancing at a tech conference, coding on-site using Cursor.",
+        "incident": "The CEO of Cursor walked past backstage, looked over, saw Jason using the editor, had a chuckle, and walked on stage.",
+        "learning": "Being AI-fluent and hands-on with tools like Cursor and TangleClaw allows Jason to command immediate respect from principal engineers. They speak the same language."
+      }
+    ]
+  }
+}

@@ -80,5 +80,31 @@
       "period": "2000 - 2007",
       "details": "Co-founded early webcasting SaaS service, building transcoding video ingestion pipelines, secure municipal broadcast platforms, and leading to a successful acquisition in 2007."
     }
+  ],
+  "anecdotes": [
+    {
+      "id": "ett-llm-load-limitations",
+      "category": "TPM / Google ETT",
+      "question": "How do you handle capacity planning and scaling for live AI presentations?",
+      "story": "During a live AI demo for a major keynote presentation, one of our presenters required live usage of an LLM. It was my job as the TPM to analyze the failure scenarios one-on-one with them and eliminate variables. The one thing we could not simulate was how the LLM would respond in a room filled with 1,500 people. This caused unexpected latency behaviors during the show, which we managed backstage on comms. This taught me that simulated capacity load testing is essential for live AI segments, but it's resource-intensive. As a TPM, it's critical to determine the client's risk tolerance early: sometimes the juice is not worth the squeeze, but if they want zero failure, the simulation process is mandatory."
+    },
+    {
+      "id": "keynote-app-crash",
+      "category": "Live Staging / Emergency Response",
+      "question": "Tell me about a high-pressure staging emergency you resolved.",
+      "story": "A main visual playback application crashed 60 seconds before the presenter walked on stage. Using my headset comms for coordination, I stayed calm, asserted authority backstage, and resolved the configuration error on the show machine within 45 seconds. Ten seconds on stage feels like ten minutes. Calmness is contagious; acting decisively and keeping a steady hand backstage allows you to save the show without the client or audience ever realizing there was a crisis."
+    },
+    {
+      "id": "adu-project-management",
+      "category": "Construction Project Management / Vendor Vetting",
+      "question": "How do you manage contractors, bidding, and large budgets?",
+      "story": "During the pandemic, I project managed ADU (Accessory Dwelling Unit) construction in California. I managed budgeting, utility coordination, structural engineers, and contractors. I set up a strict RFP process requiring a minimum of 3 (preferably 5) qualified bids. I directly negotiated estimates down, saving clients tens of thousands of dollars. Vetting references and requiring physical evidence rather than verbal assurances was key. My philosophy is that 50% of the project is completed in the planning phase."
+    },
+    {
+      "id": "cursor-ceo-encounter",
+      "category": "Technical Respect & AI Fluency",
+      "question": "How do you bridge the gap between staging production and principal engineers?",
+      "story": "I am AI-fluent and hands-on with tools. Once while freelancing at a tech conference and coding on-site using Cursor, the CEO of Cursor walked past backstage, looked over, saw me using the editor, had a chuckle, and walked on stage. Being technically competent and holding a solid foundation in systems engineering gives me the authority to save shows and instills confidence in clients."
+    }
   ]
 }
