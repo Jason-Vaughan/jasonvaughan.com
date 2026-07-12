@@ -43,5 +43,35 @@
         "learning": "Being AI-fluent and hands-on with tools like Cursor and TangleClaw allows Jason to command immediate respect from principal engineers. They speak the same language."
       }
     ]
+  },
+  "union_instruction_safety": {
+    "philosophy": "Safety is absolute; base skills must be established before specialty systems are introduced.",
+    "osha_certification": "Completed OSHA 30 (approx 50 hours of intensive study) and OSHA 10. Required to audit sites, report violations, and step in to correct unsafe actions on site.",
+    "career_path": "Started in audio engineering (studio/musician) -> Camera operator -> Basic AV setup -> Camera engineering -> Playback/Recording -> High-res switching, scaling, projection mapping, LED screens (Barco E2, etc.). 15 years as Presentation Graphics operator for global CEOs.",
+    "course_design": {
+      "title": "5-Day Stagehand Networking Intensive",
+      "curriculum": [
+        "Day 1-2: Whiteboard theory (local vs wide area network basics, subnetting).",
+        "Day 3: Hands-on cabling, crimping, router configurations. During the last 2 hours, students exit and Jason sabotages the networks, requiring them to apply troubleshooting theories to repair them.",
+        "Day 4-5: Sourced real staging gear (lighting/audio consoles, playback servers, media controllers) from local vendors to teach direct networking implementation."
+      ]
+    }
+  },
+  "product_origins_tangleclaw_brain": {
+    "tangleclaw": {
+      "motivation": "Isolate development env to a secure, local machine accessible only via SSH/VPN. Solved Mexico internet drops causing lost shell sessions by creating a browser-based terminal connection manager that persists and syncs.",
+      "evolution": "Cut V1 (16k LOC) in one week. Currently on V4 with over 100k LOC."
+    },
+    "monad_tanglebrain": {
+      "monad_server": "$35k multi-gpu local computing node built in mid-May 2026 for high-end open-weights LLM inference.",
+      "tanglebrain_router": "Config-driven router that analyzes prompts using a high-end cloud model, partitions them, and routes as much as possible down to Monad to save token costs."
+    }
+  },
+  "tilt_cba_engine": {
+    "motivation": "Track hours, payments, and benefits across 40-50 different employers per year.",
+    "evolution": "Began as Google Sheets + Apps Script scripts, then API scraping union databases, then building a local Node/SQLite app, then porting to Vercel multi-user web app using Grok's 72h unlimited token promo.",
+    "enterprise_features": "Hooks for stewards reports, automated dispatch, anonymized call-backs.",
+    "ai_philosophy": "AI is collapsing all inefficiencies because we're able to tackle those inefficiencies now in a way we've never been able to in the past. Over the next ten years, we are going to knock out so many inefficiencies that we're going to see a drastic improvement in productivity.",
+    "lessons_learned": "Encountered regression loops building the interactive walkthrough tour in January 2026 without tests, costing $1,300 in Cursor token usage. Switched to Claude Code, tripled regression test coverage, and established AI rules memory workflows."
   }
 }

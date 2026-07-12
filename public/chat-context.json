@@ -105,6 +105,24 @@
       "category": "Technical Respect & AI Fluency",
       "question": "How do you bridge the gap between staging production and principal engineers?",
       "story": "I am AI-fluent and hands-on with tools. Once while freelancing at a tech conference and coding on-site using Cursor, the CEO of Cursor walked past backstage, looked over, saw me using the editor, had a chuckle, and walked on stage. Being technically competent and holding a solid foundation in systems engineering gives me the authority to save shows and instills confidence in clients."
+    },
+    {
+      "id": "union-safety-mentorship",
+      "category": "Union Leadership / Staging Safety & Training",
+      "question": "What is your philosophy on staging safety and teaching apprentices?",
+      "story": "Safety is absolute—nothing matters more than everyone walking off the site uninjured. I completed my OSHA 30 (about 50 hours of study) and OSHA 10 to enforce safety. When teaching, I believe in core prerequisites first. For my 5-day stagehand networking course, I spent Days 1-2 on whiteboard theory. On Day 3, we did cabling and switches, and in the final 2 hours I had them leave the room, sabotaged their networks, and made them troubleshoot the errors without knowing what I did. Days 4-5 involved networking real lighting, audio, and camera consoles sourced from vendors. Teach a man to fish."
+    },
+    {
+      "id": "tangleclaw-evolution",
+      "category": "AI Tooling / TangleClaw & TangleBrain System Architecture",
+      "question": "Why did you build TangleClaw, TangleBrain, and Monad?",
+      "story": "I switched to Claude Code CLI and set up a dedicated offline machine for dev security, accessing it via VPN/SSH. While working in Mexico, drops in the VPN kept bricking my terminal sessions. I built TangleClaw as a browser-based, persistent shell connection manager. I also built Monad, a $35,000 multi-GPU local inference server, and TangleBrain, a config-driven orchestrator that routes complex prompts using cloud frontier models but pushes execution down to Monad to save token costs."
+    },
+    {
+      "id": "tilt-cba-lessons",
+      "category": "SaaS Engineering / CBA Rules Engine & Testing",
+      "question": "What is the background of TiLT and your biggest engineering lessons?",
+      "story": "Working under 40-50 employers a year as a stagehand makes tracking hours, pay rates, and union benefits complex. I built TiLT from scratch as a Node/SQLite app with a custom CBA rules engine, porting it to Vercel in a 72-hour window using Grok's promo. The hardest part was building a walkthrough tour in January 2026 without tests, which caused regressions and cost me $1,300 in Cursor billing. This taught me to switch to Claude Code, focus on regression testing (tripling unit tests), and establish the self-improvement AI rules workflow."
     }
   ]
 }
