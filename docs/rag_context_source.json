@@ -63,8 +63,10 @@
       "evolution": "Cut V1 (16k LOC) in one week. Currently on V4 with over 100k LOC."
     },
     "monad_tanglebrain": {
-      "monad_server": "$35k multi-gpu local computing node built in mid-May 2026. Specs: NVIDIA RTX PRO 6000 Blackwell (96 GiB VRAM), AMD Threadripper 9970X CPU, 251 GiB RAM.",
-      "tanglebrain_router": "Config-driven router that analyzes prompts using a high-end cloud model, partitions them, and routes as much as possible down to Monad to save token costs. Runs local open-weights models like GPT-OSS 120B (MXFP4 precision) and Qwen2.5 14B 1M (Q6_K precision) in VRAM."
+      "monad_server": "$35k multi-gpu local computing node built in mid-May 2026. Specs: NVIDIA RTX PRO 6000 Blackwell (96 GiB VRAM), AMD Threadripper 9970X CPU, 251 GiB RAM. Bypasses cloud latency layers; runs snappy local inference.",
+      "tanglebrain_router": "Config-driven router that analyzes prompts using a high-end cloud model, partitions them, and routes as much as possible down to Monad to save token costs. Runs local open-weights models like GPT-OSS 120B (MXFP4 precision, coding workhorse) and Qwen2.5 14B 1M (Q6_K precision, optimized for chat) in VRAM.",
+      "routing_and_backups": "Points all four of his OpenClaw agent systems to Monad-1. Backups: GPT Codex frontier (1st backup) and GitHub Copilot (2nd backup) for failover scenarios.",
+      "dual_boot_purpose": "Built to dual-boot into Windows to serve on-site as a media server for event owner-operator work. Replaced aging ShowSage servers. Proficient in Dataton Watchout, Millumin (macOS), Pixera, and Disguise."
     }
   },
   "tilt_cba_engine": {
@@ -98,6 +100,23 @@
         "incident": "Presenters showed up having never been on stage, completely disoriented by visual monitoring (DSM), presidential teleprompters, or aspect ratios.",
         "action": "Designed a two-part service facility in Paris: (1) Intake & QC Desk: re-encoding visual media, repairing slide ratios, and validating files. (2) Rehearsal Chambers: replicating downstage monitor (DSM) arrays and stage spacing with coaches. Pitching PowerPoint Singapore keynote roles based on teaching Microsoft Office at the SF Small Business Administration.",
         "learning": "Building an offline preview replica of the stage environment eliminates presentation failures and creates speaker comfort before they walk in front of thousands of attendees."
+      }
+    ]
+  },
+  "ipolis_webcasting_saas": {
+    "history": "Co-founded early webcasting service iPolis (acquired 2007). First certified Microsoft Windows Media provider.",
+    "engineering": "Built RealMedia RTSP / MMS UDP packet distribution networks, hosting custom ACL-secured encoder setups for government channels (SF CityWatch council meetings). Pioneered agenda hyperlink indexing with timestamp markers enabling viewers to click agenda items and jump to that specific video location.",
+    "business_and_exit": "Lucrative SAAS business moat. Built monthly recurring streams. Exited as President after re-negotiating the deal. Built NTE Hosting with rewritten code and new developers for a couple of years after exit."
+  },
+  "screen_switching_video_math": {
+    "experience": "Switching networks using Barco E2/E3, Analogue Way, and Christie Spyder.",
+    "anecdotes": [
+      {
+        "id": "spie-moscone-switching",
+        "category": "Screen Switching / Pixel Mathematics",
+        "context": "Operating E2 and media servers at Moscone for SPIE (100' wide LED, 9 standalone LED walls, 8 LED towers, and a 2-projector blend center screen).",
+        "action": "Created After Effects content templates for designers to account for physical negative space (real-world gaps between LED towers and screens). Packed all tower/blend screens into a single 4K portrait output canvas, matching projection and LED pixel pitches. Used Area of Interest (AOI) processor mapping to distribute feeds.",
+        "learning": "Designing templates with physical negative space creates an immersive visual flow across multiple screens. High-end screen switching combines mechanics with pixel math."
       }
     ]
   }

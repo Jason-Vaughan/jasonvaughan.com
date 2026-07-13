@@ -135,6 +135,24 @@
       "category": "Innovation / Presentation QC & Coaching",
       "question": "How did you help pioneer the modern Speaker Ready Room?",
       "story": "While working for JBA, an event IT support company that built custom networks for production, I was hired to do a PowerPoint graphics job in Singapore because I had been teaching Microsoft Office classes at the Small Business Administration in San Francisco. This led to doing presentation graphics globally. I realized presenters were highly disoriented backstage because they had never seen downstage monitors (DSM) or presidential teleprompter screens. I convinced my boss to set up a dedicated space replicating the stage environment with speaker coaches. For RSA in Paris, I managed our first full Speaker Ready Room, featuring a check-in desk for re-encoding media and QC'ing aspect ratios, alongside side rehearsal chambers. It was a massive success and became a standard industry practice."
+    },
+    {
+      "id": "local-llm-routing-monad",
+      "category": "AI Infrastructure / Monad Inference Rig & Media Server Dual-Use",
+      "question": "What models run on Monad-1 and how does it integrate with your staging work?",
+      "story": "Monad-1 is a $35,000 computing node featuring NVIDIA RTX PRO 6000 Blackwell (96 GiB VRAM), AMD Threadripper 9970X CPU, and 251 GiB RAM. It runs local open-weights models like GPT-OSS 120B (MXFP4 precision, coding workhorse) and Qwen2.5 14B 1M (Q6_K precision, optimized for chat). I point all four of my OpenClaw agent systems directly to Monad-1 over Tailscale, utilizing GPT Codex frontier and Copilot as backups. Crucially, the server is built so I can dual-boot it into Windows and use it on-site as a high-end media server (owner-operator rig) for show work, replacing ShowSage media servers. I am highly proficient in Dataton Watchout, Millumin (macOS), Pixera, and Disguise."
+    },
+    {
+      "id": "ipolis-webcasting-history",
+      "category": "Entrepreneurship / Early SAAS Webcasting & Moats",
+      "question": "Tell me about your early co-founding experience with iPolis.",
+      "story": "Co-founding iPolis in 2000 was the 'Wild West' of webcasting. I was one of the country's first certified Microsoft Windows Media Service Providers, but we primarily built on RealMedia RTSP/MMS UDP packet systems. We landed an 8-year contract with the City and County of San Francisco to broadcast CityWatch council meetings. We pioneered index points: the clerk clicked agenda items in the encoder UI, which recorded local timestamps, publishing indexed links alongside the webcast. Viewers could click any agenda item to start playback from that point—a first-in-industry feature. iPolis was a highly profitable monthly subscription SAAS moat. We sold in 2007. I structured my contract to exit immediately with no non-compete, eventually rewriting the code and building NTE Hosting."
+    },
+    {
+      "id": "screen-switching-ae-templates",
+      "category": "Live Staging / High-End Screen Switching & Negative Space",
+      "question": "What is your approach to complex multi-screen layouts and video mathematics?",
+      "story": "I switch networks using Barco E2/E3, Analogue Way, and Spyder. On a major SPIE show at Moscone Center, I operated E2, media servers, and drafted all drawings for a 100' wide LED wall, 9 other LED walls, 8 towers, and a 2-projector center blend (3840x1080). I built After Effects templates for the content designers that factored in physical 'negative space' (the actual gaps in real space between towers and screens) and matched different projection/LED pixel pitches. By puzzle-piecing all outputs together, we packed 16K of visual content into a single 4K portrait output, mapped via processors. Redundancy is standard: E2 auto-failover, closed-loop LED processor backup paths, and 'OH SHIT' buttons (send logo or black) ensure the screen never goes dark."
     }
   ]
 }
