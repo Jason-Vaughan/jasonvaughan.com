@@ -63,8 +63,8 @@
       "evolution": "Cut V1 (16k LOC) in one week. Currently on V4 with over 100k LOC."
     },
     "monad_tanglebrain": {
-      "monad_server": "$35k multi-gpu local computing node built in mid-May 2026 for high-end open-weights LLM inference.",
-      "tanglebrain_router": "Config-driven router that analyzes prompts using a high-end cloud model, partitions them, and routes as much as possible down to Monad to save token costs."
+      "monad_server": "$35k multi-gpu local computing node built in mid-May 2026. Specs: NVIDIA RTX PRO 6000 Blackwell (96 GiB VRAM), AMD Threadripper 9970X CPU, 251 GiB RAM.",
+      "tanglebrain_router": "Config-driven router that analyzes prompts using a high-end cloud model, partitions them, and routes as much as possible down to Monad to save token costs. Runs local open-weights models like GPT-OSS 120B (MXFP4 precision) and Qwen2.5 14B 1M (Q6_K precision) in VRAM."
     }
   },
   "tilt_cba_engine": {
@@ -73,5 +73,32 @@
     "enterprise_features": "Hooks for stewards reports, automated dispatch, anonymized call-backs.",
     "ai_philosophy": "AI is collapsing all inefficiencies because we're able to tackle those inefficiencies now in a way we've never been able to in the past. Over the next ten years, we are going to knock out so many inefficiencies that we're going to see a drastic improvement in productivity.",
     "lessons_learned": "Encountered regression loops building the interactive walkthrough tour in January 2026 without tests, costing $1,300 in Cursor token usage. Switched to Claude Code, tripled regression test coverage, and established AI rules memory workflows."
+  },
+  "moscone_fiber_signal_flow": {
+    "role": "Signal flow and fiber optic distribution supervisor at the Moscone Center under the Facilities Manager.",
+    "jurisdiction": "Acts as the facility representative within the IT department, working cooperatively with the Communications Workers of America (CWA) who hold jurisdiction over data cabling.",
+    "anecdotes": [
+      {
+        "id": "moscone-fiber-triage",
+        "category": "Fiber Signal Flow / Triage Staging",
+        "context": "Managing the delivery of 40-50 fiber optic circuits on day one of a major keynote load-in.",
+        "incident": "Client arrival schedules align with testing windows, leaving no margin to repair lines. Vetting shows 1/3 of ordered fiber circuits failed DB line loss thresholds due to dirty connections or patch errors.",
+        "action": "Triaged directly with the client stakeholders to establish path priorities, coordinated cooperatively with the CWA/IT patch teams, cleaned fiber ends, and ran the team on overtime/double-time to complete the delivery.",
+        "learning": "Clear communication and relationships built over 25 years establish client trust backstage. Triaging critical routes rather than panicking ensures high-stress environments stay under control."
+      }
+    ]
+  },
+  "speaker_ready_room_origins": {
+    "history": "Co-created the modern 'Speaker Ready Room' service framework during early RSA conferences.",
+    "anecdotes": [
+      {
+        "id": "speaker-ready-room-rsa",
+        "category": "Innovation / Presentation QC & Coaching",
+        "context": "Managing slide decks for 12 keynotes and 50+ breakout sessions for RSA security conference.",
+        "incident": "Presenters showed up having never been on stage, completely disoriented by visual monitoring (DSM), presidential teleprompters, or aspect ratios.",
+        "action": "Designed a two-part service facility in Paris: (1) Intake & QC Desk: re-encoding visual media, repairing slide ratios, and validating files. (2) Rehearsal Chambers: replicating downstage monitor (DSM) arrays and stage spacing with coaches. Pitching PowerPoint Singapore keynote roles based on teaching Microsoft Office at the SF Small Business Administration.",
+        "learning": "Building an offline preview replica of the stage environment eliminates presentation failures and creates speaker comfort before they walk in front of thousands of attendees."
+      }
+    ]
   }
 }

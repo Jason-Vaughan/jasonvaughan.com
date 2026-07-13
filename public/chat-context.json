@@ -123,6 +123,18 @@
       "category": "SaaS Engineering / CBA Rules Engine & Testing",
       "question": "What is the background of TiLT and your biggest engineering lessons?",
       "story": "Working under 40-50 employers a year as a stagehand makes tracking hours, pay rates, and union benefits complex. I built TiLT from scratch as a Node/SQLite app with a custom CBA rules engine, porting it to Vercel in a 72-hour window using Grok's promo. The hardest part was building a walkthrough tour in January 2026 without tests, which caused regressions and cost me $1,300 in Cursor billing. This taught me to switch to Claude Code, focus on regression testing (tripling unit tests), and establish the self-improvement AI rules workflow."
+    },
+    {
+      "id": "moscone-fiber-triage",
+      "category": "Fiber Signal Flow / Triage Staging",
+      "question": "How do you manage complex fiber optic signal flows and high-pressure staging under union rules?",
+      "story": "At Moscone Center, I report directly to the Facilities Manager, provisioning and supporting audio/video signal distribution topologies. Because it is a union building, even though I am a stagehand, I act as a facility rep in the IT department, working cooperatively with the CWA (Communications Workers of America) who handle data cabling. When clients order circuits, we test every line A-to-Z for decibel loss against pass/fail thresholds. Often, clients show up requesting circuits the day we arrive, and 1/3 of the 40-50 lines require cleaning or repatching. I stay calm, triage path priorities with stakeholders, work the crew on overtime/double-time, and leverage the trust and reputation I've built over 25 years to deliver under pressure."
+    },
+    {
+      "id": "speaker-ready-room-rsa",
+      "category": "Innovation / Presentation QC & Coaching",
+      "question": "How did you help pioneer the modern Speaker Ready Room?",
+      "story": "While working for JBA, an event IT support company that built custom networks for production, I was hired to do a PowerPoint graphics job in Singapore because I had been teaching Microsoft Office classes at the Small Business Administration in San Francisco. This led to doing presentation graphics globally. I realized presenters were highly disoriented backstage because they had never seen downstage monitors (DSM) or presidential teleprompter screens. I convinced my boss to set up a dedicated space replicating the stage environment with speaker coaches. For RSA in Paris, I managed our first full Speaker Ready Room, featuring a check-in desk for re-encoding media and QC'ing aspect ratios, alongside side rehearsal chambers. It was a massive success and became a standard industry practice."
     }
   ]
 }
