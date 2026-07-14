@@ -4,8 +4,7 @@ import ShareLink from "./ShareLink";
 import tiltclawBanner from "../assets/projects/tiltclaw_banner.png";
 import voltaBanner from "../assets/projects/volta_banner.png";
 import rentalclawLogo from "../assets/projects/rentalclaw_logo.png";
-import koboldLogo from "../assets/projects/kobold_logo.png";
-import koboldBanner from "../assets/projects/kobold_banner.png";
+import koboldAvatar from "../assets/projects/kobold_avatar.png";
 
 /**
  * OpenClaw Fleet — internal AI agents built on the OpenClaw multi-agent
@@ -105,12 +104,9 @@ const FLEET = [
     accentBorder: "rgba(139,195,74,0.35)",
     badgeText: "REDACTED · Stealth",
     redacted: true,
-    banner: koboldBanner,
-    bannerAlt: "Kobold AI Assistant Video Engineer showing Tailscale connectivity to Monad-1",
-    bannerFit: "cover",
-    bannerHeight: 240,
-    logo: koboldLogo,
-    logoAlt: "Kobold — circular logo of the green reptilian kobold holding the OpenClaw Gateway device",
+    banner: null,               // no banner to keep card layout clean and avoid visual text duplication
+    logo: koboldAvatar,
+    logoAlt: "Kobold — circular reptilian eye avatar from the branding kit",
     blurb:
       "Kobold is the pocket-sized AI Assistant Video Engineer that plugs into local show networks to scan, monitor, and configure video hardware. Powered by the OpenClaw Gateway and connected via Tailscale to Monad-1, Kobold delivers offline, on-site intelligence with real bite.",
     bullets: [
