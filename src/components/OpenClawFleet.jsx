@@ -108,6 +108,7 @@ const FLEET = [
     banner: null,               // no banner to keep card layout clean and avoid visual text duplication
     logo: koboldAvatar,
     logoAlt: "Kobold — circular reptilian eye avatar from the branding kit",
+    watermarkBackground: true,   // dim the logo avatar and use it as a full-card background watermark
     thumbnail: koboldBanner,
     blurb:
       "Kobold is the pocket-sized, voice-operated AI Assistant Video Engineer that plugs into local show networks to scan, monitor, and configure video hardware. Powered by the OpenClaw Gateway and connected via Tailscale to Monad-1, Kobold delivers hands-free, offline, on-site intelligence with real bite.",
@@ -192,6 +193,38 @@ function FleetCard({ entry, idx, onSelectImage }) {
         </div>
       )}
 
+      {/* Watermark background logo */}
+      {entry.watermarkBackground && entry.logo && (
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "80%",
+            maxWidth: 500,
+            height: "80%",
+            maxHeight: 500,
+            opacity: 0.03, // extremely subtle watermark
+            pointerEvents: "none",
+            zIndex: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <img
+            src={entry.logo}
+            alt=""
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+            }}
+          />
+        </div>
+      )}
+
       {/* Banner strip (TiLTClaw + Volta have one; RentalClaw uses a square logo inline).
           Per-entry `bannerFit` / `bannerBg` / `bannerHeight` overrides handle images
           with their own painted backgrounds (Volta: contain + black bg so the logo's
@@ -211,10 +244,10 @@ function FleetCard({ entry, idx, onSelectImage }) {
         />
       )}
 
-      <div style={{ padding: 24 }}>
+      <div style={{ padding: 24, position: "relative", zIndex: 1 }}>
         {/* Header row: optional inline logo + eyebrow + name */}
         <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
-          {entry.logo && (
+          {entry.logo && !entry.watermarkBackground && (
             <img
               src={entry.logo}
               alt={entry.logoAlt}
