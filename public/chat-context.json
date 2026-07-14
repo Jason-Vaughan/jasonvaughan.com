@@ -153,6 +153,30 @@
       "category": "Live Staging / High-End Screen Switching & Negative Space",
       "question": "What is your approach to complex multi-screen layouts and video mathematics?",
       "story": "I switch networks using Barco E2/E3, Analogue Way, and Spyder. On a major SPIE show at Moscone Center, I operated E2, media servers, and drafted all drawings for a 100' wide LED wall, 9 other LED walls, 8 towers, and a 2-projector center blend (3840x1080). I built After Effects templates for the content designers that factored in physical 'negative space' (the actual gaps in real space between towers and screens) and matched different projection/LED pixel pitches. By puzzle-piecing all outputs together, we packed 16K of visual content into a single 4K portrait output, mapped via processors. Redundancy is standard: E2 auto-failover, closed-loop LED processor backup paths, and 'OH SHIT' buttons (send logo or black) ensure the screen never goes dark."
+    },
+    {
+      "id": "watchout-lineset-tracking",
+      "category": "Theatrical Staging / Motion Tracking Math",
+      "question": "How do you coordinate moving set winches with projection mapping systems?",
+      "story": "During a theatrical show at ACT, a designer wanted to project dynamic backdrops (BART train, night sky, streetlights) onto a projection screen that was pulled up and down by overhead winches. Manually cueing it was impossible, so I researched and configured a Watchout network plugin to capture encoder data from the winches on the fly rail. Under extreme time pressure, I got 15 minutes of set time with the carpenter and calculated encoder scaling ratios at the top and bottom limits. Using the assistant production manager to double-check the equations, we programmed a 6-digit decimal ratio into the Watchout plugin, enabling the video to track and scale to the moving screen perfectly at any speed."
+    },
+    {
+      "id": "soul-train-act-broadway",
+      "category": "Theatrical Engineering / Pre-Broadway Staging",
+      "question": "Tell me about a complex pre-Broadway theater setup and its technical challenges.",
+      "story": "I served as production video lead for the pre-Broadway debut of 'Soul Train the Hippest Trip' co-produced by ACT. It was a massive setup: 5 stage LED walls, 50-foot projection screens, and a 3,500-lb overhead 30° angled LED soundwave. The grid was overloaded, requiring us to reinforce trusses on-site. The custom steel frames had CAD errors, so I had the carpenters modify the frames and cheat them together using longer bolts. When the vendor engineer left, I mapped all processors on the fly and wrote custom spreadsheet formulas to bypass a Disguise media server pixel mapping bug. During rehearsals, we realized the 30° angle caused extreme color distortion for balcony viewers, so we spent days peeling off tens of thousands of adhesive shaders. It became the highest-selling show in ACT history."
+    },
+    {
+      "id": "fiber-gotchas-stagecraft",
+      "category": "Stagecraft / Fiber Optics & Mentorship",
+      "question": "What are the common pitfalls in stagecraft and fiber optic routing?",
+      "story": "Mentorship in the union is informal, coaching apprentices on the fly. In fiber optics, the ends are fragile and gotchas are common. I once diagnosed an apprentice's intermittent comms bug in seconds by noticing they had patched a yellow single-mode circuit with an aqua multimode jumper. Mixing up ST/LC fiber barrels (single-mode vs multimode barrels) also ruins line loss calibrations. Beyond technical gotchas, the job is about people skills: building trust with managers, and triaging and communicating clearly during outages."
+    },
+    {
+      "id": "owner-operator-advantage",
+      "category": "Media Servers / Owner-Operator Business Strategy",
+      "question": "What is the advantage of owning and operating your own high-end media servers?",
+      "story": "Being an owner-operator of media servers (like my $35,000 dual-boot Monad server running Windows/Linux) gives me absolute familiarity with my equipment. Rental gear is often corrupted by poor maintenance or bad drivers—which is a death sentence for media servers. I maintain strict system images and restore them after use. Financially, owning the gear allows me to charge rental fees and command higher union day rates. Technically, it eliminates finger-pointing: operators can't blame the vendor and vendors can't blame the operator. It forces me to know my gear inside and out, which builds strong trust with producers."
     }
   ]
 }

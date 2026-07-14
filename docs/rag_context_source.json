@@ -78,7 +78,7 @@
   },
   "moscone_fiber_signal_flow": {
     "role": "Signal flow and fiber optic distribution supervisor at the Moscone Center under the Facilities Manager.",
-    "jurisdiction": "Acts as the facility representative within the IT department, working cooperatively with the Communications Workers of America (CWA) who hold jurisdiction over data cabling.",
+    "jurisdiction": "Acts as the facility representative within the IT department, working cooperatively with the CWA (Communications Workers of America) who hold jurisdiction over data cabling.",
     "anecdotes": [
       {
         "id": "moscone-fiber-triage",
@@ -118,6 +118,44 @@
         "action": "Created After Effects content templates for designers to account for physical negative space (real-world gaps between LED towers and screens). Packed all tower/blend screens into a single 4K portrait output canvas, matching projection and LED pixel pitches. Used Area of Interest (AOI) processor mapping to distribute feeds.",
         "learning": "Designing templates with physical negative space creates an immersive visual flow across multiple screens. High-end screen switching combines mechanics with pixel math."
       }
+    ]
+  },
+  "theatrical_projection_media_servers": {
+    "philosophy": "Integrate media servers natively with theater stage winches and automation desks using network feedback and custom math.",
+    "anecdotes": [
+      {
+        "id": "watchout-lineset-tracking",
+        "category": "Theatrical Staging / Motion Tracking Math",
+        "context": "A giant theatrical projection screen moved dynamically by grid winches to different heights during a show.",
+        "incident": "Manually keyframing or matching video coordinates in real-time as the lineset winches moved was impossible.",
+        "action": "Used a Watchout network plugin to capture encoder data from winches on the fly rail. Ran a calibration test (calculating encoder ratios at top and bottom limits) to establish a 5-6 digit decimal scaling ratio. Wired it so Watchout automatically tracked and translated projection mapping coordinates relative to the moving screen.",
+        "learning": "Calculated mathematical curves let projection systems follow physical movements dynamically at any speed."
+      },
+      {
+        "id": "soul-train-act-broadway",
+        "category": "Theatrical Engineering / Pre-Broadway Staging",
+        "context": "Managing video engineering for the pre-Broadway debut of 'Soul Train the Hippest Trip' co-produced by ACT.",
+        "incident": "Massive weight of 5 stage LED walls bent the grid pipes. Custom 3,500 lbs overhead 30° LED soundwave frame had CAD errors preventing bolt alignment. Disguise media servers had pixel mapping bugs. Balcony off-angle viewing caused severe LED color distortion.",
+        "action": "Reinforced the grid, rebuilt trusses, and changed panel rigging workflows. Guided carpenters to slot mounting holes. Designed custom spreadsheet address formulas to bypass the Disguise mapping bug. Convinced producers to strip thousands of adhesive shaders off the LED panel modules to solve the off-angle visual distortion.",
+        "learning": "Major theatrical debuts are logistical and physical engineering battles. High-end operators must step into systems engineering, carpentry coordination, and pixel troubleshooting roles."
+      }
+    ]
+  },
+  "fiber_gotchas_stagecraft": {
+    "philosophy": "Mentorship is informal correction, preventing costly barrel/jumper gotchas, and maintaining robust stakeholder relationships.",
+    "strategy": [
+      "Spotting single-mode vs. multimode mismatches (e.g. noticing a yellow single-mode system running an aqua multimode patch jumper, which causes intermittent signal drops).",
+      "Avoiding ST/LC barrel mix-ups which ruin signal loss calibrations.",
+      "Teaching delicate handling of fragile tactical fiber terminations.",
+      "Developing strong client-relations skills and systematic debugging protocols."
+    ]
+  },
+  "owner_operator_media_servers": {
+    "philosophy": "Being an owner-operator guarantees familiarity, absolute driver control, and end-to-end accountability.",
+    "strategy": [
+      "Ensuring driver integrity on custom Watchout, Millumin, and Pixera servers (avoiding corrupted drivers).",
+      "Re-imaging rented-out rigs to pristine stock images on return.",
+      "Demanding pre-production engineering design time to audit signal flows, build confidence, and command higher rates."
     ]
   }
 }
