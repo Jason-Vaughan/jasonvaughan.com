@@ -9,7 +9,7 @@ export const careerData = [
     bullets: {
       Recruiter: [
         "Manage capacity planning and contractor lifecycles (JDs, SOWs, and extensions) to staff Google's global event technology programs.",
-        "Track budget forecasts vs. actuals for $15M+ programs, surfacing spend risks early and coordinating corrective actions.",
+        "Coordinate resource allocation and capacity planning for programs ranging from $15M to $250M, surfacing staffing and scheduling risks early.",
         "Onboard external contractors and team members, documenting standardized SOPs to reduce ramp-up time from weeks to days."
       ],
       Engineer: [
