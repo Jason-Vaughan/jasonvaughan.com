@@ -9,22 +9,22 @@ export const PERSONAS = {
   },
   Engineer: {
     label: "Engineer Mode",
-    bannerText: "Looks like you're interested in AI development. I've expanded Jason's engineering projects and the OpenClaw ecosystem.",
+    bannerText: "Looks like you're interested in AI development. We've highlighted Jason's systems engineering projects, local LLM integration, and software workflow automations.",
     sections: ["tangleclaw", "tanglebrain", "clawhub", "career", "projects"],
   },
   EventPro: {
     label: "Event Pro Mode",
-    bannerText: "It looks like you're a live event or broadcast professional. I've highlighted Jason's signal routing, fiber systems, and production history.",
+    bannerText: "Looks like you're in live production or broadcast. We've highlighted Jason's keynote staging experience, signal flow engineering, and ETT program operations.",
     sections: ["skills", "certifications", "career", "writing"],
   },
   OpenClaw: {
     label: "OpenClaw Mode",
-    bannerText: "Looks like you're interested in the OpenClaw community. I've highlighted published agent tools, framework specs, and downloads.",
+    bannerText: "Looks like you're interested in OpenClaw. We've highlighted Jason's custom agent fleet, his published ClawHub plugins, and his contributions to the ecosystem.",
     sections: ["openclaw-fleet", "clawhub", "career", "projects"],
   },
   Investor: {
     label: "Investor / Founder",
-    bannerText: "It looks like you're evaluating Jason's SaaS projects. I've highlighted active subscription metrics, products, and the pipeline roadmap.",
+    bannerText: "Evaluating Jason's SaaS projects? We've highlighted metrics, active subscription products (TiLT, Cierre Sensei), and his pipeline roadmap.",
     sections: ["tilt", "cierre-sensei", "career", "pipeline"],
   },
 };

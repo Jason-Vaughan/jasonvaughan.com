@@ -256,7 +256,7 @@ export default function App() {
         }}>
           {visitorType ? (
             <span style={{ fontSize: 13, lineHeight: 1.4 }}>
-              <strong>Recruiter View:</strong> {PERSONAS[visitorType]?.bannerText || `Viewing site customized for ${PERSONAS[visitorType]?.label}.`}
+              <strong>{PERSONAS[visitorType]?.label || "Custom Mode"}:</strong> {PERSONAS[visitorType]?.bannerText || `Viewing site customized for ${PERSONAS[visitorType]?.label}.`}
             </span>
           ) : (
             <span>Welcome! Personalize this portfolio for your background:</span>
