@@ -19,6 +19,7 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 ### Fixed
 - **Corrected OpenClaw greeting in chat widget** — fixed the chatbot greeting for the OpenClaw visitor persona in `src/components/ChatWidget.jsx`. The introduction was greeting visitors to the "OpenClaw workspace", which has been corrected to a personalized welcome from Jason's AI assistant about his OpenClaw and Tangle agent projects.
 - **Refined virtual interview startup flow** — updated the chat widget initialization in `src/components/ChatWidget.jsx` so that triggering a virtual interview clears the initial greeting and hides the system prompt trigger message. The chat window now opens and transitions directly to the virtual guide's introduction response for a clean, professional startup.
+- **Improved ChatWidget desktop dimensions and scrolling** — widened the chat drawer to 450px and increased its height to 600px on desktop screens (>=768px) in `src/components/ChatWidget.jsx` to improve readability and give suggestions more horizontal space. Also resolved an issue where the initial message auto-scrolled to the bottom, cutting off the top of the virtual interview introduction.
 
 ## [0.3.0] - 2026-07-03
 
