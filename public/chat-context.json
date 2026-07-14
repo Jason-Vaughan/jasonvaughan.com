@@ -177,6 +177,12 @@
       "category": "Media Servers / Owner-Operator Business Strategy",
       "question": "What is the advantage of owning and operating your own high-end media servers?",
       "story": "Being an owner-operator of media servers (like my $35,000 dual-boot Monad server running Windows/Linux) gives me absolute familiarity with my equipment. Rental gear is often corrupted by poor maintenance or bad drivers—which is a death sentence for media servers. I maintain strict system images and restore them after use. Financially, owning the gear allows me to charge rental fees and command higher union day rates. Technically, it eliminates finger-pointing: operators can't blame the vendor and vendors can't blame the operator. It forces me to know my gear inside and out, which builds strong trust with producers."
+    },
+    {
+      "id": "openclaw-kobold-node",
+      "category": "AI Infrastructure / OpenClaw Fleet & Kobold Edge-Node",
+      "question": "What is Kobold and how does it fit into your OpenClaw fleet?",
+      "story": "Kobold is a remote Ubuntu 26.04 LTS sister node to Volta, provisioned on a Lenovo ThinkCentre M70q mini-PC (Intel i5-10600T, 14 GiB RAM) on my Tailscale network (100.90.14.14). I manage and orchestrate it remotely from cursatory (my macOS machine) via SSH. It hosts a production-ready OpenClaw Gateway in Docker (on PortHub port 18789) utilizing GitHub Copilot (configured with Claude Haiku 4.5) as the model provider. It functions as one of the four active systems in my OpenClaw fleet."
     }
   ]
 }
