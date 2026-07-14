@@ -281,7 +281,7 @@ function FleetCard({ entry, idx, onSelectImage }) {
             </div>
 
             {/* Thumbnail Column */}
-            <div style={{ flex: "0 0 auto", display: "flex", flexDirection: "column" }}>
+            <div style={{ flex: "1 1 360px", display: "flex", justifyContent: "flex-end", minWidth: 280 }}>
               <button
                 type="button"
                 onClick={() => onSelectImage(entry.thumbnail)}
@@ -297,6 +297,8 @@ function FleetCard({ entry, idx, onSelectImage }) {
                   transition: "transform 0.2s ease, border-color 0.2s ease",
                   border: `1px solid ${entry.accentBorder || "#27272a"}`,
                   boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+                  width: "100%",
+                  maxWidth: 380,
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.02)"; e.currentTarget.style.borderColor = entry.accent; }}
                 onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.borderColor = entry.accentBorder || "#27272a"; }}
@@ -305,10 +307,8 @@ function FleetCard({ entry, idx, onSelectImage }) {
                   src={entry.thumbnail}
                   alt={`${entry.name} promo advertisement`}
                   style={{
-                    width: 320,
-                    height: 250,
-                    objectFit: "cover",
-                    objectPosition: "left top", // focus on the Kobold character and basic details
+                    width: "100%",
+                    height: "auto",
                     display: "block",
                   }}
                 />
@@ -347,7 +347,7 @@ function FleetCard({ entry, idx, onSelectImage }) {
         )}
 
         {/* Footer row: optional "powers X" link + share button */}
-        <div style={{ marginTop: 18, display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
+        <div style={{ marginTop: 28, display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
           {entry.paired ? (
             <a
               href={entry.paired.href}
