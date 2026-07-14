@@ -785,10 +785,8 @@ export default function App() {
         </div>
       )}
 
-      {/* Builder Stats - only shown here for non-Recruiter modes */}
-      {visitorType !== "Recruiter" && (
-        <BuilderStats visitorType={visitorType} />
-      )}
+      {/* Builder Stats - always shown at the top of the content */}
+      <BuilderStats visitorType={visitorType} />
 
       {renderedSections.map((sec) => (
         <React.Fragment key={sec.id}>
@@ -858,10 +856,7 @@ export default function App() {
             </div>
           )}
 
-          {/* Builder Stats - shifted down for Recruiter mode */}
-          {sec.id === "career" && visitorType === "Recruiter" && (
-            <BuilderStats visitorType={visitorType} />
-          )}
+
         </React.Fragment>
       ))}
 
