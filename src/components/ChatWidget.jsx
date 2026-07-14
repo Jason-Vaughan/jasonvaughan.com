@@ -18,6 +18,7 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
   const [isLoading, setIsLoading] = useState(false);
   const [hasNewMessage, setHasNewMessage] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const [isVirtualInterview, setIsVirtualInterview] = useState(false);
   
   const messagesEndRef = useRef(null);
 
@@ -79,19 +80,24 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
       return;
     }
 
-    setIsLoading(true);
-
     const isVirtualInterviewTrigger = text.startsWith("Let's start a virtual interview");
-    let updatedMessages;
 
     if (isVirtualInterviewTrigger) {
-      // Clear greeting history for virtual interview so only the guide's intro is displayed
-      updatedMessages = [{ role: "user", content: text }];
-      setMessages([]);
-    } else {
-      updatedMessages = [...messages, { role: "user", content: text }];
-      setMessages(updatedMessages);
+      setIsVirtualInterview(true);
+      setMessages([
+        { role: "user", content: text, hidden: true },
+        {
+          role: "assistant",
+          content: "Hello, I am Jason's virtual interview guide.\n\nJason is an unusual candidate because he combines decades of high-stakes technical leadership with modern AI systems engineering. He comes from live production environments—like Google keynotes and global flagship events—where the deploy is live, the stakes are millions of dollars, and there is no revert button.\n\nToday, he applies that same zero-fail systems thinking to AI orchestration, software engineering, and product development. He doesn't just write code; he builds resilient systems designed to run under pressure.\n\nHow would you like to evaluate him? Here are a few places we can start:"
+        }
+      ]);
+      return;
     }
+
+    setIsLoading(true);
+
+    const updatedMessages = [...messages, { role: "user", content: text }];
+    setMessages(updatedMessages);
 
     try {
       const res = await fetch(WORKER_URL, {
@@ -108,32 +114,19 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
 
       const data = await res.json();
       if (data.text) {
-        if (isVirtualInterviewTrigger) {
-          setMessages([{ role: "assistant", content: data.text }]);
-        } else {
-          setMessages((prev) => [...prev, { role: "assistant", content: data.text }]);
-        }
+        setMessages((prev) => [...prev, { role: "assistant", content: data.text }]);
       } else if (data.error) {
         throw new Error(data.error);
       }
     } catch (err) {
       console.error("Chat error:", err);
-      if (isVirtualInterviewTrigger) {
-        setMessages([
-          {
-            role: "assistant",
-            content: "Sorry, I encountered an issue starting the virtual interview. Please try again in a bit!",
-          },
-        ]);
-      } else {
-        setMessages((prev) => [
-          ...prev,
-          {
-            role: "assistant",
-            content: "Sorry, I encountered an issue connecting to the chat helper. Please try again in a bit!",
-          },
-        ]);
-      }
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: "Sorry, I encountered an issue connecting to the chat helper. Please try again in a bit!",
+        },
+      ]);
     } finally {
       setIsLoading(false);
     }
@@ -155,8 +148,14 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
     return () => clearTimeout(timer);
   }, [isOpen]);
 
+  // Reset virtual interview mode when switching visitor persona
+  useEffect(() => {
+    setIsVirtualInterview(false);
+  }, [visitorType]);
+
   // Dynamic intent-aware greeting update
   useEffect(() => {
+    if (isVirtualInterview) return;
     if (messages.length === 1 && messages[0].role === "assistant") {
       let content = "Hi! I'm Jason's AI assistant. Ask me anything about his projects, technical experience, or self-learning philosophy!";
       if (visitorType === "Recruiter") {
@@ -172,7 +171,7 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
       }
       setMessages([{ role: "assistant", content }]);
     }
-  }, [visitorType]);
+  }, [visitorType, isVirtualInterview]);
 
   // Listen for open event from external components (e.g. About AI Interview CTA)
   useEffect(() => {
@@ -307,7 +306,7 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
               flexDirection: "column",
               gap: 14,
             }}>
-              {messages.map((m, idx) => (
+              {messages.filter(m => !m.hidden).map((m, idx) => (
                 <div
                   key={idx}
                   style={{
@@ -367,7 +366,7 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
               <div ref={messagesEndRef} />
             </div>
 
-            {messages.length === 1 && !isLoading && (
+            {messages.filter(m => !m.hidden).length === 1 && !isLoading && (
               <div style={{
                 padding: "0 16px 12px 16px",
                 display: "flex",
@@ -377,6 +376,15 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
                 <p style={{ margin: "0 0 2px 0", fontSize: 11, color: "#71717a", fontWeight: 600 }}>SUGGESTIONS:</p>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                   {(() => {
+                    if (isVirtualInterview) {
+                      return [
+                        "Why Jason is different",
+                        "AI & Software Engineering",
+                        "Google & Enterprise Experience",
+                        "Leadership & Operations",
+                        "Match Jason to this Job Description",
+                      ];
+                    }
                     switch (visitorType) {
                       case "Recruiter":
                         return [
