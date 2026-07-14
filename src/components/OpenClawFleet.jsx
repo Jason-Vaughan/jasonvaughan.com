@@ -94,6 +94,26 @@ const FLEET = [
     ],
     tags: ["OpenClaw", "Multi-Agent", "Vacation Rentals", "Private Beta"],
   },
+  {
+    id: "kobold",
+    name: "Kobold",
+    role: "Tailnet-Orchestrated Linux Node",
+    accent: "#10b981",          // emerald green — matches Tailscale / active node green
+    accentSoft: "rgba(16,185,129,0.12)",
+    accentBorder: "rgba(16,185,129,0.35)",
+    badgeText: "PUBLIC · Active Node",
+    redacted: false,
+    banner: null,
+    blurb:
+      "Remote Ubuntu 26.04 LTS sister node to Volta, provisioned on a Lenovo ThinkCentre M70q mini-PC. Orchestrated remotely over Tailscale via SSH. Hosts a production-ready OpenClaw gateway inside Docker, utilizing model providers with GitHub Copilot via Claude Haiku.",
+    bullets: [
+      "Lenovo ThinkCentre M70q · Intel i5-10600T · 14 GiB RAM",
+      "Ubuntu 26.04 LTS · Remote Tailscale Node (100.90.14.14)",
+      "Runs OpenClaw Gateway in Docker via PortHub (port 18789)",
+      "Model Provider: GitHub Copilot (Claude Haiku 4.5)",
+    ],
+    tags: ["Tailscale", "Docker", "Ubuntu", "Lenovo"],
+  },
 ];
 
 /* ───────────────────────── Shared visual primitives ────────────────────────── */
