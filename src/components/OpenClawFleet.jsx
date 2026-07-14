@@ -97,22 +97,22 @@ const FLEET = [
   {
     id: "kobold",
     name: "Kobold",
-    role: "Tailnet-Orchestrated Linux Node",
+    role: "AI Assistant Video Engineer",
     accent: "#10b981",          // emerald green — matches Tailscale / active node green
     accentSoft: "rgba(16,185,129,0.12)",
     accentBorder: "rgba(16,185,129,0.35)",
-    badgeText: "PUBLIC · Active Node",
+    badgeText: "PUBLIC · In Development",
     redacted: false,
     banner: null,
     blurb:
-      "Remote Ubuntu 26.04 LTS sister node to Volta, provisioned on a Lenovo ThinkCentre M70q mini-PC. Orchestrated remotely over Tailscale via SSH. Hosts a production-ready OpenClaw gateway inside Docker, utilizing model providers with GitHub Copilot via Claude Haiku.",
+      "Portable edge node built on a Lenovo ThinkCentre M70q mini-PC. Plugs directly into the local show network on-site to scan, monitor, and configure video hardware. Routes complex prompts over Tailscale to Monad-1 (the primary GPU rig) as its local LLM backend for offline, on-site execution.",
     bullets: [
       "Lenovo ThinkCentre M70q · Intel i5-10600T · 14 GiB RAM",
-      "Ubuntu 26.04 LTS · Remote Tailscale Node (100.90.14.14)",
-      "Runs OpenClaw Gateway in Docker via PortHub (port 18789)",
-      "Model Provider: GitHub Copilot (Claude Haiku 4.5)",
+      "Plugs into local show networks to control hardware & API endpoints",
+      "Runs OpenClaw Gateway in Docker via Tailscale network",
+      "LLM Backend: Powered by Monad-1 GPU rig (local open weights)",
     ],
-    tags: ["Tailscale", "Docker", "Ubuntu", "Lenovo"],
+    tags: ["Video Engineering", "Local LLM", "Tailscale", "Show Networks"],
   },
 ];
 
