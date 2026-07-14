@@ -16,6 +16,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 - **Updated featured-cards.test.js** — refactored unit test checks to read PyPI distribution links directly from the centralized `projects.js` data store while keeping render assertions on component files.
 - **Renamed ClawHub section to ClawHub Skills and Tools** — updated both the collapsible section title in `src/App.jsx` and the inner section header in `src/components/ClawHub.jsx` to "ClawHub Skills and Tools" to improve clarity.
 
+### Fixed
+- **Corrected OpenClaw greeting in chat widget** — fixed the chatbot greeting for the OpenClaw visitor persona in `src/components/ChatWidget.jsx`. The introduction was greeting visitors to the "OpenClaw workspace", which has been corrected to a personalized welcome from Jason's AI assistant about his OpenClaw and Tangle agent projects.
+
 ## [0.3.0] - 2026-07-03
 
 ### Added
