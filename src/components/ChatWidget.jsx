@@ -109,7 +109,12 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
       });
 
       if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
+        let errorMsg = `HTTP error! status: ${res.status}`;
+        try {
+          const data = await res.json();
+          if (data.error) errorMsg = data.error;
+        } catch (_) {}
+        throw new Error(errorMsg);
       }
 
       const data = await res.json();
@@ -124,7 +129,7 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
         ...prev,
         {
           role: "assistant",
-          content: "Sorry, I encountered an issue connecting to the chat helper. Please try again in a bit!",
+          content: err.message || "Sorry, I encountered an issue connecting to the chat helper. Please try again in a bit!",
         },
       ]);
     } finally {
