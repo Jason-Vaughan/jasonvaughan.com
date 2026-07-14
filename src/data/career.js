@@ -10,7 +10,7 @@ export const careerData = [
       Recruiter: [
         "Manage capacity planning and contractor lifecycles (JDs, SOWs, and extensions) to staff Google's global event technology programs.",
         "Coordinate resource allocation and capacity planning for programs ranging from $15M to $250M, surfacing staffing and scheduling risks early.",
-        "Onboard external contractors and team members, documenting standardized SOPs to reduce ramp-up time from weeks to days."
+        "Served as surrogate TPM for Google Cloud Next, managing Google-led Spotlight sessions (up to 1,500 people) and coordinating planning/resources with content and dev teams."
       ],
       Engineer: [
         "Designed and maintained Apps Script automation dashboards to allocate staff across 100+ concurrent projects and surface resourcing conflicts.",
@@ -18,13 +18,13 @@ export const careerData = [
         "Standardized IT tools, access protocols, and workspace logistics for creative and technical production workflows."
       ],
       EventPro: [
-        "Ensure demo devices, broadcast switchers, and signal paths run flawlessly under high-pressure live conditions during global product launches.",
+        "Physically in charge of demo desk devices and execution with hands-on setup, operation, and direct interaction with executive dev teams during hardware launches and Google I/O.",
         "Coordinate technical signal routing, multi-screen LED configurations, and real-time encoding for main-stage keynote sessions.",
-        "Bridge the gap between marketing designers and onsite staging crews to guarantee visual quality and layout fidelity."
+        "Bridge the gap between Google product teams and event production teams, ensuring product demos function perfectly when debuted to hundreds of millions of users."
       ],
       Default: [
-        "Support global Google product launches, ensuring demo systems and workflows run with zero downtime under live broadcast conditions.",
-        "Manage contractor operations and program budget forecasting to align creative, technical, and executive stakeholders.",
+        "Bridge the gap between Google product teams and event production teams to ensure live product demos function flawlessly when debuted to hundreds of millions of users.",
+        "Served as surrogate TPM for Google Cloud Next, managing Google-led Spotlight sessions (up to 1,500 people) and coordinating resources with content producers and dev teams.",
         "Built resourcing trackers using Google Apps Script to coordinate team assignments across hundreds of concurrent project tracks."
       ]
     }

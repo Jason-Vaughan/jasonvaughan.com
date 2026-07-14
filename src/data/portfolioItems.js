@@ -6,9 +6,9 @@ export const portfolioItems = [
     id: "google-ett",
     title: "Google Event Technology & TPM",
     modes: ["recruiter", "google", "production"],
-    summary: "Led technical operations and TPM workflows for Google's global flagship product launches.",
-    whyItMatters: "Demonstrates cross-functional technical leadership, capacity planning on $15M to $250M programs, contractor lifecycle operations, and staging reliability under high-stakes live conditions.",
-    skills: ["Technical Program Management", "Staging Operations", "Capacity Planning", "Contractor Onboarding"],
+    summary: "Served as surrogate TPM for Google Cloud Next Spotlights and managed hands-on demo desk operations for Google Hardware launches and Google I/O.",
+    whyItMatters: "Demonstrates cross-functional technical leadership, bridging product and event production teams, hands-on setup/operation of live demos for millions of users, and managing large-scale program resourcing.",
+    skills: ["Technical Program Management", "Demo Desk Operations", "Capacity Planning", "Contractor Lifecycles", "Live Event Staging"],
     stats: ["18+ Years", "100+ Keynotes"],
     links: [
       { label: "View Career Details", target: "#career" }
