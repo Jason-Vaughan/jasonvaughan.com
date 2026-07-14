@@ -100,11 +100,11 @@ const FLEET = [
     id: "kobold",
     name: "Kobold",
     role: "AI Assistant Video Engineer",
-    accent: "#84cc16",          // lime green — matches the green Kobold branding and eye details
-    accentSoft: "rgba(132,204,22,0.12)",
-    accentBorder: "rgba(132,204,22,0.35)",
-    badgeText: "PUBLIC · In Development",
-    redacted: false,
+    accent: "#8bc34a",          // toxic green — matches the official Kobold branding kit hex
+    accentSoft: "rgba(139,195,74,0.12)",
+    accentBorder: "rgba(139,195,74,0.35)",
+    badgeText: "REDACTED · Stealth",
+    redacted: true,
     banner: koboldBanner,
     bannerAlt: "Kobold AI Assistant Video Engineer showing Tailscale connectivity to Monad-1",
     bannerFit: "cover",
@@ -112,14 +112,14 @@ const FLEET = [
     logo: koboldLogo,
     logoAlt: "Kobold — circular logo of the green reptilian kobold holding the OpenClaw Gateway device",
     blurb:
-      "Portable edge node built on a local mini-PC. Plugs directly into the local show network on-site to scan, monitor, and configure video hardware. Routes complex prompts over Tailscale to Monad-1 (the primary GPU rig) as its local LLM backend for offline, on-site execution.",
+      "Kobold is the pocket-sized AI Assistant Video Engineer that plugs into local show networks to scan, monitor, and configure video hardware. Powered by the OpenClaw Gateway and connected via Tailscale to Monad-1, Kobold delivers offline, on-site intelligence with real bite.",
     bullets: [
       "Portable mini-PC edge form factor",
-      "Plugs into local show networks to control hardware & API endpoints",
-      "Runs OpenClaw Gateway in Docker via Tailscale network",
-      "LLM Backend: Powered by Monad-1 GPU rig (local open weights)",
+      "Plugs into local show networks to control ████████ & API endpoints",
+      "Runs OpenClaw Gateway in Docker via ████████ network",
+      "LLM Backend: Powered by Monad-1 GPU rig (████████████)",
     ],
-    tags: ["Video Engineering", "Local LLM", "Tailscale", "Show Networks", "Edge Node"],
+    tags: ["Video Engineering", "Local LLM", "Stealth Node", "Show Networks", "Edge Node"],
   },
 ];
 
