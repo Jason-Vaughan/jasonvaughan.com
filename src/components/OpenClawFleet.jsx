@@ -105,14 +105,14 @@ const FLEET = [
     redacted: false,
     banner: null,
     blurb:
-      "Portable edge node built on a Lenovo ThinkCentre M70q mini-PC. Plugs directly into the local show network on-site to scan, monitor, and configure video hardware. Routes complex prompts over Tailscale to Monad-1 (the primary GPU rig) as its local LLM backend for offline, on-site execution.",
+      "Portable edge node built on a local mini-PC. Plugs directly into the local show network on-site to scan, monitor, and configure video hardware. Routes complex prompts over Tailscale to Monad-1 (the primary GPU rig) as its local LLM backend for offline, on-site execution.",
     bullets: [
-      "Lenovo ThinkCentre M70q · Intel i5-10600T · 14 GiB RAM",
+      "Portable mini-PC edge form factor",
       "Plugs into local show networks to control hardware & API endpoints",
       "Runs OpenClaw Gateway in Docker via Tailscale network",
       "LLM Backend: Powered by Monad-1 GPU rig (local open weights)",
     ],
-    tags: ["Video Engineering", "Local LLM", "Tailscale", "Show Networks"],
+    tags: ["Video Engineering", "Local LLM", "Tailscale", "Show Networks", "Edge Node"],
   },
 ];
 
