@@ -201,11 +201,11 @@ function FleetCard({ entry, idx, onSelectImage }) {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "80%",
-            maxWidth: 500,
-            height: "80%",
-            maxHeight: 500,
-            opacity: 0.03, // extremely subtle watermark
+            width: "120%",
+            maxWidth: 800,
+            height: "120%",
+            maxHeight: 800,
+            opacity: 0.02, // extremely subtle watermark at larger scale
             pointerEvents: "none",
             zIndex: 0,
             display: "flex",
