@@ -224,6 +224,165 @@ export default function App() {
     };
   }, []);
 
+  const allSections = [
+    {
+      id: "about", // id="about"
+      title: "About",
+      icon: "👤",
+      description: "Who I am — narrative, pillars, milestones, and AI interview.",
+      bodyInWrap: true,
+      provideId: true,
+      element: <About visitorType={visitorType} onDownloadResume={handleResumeClick} />,
+      visible: isPreviewMode,
+    },
+    {
+      id: "career", // id="career"
+      title: "Career History",
+      icon: "💼",
+      description: "Professional highlights — dynamically weighted to your background.",
+      bodyInWrap: true,
+      provideId: true,
+      element: <Career visitorType={visitorType} />,
+      visible: isPreviewMode,
+    },
+    {
+      id: "tilt", // id="tilt"
+      title: "TiLT",
+      icon: "⏱️",
+      description: "Union timecard & pay tracking for live-events crews.",
+      statPill: projectStats?.tilt?.tests ? `${projectStats.tilt.tests.toLocaleString()} tests passing` : null,
+      element: <FeaturedProject />,
+      visible: true,
+    },
+    {
+      id: "tangleclaw", // id="tangleclaw"
+      title: "TangleClaw",
+      icon: "🧶",
+      description: "Multi-project AI session orchestration & governance.",
+      statPill: projectStats?.tangleclaw?.tests ? `${projectStats.tangleclaw.tests.toLocaleString()} tests passing` : null,
+      element: <FeaturedTangleClaw />,
+      visible: true,
+    },
+    {
+      id: "tanglebrain", // id="tanglebrain"
+      title: "TangleBrain",
+      icon: "🧠",
+      description: "Local-first LLM router across AI backends.",
+      statPill: projectStats?.tanglebrain?.tests ? `${projectStats.tanglebrain.tests.toLocaleString()} tests passing` : null,
+      element: <FeaturedTangleBrain />,
+      visible: true,
+    },
+    {
+      id: "cierre-sensei", // id="cierre-sensei"
+      title: "Cierre Sensei",
+      icon: "🏠",
+      description: "Mexican real-estate closing-cost engine.",
+      element: <FeaturedCierreSensei />,
+      visible: true,
+    },
+    {
+      id: "projects", // id="projects"
+      title: "Projects",
+      icon: "🛠️",
+      description: "Shipped apps, tools & open-source projects.",
+      statPill: projectStats ? `${Object.keys(projectStats).length} projects shipped` : null,
+      element: <Projects />,
+      visible: true,
+    },
+    {
+      id: "pipeline", // id="pipeline"
+      title: "Pipeline",
+      icon: "🚧",
+      description: "What's in active development next.",
+      provideId: true,
+      element: <Pipeline />,
+      visible: true,
+    },
+    {
+      id: "research", // id="research"
+      title: "Research & Infrastructure",
+      icon: "🔬",
+      description: "Active investigations and the systems that power them.",
+      element: <Infrastructure />,
+      visible: true,
+    },
+    {
+      id: "openclaw-fleet", // id="openclaw-fleet"
+      title: "OpenClaw Fleet",
+      icon: "🤖",
+      description: "Internal AI agents in production & development.",
+      element: <OpenClawFleet />,
+      visible: true,
+    },
+    {
+      id: "clawhub", // id="clawhub"
+      title: "ClawHub Skills and Tools",
+      icon: "📦",
+      description: "Published skills & plugins with live download stats — for the OpenClaw ecosystem.",
+      statPill: clawhubDownloads !== null ? `${clawhubDownloads.toLocaleString()} downloads` : null,
+      element: <ClawHub />,
+      visible: true,
+    },
+    {
+      id: "writing", // id="writing"
+      title: "Writing",
+      icon: "✍️",
+      description: "Essays & technical write-ups.",
+      statPill: "3 papers",
+      element: <Writing />,
+      visible: true,
+    },
+    {
+      id: "skills", // id="skills"
+      isCustom: true,
+      element: <Skills key="skills" highlighted={isSectionHighlighted("skills")} />,
+      visible: true,
+    },
+    {
+      id: "certifications", // id="certifications"
+      isCustom: true,
+      element: <Certifications key="certifications" highlighted={isSectionHighlighted("certifications")} />,
+      visible: true,
+    },
+    {
+      id: "gpts", // id="gpts"
+      title: "Custom GPTs",
+      icon: "💬",
+      description: "Purpose-built GPT assistants.",
+      statPill: "5 custom GPTs",
+      element: <GPTs />,
+      visible: true,
+    },
+    {
+      id: "tip-jar", // id="tip-jar"
+      title: "Tip Jar",
+      icon: "💰",
+      description: "Support the work.",
+      element: <TipJar />,
+      visible: true,
+    },
+    {
+      id: "contact", // id="contact"
+      title: "Contact",
+      icon: "✉️",
+      description: "Get in touch.",
+      element: <ContactSection />,
+      visible: true,
+    },
+  ];
+
+  const visibleSections = allSections.filter(s => s.visible);
+  const highlightedSectionIds = PERSONAS[visitorType]?.sections || [];
+  
+  const highlightedSections = [];
+  highlightedSectionIds.forEach(id => {
+    const sec = visibleSections.find(s => s.id === id);
+    if (sec) highlightedSections.push(sec);
+  });
+  
+  const otherSections = visibleSections.filter(s => !highlightedSectionIds.includes(s.id));
+  const renderedSections = [...highlightedSections, ...otherSections];
+
   return (
     <div className="min-h-screen text-gray-900" style={{ background: "#09090b" }}>
       <style>{`
@@ -631,166 +790,80 @@ export default function App() {
         <BuilderStats visitorType={visitorType} />
       )}
 
-      {/* New narrative-driven About section, visible in preview mode */}
-      {isPreviewMode && (
-        <Collapsible id="about" title="About" icon="👤" bodyInWrap provideId
-          highlighted={isSectionHighlighted("about")}
-          description="Who I am — narrative, pillars, milestones, and AI interview.">
-          <About visitorType={visitorType} onDownloadResume={handleResumeClick} />
-        </Collapsible>
-      )}
+      {renderedSections.map((sec) => (
+        <React.Fragment key={sec.id}>
+          {sec.isCustom ? (
+            sec.element
+          ) : (
+            <Collapsible
+              id={sec.id}
+              title={sec.title}
+              icon={sec.icon}
+              description={sec.description}
+              statPill={sec.statPill}
+              bodyInWrap={sec.bodyInWrap}
+              provideId={sec.provideId}
+              highlighted={isSectionHighlighted(sec.id)}
+            >
+              {sec.element}
+            </Collapsible>
+          )}
 
-      {/* New Career History section, visible in preview mode */}
-      {isPreviewMode && (
-        <Collapsible id="career" title="Career History" icon="💼" bodyInWrap provideId
-          highlighted={isSectionHighlighted("career")}
-          description="Professional highlights — dynamically weighted to your background.">
-          <Career visitorType={visitorType} />
-        </Collapsible>
-      )}
-
-      {/* Dynamic Sub-role Filtering panel for Recruiters, sitting right after About/Career */}
-      {isPreviewMode && visitorType === "Recruiter" && (
-        <div style={{ maxWidth: 960, margin: "16px auto", padding: "0 24px" }}>
-          <div style={{
-            borderRadius: 16,
-            border: "1px solid rgba(255,255,255,0.06)",
-            background: "rgba(24, 24, 27, 0.4)",
-            padding: 20,
-            display: "flex",
-            flexDirection: "column",
-            gap: 12
-          }}>
-            <span style={{ fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, color: "#a1a1aa" }}>
-              Tailor this page for a specific opening:
-            </span>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {[
-                { label: "Technical Program Manager", key: "TPM", sections: ["certifications", "tilt", "contact"] },
-                { label: "Engineering Manager", key: "EM", sections: ["tangleclaw", "tanglebrain", "projects", "contact"] },
-                { label: "AI Infrastructure", key: "AI", sections: ["tangleclaw", "tanglebrain", "research", "openclaw-fleet", "clawhub"] },
-                { label: "Production Technology", key: "Production", sections: ["skills", "certifications", "writing", "contact"] },
-                { label: "Principal Engineer", key: "Principal", sections: ["tangleclaw", "tanglebrain", "projects", "research"] }
-              ].map((role) => {
-                const isActive = targetRole === role.key;
-                return (
-                  <button
-                    key={role.key}
-                    onClick={() => handleSelectRole(role.key, role.sections)}
-                    style={{
-                      padding: "8px 16px",
-                      borderRadius: 8,
-                      background: isActive ? "rgba(251, 191, 36, 0.12)" : "rgba(255,255,255,0.02)",
-                      border: isActive ? "1px solid #fbbf24" : "1px solid rgba(255,255,255,0.1)",
-                      color: isActive ? "#fbbf24" : "#d4d4d8",
-                      fontSize: 13,
-                      fontWeight: 600,
-                      cursor: "pointer",
-                      transition: "all 0.2s"
-                    }}
-                  >
-                    {role.label}
-                  </button>
-                );
-              })}
+          {/* Dynamic Sub-role Filtering panel for Recruiters, sitting right after Career */}
+          {sec.id === "career" && isPreviewMode && visitorType === "Recruiter" && (
+            <div style={{ maxWidth: 960, margin: "16px auto", padding: "0 24px" }}>
+              <div style={{
+                borderRadius: 16,
+                border: "1px solid rgba(255,255,255,0.06)",
+                background: "rgba(24, 24, 27, 0.4)",
+                padding: 20,
+                display: "flex",
+                flexDirection: "column",
+                gap: 12
+              }}>
+                <span style={{ fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, color: "#a1a1aa" }}>
+                  Tailor this page for a specific opening:
+                </span>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                  {[
+                    { label: "Technical Program Manager", key: "TPM", sections: ["certifications", "tilt", "contact"] },
+                    { label: "Engineering Manager", key: "EM", sections: ["tangleclaw", "tanglebrain", "projects", "contact"] },
+                    { label: "AI Infrastructure", key: "AI", sections: ["tangleclaw", "tanglebrain", "research", "openclaw-fleet", "clawhub"] },
+                    { label: "Production Technology", key: "Production", sections: ["skills", "certifications", "writing", "contact"] },
+                    { label: "Principal Engineer", key: "Principal", sections: ["tangleclaw", "tanglebrain", "projects", "research"] }
+                  ].map((role) => {
+                    const isActive = targetRole === role.key;
+                    return (
+                      <button
+                        key={role.key}
+                        onClick={() => handleSelectRole(role.key, role.sections)}
+                        style={{
+                          padding: "8px 16px",
+                          borderRadius: 8,
+                          background: isActive ? "rgba(251, 191, 36, 0.12)" : "rgba(255,255,255,0.02)",
+                          border: isActive ? "1px solid #fbbf24" : "1px solid rgba(255,255,255,0.1)",
+                          color: isActive ? "#fbbf24" : "#d4d4d8",
+                          fontSize: 13,
+                          fontWeight: 600,
+                          cursor: "pointer",
+                          transition: "all 0.2s"
+                        }}
+                      >
+                        {role.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          )}
 
-      {/* Builder Stats - shifted down for Recruiter mode */}
-      {visitorType === "Recruiter" && (
-        <BuilderStats visitorType={visitorType} />
-      )}
-
-      <Collapsible id="tilt" title="TiLT" icon="⏱️"
-        highlighted={isSectionHighlighted("tilt")}
-        statPill={projectStats?.tilt?.tests ? `${projectStats.tilt.tests.toLocaleString()} tests passing` : null}
-        description="Union timecard & pay tracking for live-events crews.">
-        <FeaturedProject />
-      </Collapsible>
-      
-      <Collapsible id="tangleclaw" title="TangleClaw" icon="🧶"
-        highlighted={isSectionHighlighted("tangleclaw")}
-        statPill={projectStats?.tangleclaw?.tests ? `${projectStats.tangleclaw.tests.toLocaleString()} tests passing` : null}
-        description="Multi-project AI session orchestration & governance.">
-        <FeaturedTangleClaw />
-      </Collapsible>
-      
-      <Collapsible id="tanglebrain" title="TangleBrain" icon="🧠"
-        highlighted={isSectionHighlighted("tanglebrain")}
-        statPill={projectStats?.tanglebrain?.tests ? `${projectStats.tanglebrain.tests.toLocaleString()} tests passing` : null}
-        description="Local-first LLM router across AI backends.">
-        <FeaturedTangleBrain />
-      </Collapsible>
-      
-      <Collapsible id="cierre-sensei" title="Cierre Sensei" icon="🏠"
-        highlighted={isSectionHighlighted("cierre-sensei")}
-        description="Mexican real-estate closing-cost engine.">
-        <FeaturedCierreSensei />
-      </Collapsible>
-      
-      <Collapsible id="projects" title="Projects" icon="🛠️"
-        highlighted={isSectionHighlighted("projects")}
-        statPill={projectStats ? `${Object.keys(projectStats).length} projects shipped` : null}
-        description="Shipped apps, tools & open-source projects.">
-        <Projects />
-      </Collapsible>
-      
-      <Collapsible id="pipeline" title="Pipeline" icon="🚧" provideId
-        highlighted={isSectionHighlighted("pipeline")}
-        description="What's in active development next.">
-        <Pipeline />
-      </Collapsible>
-      
-      <Collapsible id="research" title="Research & Infrastructure" icon="🔬"
-        highlighted={isSectionHighlighted("research")}
-        description="Active investigations and the systems that power them.">
-        <Infrastructure />
-      </Collapsible>
-      
-      <Collapsible id="openclaw-fleet" title="OpenClaw Fleet" icon="🤖"
-        highlighted={isSectionHighlighted("openclaw-fleet")}
-        description="Internal AI agents in production & development.">
-        <OpenClawFleet />
-      </Collapsible>
-      
-      <Collapsible id="clawhub" title="ClawHub Skills and Tools" icon="📦"
-        highlighted={isSectionHighlighted("clawhub")}
-        statPill={clawhubDownloads !== null ? `${clawhubDownloads.toLocaleString()} downloads` : null}
-        description="Published skills & plugins with live download stats — for the OpenClaw ecosystem.">
-        <ClawHub />
-      </Collapsible>
-      
-      <Collapsible id="writing" title="Writing" icon="✍️"
-        highlighted={isSectionHighlighted("writing")}
-        statPill="3 papers"
-        description="Essays & technical write-ups.">
-        <Writing />
-      </Collapsible>
-      
-      <Skills highlighted={isSectionHighlighted("skills")} />
-      
-      <Certifications highlighted={isSectionHighlighted("certifications")} />
-      
-      <Collapsible id="gpts" title="Custom GPTs" icon="💬"
-        highlighted={isSectionHighlighted("gpts")}
-        statPill="5 custom GPTs"
-        description="Purpose-built GPT assistants.">
-        <GPTs />
-      </Collapsible>
-      
-      <Collapsible id="tip-jar" title="Tip Jar" icon="💰"
-        highlighted={isSectionHighlighted("tip-jar")}
-        description="Support the work.">
-        <TipJar />
-      </Collapsible>
-      
-      <Collapsible id="contact" title="Contact" icon="✉️"
-        highlighted={isSectionHighlighted("contact")}
-        description="Get in touch.">
-        <ContactSection />
-      </Collapsible>
+          {/* Builder Stats - shifted down for Recruiter mode */}
+          {sec.id === "career" && visitorType === "Recruiter" && (
+            <BuilderStats visitorType={visitorType} />
+          )}
+        </React.Fragment>
+      ))}
 
       {/* Selected Work Footer Concierge CTA Panel */}
       {isPreviewMode && (
