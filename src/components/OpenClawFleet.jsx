@@ -4,6 +4,8 @@ import ShareLink from "./ShareLink";
 import tiltclawBanner from "../assets/projects/tiltclaw_banner.png";
 import voltaBanner from "../assets/projects/volta_banner.png";
 import rentalclawLogo from "../assets/projects/rentalclaw_logo.png";
+import koboldLogo from "../assets/projects/kobold_logo.png";
+import koboldBanner from "../assets/projects/kobold_banner.png";
 
 /**
  * OpenClaw Fleet — internal AI agents built on the OpenClaw multi-agent
@@ -98,12 +100,17 @@ const FLEET = [
     id: "kobold",
     name: "Kobold",
     role: "AI Assistant Video Engineer",
-    accent: "#10b981",          // emerald green — matches Tailscale / active node green
-    accentSoft: "rgba(16,185,129,0.12)",
-    accentBorder: "rgba(16,185,129,0.35)",
+    accent: "#84cc16",          // lime green — matches the green Kobold branding and eye details
+    accentSoft: "rgba(132,204,22,0.12)",
+    accentBorder: "rgba(132,204,22,0.35)",
     badgeText: "PUBLIC · In Development",
     redacted: false,
-    banner: null,
+    banner: koboldBanner,
+    bannerAlt: "Kobold AI Assistant Video Engineer showing Tailscale connectivity to Monad-1",
+    bannerFit: "cover",
+    bannerHeight: 240,
+    logo: koboldLogo,
+    logoAlt: "Kobold — circular logo of the green reptilian kobold holding the OpenClaw Gateway device",
     blurb:
       "Portable edge node built on a local mini-PC. Plugs directly into the local show network on-site to scan, monitor, and configure video hardware. Routes complex prompts over Tailscale to Monad-1 (the primary GPU rig) as its local LLM backend for offline, on-site execution.",
     bullets: [
