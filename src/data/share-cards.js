@@ -47,6 +47,12 @@ export const SHARE_CARDS = [
       "Fully autonomous rental-management agent for vacation properties. Scalable, expandable, multi-agent architecture. Currently in private beta with select operators, redacted until launch.",
   },
   {
+    id: "kobold",
+    title: "Kobold — AI Assistant Video Engineer (Stealth)",
+    description:
+      "Stealth-mode portable edge node configured as an assistant video engineer. Plugs directly into local show networks on-site to scan and configure video hardware, routing prompts to Monad-1.",
+  },
+  {
     id: "openclaw-fleet",
     title: "OpenClaw Fleet — Internal AI Agents in Production",
     description:
