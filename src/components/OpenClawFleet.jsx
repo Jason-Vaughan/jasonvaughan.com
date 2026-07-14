@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import ShareLink from "./ShareLink";
 import tiltclawBanner from "../assets/projects/tiltclaw_banner.png";
 import voltaBanner from "../assets/projects/volta_banner.png";
 import rentalclawLogo from "../assets/projects/rentalclaw_logo.png";
 import koboldAvatar from "../assets/projects/kobold_avatar.png";
+import koboldBanner from "../assets/projects/kobold_banner.png";
 
 /**
  * OpenClaw Fleet — internal AI agents built on the OpenClaw multi-agent
@@ -107,6 +108,7 @@ const FLEET = [
     banner: null,               // no banner to keep card layout clean and avoid visual text duplication
     logo: koboldAvatar,
     logoAlt: "Kobold — circular reptilian eye avatar from the branding kit",
+    thumbnail: koboldBanner,
     blurb:
       "Kobold is the pocket-sized, voice-operated AI Assistant Video Engineer that plugs into local show networks to scan, monitor, and configure video hardware. Powered by the OpenClaw Gateway and connected via Tailscale to Monad-1, Kobold delivers hands-free, offline, on-site intelligence with real bite.",
     bullets: [
@@ -150,7 +152,7 @@ const tagStyle = {
  * source so the data block reads as a redacted document. No JS replacement
  * happens; the strings live in the FLEET config above.
  */
-function FleetCard({ entry, idx }) {
+function FleetCard({ entry, idx, onSelectImage }) {
   const isRedacted = entry.redacted;
 
   return (
@@ -275,6 +277,46 @@ function FleetCard({ entry, idx }) {
           </div>
         )}
 
+        {/* Thumbnail Section */}
+        {entry.thumbnail && (
+          <div style={{ marginTop: 18 }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: "#71717a", textTransform: "uppercase", letterSpacing: 1.5, marginBottom: 8 }}>
+              Promo Material
+            </div>
+            <button
+              type="button"
+              onClick={() => onSelectImage(entry.thumbnail)}
+              style={{
+                background: "transparent",
+                border: "none",
+                padding: 0,
+                cursor: "zoom-in",
+                textAlign: "left",
+                display: "block",
+                width: "fit-content",
+                borderRadius: 8,
+                overflow: "hidden",
+                transition: "transform 0.2s ease",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.02)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
+            >
+              <img
+                src={entry.thumbnail}
+                alt={`${entry.name} promo thumbnail`}
+                style={{
+                  width: 220,
+                  height: 120,
+                  objectFit: "cover",
+                  borderRadius: 8,
+                  border: `1px solid ${entry.accentBorder || "#27272a"}`,
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
+                }}
+              />
+            </button>
+          </div>
+        )}
+
         {/* Footer row: optional "powers X" link + share button */}
         <div style={{ marginTop: 18, display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
           {entry.paired ? (
@@ -299,6 +341,8 @@ function FleetCard({ entry, idx }) {
 }
 
 export default function OpenClawFleet() {
+  const [selectedImage, setSelectedImage] = useState(null);
+
   return (
     <section id="openclaw-fleet" style={sectionStyle}>
       <div style={wrap}>
@@ -308,9 +352,143 @@ export default function OpenClawFleet() {
         </div>
 
         {FLEET.map((entry, idx) => (
-          <FleetCard key={entry.id} entry={entry} idx={idx} />
+          <FleetCard key={entry.id} entry={entry} idx={idx} onSelectImage={setSelectedImage} />
         ))}
       </div>
+
+      {/* Advertisement Zoom Modal */}
+      {selectedImage && (
+        <div
+          onClick={() => setSelectedImage(null)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(9, 9, 11, 0.9)",
+            backdropFilter: "blur(12px)",
+            zIndex: 99999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 24,
+            cursor: "zoom-out",
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              position: "relative",
+              maxWidth: 900,
+              width: "100%",
+              background: "#18181b",
+              borderRadius: 16,
+              border: "1px solid #27272a",
+              boxShadow: "0 24px 64px rgba(0, 0, 0, 0.7)",
+              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+              cursor: "default",
+            }}
+          >
+            {/* Close button */}
+            <button
+              type="button"
+              onClick={() => setSelectedImage(null)}
+              style={{
+                position: "absolute",
+                top: 16,
+                right: 16,
+                background: "rgba(0,0,0,0.5)",
+                border: "none",
+                borderRadius: "50%",
+                width: 32,
+                height: 32,
+                color: "#a1a1aa",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 16,
+                zIndex: 10,
+                transition: "color 0.15s, background-color 0.15s",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = "#fff"; e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.1)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = "#a1a1aa"; e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.5)"; }}
+            >
+              ✕
+            </button>
+
+            {/* Image */}
+            <img
+              src={selectedImage}
+              alt="Promo advertisement full view"
+              style={{
+                width: "100%",
+                height: "auto",
+                maxHeight: "70vh",
+                objectFit: "contain",
+                display: "block",
+                background: "#09090b",
+              }}
+            />
+
+            {/* Bottom Panel */}
+            <div style={{
+              padding: "20px 24px",
+              borderTop: "1px solid #27272a",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+              gap: 16,
+              background: "#121214",
+            }}>
+              <div>
+                <h4 style={{ margin: 0, color: "#fff", fontSize: 15, fontWeight: 700 }}>
+                  Kobold Guild Membership Invitation
+                </h4>
+                <p style={{ margin: "4px 0 0", color: "#a1a1aa", fontSize: 13, lineHeight: 1.4 }}>
+                  Join the OpenClaw fleet network and access decentralized local show engineering tools.
+                </p>
+              </div>
+
+              <a
+                href="#contact"
+                onClick={() => {
+                  setSelectedImage(null);
+                  window.location.hash = "#contact";
+                }}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "10px 20px",
+                  borderRadius: 8,
+                  background: "linear-gradient(135deg, #8BC34A 0%, #689F38 100%)", // toxic green brand gradients
+                  color: "#000",
+                  fontSize: 13,
+                  fontWeight: 800,
+                  textDecoration: "none",
+                  boxShadow: "0 4px 12px rgba(139, 195, 74, 0.3)",
+                  transition: "transform 0.15s, box-shadow 0.15s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-1px)";
+                  e.currentTarget.style.boxShadow = "0 6px 16px rgba(139, 195, 74, 0.4)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(139, 195, 74, 0.3)";
+                }}
+              >
+                Apply for Guild Membership
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
