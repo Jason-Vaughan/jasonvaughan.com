@@ -199,21 +199,37 @@ export default function App() {
     const applyHighlight = () => {
       const hash = window.location.hash.slice(1);
       if (!hash) return;
-      const el = document.getElementById(hash);
-      const enclosing = el?.closest("[data-collapsible]");
-      const sectionId = enclosing?.getAttribute("data-collapsible");
-      const opened = sectionId ? openSection(sectionId) : openSection(hash);
-      const settle = opened ? 340 : 0;
-      window.setTimeout(() => {
-        const target = document.getElementById(hash);
-        if (!target) return;
-        const isSectionLevel = sectionId === hash;
-        const flashEl =
-          (isSectionLevel && enclosing.querySelector("[data-collapsible-header]")) || target;
-        flashEl.scrollIntoView({ behavior: "smooth", block: "center" });
-        flashEl.classList.add("card-highlight-pulse");
-        window.setTimeout(() => flashEl.classList.remove("card-highlight-pulse"), 2400);
-      }, settle);
+
+      let retries = 0;
+      const attempt = () => {
+        const el = document.getElementById(hash);
+        const enclosing = el?.closest("[data-collapsible]");
+        const sectionId = enclosing?.getAttribute("data-collapsible");
+        const targetId = sectionId || hash;
+
+        // Try to open the target section. If it returns false, it is not registered yet.
+        const opened = openSection(targetId);
+
+        if (!opened && retries < 10) {
+          retries++;
+          window.setTimeout(attempt, 100);
+          return;
+        }
+
+        const settle = opened ? 340 : 0;
+        window.setTimeout(() => {
+          const target = document.getElementById(hash);
+          if (!target) return;
+          const isSectionLevel = sectionId === hash;
+          const flashEl =
+            (isSectionLevel && enclosing?.querySelector("[data-collapsible-header]")) || target;
+          flashEl.scrollIntoView({ behavior: "smooth", block: "center" });
+          flashEl.classList.add("card-highlight-pulse");
+          window.setTimeout(() => flashEl.classList.remove("card-highlight-pulse"), 2400);
+        }, settle);
+      };
+
+      attempt();
     };
 
     const initialTimeout = window.setTimeout(applyHighlight, 350);
