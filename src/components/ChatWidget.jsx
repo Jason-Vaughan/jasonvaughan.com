@@ -70,8 +70,17 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
 
     setIsLoading(true);
 
-    const updatedMessages = [...messages, { role: "user", content: text }];
-    setMessages(updatedMessages);
+    const isVirtualInterviewTrigger = text.startsWith("Let's start a virtual interview");
+    let updatedMessages;
+
+    if (isVirtualInterviewTrigger) {
+      // Clear greeting history for virtual interview so only the guide's intro is displayed
+      updatedMessages = [{ role: "user", content: text }];
+      setMessages([]);
+    } else {
+      updatedMessages = [...messages, { role: "user", content: text }];
+      setMessages(updatedMessages);
+    }
 
     try {
       const res = await fetch(WORKER_URL, {
@@ -88,20 +97,32 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
 
       const data = await res.json();
       if (data.text) {
-        setMessages((prev) => [...prev, { role: "assistant", content: data.text }]);
+        if (isVirtualInterviewTrigger) {
+          setMessages([{ role: "assistant", content: data.text }]);
+        } else {
+          setMessages((prev) => [...prev, { role: "assistant", content: data.text }]);
+        }
       } else if (data.error) {
         throw new Error(data.error);
       }
     } catch (err) {
       console.error("Chat error:", err);
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content:
-            "Sorry, I encountered an issue connecting to the chat helper. Please try again in a bit!",
-        },
-      ]);
+      if (isVirtualInterviewTrigger) {
+        setMessages([
+          {
+            role: "assistant",
+            content: "Sorry, I encountered an issue starting the virtual interview. Please try again in a bit!",
+          },
+        ]);
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: "Sorry, I encountered an issue connecting to the chat helper. Please try again in a bit!",
+          },
+        ]);
+      }
     } finally {
       setIsLoading(false);
     }
