@@ -7,8 +7,8 @@ export const portfolioItems = [
     title: "Google Event Technology & TPM",
     modes: ["recruiter", "google", "production"],
     summary: "Led technical operations and TPM workflows for Google's global flagship product launches.",
-    whyItMatters: "Demonstrates cross-functional technical leadership, budget forecasting ($15M+), contractor lifecycle operations, and staging reliability under high-stakes live conditions.",
-    skills: ["Technical Program Management", "Staging Operations", "Budgeting", "Contractor Onboarding"],
+    whyItMatters: "Demonstrates cross-functional technical leadership, capacity planning on $15M to $250M programs, contractor lifecycle operations, and staging reliability under high-stakes live conditions.",
+    skills: ["Technical Program Management", "Staging Operations", "Capacity Planning", "Contractor Onboarding"],
     stats: ["18+ Years", "100+ Keynotes"],
     links: [
       { label: "View Career Details", target: "#career" }

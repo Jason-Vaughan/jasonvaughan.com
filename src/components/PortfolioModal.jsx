@@ -93,7 +93,7 @@ export default function PortfolioModal({ isOpen, onClose, modalType, onSetModalT
         strong: strong.length > 0 ? strong : ["Full-Stack Software Architecture", "Technical Execution under pressure"],
         gaps: gaps.length > 0 ? gaps : ["Advanced Cloud Containers (K8s)", "Low-level Systems Programming (Rust/C++)"],
         interviewPoints: [
-          "Ask Jason about how he manages SOWs, capacity forecasting ($15M+), and vendor contracts.",
+          "Ask Jason about how he manages SOWs, capacity planning on large-scale programs ($15M to $250M), and vendor contracts.",
           "Discuss his config-driven router TangleBrain and session manager TangleClaw built for private agent execution.",
           "Explore his years directing UHD video/fiber signal flow distribution for major stages (Dreamforce, Moscone)."
         ]
