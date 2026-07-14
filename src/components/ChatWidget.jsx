@@ -17,11 +17,22 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasNewMessage, setHasNewMessage] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
   
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    if (messagesEndRef.current) {
+    if (typeof window === "undefined") return;
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (messagesEndRef.current && messages.length > 1) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages, isLoading]);
@@ -251,9 +262,9 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
               position: "absolute",
               bottom: 72,
               right: 0,
-              width: "calc(100vw - 48px)",
-              maxWidth: 380,
-              height: 500,
+              width: isLargeScreen ? 450 : "calc(100vw - 48px)",
+              maxWidth: isLargeScreen ? 450 : 380,
+              height: isLargeScreen ? 600 : 500,
               maxHeight: "calc(100vh - 120px)",
               borderRadius: 16,
               border: "1px solid #27272a",
