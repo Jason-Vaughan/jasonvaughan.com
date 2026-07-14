@@ -108,14 +108,15 @@ const FLEET = [
     logo: koboldAvatar,
     logoAlt: "Kobold — circular reptilian eye avatar from the branding kit",
     blurb:
-      "Kobold is the pocket-sized AI Assistant Video Engineer that plugs into local show networks to scan, monitor, and configure video hardware. Powered by the OpenClaw Gateway and connected via Tailscale to Monad-1, Kobold delivers offline, on-site intelligence with real bite.",
+      "Kobold is the pocket-sized, voice-operated AI Assistant Video Engineer that plugs into local show networks to scan, monitor, and configure video hardware. Powered by the OpenClaw Gateway and connected via Tailscale to Monad-1, Kobold delivers hands-free, offline, on-site intelligence with real bite.",
     bullets: [
       "Portable mini-PC edge form factor",
+      "Voice-operated assistant supporting hands-free on-site control",
       "Plugs into local show networks to control ████████ & API endpoints",
       "Runs OpenClaw Gateway in Docker via ████████ network",
       "LLM Backend: Powered by Monad-1 GPU rig (████████████)",
     ],
-    tags: ["Video Engineering", "Local LLM", "Stealth Node", "Show Networks", "Edge Node"],
+    tags: ["Video Engineering", "Local LLM", "Voice Control", "Show Networks", "Edge Node"],
   },
 ];
 
