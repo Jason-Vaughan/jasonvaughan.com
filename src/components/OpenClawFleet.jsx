@@ -250,71 +250,100 @@ function FleetCard({ entry, idx, onSelectImage }) {
           {entry.blurb}
         </p>
 
-        {/* Operational bullets — partially redacted on stealth agents */}
-        <ul style={{
-          marginTop: 14,
-          marginBottom: 0,
-          paddingLeft: 20,
-          color: "#a1a1aa",
-          fontSize: 13,
-          lineHeight: 1.7,
-        }}>
-          {entry.bullets.map((b, i) => (
-            <li key={i} style={{
-              fontFamily: b.includes("█") ? "ui-monospace, SFMono-Regular, Menlo, monospace" : "inherit",
-            }}>
-              {b}
-            </li>
-          ))}
-        </ul>
+        {entry.thumbnail ? (
+          <div style={{ display: "flex", gap: 24, marginTop: 14, flexWrap: "wrap", alignItems: "flex-start" }}>
+            <div style={{ flex: "1 1 350px", minWidth: 280 }}>
+              {/* Operational bullets — partially redacted on stealth agents */}
+              <ul style={{
+                margin: 0,
+                paddingLeft: 20,
+                color: "#a1a1aa",
+                fontSize: 13,
+                lineHeight: 1.7,
+              }}>
+                {entry.bullets.map((b, i) => (
+                  <li key={i} style={{
+                    fontFamily: b.includes("█") ? "ui-monospace, SFMono-Regular, Menlo, monospace" : "inherit",
+                  }}>
+                    {b}
+                  </li>
+                ))}
+              </ul>
 
-        {/* Tag row */}
-        {entry.tags && entry.tags.length > 0 && (
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 16 }}>
-            {entry.tags.map((t) => (
-              <span key={t} style={tagStyle}>{t}</span>
-            ))}
-          </div>
-        )}
-
-        {/* Thumbnail Section */}
-        {entry.thumbnail && (
-          <div style={{ marginTop: 18 }}>
-            <div style={{ fontSize: 10, fontWeight: 700, color: "#71717a", textTransform: "uppercase", letterSpacing: 1.5, marginBottom: 8 }}>
-              Promo Material
+              {/* Tag row */}
+              {entry.tags && entry.tags.length > 0 && (
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 16 }}>
+                  {entry.tags.map((t) => (
+                    <span key={t} style={tagStyle}>{t}</span>
+                  ))}
+                </div>
+              )}
             </div>
-            <button
-              type="button"
-              onClick={() => onSelectImage(entry.thumbnail)}
-              style={{
-                background: "transparent",
-                border: "none",
-                padding: 0,
-                cursor: "zoom-in",
-                textAlign: "left",
-                display: "block",
-                width: "fit-content",
-                borderRadius: 8,
-                overflow: "hidden",
-                transition: "transform 0.2s ease",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.02)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
-            >
-              <img
-                src={entry.thumbnail}
-                alt={`${entry.name} promo thumbnail`}
+
+            {/* Thumbnail Column */}
+            <div style={{ flex: "0 0 auto", display: "flex", flexDirection: "column" }}>
+              <button
+                type="button"
+                onClick={() => onSelectImage(entry.thumbnail)}
                 style={{
-                  width: 220,
-                  height: 120,
-                  objectFit: "cover",
-                  borderRadius: 8,
+                  background: "transparent",
+                  border: "none",
+                  padding: 0,
+                  cursor: "zoom-in",
+                  textAlign: "left",
+                  display: "block",
+                  borderRadius: 12,
+                  overflow: "hidden",
+                  transition: "transform 0.2s ease, border-color 0.2s ease",
                   border: `1px solid ${entry.accentBorder || "#27272a"}`,
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
+                  boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
                 }}
-              />
-            </button>
+                onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.02)"; e.currentTarget.style.borderColor = entry.accent; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.borderColor = entry.accentBorder || "#27272a"; }}
+              >
+                <img
+                  src={entry.thumbnail}
+                  alt={`${entry.name} promo advertisement`}
+                  style={{
+                    width: 320,
+                    height: 250,
+                    objectFit: "cover",
+                    objectPosition: "left top", // focus on the Kobold character and basic details
+                    display: "block",
+                  }}
+                />
+              </button>
+            </div>
           </div>
+        ) : (
+          <>
+            {/* Operational bullets — partially redacted on stealth agents */}
+            <ul style={{
+              marginTop: 14,
+              marginBottom: 0,
+              paddingLeft: 20,
+              color: "#a1a1aa",
+              fontSize: 13,
+              lineHeight: 1.7,
+            }}>
+              {entry.bullets.map((b, i) => (
+                <li key={i} style={{
+                  fontFamily: b.includes("█") ? "ui-monospace, SFMono-Regular, Menlo, monospace" : "inherit",
+                }}>
+                  {b}
+                </li>
+              ))}
+            </ul>
+
+            {/* Tag row */}
+            {entry.tags && entry.tags.length > 0 && (
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 16 }}>
+                {entry.tags.map((t) => (
+                  <span key={t} style={tagStyle}>{t}</span>
+                ))}
+              </div>
+            )}
+          </>
         )}
 
         {/* Footer row: optional "powers X" link + share button */}
