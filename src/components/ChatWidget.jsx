@@ -134,7 +134,7 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
       } else if (visitorType === "EventPro") {
         content = "Hello show pro! Ask me about Jason's broadcast and live event history, from managing Barco E2 screens to Disguise media servers and SMPTE-2110 IP video networks.";
       } else if (visitorType === "OpenClaw") {
-        content = "Welcome to the OpenClaw workspace! Ask me about the OpenClaw agent ecosystem, published Node/Python modules, CLI configurations, and developer tools.";
+        content = "Welcome! I'm Jason's AI assistant. Ask me about his OpenClaw multi-agent fleet, published tools on ClawHub, CLI configurations, and developer integrations.";
       } else if (visitorType === "Investor") {
         content = "Hello! I can answer questions about the business viability, active user metrics, and feature roadmap for SaaS products like TiLT and Cierre Sensei.";
       }
