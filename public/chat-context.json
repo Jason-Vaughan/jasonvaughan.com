@@ -182,7 +182,7 @@
       "id": "openclaw-kobold-node",
       "category": "AI Infrastructure / OpenClaw Fleet & Kobold Edge-Node",
       "question": "What is Kobold and how does it fit into your OpenClaw fleet?",
-      "story": "Kobold is a portable edge node configured as an AI Assistant Video Engineer, provisioned on a local mini-PC running Ubuntu. I plug it directly into local show networks on-site to scan, monitor, and query local video devices and resources. It runs an OpenClaw Gateway in Docker and uses Monad-1 (my $35k GPU rig) as its local LLM backend via Tailscale, allowing me to perform on-site automated staging troubleshooting and operations by prompting it directly even in offline venues."
+      "story": "Kobold is a private, stealth-mode AI Assistant Video Engineer that plugs into local show networks to scan, monitor, and configure video hardware. It runs an OpenClaw Gateway in Docker on a local mini-PC and connects via Tailscale to Monad-1 (my $35k GPU rig) as its local LLM backend to deliver offline, on-site intelligence. Because the project is private, its operational details and source code are redacted."
     }
   ]
 }
