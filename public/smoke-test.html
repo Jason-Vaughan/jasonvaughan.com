@@ -3,8 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kobold Watermark Smoke Test & Dial-In</title>
+    <title>OpenClaw Fleet Watermark Design Playground</title>
     <style>
+      :root {
+        --accent: #8bc34a;
+        --accent-soft: rgba(139,195,74,0.12);
+        --accent-border: rgba(139,195,74,0.35);
+      }
       body {
         margin: 0;
         padding: 40px 24px;
@@ -33,9 +38,10 @@
         margin-bottom: 16px;
         font-size: 16px;
         font-weight: 700;
-        color: #8bc34a;
+        color: var(--accent);
         text-transform: uppercase;
         letter-spacing: 1px;
+        transition: color 0.2s ease;
       }
       .sliders {
         display: grid;
@@ -58,9 +64,23 @@
         color: #fff;
         font-family: monospace;
       }
+      select {
+        background: #09090b;
+        color: #fff;
+        border: 1px solid #27272a;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        outline: none;
+        transition: border-color 0.2s ease;
+      }
+      select:focus {
+        border-color: var(--accent);
+      }
       input[type="range"] {
         width: 100%;
-        accent-color: #8bc34a;
+        accent-color: var(--accent);
         cursor: pointer;
       }
       .result-box {
@@ -102,11 +122,10 @@
         max-height: 800px;
         opacity: 0.018;
         pointer-events: none;
-        zIndex: 0;
+        z-index: 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: opacity 0.1s ease, width 0.1s ease, height 0.1s ease, max-width 0.1s ease, max-height 0.1s ease;
       }
       .watermark-overlay img {
         width: 100%;
@@ -125,8 +144,8 @@
         top: 16px;
         right: 20px;
         padding: 3px 10px;
-        border: 2px solid #8bc34a;
-        color: #8bc34a;
+        border: 2px solid var(--accent);
+        color: var(--accent);
         font-size: 10px;
         font-weight: 800;
         letter-spacing: 3px;
@@ -134,6 +153,7 @@
         opacity: 0.9;
         font-family: monospace;
         z-index: 2;
+        transition: border-color 0.2s ease, color 0.2s ease;
       }
 
       .header-row {
@@ -147,9 +167,10 @@
       .eyebrow {
         font-size: 10px;
         font-weight: 700;
-        color: #8bc34a;
+        color: var(--accent);
         text-transform: uppercase;
         letter-spacing: 2px;
+        transition: color 0.2s ease;
       }
       .title {
         margin: 4px 0 0;
@@ -167,12 +188,13 @@
         font-size: 10px;
         font-weight: 700;
         padding: 3px 10px;
-        borderRadius: 9999px;
-        background: rgba(139,195,74,0.12);
-        border: 1px solid rgba(139,195,74,0.35);
-        color: #8bc34a;
+        border-radius: 9999px;
+        background: var(--accent-soft);
+        border: 1px solid var(--accent-border);
+        color: var(--accent);
         text-transform: uppercase;
         letter-spacing: 1px;
+        transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
       }
 
       .blurb {
@@ -231,7 +253,7 @@
       }
       .promo-btn {
         background: transparent;
-        border: 1px solid rgba(139,195,74,0.35);
+        border: 1px solid var(--accent-border);
         padding: 0;
         cursor: zoom-in;
         display: block;
@@ -240,6 +262,7 @@
         box-shadow: 0 8px 24px rgba(0,0,0,0.3);
         width: 100%;
         max-width: 380px;
+        transition: border-color 0.2s ease;
       }
       .promo-btn img {
         width: 100%;
@@ -263,31 +286,41 @@
       }
       .share-link {
         font-size: 12px;
-        color: #8bc34a;
+        color: var(--accent);
         text-decoration: none;
         font-weight: 600;
+        transition: color 0.2s ease;
       }
     </style>
   </head>
   <body>
     <!-- Interactive Control Panel -->
     <div class="control-panel">
-      <div class="panel-title">Kobold Watermark Dial-In Panel</div>
+      <div class="panel-title" id="panel-heading">OpenClaw Fleet Watermark Playground</div>
       
       <div class="sliders">
+        <!-- Agent Switcher -->
+        <div class="control-group">
+          <label for="agent-select">Select Fleet Agent:</label>
+          <select id="agent-select">
+            <option value="kobold">Kobold (Toxic Green)</option>
+            <option value="rentalclaw">RentalClaw (Bright Blue)</option>
+          </select>
+        </div>
+
         <!-- Opacity Slider -->
         <div class="control-group">
           <label for="opacity-input">
             Watermark Opacity: 
-            <span class="value-display" id="opacity-val">1.8%</span>
+            <span class="value-display" id="opacity-val">10%</span>
           </label>
           <input 
             type="range" 
             id="opacity-input" 
             min="0.005" 
-            max="0.10" 
-            step="0.001" 
-            value="0.018"
+            max="0.25" 
+            step="0.005" 
+            value="0.10"
           />
         </div>
 
@@ -295,7 +328,7 @@
         <div class="control-group">
           <label for="size-input">
             Watermark Size: 
-            <span class="value-display" id="size-val">800px</span>
+            <span class="value-display" id="size-val">1000px</span>
           </label>
           <input 
             type="range" 
@@ -303,16 +336,16 @@
             min="300" 
             max="1200" 
             step="50" 
-            value="800"
+            value="1000"
           />
         </div>
       </div>
 
       <div class="result-box">
-        <span id="code-snippet">opacity: 0.018; max-width: 800px; max-height: 800px;</span>
+        <span id="code-snippet">opacity: 0.1; max-width: 1000px; max-height: 1000px;</span>
         <button 
           id="copy-btn"
-          style="background: #8bc34a; border: none; padding: 4px 10px; border-radius: 4px; font-weight: 700; color: #000; cursor: pointer; font-size: 11px;"
+          style="background: var(--accent); border: none; padding: 6px 12px; border-radius: 4px; font-weight: 700; color: #000; cursor: pointer; font-size: 11px; transition: background 0.2s ease;"
         >
           Copy settings
         </button>
@@ -322,32 +355,32 @@
     <!-- Live Card Replica -->
     <div class="card-container">
       <!-- REDACTED stamp -->
-      <div class="redacted-stamp">REDACTED</div>
+      <div class="redacted-stamp" id="stamp-node">REDACTED</div>
 
       <!-- Watermark background eyeball -->
       <div class="watermark-overlay" id="watermark">
-        <img src="./assets/projects/kobold_avatar.png" alt="Kobold Eyeball Watermark" />
+        <img id="watermark-img" src="./assets/projects/kobold_avatar.png" alt="Eyeball Watermark" />
       </div>
 
       <!-- Card content -->
       <div class="card-content">
         <div class="header-row">
           <div class="title-block">
-            <span class="eyebrow">OpenClaw Agent</span>
-            <h3 class="title">Kobold</h3>
-            <div class="role">AI Assistant Video Engineer</div>
+            <span class="eyebrow" id="card-eyebrow">OpenClaw Agent</span>
+            <h3 class="title" id="card-title">Kobold</h3>
+            <div class="role" id="card-role">AI Assistant Video Engineer</div>
           </div>
-          <span class="badge">REDACTED · Stealth</span>
+          <span class="badge" id="card-badge">REDACTED · Stealth</span>
         </div>
 
-        <p class="blurb">
+        <p class="blurb" id="card-blurb">
           Kobold is the pocket-sized, voice-operated AI Assistant Video Engineer that plugs into local show networks to scan, monitor, and configure video hardware. Powered by the OpenClaw Gateway and connected via Tailscale to Monad-1, Kobold delivers hands-free, offline, on-site intelligence with real bite.
         </p>
 
         <div class="split-layout">
           <!-- Left list details -->
           <div class="left-column">
-            <ul>
+            <ul id="card-bullets">
               <li>Portable mini-PC edge form factor</li>
               <li>Voice-operated assistant supporting hands-free on-site control</li>
               <li>Plugs into local show networks to control <span class="redacted-text">████████</span> &amp; API endpoints</li>
@@ -355,7 +388,7 @@
               <li>LLM Backend: Powered by Monad-1 GPU rig (<span class="redacted-text">████████████</span>)</li>
             </ul>
 
-            <div class="tags-row">
+            <div class="tags-row" id="card-tags">
               <span class="tag">Video Engineering</span>
               <span class="tag">Local LLM</span>
               <span class="tag">Voice Control</span>
@@ -365,9 +398,9 @@
           </div>
 
           <!-- Right thumbnail -->
-          <div class="right-column">
+          <div class="right-column" id="right-col-node">
             <button class="promo-btn" type="button">
-              <img src="./assets/projects/kobold_banner.png" alt="Promo Thumbnail" />
+              <img id="promo-img" src="./assets/projects/kobold_banner.png" alt="Promo Thumbnail" />
             </button>
           </div>
         </div>
@@ -381,6 +414,49 @@
     </div>
 
     <script>
+      const AGENTS = {
+        kobold: {
+          name: "Kobold",
+          eyebrow: "OpenClaw Agent",
+          role: "AI Assistant Video Engineer",
+          badge: "REDACTED · Stealth",
+          accent: "#8bc34a",
+          accentSoft: "rgba(139,195,74,0.12)",
+          accentBorder: "rgba(139,195,74,0.35)",
+          watermarkSrc: "./assets/projects/kobold_avatar.png",
+          blurb: "Kobold is the pocket-sized, voice-operated AI Assistant Video Engineer that plugs into local show networks to scan, monitor, and configure video hardware. Powered by the OpenClaw Gateway and connected via Tailscale to Monad-1, Kobold delivers hands-free, offline, on-site intelligence with real bite.",
+          bullets: [
+            "Portable mini-PC edge form factor",
+            "Voice-operated assistant supporting hands-free on-site control",
+            "Plugs into local show networks to control <span class=\"redacted-text\">████████</span> &amp; API endpoints",
+            "Runs OpenClaw Gateway in Docker via <span class=\"redacted-text\">████████</span> network",
+            "LLM Backend: Powered by Monad-1 GPU rig (<span class=\"redacted-text\">████████████</span>)"
+          ],
+          tags: ["Video Engineering", "Local LLM", "Voice Control", "Show Networks", "Edge Node"],
+          thumbnail: "./assets/projects/kobold_banner.png"
+        },
+        rentalclaw: {
+          name: "RentalClaw",
+          eyebrow: "OpenClaw Agent",
+          role: "Autonomous Vacation-Rental Management",
+          badge: "REDACTED · Private Beta",
+          accent: "#2563eb",
+          accentSoft: "rgba(37,99,235,0.10)",
+          accentBorder: "rgba(37,99,235,0.40)",
+          watermarkSrc: "./assets/projects/rentalclaw_logo.png",
+          blurb: "Fully autonomous rental-management agent for vacation properties. Scalable, expandable, multi-agent architecture. Currently in private beta with select operators.",
+          bullets: [
+            "Multi-agent · autonomous end-to-end rental ops",
+            "Target vertical · <span class=\"redacted-text\">███████████████</span> properties",
+            "Integrations · <span class=\"redacted-text\">██████</span> · <span class=\"redacted-text\">██████</span> · <span class=\"redacted-text\">██████</span>",
+            "Operational status · private beta · select operators"
+          ],
+          tags: ["OpenClaw", "Multi-Agent", "Vacation Rentals", "Private Beta"],
+          thumbnail: null
+        }
+      };
+
+      const agentSelect = document.getElementById('agent-select');
       const opacityInput = document.getElementById('opacity-input');
       const sizeInput = document.getElementById('size-input');
       
@@ -388,14 +464,69 @@
       const sizeVal = document.getElementById('size-val');
       
       const watermark = document.getElementById('watermark');
+      const watermarkImg = document.getElementById('watermark-img');
       const codeSnippet = document.getElementById('code-snippet');
       const copyBtn = document.getElementById('copy-btn');
-      
-      function updateWatermark() {
+
+      // Card elements
+      const cardTitle = document.getElementById('card-title');
+      const cardEyebrow = document.getElementById('card-eyebrow');
+      const cardRole = document.getElementById('card-role');
+      const cardBadge = document.getElementById('card-badge');
+      const cardBlurb = document.getElementById('card-blurb');
+      const cardBullets = document.getElementById('card-bullets');
+      const cardTags = document.getElementById('card-tags');
+      const promoImg = document.getElementById('promo-img');
+      const rightColNode = document.getElementById('right-col-node');
+
+      function updateUI() {
+        const selected = agentSelect.value;
+        const agent = AGENTS[selected];
+
+        // 1. Update CSS variables
+        document.documentElement.style.setProperty('--accent', agent.accent);
+        document.documentElement.style.setProperty('--accent-soft', agent.accentSoft);
+        document.documentElement.style.setProperty('--accent-border', agent.accentBorder);
+
+        // 2. Update Card Data
+        cardTitle.textContent = agent.name;
+        cardEyebrow.textContent = agent.eyebrow;
+        cardRole.textContent = agent.role;
+        cardBadge.textContent = agent.badge;
+        cardBlurb.textContent = agent.blurb;
+        
+        // Watermark image
+        watermarkImg.src = agent.watermarkSrc;
+
+        // Bullets
+        cardBullets.innerHTML = '';
+        agent.bullets.forEach(bullet => {
+          const li = document.createElement('li');
+          li.innerHTML = bullet;
+          cardBullets.appendChild(li);
+        });
+
+        // Tags
+        cardTags.innerHTML = '';
+        agent.tags.forEach(tag => {
+          const span = document.createElement('span');
+          span.className = 'tag';
+          span.textContent = tag;
+          cardTags.appendChild(span);
+        });
+
+        // Thumbnail Column
+        if (agent.thumbnail) {
+          rightColNode.style.display = 'flex';
+          promoImg.src = agent.thumbnail;
+        } else {
+          rightColNode.style.display = 'none';
+        }
+
+        // Apply sliders
         const opacity = parseFloat(opacityInput.value);
         const size = parseInt(sizeInput.value);
         
-        // Update live styles
         watermark.style.opacity = opacity;
         watermark.style.maxWidth = size + 'px';
         watermark.style.maxHeight = size + 'px';
@@ -403,12 +534,12 @@
         opacityVal.textContent = (opacity * 100).toFixed(1) + '%';
         sizeVal.textContent = size + 'px';
         
-        // Update code snippet
         codeSnippet.textContent = `opacity: ${opacity}; max-width: ${size}px; max-height: ${size}px;`;
       }
-      
-      opacityInput.addEventListener('input', updateWatermark);
-      sizeInput.addEventListener('input', updateWatermark);
+
+      agentSelect.addEventListener('change', updateUI);
+      opacityInput.addEventListener('input', updateUI);
+      sizeInput.addEventListener('input', updateUI);
       
       copyBtn.addEventListener('click', () => {
         navigator.clipboard.writeText(codeSnippet.textContent).then(() => {
@@ -419,7 +550,7 @@
       });
       
       // Initialize on load
-      updateWatermark();
+      updateUI();
     </script>
   </body>
 </html>
