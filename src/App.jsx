@@ -444,7 +444,15 @@ export default function App() {
         </div>
       )}
 
-      <header className="py-16 px-6 text-center" style={{ background: "linear-gradient(180deg, #1a1a2e 0%, #09090b 100%)" }}>
+      <header 
+        className="py-16 px-6 text-center" 
+        style={{ 
+          background: "linear-gradient(180deg, #1a1a2e 0%, #09090b 100%)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center"
+        }}
+      >
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
