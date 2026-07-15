@@ -305,6 +305,8 @@
           <select id="agent-select">
             <option value="kobold">Kobold (Toxic Green)</option>
             <option value="rentalclaw">RentalClaw (Bright Blue)</option>
+            <option value="volta">Volta (Electric Blue)</option>
+            <option value="tiltclaw">TiLTClaw (Purple)</option>
           </select>
         </div>
 
@@ -452,6 +454,44 @@
             "Operational status · private beta · select operators"
           ],
           tags: ["OpenClaw", "Multi-Agent", "Vacation Rentals", "Private Beta"],
+          thumbnail: null
+        },
+        volta: {
+          name: "Volta",
+          eyebrow: "OpenClaw Agent",
+          role: "High-Voltage AI Orchestration",
+          badge: "REDACTED · Stealth",
+          accent: "#3b82f6",
+          accentSoft: "rgba(59,130,246,0.10)",
+          accentBorder: "rgba(59,130,246,0.40)",
+          watermarkSrc: "./assets/projects/volta_logo.png",
+          blurb: "Experimental orchestration platform running on Monad-1. Hosts a stack of agents collaborating on stealth-mode experimental projects. Self-publishes operational telemetry; the work itself stays under wraps until the first project surfaces.",
+          bullets: [
+            "OpenClaw agent · self-publishing telemetry",
+            "Hosted on Monad-1 (shares the GPU rig)",
+            "Active project portfolio · <span class=\"redacted-text\">████████████</span>",
+            "Target user · <span class=\"redacted-text\">█████████████</span>"
+          ],
+          tags: ["OpenClaw", "Experimental", "Monad-1"],
+          thumbnail: null
+        },
+        tiltclaw: {
+          name: "TiLTClaw",
+          eyebrow: "OpenClaw Agent",
+          role: "AI Support Triage Agent",
+          badge: "PUBLIC · In Production",
+          accent: "#a78bfa",
+          accentSoft: "rgba(139,92,246,0.12)",
+          accentBorder: "rgba(139,92,246,0.35)",
+          watermarkSrc: "./assets/projects/tiltclaw_logo.png",
+          blurb: "Production AI agent built into TiLT's support workflow. Monitors every inbound ticket 24/7, summarizes activity, and escalates urgent payroll issues to admins in minutes. Accessed via a private Discord app by the TiLT operations team.",
+          bullets: [
+            "24/7 monitoring of every TiLT support ticket",
+            "Auto-summarizes and routes by issue type",
+            "Escalates urgent payroll issues to admins in minutes",
+            "Private Discord app · internal to TiLT ops"
+          ],
+          tags: ["Discord App", "Production", "OpenClaw"],
           thumbnail: null
         }
       };
