@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import ShareLink from "./ShareLink";
 import tiltclawBanner from "../assets/projects/tiltclaw_banner.png";
 import voltaBanner from "../assets/projects/volta_banner.png";
+import voltaLogo from "../assets/projects/volta_logo.png";
 import rentalclawLogo from "../assets/projects/rentalclaw_logo.png";
 import koboldAvatar from "../assets/projects/kobold_avatar.png";
 import koboldBanner from "../assets/projects/kobold_banner.png";
@@ -55,6 +56,11 @@ const FLEET = [
     accentBorder: "rgba(59,130,246,0.4)",
     badgeText: "REDACTED · Stealth",
     redacted: true,
+    logo: voltaLogo,
+    logoAlt: "Volta logo — V for Volta transparent V icon",
+    watermarkBackground: true,
+    watermarkOpacity: 0.1,
+    watermarkSize: 1000,
     banner: voltaBanner,
     bannerAlt: "Volta — High Voltage AI Orchestration — silver wordmark on dark electric-blue lightning",
     // Volta's painted logo background is pure black with transparent padding
