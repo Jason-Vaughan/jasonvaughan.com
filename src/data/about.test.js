@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { aboutData } from "./about";
+import { aboutData, personaTaglines } from "./about";
 import { careerData } from "./career";
 import { PERSONAS } from "../components/PersonaSelector";
 
@@ -89,6 +89,23 @@ describe("Career Data Integrity", () => {
       expect(typeof job.period).toBe("string");
       expect(job.bullets).toBeDefined();
       expect(Array.isArray(job.bullets.Default)).toBe(true);
+    });
+  });
+});
+
+describe("Persona Taglines Integrity", () => {
+  const expectedPersonaKeys = ["Default", "Recruiter", "Engineer", "EventPro", "OpenClaw", "Investor"];
+
+  it("should export the 6 expected taglines configuration", () => {
+    expect(Object.keys(personaTaglines)).toEqual(expect.arrayContaining(expectedPersonaKeys));
+  });
+
+  it("should have valid bio and highlight strings for each persona", () => {
+    Object.entries(personaTaglines).forEach(([key, val]) => {
+      expect(typeof val.bio).toBe("string");
+      expect(typeof val.highlight).toBe("string");
+      expect(val.bio.length).toBeGreaterThan(10);
+      expect(val.highlight.length).toBeGreaterThan(10);
     });
   });
 });
