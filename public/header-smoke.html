@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Header Layout Staging & Positioning Playground</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #a78bfa;
+      --accent-soft: rgba(139,92,246,0.08);
+      --accent-border: rgba(139,92,246,0.25);
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: #09090b;
+      color: #fafafa;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header.stage-header {
+      padding: 24px;
+      background: #18181b;
+      border-bottom: 1px solid #27272a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .stage-title h1 {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .stage-title p {
+      font-size: 12px;
+      color: #a1a1aa;
+      margin-top: 2px;
+    }
+    
+    .main-layout {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 73px);
+    }
+    
+    /* Controls Panel */
+    .controls-panel {
+      width: 380px;
+      background-color: #121214;
+      border-right: 1px solid #27272a;
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .control-group label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #a1a1aa;
+    }
+    
+    .control-group input[type="range"] {
+      width: 100%;
+      height: 6px;
+      background: #27272a;
+      border-radius: 3px;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    
+    .control-group input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #fbbf24;
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(251, 191, 36, 0.4);
+      transition: transform 0.1s;
+    }
+    
+    .control-group input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+    
+    .control-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .val-display {
+      font-size: 13px;
+      font-family: monospace;
+      color: #fbbf24;
+      font-weight: 600;
+    }
+    
+    .btn-toggle-group {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .btn-toggle {
+      flex: 1;
+      padding: 8px 12px;
+      background: #18181b;
+      border: 1px solid #27272a;
+      color: #a1a1aa;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    
+    .btn-toggle.active {
+      background: rgba(251, 191, 36, 0.1);
+      border-color: #fbbf24;
+      color: #fbbf24;
+    }
+    
+    /* Live Preview Stage */
+    .preview-stage {
+      flex: 1;
+      background-color: #09090b;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      position: relative;
+    }
+    
+    /* Mock Header Component wrapper */
+    .mock-header {
+      width: 100%;
+      padding: 64px 24px;
+      background: linear-gradient(180deg, #1a1a2e 0%, #09090b 100%);
+      transition: all 0.2s;
+    }
+    
+    .mock-header.align-center {
+      text-align: center;
+    }
+    
+    .mock-header.align-left {
+      text-align: left;
+    }
+    
+    /* Tip Jar replica */
+    .tip-jar-wrapper {
+      margin-bottom: 16px;
+    }
+    
+    .tip-jar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px 6px 10px;
+      border-radius: 999px;
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.4);
+      color: #fbbf24;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    
+    /* Title replica */
+    .mock-title {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    
+    /* Bio/tagline replica */
+    .mock-bio {
+      font-size: 18px;
+      line-height: 1.5;
+      color: #d4d4d8;
+      transition: all 0.15s;
+    }
+    
+    .mock-header.align-center .mock-bio {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .mock-header.align-left .mock-bio {
+      margin-left: 0;
+      margin-right: auto;
+    }
+    
+    /* AI Native Badge */
+    .mock-badge {
+      transition: all 0.15s;
+      box-shadow: 0 0 15px rgba(139, 92, 246, 0.03);
+    }
+    
+    .mock-header.align-center .mock-badge {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .mock-header.align-left .mock-badge {
+      margin-left: 0;
+      margin-right: auto;
+    }
+    
+    .badge-prefix-label {
+      background: linear-gradient(90deg, #a78bfa, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+      font-size: 12.5px;
+      letter-spacing: 0.5px;
+    }
+    
+    /* Code Output Box */
+    .code-box {
+      margin-top: auto;
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .code-box-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .code-box-header span {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #71717a;
+    }
+    
+    .copy-btn {
+      padding: 4px 8px;
+      background: #27272a;
+      border: none;
+      color: #fafafa;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .copy-btn:hover {
+      background: #3f3f46;
+    }
+    
+    pre {
+      font-family: monospace;
+      font-size: 12px;
+      color: #a1a1aa;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      max-height: 180px;
+    }
+    
+    /* Concierge mock */
+    .mock-concierge {
+      max-width: 960px;
+      width: 100%;
+      margin: 24px auto;
+      padding: 0 24px;
+    }
+    
+    .concierge-card {
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: linear-gradient(135deg, rgba(24, 24, 27, 0.5) 0%, rgba(9, 9, 11, 0.6) 100%);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .concierge-header {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #fbbf24;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .concierge-body {
+      color: #a1a1aa;
+      font-size: 13.5px;
+      line-height: 1.4;
+    }
+    
+    .concierge-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    
+    .concierge-btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: rgba(251, 191, 36, 0.08);
+      border: 1px solid rgba(251, 191, 36, 0.25);
+      color: #fbbf24;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="stage-header">
+    <div class="stage-title">
+      <h1>Header Alignment & Positioning</h1>
+      <p>Dial in taglines, margins, paddings, and alignment variables</p>
+    </div>
+  </header>
+
+  <div class="main-layout">
+    <!-- Sidebar Controls -->
+    <div class="controls-panel">
+      <!-- Header Alignment -->
+      <div class="control-group">
+        <label>Header Align-Mode</label>
+        <div class="btn-toggle-group">
+          <button class="btn-toggle active" id="btn-align-center" onclick="setAlign('center')">Center</button>
+          <button class="btn-toggle" id="btn-align-left" onclick="setAlign('left')">Left</button>
+        </div>
+      </div>
+
+      <!-- Tagline Max Width -->
+      <div class="control-group">
+        <div class="control-row">
+          <label>Bio Max Width</label>
+          <span class="val-display" id="val-bio-width">672px</span>
+        </div>
+        <input type="range" id="input-bio-width" min="400" max="1200" step="10" value="672" oninput="updateLayout()">
+      </div>
+
+      <!-- Badge Layout Mode -->
+      <div class="control-group">
+        <label>AI-Native Layout</label>
+        <div class="btn-toggle-group">
+          <button class="btn-toggle active" id="btn-layout-stacked" onclick="setBadgeLayout('stacked')">Stacked</button>
+          <button class="btn-toggle" id="btn-layout-inline" onclick="setBadgeLayout('inline')">Inline</button>
+        </div>
+      </div>
+
+      <!-- Badge Max Width -->
+      <div class="control-group">
+        <div class="control-row">
+          <label>Badge Max Width</label>
+          <span class="val-display" id="val-badge-width">640px</span>
+        </div>
+        <input type="range" id="input-badge-width" min="300" max="1000" step="10" value="640" oninput="updateLayout()">
+      </div>
+
+      <!-- Badge Margin Top -->
+      <div class="control-group">
+        <div class="control-row">
+          <label>Badge Margin Top</label>
+          <span class="val-display" id="val-badge-mt">20px</span>
+        </div>
+        <input type="range" id="input-badge-mt" min="8" max="64" step="2" value="20" oninput="updateLayout()">
+      </div>
+
+      <!-- Dynamic Code Output -->
+      <div class="code-box">
+        <div class="code-box-header">
+          <span>Staged React styles</span>
+          <button class="copy-btn" id="copy-btn">Copy code</button>
+        </div>
+        <pre id="code-snippet">Loading...</pre>
+      </div>
+    </div>
+
+    <!-- Right Live Preview Stage -->
+    <div class="preview-stage">
+      <div class="mock-header align-center" id="header-stage">
+        <!-- Tip Jar -->
+        <div class="tip-jar-wrapper">
+          <a href="#" class="tip-jar-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 4px;">
+              <rect x="5" y="3" width="14" height="3" rx="0.8" fill="#a16207" />
+              <path d="M 6 6 L 18 6 L 17.5 20 Q 17.5 21 16.5 21 L 7.5 21 Q 6.5 21 6.5 20 Z" fill="rgba(251, 191, 36, 0.15)" stroke="#fbbf24" stroke-width="1.4" />
+            </svg>
+            Tip Jar
+          </a>
+        </div>
+        
+        <!-- Name Title -->
+        <h1 class="mock-title">Jason Vaughan</h1>
+        
+        <!-- Tagline Bio -->
+        <p class="mock-bio" id="preview-bio" style="max-width: 672px;">
+          Creator of the OpenClaw Agent Framework. AI-Native developer building local-first multi-agent systems, ClawHub plugins, and persistent agent backends.
+        </p>
+        
+        <!-- AI Native Badge Card -->
+        <div class="mock-badge" id="preview-badge" style="margin-top: 20px; display: inline-flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 12px; background: rgba(139, 92, 246, 0.04); border: 1px solid rgba(139, 92, 246, 0.18); font-size: 14px; color: #d4d4d8; max-width: 640px;">
+          <span class="badge-prefix-label" id="badge-prefix">AI-NATIVE</span>
+          <span class="badge-desc text-center" id="badge-desc" style="line-height: 1.5; color: #a1a1aa;">
+            I eat, sleep, and breathe agentic workflows. Pushing the boundaries of human-AI collaboration with inspectable, local-first agent fleets.
+          </span>
+        </div>
+      </div>
+
+      <!-- Concierge mockup -->
+      <div class="mock-concierge">
+        <div class="concierge-card">
+          <div class="concierge-header">🤖 AI Portfolio Concierge</div>
+          <div class="concierge-body">
+            Get a fast, tailored summary of Jason’s experience, projects, technical leadership, and career fit.
+          </div>
+          <div class="concierge-btns">
+            <button class="concierge-btn">Show strongest examples</button>
+            <button class="concierge-btn">Summarize Google experience</button>
+            <button class="concierge-btn">Match to job description</button>
+            <button class="concierge-btn">Virtual interview</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let alignMode = 'center';
+    let badgeLayout = 'stacked';
+    
+    function setAlign(mode) {
+      alignMode = mode;
+      document.getElementById('btn-align-center').classList.toggle('active', mode === 'center');
+      document.getElementById('btn-align-left').classList.toggle('active', mode === 'left');
+      
+      const header = document.getElementById('header-stage');
+      header.className = `mock-header align-${mode}`;
+      updateLayout();
+    }
+    
+    function setBadgeLayout(layout) {
+      badgeLayout = layout;
+      document.getElementById('btn-layout-stacked').classList.toggle('active', layout === 'stacked');
+      document.getElementById('btn-layout-inline').classList.toggle('active', layout === 'inline');
+      updateLayout();
+    }
+    
+    function updateLayout() {
+      const bioWidth = document.getElementById('input-bio-width').value;
+      const badgeWidth = document.getElementById('input-badge-width').value;
+      const badgeMt = document.getElementById('input-badge-mt').value;
+      
+      document.getElementById('val-bio-width').textContent = bioWidth + 'px';
+      document.getElementById('val-badge-width').textContent = badgeWidth + 'px';
+      document.getElementById('val-badge-mt').textContent = badgeMt + 'px';
+      
+      // Update preview elements
+      const bioEl = document.getElementById('preview-bio');
+      bioEl.style.maxWidth = bioWidth + 'px';
+      
+      const badgeEl = document.getElementById('preview-badge');
+      badgeEl.style.marginTop = badgeMt + 'px';
+      badgeEl.style.maxWidth = badgeWidth + 'px';
+      
+      const badgePrefix = document.getElementById('badge-prefix');
+      const badgeDesc = document.getElementById('badge-desc');
+      
+      if (badgeLayout === 'stacked') {
+        badgeEl.style.display = 'inline-flex';
+        badgeEl.style.flexDirection = 'column';
+        badgeEl.style.alignItems = 'center';
+        badgeEl.style.gap = '6px';
+        badgeEl.style.padding = '10px 20px';
+        badgeEl.style.borderRadius = '12px';
+        badgeDesc.style.textAlign = 'center';
+        badgePrefix.textContent = 'AI-NATIVE';
+        badgePrefix.style.whiteSpace = 'nowrap';
+      } else {
+        badgeEl.style.display = 'inline-flex';
+        badgeEl.style.flexDirection = 'row';
+        badgeEl.style.alignItems = 'center';
+        badgeEl.style.gap = '12px';
+        badgeEl.style.padding = '6px 16px';
+        badgeEl.style.borderRadius = '9999px';
+        badgeDesc.style.textAlign = 'left';
+        badgePrefix.textContent = 'AI-NATIVE:';
+        badgePrefix.style.whiteSpace = 'nowrap';
+      }
+      
+      // Format code representation
+      const indent = '          ';
+      let reactBadgeStyle = '';
+      if (badgeLayout === 'stacked') {
+        reactBadgeStyle = `{\n${indent}  marginTop: ${badgeMt},\n${indent}  display: "inline-flex",\n${indent}  flexDirection: "column",\n${indent}  alignItems: "center",\n${indent}  gap: 6,\n${indent}  padding: "10px 20px",\n${indent}  borderRadius: 12,\n${indent}  background: "rgba(139, 92, 246, 0.04)",\n${indent}  border: "1px solid rgba(139, 92, 246, 0.18)",\n${indent}  fontSize: 14,\n${indent}  color: "#d4d4d8",\n${indent}  maxWidth: "min(${badgeWidth}px, 90vw)",\n${indent}  boxShadow: "0 0 15px rgba(139, 92, 246, 0.03)"\n${indent}}`;
+      } else {
+        reactBadgeStyle = `{\n${indent}  marginTop: ${badgeMt},\n${indent}  display: "inline-flex",\n${indent}  alignItems: "center",\n${indent}  gap: 12,\n${indent}  padding: "6px 16px",\n${indent}  borderRadius: 9999,\n${indent}  background: "rgba(139, 92, 246, 0.08)",\n${indent}  border: "1px solid rgba(139, 92, 246, 0.25)",\n${indent}  fontSize: 13.5,\n${indent}  color: "#d4d4d8",\n${indent}  fontWeight: 500,\n${indent}  maxWidth: "min(${badgeWidth}px, 90vw)",\n${indent}  boxShadow: "0 0 15px rgba(139, 92, 246, 0.05)"\n${indent}}`;
+      }
+      
+      let finalSnippet = `// 1. Header Layout Alignment: ${alignMode.toUpperCase()}\n`;
+      finalSnippet += `// 2. Tagline bio paragraph max-width: ${bioWidth}px\n\n`;
+      finalSnippet += `// 3. AI-Native Badge Style config:\n`;
+      finalSnippet += `style=${reactBadgeStyle}`;
+      
+      document.getElementById('code-snippet').textContent = finalSnippet;
+    }
+    
+    // Copy settings button
+    const copyBtn = document.getElementById('copy-btn');
+    copyBtn.addEventListener('click', () => {
+      const text = document.getElementById('code-snippet').textContent;
+      const showCopied = () => {
+        const oldText = copyBtn.textContent;
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => { copyBtn.textContent = oldText; }, 1500);
+      };
+      
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(showCopied).catch(err => {
+          fallbackCopy(text, showCopied);
+        });
+      } else {
+        fallbackCopy(text, showCopied);
+      }
+    });
+    
+    function fallbackCopy(text, callback) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        const successful = document.execCommand('copy');
+        if (successful) callback();
+      } catch (err) {
+        console.error('Fallback copy failed', err);
+      }
+      document.body.removeChild(textarea);
+    }
+    
+    // Initialize
+    updateLayout();
+  </script>
+</body>
+</html>
