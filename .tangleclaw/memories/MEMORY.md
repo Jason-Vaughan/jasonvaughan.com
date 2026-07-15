@@ -8,7 +8,7 @@ This file persists context across AI sessions. Update it with key decisions, pro
 
 ## Last Session (2026-07-14 — Kobold branding, right-aligned layout, watermark dial-in, and smoke-test tool)
 
-**What happened:** Integrated the new Kobold edge node, aligned the card layout, built a custom interactive playground utility for watermark design proofing of Kobold, RentalClaw, Volta, and TiLTClaw, updated the Volta logo to the new V icon and TiLTClaw to its higher-res banner logo, added playground banner rendering support, and implemented the watermark background on Kobold, RentalClaw, Volta, and TiLTClaw. All changes successfully tested and merged (PRs #114 through #131).
+**What happened:** Integrated the new Kobold edge node, aligned the card layout, built a custom interactive playground utility for watermark design proofing of Kobold, RentalClaw, Volta, and TiLTClaw, updated the Volta logo to the new V icon and TiLTClaw to its higher-res banner logo, added playground banner rendering support, implemented the watermark background on Kobold, RentalClaw, Volta, and TiLTClaw, and deployed dynamic persona-specific taglines and AI-Native header badges. All changes successfully tested and merged (PRs #114 through #132).
 
 **Shipped:**
 1. **Kobold Edge Node**: Added Kobold to the OpenClaw fleet card deck as a voice-operated, hands-free edge device. Styled with Toxic Green (#8BC34A) accent details, circular eyeball avatar, and redacted stealth formatting.
@@ -18,6 +18,7 @@ This file persists context across AI sessions. Update it with key decisions, pro
 5. **Watermark Backgrounds**: Extended the watermark background treatment to RentalClaw (**16.5% opacity** and **550px diameter**), Volta (**10% opacity** and **650px diameter**), and TiLTClaw (**10.5% opacity** and **1150px diameter**). Removed the top banner on TiLTClaw to prevent duplicate logo display.
 6. **Interactive Dial-In Tool (`smoke-test.html`)**: Added and expanded `public/smoke-test.html` featuring a live-card replica, banner strip rendering, and sliders for opacity/size, supporting Kobold, RentalClaw, Volta, and TiLTClaw. Staged matching copy assets under `public/assets/projects/` (including Volta's new transparent V logo and TiLTClaw's higher-res banner logo) to ensure it works offline, in dev server, and deployed live.
 7. **Registered Kobold redirect & deep-link scroll fixes**: Registered `kobold` in `share-cards.js` to clear 404s. Refactored the anchor hash highlight scroll handler in `App.jsx` to poll the collapsible section registry resiliently up to 10 retries at 100ms intervals to eliminate asynchronous loading races.
+8. **Dynamic Persona Taglines**: Implemented dynamic taglines and an illuminated gradient-labeled 'AI-NATIVE' badge in the header that automatically transitions based on the active visitor persona.
 
 **Key facts / gotchas:**
 - GitHub Pages static hosting features CDN caching lag of ~2 minutes post-build; verify updates directly via live script bundle URLs if normal browser cache-bust refreshes are still displaying previous values.

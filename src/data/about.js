@@ -68,3 +68,30 @@ export const aboutData = {
   
   next: "I'm focusing heavily on human-AI collaboration planes, autonomous coding agent evaluation, and pushing local-first AI workflows into daily developer infrastructure."
 };
+
+export const personaTaglines = {
+  Default: {
+    bio: "Full-stack builder with 25 years across live events, SaaS, and AI-assisted development. I ship products that solve real problems — from union pay tracking to broadcast tools to developer infrastructure.",
+    highlight: "AI-Native builder who lives, sleeps, and breathes systems automation. I design and scale custom local agent pipelines."
+  },
+  Recruiter: {
+    bio: "Technical Program Manager & AI Systems Builder with 25 years of experience across enterprise live events, SaaS products, and agentic AI architectures.",
+    highlight: "AI-Native developer passionate about human-AI collaboration. I scale custom local LLM routing and production developer pipelines."
+  },
+  Engineer: {
+    bio: "AI-Native Systems Engineer & Full-Stack Developer. 25 years shipping production systems, zero-dependency Node.js services, and local LLM orchestration.",
+    highlight: "I live, sleep, and breathe AI engineering. I build custom local agent gateway systems (OpenClaw) and local RAG pipelines."
+  },
+  EventPro: {
+    bio: "Production Technology Leader & Technical Director. 25 years managing complex signal flow, fiber arrays, and LED show systems for global keynotes.",
+    highlight: "AI-Native developer merging physical show networks with intelligent automation. I design local AI tools that handle timecard triage."
+  },
+  OpenClaw: {
+    bio: "Creator of the OpenClaw Agent Framework. AI-Native developer building local-first multi-agent systems, ClawHub plugins, and persistent agent backends.",
+    highlight: "I eat, sleep, and breathe agentic workflows. Pushing the boundaries of human-AI collaboration with inspectable, local-first agent fleets."
+  },
+  Investor: {
+    bio: "Product Builder & SaaS Founder. 25 years shipping high-stakes technology, billing platforms, and AI systems that solve expensive operational problems.",
+    highlight: "AI-Native operator building software with high margins. I leverage AI to build products that solve concrete customer pain points."
+  }
+};

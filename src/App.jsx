@@ -23,6 +23,7 @@ import About from "./components/About";
 import Career from "./components/Career";
 import PortfolioModal from "./components/PortfolioModal";
 import { PERSONAS, inferPersona, PersonaDropdown } from "./components/PersonaSelector";
+import { personaTaglines } from "./data/about";
 
 export default function App() {
   const [clawhubDownloads, setClawhubDownloads] = useState(null);
@@ -399,6 +400,9 @@ export default function App() {
   const otherSections = visibleSections.filter(s => !highlightedSectionIds.includes(s.id));
   const renderedSections = [...highlightedSections, ...otherSections];
 
+  const activePersonaKey = visitorType && personaTaglines[visitorType] ? visitorType : "Default";
+  const activeTagline = personaTaglines[activePersonaKey];
+
   return (
     <div className="min-h-screen text-gray-900" style={{ background: "#09090b" }}>
       <style>{`
@@ -503,13 +507,45 @@ export default function App() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-400"
+          className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-300"
         >
-          {isPreviewMode && visitorType === "Recruiter"
-            ? "Technical Program Manager | AI Builder | Production Technology Leader"
-            : "Full-stack builder with 25 years across live events, SaaS, and AI-assisted development. I ship products that solve real problems — from union pay tracking to broadcast tools to developer infrastructure."
-          }
+          {activeTagline.bio}
         </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          style={{
+            marginTop: 18,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 12,
+            padding: "6px 16px",
+            borderRadius: 9999,
+            background: "rgba(139, 92, 246, 0.08)",
+            border: "1px solid rgba(139, 92, 246, 0.25)",
+            fontSize: 13.5,
+            color: "#d4d4d8",
+            fontWeight: 500,
+            maxWidth: "min(640px, 90vw)",
+            boxShadow: "0 0 15px rgba(139, 92, 246, 0.05)"
+          }}
+        >
+          <span style={{
+            background: "linear-gradient(90deg, #a78bfa, #f59e0b)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            fontWeight: 800,
+            fontSize: 12.5,
+            letterSpacing: 0.5
+          }}>
+            AI-NATIVE:
+          </span>
+          <span className="text-gray-300 text-left" style={{ lineHeight: 1.45 }}>
+            {activeTagline.highlight}
+          </span>
+        </motion.div>
 
         {/* Aggressive Recruiter CTA Buttons right in the Hero */}
         {isPreviewMode && visitorType === "Recruiter" && (
