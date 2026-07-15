@@ -205,7 +205,7 @@ function FleetCard({ entry, idx, onSelectImage }) {
             maxWidth: 800,
             height: "120%",
             maxHeight: 800,
-            opacity: 0.02, // extremely subtle watermark at larger scale
+            opacity: 0.018, // extremely subtle watermark at larger scale (reduced by 10%)
             pointerEvents: "none",
             zIndex: 0,
             display: "flex",
