@@ -4,15 +4,16 @@ This file persists context across AI sessions. Update it with key decisions, pro
 
 ## Last Session (2026-07-14 — Kobold branding, right-aligned layout, watermark dial-in, and smoke-test tool)
 
-**What happened:** Integrated the new Kobold edge node, aligned the card layout, and built a custom interactive utility for real-time watermark tuning. All changes successfully tested and merged (PRs #114 through #120).
+**What happened:** Integrated the new Kobold edge node, aligned the card layout, built a custom interactive utility for real-time watermark tuning, and implemented the watermark background treatment on the RentalClaw card. All changes successfully tested and merged (PRs #114 through #121).
 
 **Shipped:**
 1. **Kobold Edge Node**: Added Kobold to the OpenClaw fleet card deck as a voice-operated, hands-free edge device. Styled with Toxic Green (#8BC34A) accent details, circular eyeball avatar, and redacted stealth formatting.
 2. **Right-Aligned Layout**: Arranged the card lower half into a responsive split layout: bullets/tags on the left, un-cropped promo thumbnail button on the right (wrapping naturally on mobile screens).
 3. **Interactive Zoom Modal**: Clicking the thumbnail triggers a blurred fullscreen modal displaying the full `kobold_banner.png` infographic. Includes an "Apply for Guild Membership" CTA linking directly to `#contact` (which auto-expands and highlights the contact form).
 4. **Watermark Background eyeball**: Refactored the eyeball logo to render as a giant background watermark instead of a header icon. Dialed in and finalized properties: **10% opacity** (`opacity: 0.1`) and **1000px diameter** (`maxWidth/maxHeight: 1000px`). Sits beneath all text/button layers via `zIndex: 1` positioning.
-5. **Interactive Dial-In Tool (`smoke-test.html`)**: Added `public/smoke-test.html` featuring a live-card replica and sliders for opacity/size. Staged matching copy assets under `public/assets/projects/` to ensure it works offline, in dev server, and deployed live at `https://jasonvaughan.com/smoke-test.html`. Settle on `10% opacity, 1000px max-width/max-height`.
-6. **Registered Kobold redirect & deep-link scroll fixes**: Registered `kobold` in `share-cards.js` to clear 404s. Refactored the anchor hash highlight scroll handler in `App.jsx` to poll the collapsible section registry resiliently up to 10 retries at 100ms intervals to eliminate asynchronous loading races.
+5. **RentalClaw Watermark**: Extended the watermark styling to RentalClaw, displaying its red crab claws logo as a giant, dimmed, background watermark (using the same 10% opacity and 1000px size) and hiding the smaller icon from the header.
+6. **Interactive Dial-In Tool (`smoke-test.html`)**: Added `public/smoke-test.html` featuring a live-card replica and sliders for opacity/size. Staged matching copy assets under `public/assets/projects/` to ensure it works offline, in dev server, and deployed live at `https://jasonvaughan.com/smoke-test.html`. Settle on `10% opacity, 1000px max-width/max-height`.
+7. **Registered Kobold redirect & deep-link scroll fixes**: Registered `kobold` in `share-cards.js` to clear 404s. Refactored the anchor hash highlight scroll handler in `App.jsx` to poll the collapsible section registry resiliently up to 10 retries at 100ms intervals to eliminate asynchronous loading races.
 
 **Key facts / gotchas:**
 - GitHub Pages static hosting features CDN caching lag of ~2 minutes post-build; verify updates directly via live script bundle URLs if normal browser cache-bust refreshes are still displaying previous values.

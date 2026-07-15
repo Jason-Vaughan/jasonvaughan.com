@@ -86,6 +86,7 @@ const FLEET = [
     banner: null,               // no banner; use square logo treatment
     logo: rentalclawLogo,
     logoAlt: "RentalClaw — red crab claws framing a yellow beach house with a palm tree",
+    watermarkBackground: true,   // dim the logo and use it as a full-card background watermark
     blurb:
       "Fully autonomous rental-management agent for vacation properties. Scalable, expandable, multi-agent architecture. Currently in private beta with select operators.",
     bullets: [
