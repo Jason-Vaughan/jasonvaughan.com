@@ -8,7 +8,7 @@ This file persists context across AI sessions. Update it with key decisions, pro
 
 ## Last Session (2026-07-14 — Kobold branding, right-aligned layout, watermark dial-in, and smoke-test tool)
 
-**What happened:** Integrated the new Kobold edge node, aligned the card layout, built a custom interactive playground utility for watermark design proofing of Kobold, RentalClaw, Volta, and TiLTClaw, updated the Volta logo to the new V icon and TiLTClaw to its higher-res banner logo, added playground banner rendering support, implemented the watermark background on Kobold, RentalClaw, Volta, and TiLTClaw, and deployed dynamic persona-specific taglines and AI-Native header badges. All changes successfully tested and merged (PRs #114 through #132).
+**What happened:** Integrated the new Kobold edge node, aligned the card layout, built a custom interactive playground utility for watermark design proofing of Kobold, RentalClaw, Volta, and TiLTClaw, updated the Volta logo to the new V icon and TiLTClaw to its higher-res banner logo, added playground banner rendering support, implemented the watermark background on Kobold, RentalClaw, Volta, and TiLTClaw, and deployed dynamic persona-specific taglines and AI-Native header badges (refactored to centered stacked layout). All changes successfully tested and merged (PRs #114 through #133).
 
 **Shipped:**
 1. **Kobold Edge Node**: Added Kobold to the OpenClaw fleet card deck as a voice-operated, hands-free edge device. Styled with Toxic Green (#8BC34A) accent details, circular eyeball avatar, and redacted stealth formatting.
