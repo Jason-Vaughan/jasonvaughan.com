@@ -60,7 +60,7 @@ const FLEET = [
     logoAlt: "Volta logo — V for Volta transparent V icon",
     watermarkBackground: true,
     watermarkOpacity: 0.1,
-    watermarkSize: 1000,
+    watermarkSize: 650,
     banner: voltaBanner,
     bannerAlt: "Volta — High Voltage AI Orchestration — silver wordmark on dark electric-blue lightning",
     // Volta's painted logo background is pure black with transparent padding
