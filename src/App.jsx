@@ -507,7 +507,8 @@ export default function App() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-300"
+          className="mt-4 mx-auto text-lg md:text-xl text-gray-300"
+          style={{ maxWidth: 900 }}
         >
           {activeTagline.bio}
         </motion.p>
@@ -517,19 +518,21 @@ export default function App() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
           style={{
-            marginTop: 20,
+            marginTop: 46,
             display: "inline-flex",
-            flexDirection: "column",
             alignItems: "center",
-            gap: 6,
-            padding: "10px 20px",
-            borderRadius: 12,
-            background: "rgba(139, 92, 246, 0.04)",
-            border: "1px solid rgba(139, 92, 246, 0.18)",
-            fontSize: 14,
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: 12,
+            padding: "6px 16px",
+            borderRadius: 9999,
+            background: "rgba(139, 92, 246, 0.08)",
+            border: "1px solid rgba(139, 92, 246, 0.25)",
+            fontSize: 13.5,
             color: "#d4d4d8",
+            fontWeight: 500,
             maxWidth: "min(640px, 90vw)",
-            boxShadow: "0 0 15px rgba(139, 92, 246, 0.03)"
+            boxShadow: "0 0 15px rgba(139, 92, 246, 0.05)"
           }}
         >
           <span style={{
@@ -537,13 +540,13 @@ export default function App() {
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             fontWeight: 800,
-            fontSize: 11,
-            letterSpacing: 1.5,
+            fontSize: 12.5,
+            letterSpacing: 0.5,
             whiteSpace: "nowrap"
           }}>
-            AI-NATIVE
+            AI-NATIVE:
           </span>
-          <span className="text-gray-400 text-center" style={{ lineHeight: 1.5 }}>
+          <span className="text-gray-300 text-center" style={{ lineHeight: 1.45 }}>
             {activeTagline.highlight}
           </span>
         </motion.div>
