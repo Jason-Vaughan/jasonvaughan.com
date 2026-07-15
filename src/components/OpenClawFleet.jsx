@@ -86,6 +86,9 @@ const FLEET = [
     banner: null,               // no banner; use square logo treatment
     logo: rentalclawLogo,
     logoAlt: "RentalClaw — red crab claws framing a yellow beach house with a palm tree",
+    watermarkBackground: true,
+    watermarkOpacity: 0.165,
+    watermarkSize: 550,
     blurb:
       "Fully autonomous rental-management agent for vacation properties. Scalable, expandable, multi-agent architecture. Currently in private beta with select operators.",
     bullets: [
@@ -108,7 +111,9 @@ const FLEET = [
     banner: null,               // no banner to keep card layout clean and avoid visual text duplication
     logo: koboldAvatar,
     logoAlt: "Kobold — circular reptilian eye avatar from the branding kit",
-    watermarkBackground: true,   // dim the logo avatar and use it as a full-card background watermark
+    watermarkBackground: true,
+    watermarkOpacity: 0.1,
+    watermarkSize: 1000,
     thumbnail: koboldBanner,
     blurb:
       "Kobold is the pocket-sized, voice-operated AI Assistant Video Engineer that plugs into local show networks to scan, monitor, and configure video hardware. Powered by the OpenClaw Gateway and connected via Tailscale to Monad-1, Kobold delivers hands-free, offline, on-site intelligence with real bite.",
@@ -202,10 +207,10 @@ function FleetCard({ entry, idx, onSelectImage }) {
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: "120%",
-            maxWidth: 1000,
+            maxWidth: entry.watermarkSize || 1000,
             height: "120%",
-            maxHeight: 1000,
-            opacity: 0.1, // dialed-in watermark settings
+            maxHeight: entry.watermarkSize || 1000,
+            opacity: entry.watermarkOpacity !== undefined ? entry.watermarkOpacity : 0.1,
             pointerEvents: "none",
             zIndex: 0,
             display: "flex",
