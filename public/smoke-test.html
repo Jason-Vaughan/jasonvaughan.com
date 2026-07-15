@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kobold Watermark Smoke Test & Dial-In</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 40px 24px;
+        background: #09090b;
+        color: #fafafa;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        box-sizing: border-box;
+      }
+      .control-panel {
+        background: #18181b;
+        border: 1px solid #27272a;
+        border-radius: 12px;
+        padding: 20px;
+        width: 100%;
+        max-width: 900px;
+        margin-bottom: 32px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        box-sizing: border-box;
+      }
+      .panel-title {
+        margin-top: 0;
+        margin-bottom: 16px;
+        font-size: 16px;
+        font-weight: 700;
+        color: #8bc34a;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .sliders {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+      }
+      .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      label {
+        font-size: 13px;
+        color: #a1a1aa;
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+      }
+      .value-display {
+        color: #fff;
+        font-family: monospace;
+      }
+      input[type="range"] {
+        width: 100%;
+        accent-color: #8bc34a;
+        cursor: pointer;
+      }
+      .result-box {
+        margin-top: 16px;
+        background: #09090b;
+        border: 1px solid #27272a;
+        padding: 10px 14px;
+        border-radius: 6px;
+        font-family: monospace;
+        font-size: 12px;
+        color: #d4d4d8;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      /* Card Replica Styles */
+      .card-container {
+        width: 100%;
+        max-width: 900px;
+        border-radius: 16px;
+        border: 1px solid #3f3f46;
+        background: #18181b;
+        box-shadow: 0 8px 24px rgba(0,0,0,.35);
+        overflow: hidden;
+        position: relative;
+        box-sizing: border-box;
+      }
+      
+      /* Dimmed eyeball watermark */
+      .watermark-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 120%;
+        max-width: 800px;
+        height: 120%;
+        max-height: 800px;
+        opacity: 0.018;
+        pointer-events: none;
+        zIndex: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.1s ease, width 0.1s ease, height 0.1s ease, max-width 0.1s ease, max-height 0.1s ease;
+      }
+      .watermark-overlay img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .card-content {
+        padding: 24px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .redacted-stamp {
+        position: absolute;
+        top: 16px;
+        right: 20px;
+        padding: 3px 10px;
+        border: 2px solid #8bc34a;
+        color: #8bc34a;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 3px;
+        transform: rotate(8deg);
+        opacity: 0.9;
+        font-family: monospace;
+        z-index: 2;
+      }
+
+      .header-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .title-block {
+        flex: 1;
+      }
+      .eyebrow {
+        font-size: 10px;
+        font-weight: 700;
+        color: #8bc34a;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      .title {
+        margin: 4px 0 0;
+        font-size: 24px;
+        font-weight: 800;
+        color: #fafafa;
+        letter-spacing: -0.3px;
+      }
+      .role {
+        margin-top: 4px;
+        font-size: 13px;
+        color: #a1a1aa;
+      }
+      .badge {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 3px 10px;
+        borderRadius: 9999px;
+        background: rgba(139,195,74,0.12);
+        border: 1px solid rgba(139,195,74,0.35);
+        color: #8bc34a;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .blurb {
+        margin-top: 14px;
+        margin-bottom: 0;
+        font-size: 14px;
+        color: #d4d4d8;
+        line-height: 1.6;
+      }
+
+      .split-layout {
+        display: flex;
+        gap: 24px;
+        margin-top: 14px;
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
+      .left-column {
+        flex: 1 1 350px;
+        min-width: 280px;
+      }
+      ul {
+        margin: 0;
+        padding-left: 20px;
+        color: #a1a1aa;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+      .redacted-text {
+        font-family: monospace;
+        background: rgba(255,255,255,0.05);
+        padding: 0 4px;
+        border-radius: 3px;
+      }
+      .tags-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 16px;
+      }
+      .tag {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 9999px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.08);
+        color: #a1a1aa;
+      }
+
+      .right-column {
+        flex: 1 1 360px;
+        display: flex;
+        justify-content: flex-end;
+        min-width: 280px;
+      }
+      .promo-btn {
+        background: transparent;
+        border: 1px solid rgba(139,195,74,0.35);
+        padding: 0;
+        cursor: zoom-in;
+        display: block;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        width: 100%;
+        max-width: 380px;
+      }
+      .promo-btn img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .footer-row {
+        margin-top: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        padding-top: 18px;
+      }
+      .footer-note {
+        font-size: 12px;
+        color: #52525b;
+      }
+      .share-link {
+        font-size: 12px;
+        color: #8bc34a;
+        text-decoration: none;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Interactive Control Panel -->
+    <div class="control-panel">
+      <div class="panel-title">Kobold Watermark Dial-In Panel</div>
+      
+      <div class="sliders">
+        <!-- Opacity Slider -->
+        <div class="control-group">
+          <label for="opacity-input">
+            Watermark Opacity: 
+            <span class="value-display" id="opacity-val">1.8%</span>
+          </label>
+          <input 
+            type="range" 
+            id="opacity-input" 
+            min="0.005" 
+            max="0.10" 
+            step="0.001" 
+            value="0.018"
+          />
+        </div>
+
+        <!-- Size Slider -->
+        <div class="control-group">
+          <label for="size-input">
+            Watermark Size: 
+            <span class="value-display" id="size-val">800px</span>
+          </label>
+          <input 
+            type="range" 
+            id="size-input" 
+            min="300" 
+            max="1200" 
+            step="50" 
+            value="800"
+          />
+        </div>
+      </div>
+
+      <div class="result-box">
+        <span id="code-snippet">opacity: 0.018; max-width: 800px; max-height: 800px;</span>
+        <button 
+          id="copy-btn"
+          style="background: #8bc34a; border: none; padding: 4px 10px; border-radius: 4px; font-weight: 700; color: #000; cursor: pointer; font-size: 11px;"
+        >
+          Copy settings
+        </button>
+      </div>
+    </div>
+
+    <!-- Live Card Replica -->
+    <div class="card-container">
+      <!-- REDACTED stamp -->
+      <div class="redacted-stamp">REDACTED</div>
+
+      <!-- Watermark background eyeball -->
+      <div class="watermark-overlay" id="watermark">
+        <img src="./assets/projects/kobold_avatar.png" alt="Kobold Eyeball Watermark" />
+      </div>
+
+      <!-- Card content -->
+      <div class="card-content">
+        <div class="header-row">
+          <div class="title-block">
+            <span class="eyebrow">OpenClaw Agent</span>
+            <h3 class="title">Kobold</h3>
+            <div class="role">AI Assistant Video Engineer</div>
+          </div>
+          <span class="badge">REDACTED · Stealth</span>
+        </div>
+
+        <p class="blurb">
+          Kobold is the pocket-sized, voice-operated AI Assistant Video Engineer that plugs into local show networks to scan, monitor, and configure video hardware. Powered by the OpenClaw Gateway and connected via Tailscale to Monad-1, Kobold delivers hands-free, offline, on-site intelligence with real bite.
+        </p>
+
+        <div class="split-layout">
+          <!-- Left list details -->
+          <div class="left-column">
+            <ul>
+              <li>Portable mini-PC edge form factor</li>
+              <li>Voice-operated assistant supporting hands-free on-site control</li>
+              <li>Plugs into local show networks to control <span class="redacted-text">████████</span> &amp; API endpoints</li>
+              <li>Runs OpenClaw Gateway in Docker via <span class="redacted-text">████████</span> network</li>
+              <li>LLM Backend: Powered by Monad-1 GPU rig (<span class="redacted-text">████████████</span>)</li>
+            </ul>
+
+            <div class="tags-row">
+              <span class="tag">Video Engineering</span>
+              <span class="tag">Local LLM</span>
+              <span class="tag">Voice Control</span>
+              <span class="tag">Show Networks</span>
+              <span class="tag">Edge Node</span>
+            </div>
+          </div>
+
+          <!-- Right thumbnail -->
+          <div class="right-column">
+            <button class="promo-btn" type="button">
+              <img src="./assets/projects/kobold_banner.png" alt="Promo Thumbnail" />
+            </button>
+          </div>
+        </div>
+
+        <!-- Footer link row -->
+        <div class="footer-row">
+          <span class="footer-note">Internal · contact under NDA for details</span>
+          <a class="share-link" href="#">Copy link</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const opacityInput = document.getElementById('opacity-input');
+      const sizeInput = document.getElementById('size-input');
+      
+      const opacityVal = document.getElementById('opacity-val');
+      const sizeVal = document.getElementById('size-val');
+      
+      const watermark = document.getElementById('watermark');
+      const codeSnippet = document.getElementById('code-snippet');
+      const copyBtn = document.getElementById('copy-btn');
+      
+      function updateWatermark() {
+        const opacity = parseFloat(opacityInput.value);
+        const size = parseInt(sizeInput.value);
+        
+        // Update live styles
+        watermark.style.opacity = opacity;
+        watermark.style.maxWidth = size + 'px';
+        watermark.style.maxHeight = size + 'px';
+        
+        opacityVal.textContent = (opacity * 100).toFixed(1) + '%';
+        sizeVal.textContent = size + 'px';
+        
+        // Update code snippet
+        codeSnippet.textContent = `opacity: ${opacity}; max-width: ${size}px; max-height: ${size}px;`;
+      }
+      
+      opacityInput.addEventListener('input', updateWatermark);
+      sizeInput.addEventListener('input', updateWatermark);
+      
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeSnippet.textContent).then(() => {
+          const oldText = copyBtn.textContent;
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => { copyBtn.textContent = oldText; }, 1500);
+        });
+      });
+      
+      // Initialize on load
+      updateWatermark();
+    </script>
+  </body>
+</html>
