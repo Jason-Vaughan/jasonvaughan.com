@@ -2,6 +2,10 @@
 
 This file persists context across AI sessions. Update it with key decisions, progress, and open questions.
 
+## Workflow Preferences & Conventions
+
+- **MagicDNS Local Dev Smoke Testing**: Always test locally using the Vite dev server (`npm run dev` on port `3300`) accessible via Tailscale MagicDNS (e.g. `http://cursatory.ts.net:3300/smoke-test.html` or `http://elkaholic.ts.net:3300/smoke-test.html`) before initiating a public deployment. This enables instant HMR and removes deployment pipeline wait times.
+
 ## Last Session (2026-07-14 — Kobold branding, right-aligned layout, watermark dial-in, and smoke-test tool)
 
 **What happened:** Integrated the new Kobold edge node, aligned the card layout, built a custom interactive playground utility for watermark design proofing of both Kobold and RentalClaw, and implemented the watermark background on both cards. All changes successfully tested and merged (PRs #114 through #124).
