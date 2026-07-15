@@ -364,6 +364,9 @@
         <img id="watermark-img" src="./assets/projects/kobold_avatar.png" alt="Eyeball Watermark" />
       </div>
 
+      <!-- Banner Strip -->
+      <img id="card-banner" src="" alt="Banner Strip" style="width: 100%; object-position: center; border-bottom: 1px solid rgba(255,255,255,0.05); display: none;" />
+
       <!-- Card content -->
       <div class="card-content">
         <div class="header-row">
@@ -473,7 +476,11 @@
             "Target user · <span class=\"redacted-text\">█████████████</span>"
           ],
           tags: ["OpenClaw", "Experimental", "Monad-1"],
-          thumbnail: null
+          thumbnail: null,
+          banner: "./assets/projects/volta_banner.png",
+          bannerFit: "contain",
+          bannerBg: "#000000",
+          bannerHeight: "240px"
         },
         tiltclaw: {
           name: "TiLTClaw",
@@ -492,7 +499,11 @@
             "Private Discord app · internal to TiLT ops"
           ],
           tags: ["Discord App", "Production", "OpenClaw"],
-          thumbnail: null
+          thumbnail: null,
+          banner: "./assets/projects/tiltclaw_banner.png",
+          bannerFit: "contain",
+          bannerBg: "#0a061b",
+          bannerHeight: "240px"
         }
       };
 
@@ -518,6 +529,7 @@
       const cardTags = document.getElementById('card-tags');
       const promoImg = document.getElementById('promo-img');
       const rightColNode = document.getElementById('right-col-node');
+      const cardBanner = document.getElementById('card-banner');
 
       function updateUI() {
         const selected = agentSelect.value;
@@ -561,6 +573,17 @@
           promoImg.src = agent.thumbnail;
         } else {
           rightColNode.style.display = 'none';
+        }
+
+        // Banner Strip
+        if (agent.banner) {
+          cardBanner.style.display = 'block';
+          cardBanner.src = agent.banner;
+          cardBanner.style.objectFit = agent.bannerFit || 'cover';
+          cardBanner.style.background = agent.bannerBg || 'transparent';
+          cardBanner.style.height = agent.bannerHeight || '130px';
+        } else {
+          cardBanner.style.display = 'none';
         }
 
         // Apply sliders
