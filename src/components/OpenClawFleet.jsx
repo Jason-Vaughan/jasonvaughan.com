@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import ShareLink from "./ShareLink";
 import tiltclawBanner from "../assets/projects/tiltclaw_banner.png";
+import tiltclawLogo from "../assets/projects/tiltclaw_logo.png";
 import voltaBanner from "../assets/projects/volta_banner.png";
 import voltaLogo from "../assets/projects/volta_logo.png";
 import rentalclawLogo from "../assets/projects/rentalclaw_logo.png";
@@ -28,14 +29,12 @@ const FLEET = [
     accentBorder: "rgba(139,92,246,0.35)",
     badgeText: "PUBLIC · In Production",
     redacted: false,
-    banner: tiltclawBanner,
-    bannerAlt: "TiLTClaw banner — orange fist with multi-colored claws over a purple galaxy",
-    // Same treatment as Volta: contain + matching edge color + taller strip
-    // so the full logo (claws + wordmark + claw circle) is visible without
-    // the previous cover-crop chopping off the top/bottom.
-    bannerFit: "contain",
-    bannerBg: "#0a061b",      // sampled dark navy from the image's outer edges
-    bannerHeight: 240,
+    banner: null,
+    logo: tiltclawLogo,
+    logoAlt: "TiLTClaw logo — orange fist with multi-colored claws over a purple galaxy",
+    watermarkBackground: true,
+    watermarkOpacity: 0.105,
+    watermarkSize: 1150,
     blurb:
       "Production AI agent built into TiLT's support workflow. Monitors every inbound ticket 24/7, summarizes activity, and escalates urgent payroll issues to admins in minutes. Accessed via a private Discord app by the TiLT operations team.",
     bullets: [
