@@ -4,14 +4,14 @@ This file persists context across AI sessions. Update it with key decisions, pro
 
 ## Last Session (2026-07-14 — Kobold branding, right-aligned layout, watermark dial-in, and smoke-test tool)
 
-**What happened:** Integrated the new Kobold edge node, aligned the card layout, built a custom interactive playground utility for watermark design proofing of both Kobold and RentalClaw, and updated the RentalClaw logo to the transparent version. All changes successfully tested and merged (PRs #114 through #123).
+**What happened:** Integrated the new Kobold edge node, aligned the card layout, built a custom interactive playground utility for watermark design proofing of both Kobold and RentalClaw, and implemented the watermark background on both cards. All changes successfully tested and merged (PRs #114 through #124).
 
 **Shipped:**
 1. **Kobold Edge Node**: Added Kobold to the OpenClaw fleet card deck as a voice-operated, hands-free edge device. Styled with Toxic Green (#8BC34A) accent details, circular eyeball avatar, and redacted stealth formatting.
 2. **Right-Aligned Layout**: Arranged the card lower half into a responsive split layout: bullets/tags on the left, un-cropped promo thumbnail button on the right (wrapping naturally on mobile screens).
 3. **Interactive Zoom Modal**: Clicking the thumbnail triggers a blurred fullscreen modal displaying the full `kobold_banner.png` infographic. Includes an "Apply for Guild Membership" CTA linking directly to `#contact` (which auto-expands and highlights the contact form).
 4. **Watermark Background eyeball**: Refactored the eyeball logo to render as a giant background watermark instead of a header icon. Dialed in and finalized properties: **10% opacity** (`opacity: 0.1`) and **1000px diameter** (`maxWidth/maxHeight: 1000px`). Sits beneath all text/button layers via `zIndex: 1` positioning.
-5. **RentalClaw Watermark Proofing**: Enhanced `public/smoke-test.html` to toggle between Kobold and RentalClaw configurations. Placed the transparent RentalClaw logo asset in the `public/assets/projects/` static folder to enable live-previewing and proofing of the watermark. Reverted the RentalClaw card watermark on the main site until approved.
+5. **RentalClaw Watermark**: Extended the watermark background treatment to RentalClaw using its transparent logo with dialed-in settings (**16.5% opacity** and **550px diameter**) and hid its header icon.
 6. **Interactive Dial-In Tool (`smoke-test.html`)**: Added `public/smoke-test.html` featuring a live-card replica and sliders for opacity/size. Staged matching copy assets under `public/assets/projects/` to ensure it works offline, in dev server, and deployed live at `https://jasonvaughan.com/smoke-test.html`. Settle on `10% opacity, 1000px max-width/max-height`.
 7. **Registered Kobold redirect & deep-link scroll fixes**: Registered `kobold` in `share-cards.js` to clear 404s. Refactored the anchor hash highlight scroll handler in `App.jsx` to poll the collapsible section registry resiliently up to 10 retries at 100ms intervals to eliminate asynchronous loading races.
 
