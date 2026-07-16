@@ -86,8 +86,8 @@ function renderSparklineSvg(data, width, height, strokeColor, gradientId) {
  * Builder stats bar — fetches stats from all projects and displays aggregated totals.
  */
 export default function BuilderStats({ visitorType }) {
-  // Default to registry stats for general users, codebase stats for Recruiters
-  const [activeTab, setActiveTab] = useState(visitorType === "Recruiter" ? "codebase" : "registry");
+  // Default to registry stats for all users
+  const [activeTab, setActiveTab] = useState("registry");
   const [totals, setTotals] = useState(null);
   const [hoveredLabel, setHoveredLabel] = useState(null);
   const [localTokens, setLocalTokens] = useState({ monad: 0, agents: [] });
