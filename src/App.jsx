@@ -652,7 +652,7 @@ export default function App() {
 
       {/* Recruiter Summary Card & Trusted Clients Grayscale logos */}
       {isPreviewMode && visitorType === "Recruiter" && (
-        <div style={{ maxWidth: 960, margin: "0 auto 24px auto", padding: "0 24px" }}>
+        <div style={{ maxWidth: 960, margin: "24px auto 24px auto", padding: "0 24px" }}>
           <div style={{
             borderRadius: 16,
             border: "1px solid rgba(251, 191, 36, 0.35)",
@@ -750,7 +750,7 @@ export default function App() {
 
       {/* Inline AI Concierge CTA Block - Hero Adjacent */}
       {isPreviewMode && (
-        <div style={{ maxWidth: 960, margin: "0 auto 24px auto", padding: "0 24px" }}>
+        <div style={{ maxWidth: 960, margin: "24px auto 24px auto", padding: "0 24px" }}>
           <div style={{
             borderRadius: 16,
             border: "1px solid rgba(255, 255, 255, 0.08)",
