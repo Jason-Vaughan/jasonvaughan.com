@@ -295,35 +295,6 @@ export default function BuilderStats({ visitorType }) {
     });
   }
 
-  // Simplified metrics for Recruiter profile view
-  const finalStats = visitorType === "Recruiter"
-    ? [
-        {
-          label: "Projects",
-          value: String(totals.projects),
-          color: "#fbbf24",
-          description: "Public + private repos in the live stats registry. Auto-discovered from GitHub, then filtered by projects.yml exclusions.",
-        },
-        {
-          label: "Years",
-          value: "25+",
-          color: "#f59e0b",
-          description: "Over 25 years of professional tech sector experience spanning software architect, technical program management, and live event production.",
-        },
-        {
-          label: "LOC",
-          value: formatBigNumber(totals.loc),
-          color: "#38bdf8",
-          description: "Current snapshot of source files across all tracked repos — what lives in the codebase right now.",
-        },
-        {
-          label: "Commits",
-          value: formatBigNumber(totals.commits),
-          color: "#a78bfa",
-          description: "Total commits across all tracked repos, summed from git rev-list HEAD per repo.",
-        }
-      ]
-    : stats;
 
   /**
    * Renders the ClawHub Registry dashboard tab
@@ -454,7 +425,7 @@ export default function BuilderStats({ visitorType }) {
         gridTemplateColumns: "repeat(auto-fit, minmax(80px, 1fr))",
         gap: 10,
       }}>
-        {finalStats.map((s) => {
+        {stats.map((s) => {
           const isHovered = hoveredLabel === s.label;
           const hasTooltip = !!s.description;
           const hasDelta = typeof s.delta === "number" && (s.delta !== 0 || s.alwaysShowDelta);

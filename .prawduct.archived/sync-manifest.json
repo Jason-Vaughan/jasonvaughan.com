@@ -1,0 +1,105 @@
+{
+  "format_version": 2,
+  "framework_source": "/Users/jasonvaughan/Documents/Projects/prawduct-test/prawduct",
+  "framework_version": "1.5.2",
+  "product_name": "JasonVaughanComPortfolio",
+  "auto_pull": true,
+  "last_sync": "2026-05-24T03:52:09Z",
+  "files": {
+    "CLAUDE.md": {
+      "template": "templates/product-claude.md",
+      "strategy": "block_template",
+      "description": "Core principles and methodology instructions",
+      "generated_hash": null
+    },
+    ".prawduct/critic-review.md": {
+      "template": "templates/critic-review.md",
+      "strategy": "template",
+      "description": "Independent Critic review instructions (7 quality goals + coordinator pattern)",
+      "generated_hash": "7074cc97ead516109b9962dec4711ba593201b1995670091ea4c49eeb2ae76ff"
+    },
+    ".prawduct/pr-review.md": {
+      "template": "templates/pr-review.md",
+      "strategy": "template",
+      "description": "PR reviewer instructions for release-readiness assessment",
+      "generated_hash": "b0f342160edb13d53911fbfc75ddbf81fd395838ec9cfed5dd8a701f3b42809a"
+    },
+    ".prawduct/build-governance.md": {
+      "template": "templates/build-governance.md",
+      "strategy": "template",
+      "description": "Build governance reference \u2014 how to build against a plan (read before coding)",
+      "generated_hash": "719791519c0f201173f645f07d487a13a53492af6fde825ebdcfe8f562f0adb0"
+    },
+    ".claude/skills/pr/SKILL.md": {
+      "template": ".claude/skills/pr/SKILL.md",
+      "strategy": "template",
+      "description": "/pr skill \u2014 PR lifecycle management (create, update, merge, status). Configure PR behavior in project-preferences.md",
+      "generated_hash": "5abdc8c5bac72327f512100cefa7f28d808aed543c57755ca3b30fbb5eb7ee78"
+    },
+    ".claude/skills/janitor/SKILL.md": {
+      "template": ".claude/skills/janitor/SKILL.md",
+      "strategy": "template",
+      "description": "/janitor skill \u2014 Periodic codebase maintenance (encapsulation, deduplication, cleanup)",
+      "generated_hash": "6c1d0f74db2a79aa190e779145ffec3d6cef1515b3e70ab68c5cdf978fa8acab"
+    },
+    ".claude/skills/prawduct-doctor/SKILL.md": {
+      "template": ".claude/skills/prawduct-doctor/SKILL.md",
+      "strategy": "template",
+      "description": "/prawduct-doctor skill \u2014 Product repo setup, health check, and repair",
+      "generated_hash": "fa9fb9198ee835fa509acc46b77de0aaa32642e975ec3f834c56032405384451"
+    },
+    ".claude/skills/learnings/SKILL.md": {
+      "template": ".claude/skills/learnings/SKILL.md",
+      "strategy": "template",
+      "description": "/learnings skill \u2014 Look up project learnings and preferences relevant to your current task",
+      "generated_hash": "dc3b1ea1abdd7d0e578d32175d4d5407648b5dca4852690896d66c19f6194d68"
+    },
+    ".claude/skills/critic/SKILL.md": {
+      "template": "templates/skill-critic.md",
+      "strategy": "template",
+      "description": "/critic skill \u2014 Independent Critic review with structural tool restrictions (cannot run tests)",
+      "generated_hash": "60164a7a7db4a73eeb0d93025a5b7302a167bb4e4aabef5e9b4dd8def74ce820"
+    },
+    "tools/product-hook": {
+      "source": "tools/product-hook",
+      "strategy": "always_update",
+      "description": "Session governance hooks (reflection gate, Critic gate, session briefing)",
+      "generated_hash": "d4850c1b1e3294bb63fb578ea3b05bb0e43c905e7151216ed5a1b2422d29faee"
+    },
+    ".claude/settings.json": {
+      "template": "templates/product-settings.json",
+      "strategy": "merge_settings",
+      "description": "Claude Code settings with hook configuration",
+      "generated_hash": null
+    }
+  },
+  "v1_4_views_enabled": true,
+  "place_once_templates": {
+    ".prawduct/artifacts/project-preferences.md": {
+      "template": "templates/project-preferences.md",
+      "template_hash": "ce0f2c4bed1639905eb687562c369e59fd6e2d5f20771a46105207baeb9d7104",
+      "created_at": "2026-05-24T03:52:09Z"
+    },
+    ".prawduct/artifacts/boundary-patterns.md": {
+      "template": "templates/boundary-patterns.md",
+      "template_hash": "76fc79fea897fefd0ffc0593cb630d9862776d3d5be227a51d711bc2580ab207",
+      "created_at": "2026-05-24T03:52:09Z"
+    },
+    ".prawduct/change-log.md": {
+      "template": "templates/change-log.md",
+      "template_hash": "9d6970104df086bae4e681b056e217da3498c128a29e1ca340af48b7cd32afab",
+      "created_at": "2026-05-24T03:52:09Z"
+    },
+    ".prawduct/backlog.md": {
+      "template": "templates/backlog.md",
+      "template_hash": "ad5eba7c9622de86dc4ff7ae08a3f13adf573f50c45b3e1efef47d80e9cda94a",
+      "created_at": "2026-05-24T03:52:09Z"
+    },
+    "tests/conftest.py": {
+      "template": "templates/conftest.py",
+      "template_hash": "9b3d20da3787223d7520cb1f3eaa930f9595215f322a6b3660eb50b7189abbda",
+      "created_at": "2026-05-24T03:52:09Z"
+    }
+  },
+  "framework_commit": "2cb29be"
+}

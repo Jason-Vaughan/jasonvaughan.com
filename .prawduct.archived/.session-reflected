@@ -1,0 +1,15 @@
+# Session Reflections - 2026-07-09
+
+## What was delivered
+- Created centralized data (`src/data/about.js`) and matching UI panel (`src/components/About.jsx`) containing Jason's non-chronological bio, core philosophies, milestones, and an "AI Interview" trigger card.
+- Built a gated visitor segmentation framework (`src/components/PersonaSelector.jsx` and `src/App.jsx`) activated by `?preview=true` that lets users customize their view (Recruiter, Engineer, Event Pro, OpenClaw Community, Founder/Investor) and automatically expands targeted collapsible sections.
+- Colocated ESM tests in `src/data/about.test.js` validating:
+  * Schema types for the about data structure.
+  * Extracted keys and tags config in the persona registry.
+  * Regression integrity check verifying that every collapsible ID mapped by the 5 personas literally exists inside `App.jsx` (either as `id="..."` or as standard component tags like `<Skills` / `<Certifications`).
+
+## What surprised us
+- The custom component layout structure where `Skills.jsx` and `Certifications.jsx` wrap their own `Collapsible` wrappers internally rather than letting `App.jsx` provide the ID. The Vitest regression search regex had to be adjusted to search for `<Skills` and `<Certifications` components rather than literal `id="skills"` or `id="certifications"` tags in `App.jsx`.
+
+## Methodology feedback
+- Following Prawduct's test-first and build-verification steps was highly effective. The static analysis test we wrote to check the DOM collapsible mappings immediately guarantees that future refactorings won't break the persona landing flows.

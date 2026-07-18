@@ -1,0 +1,54 @@
+{
+  "timestamp": "2026-06-25T02:28:36Z",
+  "branch": "fix/card-share-links",
+  "base": "main",
+  "pr_number": null,
+  "commits_reviewed": 3,
+  "files_reviewed": [
+    "src/App.jsx",
+    "src/components/ClawHub.jsx",
+    "src/components/GPTs.jsx",
+    "src/components/Pipeline.jsx",
+    "src/components/Projects.jsx",
+    "CHANGELOG.md",
+    "package.json"
+  ],
+  "findings": [
+    {
+      "goal": "Right Scope and Granularity",
+      "severity": "warning",
+      "file": "src/components/Projects.jsx,Pipeline.jsx,ClawHub.jsx,GPTs.jsx",
+      "line": null,
+      "summary": "The copy-link feature (commit 21a3824) is ALREADY MERGED to origin/main as PR #85 (commit f25b902). The branch's merge-base (e3c5101) predates current origin/main, so the three-dot diff origin/main...HEAD misleadingly shows the ShareLink changes as new. Verified via two-dot diff: Projects.jsx, Pipeline.jsx, ClawHub.jsx, and GPTs.jsx are byte-identical to origin/main. Merging this branch as-is would re-land a duplicate 'feat(cards): add copy-link...' commit in history. Recommendation: rebase the branch onto current origin/main BEFORE opening a PR — after rebase the only net source change is the one-line App.jsx ClawHub descriptor (commit d32d79d). This is the exact 'verify solo/merged before building' failure pattern the project learnings warn about."
+    },
+    {
+      "goal": "Merge Hygiene",
+      "severity": "warning",
+      "file": ".tangleclaw/",
+      "line": null,
+      "summary": "11 TangleClaw session-wrap files (683 insertions, including a 512-line session transcript.jsonl) are bundled into this feature PR via commit 70e7c33. These files are tracked on main (not gitignore violations), but bundling session-wrap continuity state into a source PR muddies the changeset and bloats the diff. Recommendation: separate the session-wrap commit from the source change, or strip it from this branch so the PR contains only the App.jsx descriptor + CHANGELOG + version bump."
+    },
+    {
+      "goal": "Tests Cover the Change",
+      "severity": "warning",
+      "file": ".prawduct/.test-evidence.json",
+      "line": null,
+      "summary": "Test evidence is stale and from a different branch. `product-hook test-status` reports stale (evidence timestamp 2026-06-24T16:09:15Z predates session 2026-06-25T02:15:27Z; exit 1). The evidence file records branch 'feat/skills-certs', not this branch. The actual net source change is a one-line cosmetic descriptor string (no logic, no new code paths), so test risk is low — but the recorded evidence does not cover this changeset. Recommendation: re-run the suite on this branch and refresh evidence before merge."
+    },
+    {
+      "goal": "Clear Narrative",
+      "severity": "note",
+      "file": "CHANGELOG.md",
+      "line": 10,
+      "summary": "The branch cuts a `## [0.2.0] - 2026-06-24` release that promotes all existing [Unreleased] ### Added/### Fixed items into the dated section and bumps package.json 0.1.0 -> 0.2.0. This is internally coherent and the minor bump matches the released ### Added content per the project's version-bump convention. The new ClawHub descriptor entry correctly stays in [Unreleased] under ### Changed. No action needed; noting because a release cut is bundled with a feature branch rather than a dedicated chore/release PR."
+    },
+    {
+      "goal": "No Bugs Shipped",
+      "severity": "note",
+      "file": "src/App.jsx",
+      "line": 185,
+      "summary": "The only genuinely-new source change (ClawHub Collapsible descriptor string) is a safe one-line cosmetic edit. Verified no id/slug collisions across all card ids, GPT ids, and section ids (cierre-sensei section vs cierre-sensei-gpt are correctly distinct); ShareLink wiring and the App.jsx deep-link handler are sound. No bugs found in the source diff."
+    }
+  ],
+  "summary": "0 blocking, 3 warnings, 2 notes. NOT ready to create as-is. The headline issue: the copy-link feature commit (21a3824) is already merged to main via PR #85 — the four card files are identical to origin/main, and only the one-line App.jsx descriptor (d32d79d) is genuinely new. Rebase onto current origin/main first; after rebase this becomes a tiny docs+copy PR. Also unbundle the .tangleclaw session-wrap state and refresh stale/wrong-branch test evidence."
+}

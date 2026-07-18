@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-06-25T02:59:17Z",
+  "branch": "feat/tokens-projects-deltas-display",
+  "base": "main",
+  "pr_number": null,
+  "commits_reviewed": 1,
+  "files_reviewed": [
+    "src/components/BuilderStats.jsx",
+    "src/utils/format.js",
+    "src/utils/format.test.js",
+    "CHANGELOG.md"
+  ],
+  "findings": [
+    {
+      "goal": "Tests Cover the Change",
+      "severity": "warning",
+      "file": ".prawduct/.test-evidence.json",
+      "line": null,
+      "summary": "Test evidence is stale and does not cover this changeset. test-status exits 1 (stale: evidence 2026-06-24T16:09:15Z predates session 2026-06-25T02:15:27Z), and the evidence was captured on a different branch (feat/skills-certs, sha f306fbb) — not this branch's commit ed9aa45. The new B-branch test in format.test.js is therefore unverified by recorded evidence. Re-run the suite on this branch to refresh evidence before creating the PR."
+    },
+    {
+      "goal": "No Bugs Shipped",
+      "severity": "note",
+      "file": "src/components/BuilderStats.jsx",
+      "line": 166,
+      "summary": "Semantic honesty check passed but worth noting: the AI Tokens headline value is cloud+local (allTokens), while the delta badge reflects only the cloud portion (aggregateDeltas.tokens). This is a deliberate, disclosed mismatch (local inference has no weekly baseline) and is documented in both the inline comment (lines 169-172) and CHANGELOG. Not misleading given the disclosure, but the discrepancy is invisible to a user who only sees the tile — acceptable trade-off, recorded for transparency."
+    }
+  ],
+  "summary": "0 blocking, 1 warning, 1 note. Graceful degradation verified (totals.deltas = aggregateDeltas || null; every tile reads d ? d.x : null, so older manifests render no badges). formatDelta B-branch math verified correct (6191876497 -> +6.19B, 2.5e9 -> +2.50B; threshold >=1e9 mirrors formatBigNumber). Diff is single-commit, well-scoped, no derived-view files touched despite views_enabled. Only gating item: refresh stale test evidence on this branch before PR. Ready to create once test evidence is regenerated."
+}

@@ -1,0 +1,9 @@
+{
+  "blocked_by": [
+    "non-framework changes present: .tangleclaw/project-version.txt, .claude/skills/, .prawduct/artifacts/ (+4 more)",
+    "branch 'main' is protected"
+  ],
+  "reason": "non-framework changes present: .tangleclaw/project-version.txt, .claude/skills/, .prawduct/artifacts/ (+4 more); branch 'main' is protected",
+  "ts": "2026-05-24T03:52:09Z",
+  "version": "1.5.2"
+}

@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-07-04T01:15:00Z",
+  "duration_seconds": 240,
+  "mode": "cumulative (bundle review, ready for merge)",
+  "mode_chosen_by": "explicit-args",
+  "commit_reviewed": "dea9ec4fe9ad12c3f1b0c4d9ea8f2b5b3737e736",
+  "base_reviewed": "c3810eb3e93c2805a1dd419ac2499d9dd6b2398f",
+  "files_reviewed": [
+    "CHANGELOG.md",
+    "src/components/FeaturedTangleBrain.jsx",
+    "src/components/FeaturedTangleClaw.jsx",
+    "src/featured-cards.test.js"
+  ],
+  "findings": [
+    {
+      "goal": "The Design Is Sound",
+      "severity": "note",
+      "summary": "Hardcoded pre-fetch fallback stats have now drifted and been hand-bumped twice (TangleClaw 39K+->100K+ LoC, TangleBrain 7K+->9K+). Consider baking fallbacks at build time from the collector manifests so they stop rotting between manual refreshes. Recommend adding to .prawduct/backlog.md, not acting on it in this cycle."
+    },
+    {
+      "goal": "Everything Is Coherent",
+      "severity": "note",
+      "summary": ".prawduct/artifacts/project-preferences.md is still an unfilled template, so the Goal-4 conventions check has nothing to enforce; the project's real conventions (vitest colocated tests, dark inline-style cards, useGitHubLatestRelease for versions) live only in session memory. Recommend adding a fill-in task to .prawduct/backlog.md."
+    }
+  ],
+  "summary": "0 blocking, 0 warnings, 2 notes. Test evidence current (42/42 at HEAD). Bundle is ready to proceed to /pr create."
+}

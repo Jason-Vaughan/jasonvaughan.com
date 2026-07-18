@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-06-25T15:35:00Z",
+  "branch": "feat/always-show-projects-delta",
+  "base": "main",
+  "pr_number": null,
+  "commits_reviewed": 1,
+  "files_reviewed": ["src/components/BuilderStats.jsx", "CHANGELOG.md"],
+  "findings": [
+    {"goal": "No Bugs Shipped", "severity": "note", "file": "src/components/BuilderStats.jsx", "line": 282, "summary": "hasDelta regression check PASSES: new expression `typeof s.delta === 'number' && (s.delta !== 0 || s.alwaysShowDelta)` reduces to the prior `s.delta !== 0` for every tile lacking alwaysShowDelta (undefined is falsy), so all other tiles still hide zero deltas. Only Projects Shipped sets the flag."},
+    {"goal": "No Bugs Shipped", "severity": "note", "file": "src/components/BuilderStats.jsx", "line": 318, "summary": "Color ternary PASSES: `s.delta > 0 ? green : s.delta < 0 ? red : gray` correctly maps positive/negative/zero. Gray (#71717a) branch is only reachable at delta===0, which now renders only via alwaysShowDelta — '±0' no longer shows in the red decline color."},
+    {"goal": "No Bugs Shipped", "severity": "note", "file": "src/components/BuilderStats.jsx", "line": 134, "summary": "Graceful degradation PASSES: when the manifest lacks aggregateDeltas, totals.deltas (d) is null, delta becomes null, and `typeof null === 'number'` is false so hasDelta short-circuits to false regardless of alwaysShowDelta — badge hidden as intended."},
+    {"goal": "Tests Cover the Change", "severity": "note", "file": "src/components/BuilderStats.jsx", "line": 311, "summary": "The changed render logic (hasDelta/alwaysShowDelta/color ternary) has no component-level test, but BuilderStats has never had a component test (no React testing-library harness in this project), so this is consistent with the existing pattern, not a new coverage gap. formatDelta(0) -> '±0' is already covered in src/utils/format.test.js:56. Test evidence is current (product-hook test-status exit 0, SHA matches HEAD, 39/39 pass)."}
+  ],
+  "summary": "0 blocking, 0 warnings, 4 notes. All three review concerns (hasDelta regression, color ternary, graceful degradation) verified correct. Test evidence current. CHANGELOG updated under ### Added with accurate description. PR is ready to create."
+}
