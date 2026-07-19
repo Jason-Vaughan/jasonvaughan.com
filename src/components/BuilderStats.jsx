@@ -454,11 +454,12 @@ export default function BuilderStats({ visitorType }) {
    */
   const renderCodebaseView = () => {
     return (
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(80px, 1fr))",
-        gap: 10,
-      }}>
+      <>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(80px, 1fr))",
+          gap: 10,
+        }}>
         {stats.map((s) => {
           const isHovered = hoveredLabel === s.label;
           const hasTooltip = !!s.description;
@@ -588,7 +589,7 @@ export default function BuilderStats({ visitorType }) {
         </svg>
         <span>Telemetry verified live via automated pipelines</span>
       </div>
-    </div>
+    </>
   );
 };
 
