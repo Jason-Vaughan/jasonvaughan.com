@@ -149,7 +149,17 @@ export default function BuilderStats({ visitorType }) {
         totals.prs = manifest.aggregatePRs?.merged || 0;
         totals.refactored = manifest.aggregateRefactored?.count || 0;
         totals.authored = manifest.aggregateAuthored?.count || 0;
-        totals.contributions = manifest.aggregateContributions?.total || 0;
+        // Parse split contributions object (fallback to total when old manifest structure is read)
+        const aggContribs = manifest.aggregateContributions;
+        if (aggContribs && typeof aggContribs === "object") {
+          totals.contributions = aggContribs.currentYear || aggContribs.total || 0;
+          totals.contributionsTotal = aggContribs.total || 0;
+          totals.contributionsBreakdown = aggContribs.breakdown || null;
+        } else {
+          totals.contributions = aggContribs || 0;
+          totals.contributionsTotal = aggContribs || 0;
+          totals.contributionsBreakdown = null;
+        }
         totals.deltas = manifest.aggregateDeltas || null;
 
         setTotals(totals);
@@ -299,14 +309,23 @@ export default function BuilderStats({ visitorType }) {
   }
 
   if (totals.contributions > 0) {
+    const contribBreakdownLines = [];
+    if (totals.contributionsBreakdown) {
+      Object.entries(totals.contributionsBreakdown).forEach(([year, val]) => {
+        contribBreakdownLines.push(`${year}: ${val.toLocaleString()}`);
+      });
+      contribBreakdownLines.push(`Lifetime Total: ${totals.contributionsTotal.toLocaleString()}`);
+    }
+
     stats.push({
-      label: "Contributions",
+      label: `${new Date().getFullYear()} Contributions`,
       value: formatBigNumber(totals.contributions),
       exact: totals.contributions,
       delta: d ? d.contributions : null,
       color: "#10b981",
       link: "https://github.com/Jason-Vaughan",
-      description: "Total lifetime GitHub contributions (commits, pull requests, code reviews, and issues) since 2025, aggregated from GitHub's profile telemetry.",
+      description: `Total GitHub contributions (commits, pull requests, code reviews, and issues) in the current calendar year (${new Date().getFullYear()}), fetched from GitHub profile telemetry.`,
+      breakdown: contribBreakdownLines.length > 0 ? contribBreakdownLines : null,
     });
   }
 
