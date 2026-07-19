@@ -49,4 +49,11 @@ describe("BuilderStats component invariants", () => {
     expect(src).toContain('label: "Contributions"');
     expect(src).toContain('color: "#10b981"');
   });
+
+  it("attaches GitHub profile links to Commits, Projects, and Contributions tiles", () => {
+    const src = componentSource();
+    expect(src).toContain('ElementType = s.link ? "a" : "div"');
+    expect(src).toContain('link: "https://github.com/Jason-Vaughan"');
+    expect(src).toContain('link: "https://github.com/Jason-Vaughan?tab=repositories"');
+  });
 });

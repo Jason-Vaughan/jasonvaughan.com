@@ -209,6 +209,7 @@ export default function BuilderStats({ visitorType }) {
       exact: totals.commits,
       delta: d ? d.commits : null,
       color: "#a78bfa",
+      link: "https://github.com/Jason-Vaughan",
       description: "Total commits across all tracked repos, summed from `git rev-list HEAD` per repo. Includes both direct-to-main and squash-merged PRs.",
     },
     {
@@ -226,6 +227,7 @@ export default function BuilderStats({ visitorType }) {
       delta: d ? d.projects : null,
       alwaysShowDelta: true,
       color: "#fbbf24",
+      link: "https://github.com/Jason-Vaughan?tab=repositories",
       description: "Public + private repos in the live stats registry. Auto-discovered from GitHub, then filtered by `projects.yml` exclusions (archived experiments, scratch repos, asset-only repos).",
     },
   ];
@@ -303,7 +305,8 @@ export default function BuilderStats({ visitorType }) {
       exact: totals.contributions,
       delta: d ? d.contributions : null,
       color: "#10b981",
-      description: "Total GitHub contributions (commits, pull requests, code reviews, and issues) in the current calendar year, fetched from GitHub's profile telemetry.",
+      link: "https://github.com/Jason-Vaughan",
+      description: "Total lifetime GitHub contributions (commits, pull requests, code reviews, and issues) since 2025, aggregated from GitHub's profile telemetry.",
     });
   }
 
@@ -441,8 +444,16 @@ export default function BuilderStats({ visitorType }) {
           const isHovered = hoveredLabel === s.label;
           const hasTooltip = !!s.description;
           const hasDelta = typeof s.delta === "number" && (s.delta !== 0 || s.alwaysShowDelta);
+          const ElementType = s.link ? "a" : "div";
+          const linkProps = s.link
+            ? {
+                href: s.link,
+                target: "_blank",
+                rel: "noreferrer",
+              }
+            : {};
           return (
-            <div
+            <ElementType
               key={s.label}
               onMouseEnter={() => hasTooltip && setHoveredLabel(s.label)}
               onMouseLeave={() => hasTooltip && setHoveredLabel(null)}
@@ -450,8 +461,11 @@ export default function BuilderStats({ visitorType }) {
                 textAlign: "center",
                 padding: "8px 4px",
                 position: "relative",
-                cursor: hasTooltip ? "help" : "default",
+                cursor: s.link ? "pointer" : (hasTooltip ? "help" : "default"),
+                textDecoration: "none",
+                display: "block",
               }}
+              {...linkProps}
             >
               <div style={{ fontSize: 24, fontWeight: 800, color: s.color, lineHeight: 1 }}>
                 {s.value}
@@ -535,7 +549,7 @@ export default function BuilderStats({ visitorType }) {
                   )}
                 </div>
               )}
-            </div>
+            </ElementType>
           );
         })}
       </div>
