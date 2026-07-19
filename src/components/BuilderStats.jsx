@@ -149,6 +149,7 @@ export default function BuilderStats({ visitorType }) {
         totals.prs = manifest.aggregatePRs?.merged || 0;
         totals.refactored = manifest.aggregateRefactored?.count || 0;
         totals.authored = manifest.aggregateAuthored?.count || 0;
+        totals.contributions = manifest.aggregateContributions?.total || 0;
         totals.deltas = manifest.aggregateDeltas || null;
 
         setTotals(totals);
@@ -292,6 +293,17 @@ export default function BuilderStats({ visitorType }) {
       delta: d ? d.refactored : null,
       color: "#ec4899",
       description: "Lines rewritten or retired over the life of every repo — refactors, simplifications, dead-code cleanup. The counterpart to Lines Authored (not Lines of Code): of everything ever written, most is still in production and this is the slice that got sharpened along the way. Code that's revisited, not just stacked on.",
+    });
+  }
+
+  if (totals.contributions > 0) {
+    stats.push({
+      label: "Contributions",
+      value: formatBigNumber(totals.contributions),
+      exact: totals.contributions,
+      delta: d ? d.contributions : null,
+      color: "#10b981",
+      description: "Total GitHub contributions (commits, pull requests, code reviews, and issues) in the current calendar year, fetched from GitHub's profile telemetry.",
     });
   }
 

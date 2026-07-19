@@ -42,4 +42,11 @@ describe("BuilderStats component invariants", () => {
     // Verify renderCodebaseView maps over stats directly
     expect(src).toContain('stats.map((s)');
   });
+
+  it("conditionally displays GitHub Contributions when total is greater than zero", () => {
+    const src = componentSource();
+    expect(src).toContain('totals.contributions > 0');
+    expect(src).toContain('label: "Contributions"');
+    expect(src).toContain('color: "#10b981"');
+  });
 });
