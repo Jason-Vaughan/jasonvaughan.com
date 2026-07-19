@@ -5,25 +5,25 @@ export const careerData = [
   {
     company: "Google (Event Technology Team)",
     role: "Technical Program Manager & Systems Operator",
-    period: "2025 - Present",
+    period: "2025 - 2026 (Freelance Partner since 2012)",
     bullets: {
       Recruiter: [
-        "Manage capacity planning and contractor lifecycles (JDs, SOWs, and extensions) to staff Google's global event technology programs.",
+        "Delivered a dedicated contract managing capacity planning, contractor lifecycles, and program resourcing for global event technology tracks, capping a 14-year history of successful Google event deployments.",
         "Coordinate resource allocation and capacity planning for programs ranging from $15M to $250M, surfacing staffing and scheduling risks early.",
         "Served as surrogate TPM for Google Cloud Next, managing Google-led Spotlight sessions (up to 1,500 people) and coordinating planning/resources with content and dev teams."
       ],
       Engineer: [
-        "Standardized developer environments, access control protocols, and tool configs, streamlining onboarding for technical crews.",
+        "Standardized developer environments, access control, and automated resourcing pipelines, streamlining operations for technical crews across a 14-year history of Google event engineering.",
         "Designed and maintained custom JS automation scripts to manage resource allocation and resolve scheduling conflicts across 100+ concurrent projects.",
         "Integrated local inference pipelines and generative models into internal operations, automating repetitive dataset formatting and document prep."
       ],
       EventPro: [
-        "Physically in charge of demo desk devices and execution with hands-on setup, operation, and direct interaction with executive dev teams during hardware launches and Google I/O.",
+        "Managed hands-on demo desk execution and executive stagecraft for global hardware launches (Google I/O, Cloud Next), capping a 14-year tenure executing Google's flagship keynotes.",
         "Coordinate technical signal routing, multi-screen LED configurations, and real-time encoding for main-stage keynote sessions.",
         "Bridge the gap between Google product teams and event production teams, ensuring product demos function perfectly when debuted to hundreds of millions of users."
       ],
       Default: [
-        "Bridge the gap between Google product teams and event production teams to ensure live product demos function flawlessly when debuted to hundreds of millions of users.",
+        "Capped a 14-year history of technical delivery on Google flagship events (direct freelance support since 2012, with event contributions stretching back to 2002) with a dedicated contract managing technical program tracks, demo execution, and resourcing trackers.",
         "Served as surrogate TPM for Google Cloud Next, managing Google-led Spotlight sessions (up to 1,500 people) and coordinating resources with content producers and dev teams.",
         "Built resourcing trackers using Google Apps Script to coordinate team assignments across hundreds of concurrent project tracks."
       ]
