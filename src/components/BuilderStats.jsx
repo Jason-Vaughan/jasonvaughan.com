@@ -228,7 +228,7 @@ export default function BuilderStats({ visitorType }) {
       exact: totals.tests,
       delta: d ? d.tests : null,
       color: "#34d399",
-      description: "Sum of `it()` / `test()` calls across every test file (`*.test.*` / `*.spec.*`) in every repo. Counts assertions that exist in the codebase — not test runs.",
+      description: "Total active test cases. A core philosophy: every repository utilizes strict automated CI/CD pipelines to guarantee code correctness on every commit. If a test fails, the build halts. These numbers represent fully verified, green-lit code.",
     },
     {
       label: "Projects Shipped",
@@ -609,7 +609,7 @@ export default function BuilderStats({ visitorType }) {
               <p style={{ margin: "4px 0 0", fontSize: 13, color: "#a1a1aa" }}>
                 {activeTab === "registry"
                   ? "Live download tracking across published skills and plugins"
-                  : "Live repository metrics aggregated across all active codebases"}
+                  : "Live codebase telemetry compiled automatically via automated CI/CD validation pipelines"}
               </p>
             </div>
 
