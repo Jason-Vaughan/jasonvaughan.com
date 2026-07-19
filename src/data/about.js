@@ -79,8 +79,8 @@ export const personaTaglines = {
     highlight: "AI-Native developer passionate about human-AI collaboration. I scale custom local LLM routing and production developer pipelines."
   },
   Engineer: {
-    bio: "AI-Native Systems Engineer & Full-Stack Developer. 25 years shipping production systems, zero-dependency Node.js services, and local LLM orchestration.",
-    highlight: "I live, sleep, and breathe AI engineering. I build custom local agent gateway systems (OpenClaw) and local RAG pipelines."
+    bio: "Systems & Infrastructure Engineer with 25+ years of experience bridging low-level networking, high-stakes physical fiber networks, and local-first AI orchestration.",
+    highlight: "I build robust developer tools and high-performance routing backends, backed by decades of zero-downtime enterprise network operations."
   },
   EventPro: {
     bio: "Production Technology Leader & Technical Director. 25 years managing complex signal flow, fiber arrays, and LED show systems for global keynotes.",

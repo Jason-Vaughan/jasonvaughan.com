@@ -13,9 +13,9 @@ export const careerData = [
         "Served as surrogate TPM for Google Cloud Next, managing Google-led Spotlight sessions (up to 1,500 people) and coordinating planning/resources with content and dev teams."
       ],
       Engineer: [
-        "Designed and maintained Apps Script automation dashboards to allocate staff across 100+ concurrent projects and surface resourcing conflicts.",
-        "Integrated local generative AI tools into internal operations to accelerate copywriting, data organization, and template prep.",
-        "Standardized IT tools, access protocols, and workspace logistics for creative and technical production workflows."
+        "Standardized developer environments, access control protocols, and tool configs, streamlining onboarding for technical crews.",
+        "Designed and maintained custom JS automation scripts to manage resource allocation and resolve scheduling conflicts across 100+ concurrent projects.",
+        "Integrated local inference pipelines and generative models into internal operations, automating repetitive dataset formatting and document prep."
       ],
       EventPro: [
         "Physically in charge of demo desk devices and execution with hands-on setup, operation, and direct interaction with executive dev teams during hardware launches and Google I/O.",
@@ -40,9 +40,9 @@ export const careerData = [
         "Lead specialized on-site patching teams, managing tight execution timelines and safety protocols under high-stakes conditions."
       ],
       Engineer: [
-        "Design and deploy high-capacity single-mode fiber backbones and temporary network topologies for enterprise-level show footprints.",
-        "Troubleshoot layer-1 physical fiber issues (optical loss, connector integrity) and configure managed network switch routing.",
-        "Program redundant optical transceivers, multiplexers, and distribution terminals to ensure absolute network availability."
+        "Design, build, and operate high-capacity network topologies and fiber-optic backbones for enterprise footprints under strict SLA constraints.",
+        "Configure managed layer-2 and layer-3 switches, routing tables, and VLANs, troubleshooting complex networking bottlenecks.",
+        "Program redundant hardware transceivers, multiplexers, and failover architectures to guarantee 99.999% network availability for live global keynotes."
       ],
       EventPro: [
         "Serve as Signal Flow Lead, designing and distributing fiber loops for primary keynote screens, broadcast production trucks, and overflow stages.",
@@ -67,9 +67,10 @@ export const careerData = [
         "Successfully integrated secure Stripe subscription billing models and user authentication flows for active SaaS operations."
       ],
       Engineer: [
-        "Designed and published TangleClaw, a zero-dependency remote TTYD and AI orchestration plane for persistent session management.",
-        "Built TangleBrain, a config-driven local-first LLM router supporting multiple local backends (Ollama, llama.cpp).",
-        "Publish open-source packages and Node.js zero-npm-dependency servers on GitHub and npm to foster community developer utilities."
+        "Designed and published TangleClaw, a zero-dependency remote terminal and process orchestration plane for persistent session persistence.",
+        "Built TangleBrain, a Python-based local LLM router and gateway that manages concurrent local/cloud inference backends (LiteLLM, Ollama, llama.cpp).",
+        "Created ClawBridge, an HTTP-to-IPC daemon that exposes local agent instances as supervised background build/execution services for automation tools.",
+        "Author lightweight developer tools, prioritizing performance profiling, high-concurrency request handling, and zero-npm dependency footprints."
       ],
       Investor: [
         "Developed and launched two active SaaS products (TiLT and Cierre Sensei) from prototype to recurring subscription models.",
@@ -145,8 +146,8 @@ export const careerData = [
         "Created resourcing, pricing, and execution models that scaled operations while maintaining profitability."
       ],
       Engineer: [
-        "Architected one of the earliest SaaS video streaming platforms, custom building RTMP ingest transcoding engines.",
-        "Deployed and maintained dedicated Linux streaming server arrays, optimizing bandwidth usage and packet delivery."
+        "Architected a pioneering municipal SaaS streaming platform, writing custom media distribution pipelines and RTMP ingest engines.",
+        "Deployed, tuned, and managed dedicated Linux server clusters, optimizing kernel network parameters and packet routing to handle massive streaming loads."
       ],
       Investor: [
         "Navigated the early SaaS landscape, securing contracts with the City of San Francisco and bootstrapping to cash-flow positive.",
