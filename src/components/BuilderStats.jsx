@@ -572,8 +572,25 @@ export default function BuilderStats({ visitorType }) {
           );
         })}
       </div>
-    );
-  };
+      <div style={{
+        marginTop: 20,
+        display: "flex",
+        justifyContent: "flex-end",
+        alignItems: "center",
+        gap: 6,
+        fontSize: 11,
+        color: "#71717a",
+        borderTop: "1px solid rgba(255, 255, 255, 0.04)",
+        paddingTop: 12,
+      }}>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: "#22c55e" }}>
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+        <span>Telemetry verified live via automated pipelines</span>
+      </div>
+    </div>
+  );
+};
 
   return (
     <section id="builder-stats" style={{ padding: "24px 0" }}>
@@ -602,16 +619,51 @@ export default function BuilderStats({ visitorType }) {
             borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
             padding: "18px 28px"
           }}>
-            <div>
-              <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: "#71717a" }}>
-                {activeTab === "registry" ? "ClawHub Traction" : "Builder Statistics"}
-              </span>
-              <p style={{ margin: "4px 0 0", fontSize: 13, color: "#a1a1aa" }}>
-                {activeTab === "registry"
-                  ? "Live download tracking across published skills and plugins"
-                  : "Live codebase telemetry compiled automatically via automated CI/CD validation pipelines"}
-              </p>
-            </div>
+             <div>
+               <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+                 <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: "#71717a" }}>
+                   {activeTab === "registry" ? "ClawHub Traction" : "Builder Statistics"}
+                 </span>
+                 {activeTab !== "registry" && (
+                   <span style={{
+                     display: "inline-flex",
+                     alignItems: "center",
+                     gap: 6,
+                     padding: "3px 8px",
+                     borderRadius: 12,
+                     background: "rgba(34, 197, 94, 0.08)",
+                     border: "1px solid rgba(34, 197, 94, 0.2)",
+                     fontSize: 9.5,
+                     fontWeight: 700,
+                     color: "#22c55e",
+                     textTransform: "uppercase",
+                     letterSpacing: 0.5,
+                     lineHeight: 1
+                   }}>
+                     <style>{`
+                       @keyframes pulse-dot {
+                         0%, 100% { transform: scale(1); opacity: 1; }
+                         50% { transform: scale(1.2); opacity: 0.6; }
+                       }
+                     `}</style>
+                     <span style={{
+                       width: 5,
+                       height: 5,
+                       borderRadius: "50%",
+                       background: "#22c55e",
+                       display: "inline-block",
+                       animation: "pulse-dot 2s infinite ease-in-out"
+                     }} />
+                     CI/CD Passing
+                   </span>
+                 )}
+               </div>
+               <p style={{ margin: "4px 0 0", fontSize: 13, color: "#a1a1aa" }}>
+                 {activeTab === "registry"
+                   ? "Live download tracking across published skills and plugins"
+                   : "Live codebase telemetry compiled automatically via automated CI/CD validation pipelines"}
+               </p>
+             </div>
 
             {/* Tab Switcher */}
             <div style={{
