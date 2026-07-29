@@ -6,8 +6,52 @@
   "featureIndexEnabled": true,
   "projectMapEnabled": true,
   "versionBumpEnabled": true,
+  "versionFilePath": null,
   "wrapAutoPrEnabled": true,
   "wrapSections": null,
+  "wrapStepOverrides": {
+    "open-pr-check": {
+      "enabled": false
+    },
+    "changelog-update": {
+      "enabled": false
+    },
+    "version-bump": {
+      "enabled": false
+    },
+    "learnings-capture": {
+      "enabled": false
+    },
+    "learnings-db-write": {
+      "enabled": false
+    },
+    "rule-proposal": {
+      "enabled": false
+    },
+    "next-session-prime": {
+      "enabled": false
+    },
+    "features-toc": {
+      "enabled": false
+    },
+    "project-map": {
+      "enabled": false
+    },
+    "index-describe": {
+      "enabled": false
+    },
+    "memory-update": {
+      "enabled": false
+    },
+    "continuity-write": {
+      "enabled": false
+    },
+    "apply-pr-resolutions": {
+      "enabled": false
+    }
+  },
+  "defaultLaunchMode": "default",
+  "showLaunchModePicker": true,
   "orchestrationKeyRef": null,
   "rules": {
     "core": {
@@ -54,10 +98,10 @@
     "baselineWindowDays": 14,
     "retentionDays": 90
   },
-  "wrapV2": true,
   "testCommand": null,
   "lintCommand": null,
   "lastWrapSha": "f0fd7c3e23480f2a500aff60bbbda9f069add297",
+  "wrapV2": true,
   "medusaEnabled": true,
   "medusaWake": true,
   "methodologyArchives": [
@@ -66,5 +110,6 @@
       "archivePath": ".prawduct.archived",
       "archivedAt": "2026-07-18T06:42:08.834Z"
     }
-  ]
+  ],
+  "wrapOverridesSeeded": true
 }
