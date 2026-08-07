@@ -44,7 +44,6 @@ function generate52WeekGrid(totalContribs) {
   const weeks = [];
   const today = new Date();
   const totalDays = 52 * 7;
-  const avgPerDay = Math.max(1, Math.round((totalContribs || 2200) / (totalDays * 0.48)));
   
   let dayIndex = 0;
   for (let w = 0; w < 52; w++) {
@@ -57,21 +56,40 @@ function generate52WeekGrid(totalContribs) {
       const randVal = pseudoRand - Math.floor(pseudoRand);
       const isWeekend = d === 0 || d === 6;
       
-      const isActive = randVal > (isWeekend ? 0.72 : 0.38);
-      const count = isActive ? Math.max(1, Math.round(avgPerDay * (0.3 + randVal * 1.9))) : 0;
+      const isActive = randVal > (isWeekend ? 0.65 : 0.32);
       
+      let count = 0;
       let gitLevel = 0;
-      if (count > 0) gitLevel = 1;
-      if (count >= 4) gitLevel = 2;
-      if (count >= 10) gitLevel = 3;
-      if (count >= 18) gitLevel = 4;
-
-      const tokens = count > 0 ? Math.round(count * (1.1 + randVal * 0.9) * 1150000) : 0;
       let cyberLevel = 0;
-      if (tokens > 0) cyberLevel = 1;
-      if (tokens >= 5000000) cyberLevel = 2;
-      if (tokens >= 14000000) cyberLevel = 3;
-      if (tokens >= 25000000) cyberLevel = 4;
+      let tokens = 0;
+
+      if (isActive) {
+        if (randVal < 0.48) {
+          count = Math.floor(1 + randVal * 5); // 1-3 commits -> Level 1
+          gitLevel = 1;
+        } else if (randVal < 0.70) {
+          count = Math.floor(4 + (randVal - 0.48) * 18); // 4-7 commits -> Level 2
+          gitLevel = 2;
+        } else if (randVal < 0.87) {
+          count = Math.floor(8 + (randVal - 0.70) * 35); // 8-13 commits -> Level 3
+          gitLevel = 3;
+        } else {
+          count = Math.floor(14 + (randVal - 0.87) * 80); // 14-24 commits -> Level 4
+          gitLevel = 4;
+        }
+
+        tokens = Math.round(count * (650000 + randVal * 850000));
+        
+        if (tokens < 3500000) {
+          cyberLevel = 1;
+        } else if (tokens < 9000000) {
+          cyberLevel = 2;
+        } else if (tokens < 17000000) {
+          cyberLevel = 3;
+        } else {
+          cyberLevel = 4;
+        }
+      }
 
       days.push({
         date: date.toISOString().split("T")[0],
@@ -713,8 +731,12 @@ export default function BuilderStats({ visitorType }) {
                 <div key={wIdx} style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   {week.contributionDays.map((day, dIdx) => {
                     const level = heatmapPalette === "cyber" 
-                      ? (day.cyberLevel !== undefined ? day.cyberLevel : Math.min(4, Math.ceil((day.contributionCount || 0) / 4)))
-                      : (day.gitLevel !== undefined ? day.gitLevel : (day.level || 0));
+                      ? (day.cyberLevel !== undefined 
+                          ? day.cyberLevel 
+                          : (day.contributionCount === 0 ? 0 : day.contributionCount <= 3 ? 1 : day.contributionCount <= 7 ? 2 : day.contributionCount <= 13 ? 3 : 4))
+                      : (day.gitLevel !== undefined 
+                          ? day.gitLevel 
+                          : (day.contributionCount === 0 ? 0 : day.contributionCount <= 3 ? 1 : day.contributionCount <= 7 ? 2 : day.contributionCount <= 13 ? 3 : 4));
                     const color = activePalette[level || 0];
                     const isHovered = hoveredDay?.date === day.date;
                     return (
