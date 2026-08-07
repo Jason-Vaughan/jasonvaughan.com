@@ -250,7 +250,7 @@ export default function App() {
       bodyInWrap: true,
       provideId: true,
       element: <About visitorType={visitorType} onDownloadResume={handleResumeClick} />,
-      visible: isPreviewMode,
+      visible: true,
     },
     {
       id: "career", // id="career"
@@ -260,7 +260,7 @@ export default function App() {
       bodyInWrap: true,
       provideId: true,
       element: <Career visitorType={visitorType} />,
-      visible: isPreviewMode,
+      visible: true,
     },
     {
       id: "tilt", // id="tilt"
@@ -404,7 +404,7 @@ export default function App() {
   const activeTagline = personaTaglines[activePersonaKey];
 
   return (
-    <div className="min-h-screen text-gray-900" style={{ background: "#09090b" }}>
+    <div className="min-h-screen text-zinc-100" style={{ background: "#09090b", color: "#f4f4f5" }}>
       <style>{`
         @keyframes card-highlight {
           0%, 100% { box-shadow: 0 8px 24px rgba(0,0,0,.35); }

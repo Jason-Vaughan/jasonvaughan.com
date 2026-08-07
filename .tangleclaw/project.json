@@ -1,7 +1,5 @@
 {
   "engine": "antigravity",
-  "methodology": "minimal",
-  "methodologyPhase": null,
   "silentPrime": true,
   "featureIndexEnabled": true,
   "projectMapEnabled": true,
@@ -73,7 +71,6 @@
   },
   "ports": {},
   "quickCommands": [],
-  "actions": [],
   "tags": [
     "Prawduct"
   ],
@@ -100,7 +97,10 @@
   },
   "testCommand": null,
   "lintCommand": null,
-  "lastWrapSha": "f0fd7c3e23480f2a500aff60bbbda9f069add297",
+  "lastWrapSha": "7579d27650821af09c5de2b3a9529f3bc9050268",
+  "methodology": "minimal",
+  "methodologyPhase": null,
+  "actions": [],
   "wrapV2": true,
   "medusaEnabled": true,
   "medusaWake": true,
