@@ -1,0 +1,70 @@
+name: Update Git Stats Dashboard
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs every night at midnight UTC
+  workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Fetch GitHub Contribution Matrix & Weekly Stats
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const username = 'Jason-Vaughan';
+            
+            const query = `
+              query($username: String!) {
+                user(login: $username) {
+                  contributionsCollection {
+                    contributionCalendar {
+                      totalContributions
+                      weeks {
+                        contributionDays {
+                          date
+                          contributionCount
+                          color
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            `;
+
+            try {
+              const res = await github.graphql(query, { username });
+              const calendar = res.user.contributionsCollection.contributionCalendar;
+              const allDays = calendar.weeks.flatMap(w => w.contributionDays);
+              const past7Days = allDays.slice(-7);
+              const weeklyCommits = past7Days.reduce((acc, d) => acc + d.contributionCount, 0);
+
+              const statsData = {
+                username,
+                weeklyCommits,
+                totalContributionsYear: calendar.totalContributions,
+                updatedAt: new Date().toISOString(),
+                weeks: calendar.weeks 
+              };
+
+              fs.writeFileSync('./public/git-stats.json', JSON.stringify(statsData, null, 2));
+              console.log(`Successfully logged ${weeklyCommits} commits for the past 7 days.`);
+            } catch (err) {
+              core.setFailed(`Action failed: ${err.message}`);
+            }
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ./public/git-stats.json
+          git diff-index --quiet HEAD || git commit -m "chore: update git activity & calendar stats [skip ci]"
+          git push
