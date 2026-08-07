@@ -60,16 +60,26 @@ function generate52WeekGrid(totalContribs) {
       const isActive = randVal > (isWeekend ? 0.72 : 0.38);
       const count = isActive ? Math.max(1, Math.round(avgPerDay * (0.3 + randVal * 1.9))) : 0;
       
-      let level = 0;
-      if (count > 0) level = 1;
-      if (count >= 4) level = 2;
-      if (count >= 10) level = 3;
-      if (count >= 18) level = 4;
+      let gitLevel = 0;
+      if (count > 0) gitLevel = 1;
+      if (count >= 4) gitLevel = 2;
+      if (count >= 10) gitLevel = 3;
+      if (count >= 18) gitLevel = 4;
+
+      const tokens = count > 0 ? Math.round(count * (1.1 + randVal * 0.9) * 1150000) : 0;
+      let cyberLevel = 0;
+      if (tokens > 0) cyberLevel = 1;
+      if (tokens >= 5000000) cyberLevel = 2;
+      if (tokens >= 14000000) cyberLevel = 3;
+      if (tokens >= 25000000) cyberLevel = 4;
 
       days.push({
         date: date.toISOString().split("T")[0],
         contributionCount: count,
-        level: level,
+        tokensEstimate: tokens,
+        level: gitLevel,
+        gitLevel: gitLevel,
+        cyberLevel: cyberLevel,
       });
       dayIndex++;
     }
@@ -640,10 +650,12 @@ export default function BuilderStats({ visitorType }) {
           }}>
             <div>
               <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1.5, color: "#71717a" }}>
-                52-Week Git & AI Activity Grid
+                {heatmapPalette === "cyber" ? "52-Week AI Compute Intensity Grid" : "52-Week Git Commit Activity"}
               </div>
               <div style={{ fontSize: 13, color: "#a1a1aa", marginTop: 2 }}>
-                {gitStats?.totalContributionsYear || totals.contributions || 3842} total contributions across all repos
+                {heatmapPalette === "cyber" 
+                  ? `${formatBigNumber(allTokens)} lifetime AI tokens mapped across active development days`
+                  : `${gitStats?.totalContributionsYear || totals.contributions || 3842} total contributions across all repos`}
               </div>
             </div>
 
@@ -669,7 +681,7 @@ export default function BuilderStats({ visitorType }) {
                   cursor: "pointer",
                 }}
               >
-                🟢 GitHub Green
+                🟢 GitHub Commits
               </button>
               <button
                 onClick={() => setHeatmapPalette("cyber")}
@@ -684,7 +696,7 @@ export default function BuilderStats({ visitorType }) {
                   cursor: "pointer",
                 }}
               >
-                🟣 AI Cyber
+                🟣 AI Compute
               </button>
             </div>
           </div>
@@ -700,7 +712,10 @@ export default function BuilderStats({ visitorType }) {
               {weeksData.map((week, wIdx) => (
                 <div key={wIdx} style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   {week.contributionDays.map((day, dIdx) => {
-                    const color = activePalette[day.level || 0];
+                    const level = heatmapPalette === "cyber" 
+                      ? (day.cyberLevel !== undefined ? day.cyberLevel : Math.min(4, Math.ceil((day.contributionCount || 0) / 4)))
+                      : (day.gitLevel !== undefined ? day.gitLevel : (day.level || 0));
+                    const color = activePalette[level || 0];
                     const isHovered = hoveredDay?.date === day.date;
                     return (
                       <div
@@ -740,16 +755,31 @@ export default function BuilderStats({ visitorType }) {
             <div>
               {hoveredDay ? (
                 <span style={{ color: "#ffffff", fontWeight: 600 }}>
-                  {hoveredDay.date}: <span style={{ color: activePalette[4] }}>{hoveredDay.contributionCount} commits/activity</span>
+                  {hoveredDay.date}:{" "}
+                  {heatmapPalette === "cyber" ? (
+                    <span style={{ color: "#c084fc" }}>
+                      {hoveredDay.tokensEstimate 
+                        ? `${(hoveredDay.tokensEstimate / 1e6).toFixed(1)}M AI Tokens` 
+                        : `${(hoveredDay.contributionCount * 1.2).toFixed(1)}M AI Tokens`} • {hoveredDay.contributionCount} Commits (Level {hoveredDay.cyberLevel || 1} Overdrive)
+                    </span>
+                  ) : (
+                    <span style={{ color: "#22c55e" }}>
+                      {hoveredDay.contributionCount} Git commits / activity
+                    </span>
+                  )}
                 </span>
               ) : (
-                <span>Hover over tiles to inspect daily git velocity</span>
+                <span>
+                  {heatmapPalette === "cyber" 
+                    ? "Hover over tiles to inspect daily AI token consumption" 
+                    : "Hover over tiles to inspect daily git commit velocity"}
+                </span>
               )}
             </div>
 
             {/* Legend */}
             <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <span>Less</span>
+              <span>{heatmapPalette === "cyber" ? "Low Inference" : "Less Commits"}</span>
               {activePalette.map((col, idx) => (
                 <span
                   key={idx}
@@ -762,7 +792,7 @@ export default function BuilderStats({ visitorType }) {
                   }}
                 />
               ))}
-              <span>More</span>
+              <span>{heatmapPalette === "cyber" ? "Hyperdrive Compute" : "More Commits"}</span>
             </div>
           </div>
         </div>
