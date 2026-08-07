@@ -415,7 +415,7 @@ export default function BuilderStats({ visitorType }) {
     // Color maps for heatmap
     const palettes = {
       git: ["#18181b", "#0e4429", "#006d32", "#26a641", "#39d353"],
-      cyber: ["#18181b", "#3b0764", "#6d28d9", "#9333ea", "#38bdf8"],
+      cyber: ["#18181b", "#4c1d95", "#7c3aed", "#c084fc", "#f472b6"],
     };
     const activePalette = palettes[heatmapPalette] || palettes.git;
 
