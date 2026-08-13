@@ -60,6 +60,21 @@ export default function App() {
   // Dynamic sub-role filter within Recruiter mode
   const [targetRole, setTargetRole] = useState("");
 
+  // Pre-assigned password mapping (TASK-RESUME-1)
+  const RESUME_PASSWORDS = {
+    jason2026: "master",
+    tpm2026: "tpm",
+    moscone: "eventpro",
+    anthropic: "anthropic",
+    anthropic2026: "anthropic",
+    google: "google",
+    google2026: "google",
+    eventpro: "eventpro",
+    eventpro2026: "eventpro",
+    master: "master",
+    general: "master"
+  };
+
   // Password-gated resume states
   const [isResumeUnlocked, setIsResumeUnlocked] = useState(() => {
     if (typeof window === "undefined") return false;
@@ -68,6 +83,18 @@ export default function App() {
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [passwordError, setPasswordError] = useState(false);
+
+  // Auto-unlock via URL query parameter (e.g. ?pass=anthropic or ?password=google)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const queryPass = (params.get("pass") || params.get("password") || params.get("code") || "").trim().toLowerCase();
+    if (queryPass && RESUME_PASSWORDS[queryPass]) {
+      setIsResumeUnlocked(true);
+      localStorage.setItem("resumeUnlocked", "true");
+      localStorage.setItem("resumePassVariant", RESUME_PASSWORDS[queryPass]);
+    }
+  }, []);
 
   const triggerResumeDownload = () => {
     const link = document.createElement("a");
@@ -92,10 +119,12 @@ export default function App() {
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
     const normalized = passwordInput.trim().toLowerCase();
-    if (normalized === "jason2026" || normalized === "tpm2026" || normalized === "moscone") {
+    const variant = RESUME_PASSWORDS[normalized];
+    if (variant) {
       setIsResumeUnlocked(true);
       if (typeof window !== "undefined") {
         localStorage.setItem("resumeUnlocked", "true");
+        localStorage.setItem("resumePassVariant", variant);
       }
       setIsPasswordModalOpen(false);
       triggerResumeDownload();

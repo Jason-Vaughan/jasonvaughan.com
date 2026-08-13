@@ -26,27 +26,51 @@ describe("Resume Password Gate Invariants", () => {
     expect(isUnlocked).toBe(false);
   });
 
-  test("Correct password unlocks the resume and persists to localStorage", () => {
-    const validPasswords = ["jason2026", "tpm2026", "moscone"];
+  test("Correct pre-assigned passwords unlock the resume and persist to localStorage", () => {
+    const validPasswords = ["jason2026", "tpm2026", "moscone", "anthropic", "anthropic2026", "google", "google2026", "eventpro"];
+    const RESUME_PASSWORDS = {
+      jason2026: "master",
+      tpm2026: "tpm",
+      moscone: "eventpro",
+      anthropic: "anthropic",
+      anthropic2026: "anthropic",
+      google: "google",
+      google2026: "google",
+      eventpro: "eventpro"
+    };
+
     for (const pwd of validPasswords) {
       store = {};
       const input = pwd.trim().toLowerCase();
-      const success = (input === "jason2026" || input === "tpm2026" || input === "moscone");
-      if (success) {
+      const variant = RESUME_PASSWORDS[input];
+      if (variant) {
         localStorage.setItem("resumeUnlocked", "true");
+        localStorage.setItem("resumePassVariant", variant);
       }
       expect(localStorage.getItem("resumeUnlocked")).toBe("true");
+      expect(localStorage.getItem("resumePassVariant")).toBe(variant);
     }
   });
 
   test("Incorrect password fails to unlock", () => {
     const pwd = "wrongpassword";
+    const RESUME_PASSWORDS = {
+      jason2026: "master",
+      anthropic: "anthropic"
+    };
     const input = pwd.trim().toLowerCase();
-    const success = (input === "jason2026" || input === "tpm2026" || input === "moscone");
-    if (success) {
+    const variant = RESUME_PASSWORDS[input];
+    if (variant) {
       localStorage.setItem("resumeUnlocked", "true");
     }
     expect(localStorage.getItem("resumeUnlocked")).toBeNull();
+  });
+
+  test("App.jsx supports URL query parameter auto-unlock via pass parameter", () => {
+    const src = readFileSync(join(ROOT, "src/App.jsx"), "utf8");
+    expect(src).toContain("RESUME_PASSWORDS");
+    expect(src).toContain('params.get("pass")');
+    expect(src).toContain("resumePassVariant");
   });
 
   test("App.jsx implements the password check gate before downloading", () => {
