@@ -183,6 +183,12 @@
       "category": "AI Infrastructure / OpenClaw Fleet & Kobold Edge-Node",
       "question": "What is Kobold and how does it fit into your OpenClaw fleet?",
       "story": "Kobold is a private, stealth-mode voice-operated AI Assistant Video Engineer that plugs into local show networks to scan, monitor, and configure video hardware. It runs an OpenClaw Gateway in Docker on a local mini-PC and connects via Tailscale to Monad-1 (my $35k GPU rig) as its local LLM backend to deliver hands-free, offline, on-site intelligence. Because the project is private, its operational details and source code are redacted."
+    },
+    {
+      "id": "made-by-google-2026-brooklyn",
+      "category": "Emergency Response / High-Stakes Broadcast & Vendor Navigation",
+      "question": "Tell me about your recent emergency work on Made by Google 2026.",
+      "story": "Google Event Technology (ETT) brought me back as an emergency contractor specifically to manage the device demo technical interface for the remote Brooklyn live broadcast of 'Made by Google 2026'—broadcast across 12 global platforms and live on Times Square billboards. I owned the on-site technical setup and real-time execution under extreme outdoor conditions (heat wave, sudden rain, remote wireless connectivity challenges). When a hostile vendor relationship attempted to exploit technical friction for leverage, I maintained absolute technical calm, executed flawless device demo operations, and kept the broadcast seamless. The ETT management team rallied around me, elevating my reputation across Google. Both Google ETT and Google Cloud teams subsequently requested my direct return for ongoing enterprise contract work."
     }
   ]
 }

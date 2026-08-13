@@ -55,7 +55,8 @@ export const aboutData = {
     { year: "2000", event: "Co-designed iPolis webcasting SaaS, establishing my base in software development." },
     { year: "2007", event: "Began freelance technical direction, managing signal routing for major corporate events." },
     { year: "2016", event: "Appointed ACT Video Head, leading complex fiber/signal infrastructure for large productions." },
-    { year: "2026", event: "Joined Google as ETT Technical Program Manager (TPM)." },
+    { year: "2026", event: "Joined Google Event Technology Team (ETT) as Technical Program Manager & Emergency Production Lead." },
+    { year: "2026", event: "Device Demo Interface Lead for Made by Google 2026 live global broadcast (Times Square & 12 platforms)." },
     { year: "2026", event: "Launched OpenClaw open-source ecosystem, simplifying autonomous agent development." }
   ],
   
