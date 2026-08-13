@@ -4,6 +4,12 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Planned Backlog — Smart Resume Gate & Lead Generation Engine
+- **[TASK-RESUME-1] Pre-Assigned Passwords & Query Parameter Auto-Unlock**: Support custom passwords (`anthropic2026`, `google2026`, `eventpro`) and URL query parameters (`jasonvaughan.com?pass=anthropic`). Auto-unlocks and selects the target resume variant with zero friction.
+- **[TASK-RESUME-2] Persona & Domain-Based Dynamic PDF Serving**: Serve targeted PDF resume variants (`Jason_Vaughan_AV_Specialist_Resume.pdf`, `Jason_Vaughan_TPM_Resume.pdf`, `Jason_Vaughan_Master_Resume.pdf`) mapped to visitor domain/password type.
+- **[TASK-RESUME-3] Work Email OTP Verification Gate**: Optional email request modal sending a fast 6-digit OTP code via Cloudflare Worker + Resend API (`jasonvaughan.com`) for recruiter identity verification.
+- **[TASK-RESUME-4] Real-Time Lead Alerts & Recruiter Telemetry**: Trigger instant email/webhook alerts to Jason (*"🔥 Recruiter from anthropic.com requested your resume!"*) upon OTP verification.
+
 ### Added
 - **Interactive ClawHub Stats Dashboard with SVG Sparklines** — integrated a beautiful, high-impact stats dashboard modeled after clawhub.ai directly at the top of the ClawHub Skills and Tools catalog section (`src/components/ClawHub.jsx`). Fetches live total downloads, skills downloads, and plugins downloads from `clawhub-versions.json` in parallel. Generates mathematically accurate 30-day growth timeseries and renders smooth bezier-curved SVG sparklines with opacity gradient area fills. Includes responsive mobile reflow rules.
 - **Gated Preview Visitor Segmentation Mode** — built a dynamic persona segmentation system gated behind a `?preview=true` query parameter. Displays a full-screen overlay modal (`src/components/PersonaSelector.jsx`) prompting the visitor to select their mode (Recruiter, Engineer, Event Pro, OpenClaw Community, Founder/Investor), saving the preference in `localStorage`, and automatically expanding the most relevant collapsible sections to personalize their landing experience. Added a dynamic `closeAllSections` registry utility to collapse all inactive dropdowns when switching visitor types.
