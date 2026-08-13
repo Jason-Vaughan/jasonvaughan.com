@@ -5,6 +5,10 @@ This file persists context across AI sessions. Update it with key decisions, pro
 ## Workflow Preferences & Conventions
 
 - **MagicDNS Local Dev Smoke Testing**: Always test locally using the Vite dev server (`npm run dev` on port `3300`) accessible via Tailscale MagicDNS (e.g. `http://cursatory.ts.net:3300/smoke-test.html` or `http://elkaholic.ts.net:3300/smoke-test.html`) before initiating a public deployment. This enables instant HMR and removes deployment pipeline wait times.
+- **Remote Clipboard & Private Tailscale App Server**: When operating remotely via TangleClaw web terminal (`https://cursatory.tail123678.ts.net:8443`) from a laptop (`elkaholic`), text blocks in terminal output cannot be easily copied via browser 1-click buttons. To serve long text packages, runbooks, or application materials privately to the remote laptop browser:
+  1. Save text files to home directory (`~/filename.txt`).
+  2. Launch a private local Python HTTP server on `cursatory` bound to `0.0.0.0:9999` over Tailscale.
+  3. Opening `http://cursatory.tail123678.ts.net:9999` in the laptop (`elkaholic`) browser provides 1-tap JavaScript `navigator.clipboard.writeText()` buttons that copy text directly into the laptop's OS clipboard while keeping all contents 100% private to the Tailscale mesh network.
 
 ## Last Session (2026-07-14 — Kobold branding, right-aligned layout, watermark dial-in, and smoke-test tool)
 
