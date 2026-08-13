@@ -31,8 +31,31 @@ export const certifications = [
     detail:
       "Trained hands-on across the stagecraft trades — rigging, carpentry, audio, video, and live show management.",
   },
-  { name: "Video Engineering — Level A", issuer: "Barco", year: "", detail: "" },
-  { name: "OSHA 30", issuer: "OSHA", year: "", detail: "" },
+  {
+    name: "Barco Video Engineering & High-Resolution Screen Switching",
+    issuer: "Barco",
+    year: "",
+    detail: "Certified operator & engineer for E2, ImagePro, and multi-destination screen switching systems.",
+  },
+  {
+    name: "Analog Way High-Resolution Switching & Video Engineering",
+    issuer: "Analog Way",
+    year: "",
+    detail: "High-resolution switching, multi-screen blends, and signal routing.",
+  },
+  {
+    name: "Millumin & Disguise Media Server Systems",
+    issuer: "Millumin · Disguise · Dataton",
+    year: "",
+    detail: "Media playback, projection mapping, Watchout winches, and live show control integration.",
+  },
+  {
+    name: "Dante & AV-over-IP Signal Flow Networking",
+    issuer: "Audinate · SMPTE-2110",
+    year: "",
+    detail: "Dante audio networking, NDI/SDI routing, and fiber-optic signal distribution.",
+  },
+  { name: "OSHA 30", issuer: "OSHA", year: "", detail: "General Industry & Staging Safety Certification." },
   {
     name: "Project Management — Professional Certificate",
     issuer: "Google · Coursera",
