@@ -34,3 +34,11 @@ Refreshing the site for two upstream releases (PRs #90/#91, release v0.2.0) turn
 - **`check-pr-trivial` disqualifies on *any* newly-tracked file** — #90 (two-string copy + a new test file) took the full Critic+reviewer path; #91 (copy-only, no new files) legitimately skipped both gates. If a change is split-able, keeping new files out of an otherwise-trivial commit changes which review path it gets.
 - **Repo auto-merge is now ON** (`gh api -X PATCH … -f allow_auto_merge=true` after `--auto` errored) — routine PRs can use `gh pr merge --auto --squash --delete-branch` as the global rules intend. And when tagging a release retroactively, anchor the tag at the *cut commit* (`v0.2.0` → `0b1a668`), not current HEAD, so tag contents match the CHANGELOG section.
 - **Refinement to the 2026-06-24 Playwright caveat:** a scratchpad-resident script *can* run with project module resolution via `node --input-type=module -e "$(cat <script>)"` from the project cwd — no need to copy the file into the repo.
+
+## 2026-08-13 — Remote TangleClaw Terminal vs Laptop Browser Clipboard: Private Tailscale HTTP Bridge
+
+When operating remotely via TangleClaw web terminal (`https://cursatory.tail123678.ts.net:8443`) from a remote laptop (`elkaholic`), text blocks in terminal output cannot be easily copied via browser 1-click buttons, and host `pbcopy` updates `cursatory`'s OS clipboard rather than the laptop's browser.
+
+- **Durable Solution for Long Text Packages / Runbooks**: Save raw text files to `~/filename.txt` on the host (`cursatory`), then spin up a private local Python HTTP server bound to `0.0.0.0:9999` over Tailscale.
+- **Client Experience**: Opening `http://cursatory.tail123678.ts.net:9999` in the laptop (`elkaholic`) browser gives native JavaScript `navigator.clipboard.writeText()` 1-tap buttons that copy text directly into the laptop's OS clipboard while keeping all contents 100% private to the Tailscale mesh network.
+
