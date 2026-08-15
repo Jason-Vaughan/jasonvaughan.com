@@ -49,6 +49,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Generate OG preview images
+        continue-on-error: true
         env:
           OG_BASE_URL: http://127.0.0.1:4173
         run: npm run generate:og-images
