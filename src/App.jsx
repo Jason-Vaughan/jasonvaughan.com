@@ -165,8 +165,15 @@ export default function App() {
   const [passwordInput, setPasswordInput] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [activeBannerNote, setActiveBannerNote] = useState(() => {
-    if (typeof window === "undefined") return "";
-    return localStorage.getItem("resumeBannerNote") || "";
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const queryPass = (params.get("pass") || params.get("password") || params.get("code") || "").trim().toLowerCase();
+      if (queryPass && PASSCODE_CONFIGS[queryPass]) {
+        return PASSCODE_CONFIGS[queryPass].bannerNote;
+      }
+      return localStorage.getItem("resumeBannerNote") || "";
+    }
+    return "";
   });
 
   // Auto-unlock via URL query parameter (e.g. ?pass=anthropic or ?pass=tpm2026)
