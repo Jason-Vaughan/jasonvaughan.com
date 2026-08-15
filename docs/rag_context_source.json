@@ -12,7 +12,7 @@
       },
       {
         "id": "keynote-app-crash",
-        "category": "Live Staging / Emergency Response",
+        "category": "Live Staging & Technical Program Operations",
         "context": "Main application crashes 60 seconds before presenter walks on stage.",
         "incident": "Visual server app quit right at the entrance boundary.",
         "action": "Stayed calm, asserted authority on comms, coordinated support in the headset, and resolved the configuration error directly on the show machine in under a minute.",
