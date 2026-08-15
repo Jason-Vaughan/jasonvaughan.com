@@ -135,7 +135,7 @@ export default function App() {
     }
 
     const saved = localStorage.getItem("visitorType");
-    if (saved !== null) return saved;
+    if (saved) return saved;
     
     // Attempt to infer persona on first landing
     const inferred = inferPersona();
@@ -143,7 +143,8 @@ export default function App() {
       localStorage.setItem("visitorType", inferred);
       return inferred;
     }
-    return "";
+    // Default to Recruiter mode so site always renders a rich professional persona
+    return "Recruiter";
   });
 
   // Dynamic sub-role filter within Recruiter mode
