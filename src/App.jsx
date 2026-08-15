@@ -25,8 +25,71 @@ import PortfolioModal from "./components/PortfolioModal";
 import { PERSONAS, inferPersona, PersonaDropdown } from "./components/PersonaSelector";
 import { personaTaglines } from "./data/about";
 
+// Pre-assigned passcode configs & persona auto-selection (TASK-RESUME-2)
+const PASSCODE_CONFIGS = {
+  anthropic: {
+    variant: "anthropic",
+    persona: "EventPro",
+    bannerNote: "Welcome Anthropic Hiring Team · AV Production & Broadcast View Unlocked",
+    roleFilter: "AV Production Specialist"
+  },
+  anthropic2026: {
+    variant: "anthropic",
+    persona: "EventPro",
+    bannerNote: "Welcome Anthropic Hiring Team · AV Production & Broadcast View Unlocked",
+    roleFilter: "AV Production Specialist"
+  },
+  tpm2026: {
+    variant: "tpm",
+    persona: "Recruiter",
+    bannerNote: "Welcome NVIDIA / Hiring Team · Technical Program Manager View Unlocked",
+    roleFilter: "Technical Program Manager"
+  },
+  google: {
+    variant: "google",
+    persona: "Recruiter",
+    bannerNote: "Welcome Google / Hiring Team · Technical Program Manager View Unlocked",
+    roleFilter: "Technical Program Manager"
+  },
+  google2026: {
+    variant: "google",
+    persona: "Recruiter",
+    bannerNote: "Welcome Google / Hiring Team · Technical Program Manager View Unlocked",
+    roleFilter: "Technical Program Manager"
+  },
+  eventpro: {
+    variant: "eventpro",
+    persona: "EventPro",
+    bannerNote: "Welcome Event Staging & Production Leads · AV Engineering View Unlocked",
+    roleFilter: ""
+  },
+  eventpro2026: {
+    variant: "eventpro",
+    persona: "EventPro",
+    bannerNote: "Welcome Event Staging & Production Leads · AV Engineering View Unlocked",
+    roleFilter: ""
+  },
+  moscone: {
+    variant: "eventpro",
+    persona: "EventPro",
+    bannerNote: "Welcome Moscone / Event Staging Leads · Video & Fiber View Unlocked",
+    roleFilter: ""
+  },
+  jason2026: {
+    variant: "master",
+    persona: "Recruiter",
+    bannerNote: "Welcome Hiring Manager · Master Portfolio & Systems OPS View Unlocked",
+    roleFilter: ""
+  },
+  master: {
+    variant: "master",
+    persona: "Recruiter",
+    bannerNote: "Welcome Hiring Manager · Master Portfolio View Unlocked",
+    roleFilter: ""
+  }
+};
+
 export default function App() {
-  const [clawhubDownloads, setClawhubDownloads] = useState(null);
   const [projectStats, setProjectStats] = useState(null);
 
   // Gated Preview mode activation state
@@ -43,10 +106,29 @@ export default function App() {
     return localStorage.getItem("previewMode") === "true";
   });
 
-  // Selected visitor type (Recruiter, Engineer, etc.), with automatic referrer inference
+  // Selected visitor type (Recruiter, Engineer, etc.), with automatic referrer inference & URL override
   const [visitorType, setVisitorType] = useState(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const queryPass = (params.get("pass") || params.get("password") || params.get("code") || "").trim().toLowerCase();
+      const queryMode = (params.get("mode") || "").trim().toLowerCase();
+      
+      if (queryPass && PASSCODE_CONFIGS[queryPass]) {
+        const cfg = PASSCODE_CONFIGS[queryPass];
+        localStorage.setItem("visitorType", cfg.persona);
+        return cfg.persona;
+      }
+      if (queryMode) {
+        const match = Object.keys(PERSONAS).find(p => p.toLowerCase() === queryMode);
+        if (match) {
+          localStorage.setItem("visitorType", match);
+          return match;
+        }
+      }
+    }
+
     const saved = localStorage.getItem("visitorType");
-    if (saved !== null) return saved; // could be "" for reset to default
+    if (saved !== null) return saved;
     
     // Attempt to infer persona on first landing
     const inferred = inferPersona();
@@ -59,70 +141,6 @@ export default function App() {
 
   // Dynamic sub-role filter within Recruiter mode
   const [targetRole, setTargetRole] = useState("");
-
-  // Pre-assigned passcode configs & persona auto-selection (TASK-RESUME-2)
-  const PASSCODE_CONFIGS = {
-    anthropic: {
-      variant: "anthropic",
-      persona: "EventPro",
-      bannerNote: "Welcome Anthropic Hiring Team · AV Production & Broadcast View Unlocked",
-      roleFilter: "AV Production Specialist"
-    },
-    anthropic2026: {
-      variant: "anthropic",
-      persona: "EventPro",
-      bannerNote: "Welcome Anthropic Hiring Team · AV Production & Broadcast View Unlocked",
-      roleFilter: "AV Production Specialist"
-    },
-    tpm2026: {
-      variant: "tpm",
-      persona: "Recruiter",
-      bannerNote: "Welcome NVIDIA / Hiring Team · Technical Program Manager View Unlocked",
-      roleFilter: "Technical Program Manager"
-    },
-    google: {
-      variant: "google",
-      persona: "Recruiter",
-      bannerNote: "Welcome Google / Hiring Team · Technical Program Manager View Unlocked",
-      roleFilter: "Technical Program Manager"
-    },
-    google2026: {
-      variant: "google",
-      persona: "Recruiter",
-      bannerNote: "Welcome Google / Hiring Team · Technical Program Manager View Unlocked",
-      roleFilter: "Technical Program Manager"
-    },
-    eventpro: {
-      variant: "eventpro",
-      persona: "EventPro",
-      bannerNote: "Welcome Event Staging & Production Leads · AV Engineering View Unlocked",
-      roleFilter: ""
-    },
-    eventpro2026: {
-      variant: "eventpro",
-      persona: "EventPro",
-      bannerNote: "Welcome Event Staging & Production Leads · AV Engineering View Unlocked",
-      roleFilter: ""
-    },
-    moscone: {
-      variant: "eventpro",
-      persona: "EventPro",
-      bannerNote: "Welcome Moscone / Event Staging Leads · Video & Fiber View Unlocked",
-      roleFilter: ""
-    },
-    jason2026: {
-      variant: "master",
-      persona: "Recruiter",
-      bannerNote: "Welcome Hiring Manager · Master Portfolio & Systems OPS View Unlocked",
-      roleFilter: ""
-    },
-    master: {
-      variant: "master",
-      persona: "Recruiter",
-      bannerNote: "Welcome Hiring Manager · Master Portfolio View Unlocked",
-      roleFilter: ""
-    }
-  };
 
   const RESUME_PASSWORDS = {
     jason2026: "master",
