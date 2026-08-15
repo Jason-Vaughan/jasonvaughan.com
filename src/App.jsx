@@ -583,41 +583,39 @@ export default function App() {
       `}</style>
       
       {/* Dynamic Top Sticky Banner */}
-      {isPreviewMode && (
-        <div style={{
-          background: "linear-gradient(90deg, #fbbf24 0%, #d97706 100%)",
-          color: "#000",
-          borderBottom: "1px solid rgba(0, 0, 0, 0.15)",
-          textAlign: "center",
-          padding: "9px 24px",
-          fontSize: 13,
-          fontWeight: 700,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: 12,
-          position: "sticky",
-          top: 0,
-          zIndex: 1001,
-          boxShadow: "0 2px 12px rgba(251, 191, 36, 0.25)"
-        }}>
-          {activeBannerNote ? (
-            <span style={{ fontSize: 13, lineHeight: 1.4 }}>
-              <strong>✨ {activeBannerNote}</strong>
-            </span>
-          ) : visitorType ? (
-            <span style={{ fontSize: 13, lineHeight: 1.4 }}>
-              <strong>{PERSONAS[visitorType]?.label || "Custom Mode"}:</strong> {PERSONAS[visitorType]?.bannerText || `Viewing site customized for ${PERSONAS[visitorType]?.label}.`}
-            </span>
-          ) : (
-            <span style={{ fontSize: 13, lineHeight: 1.4 }}>
-              <strong>✨ Welcome!</strong> Personalize this portfolio for your background:
-            </span>
-          )}
-          <PersonaDropdown current={visitorType} onSelect={handleSelectPersona} />
-        </div>
-      )}
+      <div style={{
+        background: "linear-gradient(90deg, #fbbf24 0%, #d97706 100%)",
+        color: "#000",
+        borderBottom: "1px solid rgba(0, 0, 0, 0.15)",
+        textAlign: "center",
+        padding: "9px 24px",
+        fontSize: 13,
+        fontWeight: 700,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexWrap: "wrap",
+        gap: 12,
+        position: "sticky",
+        top: 0,
+        zIndex: 1001,
+        boxShadow: "0 2px 12px rgba(251, 191, 36, 0.25)"
+      }}>
+        {activeBannerNote ? (
+          <span style={{ fontSize: 13, lineHeight: 1.4 }}>
+            <strong>✨ {activeBannerNote}</strong>
+          </span>
+        ) : visitorType ? (
+          <span style={{ fontSize: 13, lineHeight: 1.4 }}>
+            <strong>{PERSONAS[visitorType]?.label || "Custom Mode"}:</strong> {PERSONAS[visitorType]?.bannerText || `Viewing site customized for ${PERSONAS[visitorType]?.label}.`}
+          </span>
+        ) : (
+          <span style={{ fontSize: 13, lineHeight: 1.4 }}>
+            <strong>✨ Welcome!</strong> Personalize this portfolio for your background:
+          </span>
+        )}
+        <PersonaDropdown current={visitorType} onSelect={handleSelectPersona} />
+      </div>
 
       <header 
         className="py-16 px-6 text-center" 
