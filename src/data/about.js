@@ -72,27 +72,27 @@ export const aboutData = {
 
 export const personaTaglines = {
   Default: {
-    bio: "Full-stack builder with 25 years across live events, SaaS, and AI-assisted development. I ship products that solve real problems — from union pay tracking to broadcast tools to developer infrastructure.",
-    highlight: "AI-Native builder who lives, sleeps, and breathes systems automation. I design and scale custom local agent pipelines."
+    bio: "Senior Events Production Leader & Technical Program Manager with 25+ years leading high-stakes live events, flagship broadcasts, and building AI tools that automate complex show workflows.",
+    highlight: "Combines 25+ years of live broadcast operations and executive keynote staging with hands-on AI workflow development."
   },
   Recruiter: {
-    bio: "Technical Program Manager & AI Systems Builder with 25 years of experience across enterprise live events, SaaS products, and agentic AI architectures.",
-    highlight: "AI-Native developer passionate about human-AI collaboration. I scale custom local LLM routing and production developer pipelines."
+    bio: "AV Production Specialist & Technical Program Manager with 25+ years of experience leading flagship broadcasts, executive keynotes, and enterprise event technology.",
+    highlight: "Senior production leader and AI-native developer who designs automated SOP runbooks and fail-safe show workflows."
   },
   Engineer: {
-    bio: "Systems & Infrastructure Engineer with 25+ years of experience bridging low-level networking, high-stakes physical fiber networks, and local-first AI orchestration.",
-    highlight: "I build robust developer tools and high-performance routing backends, backed by decades of zero-downtime enterprise network operations."
+    bio: "Systems & Infrastructure Lead with 25+ years of experience bridging live broadcast networks, physical fiber infrastructure, and local-first AI orchestration.",
+    highlight: "I build robust production tools and high-performance routing backends, backed by decades of zero-downtime enterprise show operations."
   },
   EventPro: {
-    bio: "Production Technology Leader & Technical Director. 25 years managing complex signal flow, fiber arrays, and LED show systems for global keynotes.",
-    highlight: "AI-Native developer merging physical show networks with intelligent automation. I design local AI tools that handle timecard triage."
+    bio: "Production Technology Leader & Technical Director with 25+ years managing complex signal flow, fiber arrays, Barco screen switching, and broadcast staging for global keynotes.",
+    highlight: "Live production authority merging physical show networks with intelligent automation to eliminate backstage friction."
   },
   OpenClaw: {
-    bio: "Creator of the OpenClaw Agent Framework. AI-Native developer building local-first multi-agent systems, ClawHub plugins, and persistent agent backends.",
-    highlight: "I eat, sleep, and breathe agentic workflows. Pushing the boundaries of human-AI collaboration with inspectable, local-first agent fleets."
+    bio: "Creator of the OpenClaw Agent Framework. Live event technical leader building local-first multi-agent systems, ClawHub plugins, and persistent agent backends.",
+    highlight: "Pushing the boundaries of human-AI collaboration with inspectable, local-first agent fleets built for real-world operations."
   },
   Investor: {
-    bio: "Product Builder & SaaS Founder. 25 years shipping high-stakes technology, billing platforms, and AI systems that solve expensive operational problems.",
-    highlight: "AI-Native operator building software with high margins. I leverage AI to build products that solve concrete customer pain points."
+    bio: "Events Production & Systems Leader with 25+ years of experience building high-stakes live event infrastructure, broadcast technology, and software tools.",
+    highlight: "Senior operations lead and software builder leveraging AI to solve real-world production pain points."
   }
 };
