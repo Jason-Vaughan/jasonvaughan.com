@@ -30,74 +30,86 @@ const PASSCODE_CONFIGS = {
   anthropic: {
     variant: "anthropic",
     persona: "EventPro",
-    bannerNote: "Welcome Anthropic Hiring Team · AV Production & Broadcast View Unlocked",
-    roleFilter: "AV Production Specialist"
+    bannerNote: "Welcome Anthropic Hiring Team · AV Production Specialist & AI Ops View Unlocked",
+    roleFilter: "AV Production Specialist",
+    autoSections: ["about", "career", "notse", "skills", "certifications"]
   },
   anthropic2026: {
     variant: "anthropic",
     persona: "EventPro",
-    bannerNote: "Welcome Anthropic Hiring Team · AV Production & Broadcast View Unlocked",
-    roleFilter: "AV Production Specialist"
+    bannerNote: "Welcome Anthropic Hiring Team · AV Production Specialist & AI Ops View Unlocked",
+    roleFilter: "AV Production Specialist",
+    autoSections: ["about", "career", "notse", "skills", "certifications"]
   },
   tpm2026: {
     variant: "tpm",
     persona: "Recruiter",
-    bannerNote: "Welcome NVIDIA / Hiring Team · Technical Program Manager View Unlocked",
-    roleFilter: "Technical Program Manager"
+    bannerNote: "Welcome NVIDIA Hiring Team · Technical Producer & Staging TPM View Unlocked",
+    roleFilter: "Technical Program Manager",
+    autoSections: ["about", "career", "skills", "certifications", "infrastructure"]
   },
   nvidia: {
     variant: "tpm",
     persona: "Recruiter",
-    bannerNote: "Welcome NVIDIA / Hiring Team · Technical Program Manager View Unlocked",
-    roleFilter: "Technical Program Manager"
+    bannerNote: "Welcome NVIDIA Hiring Team · Technical Producer & Staging TPM View Unlocked",
+    roleFilter: "Technical Program Manager",
+    autoSections: ["about", "career", "skills", "certifications", "infrastructure"]
   },
   nvidia2026: {
     variant: "tpm",
     persona: "Recruiter",
-    bannerNote: "Welcome NVIDIA / Hiring Team · Technical Program Manager View Unlocked",
-    roleFilter: "Technical Program Manager"
+    bannerNote: "Welcome NVIDIA Hiring Team · Technical Producer & Staging TPM View Unlocked",
+    roleFilter: "Technical Program Manager",
+    autoSections: ["about", "career", "skills", "certifications", "infrastructure"]
   },
   google: {
     variant: "google",
     persona: "Recruiter",
-    bannerNote: "Welcome Google / Hiring Team · Technical Program Manager View Unlocked",
-    roleFilter: "Technical Program Manager"
+    bannerNote: "Welcome Google Hiring Team · Technical Program Manager View Unlocked",
+    roleFilter: "Technical Program Manager",
+    autoSections: ["about", "career", "skills", "certifications"]
   },
   google2026: {
     variant: "google",
     persona: "Recruiter",
-    bannerNote: "Welcome Google / Hiring Team · Technical Program Manager View Unlocked",
-    roleFilter: "Technical Program Manager"
+    bannerNote: "Welcome Google Hiring Team · Technical Program Manager View Unlocked",
+    roleFilter: "Technical Program Manager",
+    autoSections: ["about", "career", "skills", "certifications"]
   },
   eventpro: {
     variant: "eventpro",
     persona: "EventPro",
     bannerNote: "Welcome Event Staging & Production Leads · AV Engineering View Unlocked",
-    roleFilter: ""
+    roleFilter: "",
+    autoSections: ["about", "skills", "certifications", "career"]
   },
   eventpro2026: {
     variant: "eventpro",
     persona: "EventPro",
     bannerNote: "Welcome Event Staging & Production Leads · AV Engineering View Unlocked",
-    roleFilter: ""
+    roleFilter: "",
+    autoSections: ["about", "skills", "certifications", "career"]
   },
   moscone: {
     variant: "eventpro",
     persona: "EventPro",
-    bannerNote: "Welcome Moscone / Event Staging Leads · Video & Fiber View Unlocked",
-    roleFilter: ""
+    bannerNote: "Welcome Moscone & Staging Leads · Fiber Infrastructure & Video View Unlocked",
+    roleFilter: "",
+    autoSections: ["about", "skills", "certifications", "career"]
   },
   jason2026: {
     variant: "master",
     persona: "Recruiter",
     bannerNote: "Welcome Hiring Manager · Master Portfolio & Systems OPS View Unlocked",
-    roleFilter: ""
+    roleFilter: "",
+    autoSections: ["about", "career", "skills", "certifications", "projects"]
   },
   master: {
     variant: "master",
     persona: "Recruiter",
     bannerNote: "Welcome Hiring Manager · Master Portfolio View Unlocked",
-    roleFilter: ""
+    roleFilter: "",
+    autoSections: ["about", "career", "skills", "certifications", "projects"]
   }
 };
 
@@ -105,25 +117,16 @@ export default function App() {
   const [projectStats, setProjectStats] = useState(null);
   const [clawhubDownloads, setClawhubDownloads] = useState(null);
 
-  // Gated Preview mode activation state
+  // Dynamic Preview & Persona mode activation state (defaults to true so top bar is always available)
   const [isPreviewMode] = useState(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
-      const queryPass = (params.get("pass") || params.get("password") || params.get("code") || "").trim().toLowerCase();
-      if (queryPass && PASSCODE_CONFIGS[queryPass]) {
-        localStorage.setItem("previewMode", "true");
-        return true;
-      }
-      if (params.get("preview") === "true") {
-        localStorage.setItem("previewMode", "true");
-        return true;
-      }
       if (params.get("preview") === "false") {
-        localStorage.removeItem("previewMode");
+        localStorage.setItem("previewMode", "false");
         return false;
       }
     }
-    return localStorage.getItem("previewMode") === "true";
+    return localStorage.getItem("previewMode") !== "false";
   });
 
   // Selected visitor type (Recruiter, Engineer, etc.), with automatic referrer inference & URL override
@@ -220,9 +223,15 @@ export default function App() {
       if (cfg.roleFilter) {
         setTargetRole(cfg.roleFilter);
       }
-      // Auto expand about section so they see the story & timeline right away
+      // Auto expand targeted sections for this company/persona
+      const autoSecs = cfg.autoSections || ["about"];
       setTimeout(() => {
-        openSection("about");
+        closeAllSections();
+        autoSecs.forEach((secId, idx) => {
+          setTimeout(() => {
+            openSection(secId);
+          }, idx * 80);
+        });
       }, 300);
     }
   }, []);
