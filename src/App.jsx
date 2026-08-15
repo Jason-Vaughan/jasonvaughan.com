@@ -45,6 +45,18 @@ const PASSCODE_CONFIGS = {
     bannerNote: "Welcome NVIDIA / Hiring Team · Technical Program Manager View Unlocked",
     roleFilter: "Technical Program Manager"
   },
+  nvidia: {
+    variant: "tpm",
+    persona: "Recruiter",
+    bannerNote: "Welcome NVIDIA / Hiring Team · Technical Program Manager View Unlocked",
+    roleFilter: "Technical Program Manager"
+  },
+  nvidia2026: {
+    variant: "tpm",
+    persona: "Recruiter",
+    bannerNote: "Welcome NVIDIA / Hiring Team · Technical Program Manager View Unlocked",
+    roleFilter: "Technical Program Manager"
+  },
   google: {
     variant: "google",
     persona: "Recruiter",
@@ -153,6 +165,8 @@ export default function App() {
   const RESUME_PASSWORDS = {
     jason2026: "master",
     tpm2026: "tpm",
+    nvidia: "tpm",
+    nvidia2026: "tpm",
     moscone: "eventpro",
     anthropic: "anthropic",
     anthropic2026: "anthropic",
