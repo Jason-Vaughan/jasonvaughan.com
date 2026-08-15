@@ -158,12 +158,18 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
     setIsVirtualInterview(false);
   }, [visitorType]);
 
-  // Dynamic intent-aware greeting update
+  // Dynamic intent-aware greeting update (with passcode awareness)
   useEffect(() => {
     if (isVirtualInterview) return;
     if (messages.length === 1 && messages[0].role === "assistant") {
+      const passVariant = typeof window !== "undefined" ? localStorage.getItem("resumePassVariant") : null;
       let content = "Hi! I'm Jason's AI assistant. Ask me anything about his projects, technical experience, or self-learning philosophy!";
-      if (visitorType === "Recruiter") {
+      
+      if (passVariant === "anthropic") {
+        content = "Welcome Anthropic Hiring Team! 🌟 I'm Jason's AI portfolio guide. Ask me about his 25+ years in live event operations, Moscone Center fiber leadership, or his recent Made by Google 2026 Brooklyn device demo lead win for the live Times Square broadcast!";
+      } else if (passVariant === "tpm" || passVariant === "google") {
+        content = "Welcome NVIDIA / Hiring Team! 🚀 I'm Jason's AI portfolio guide. Ask me about his Technical Program Management history, 100+ flagship keynotes, Moscone Center fiber grids, or his developer automation software!";
+      } else if (visitorType === "Recruiter") {
         content = "Hi! I'm Jason's AI portfolio guide. I can answer detailed questions about his background, projects, leadership, and technical experience.";
       } else if (visitorType === "Engineer") {
         content = "Interested in the code? I'm Jason's AI assistant. Ask me about the architecture of TangleClaw, local AI routing in TangleBrain, the Medusa agent, or his testing strategy.";

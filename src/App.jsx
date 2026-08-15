@@ -172,6 +172,10 @@ export default function App() {
       if (cfg.roleFilter) {
         setTargetRole(cfg.roleFilter);
       }
+      // Auto expand about section so they see the story & timeline right away
+      setTimeout(() => {
+        openSection("about");
+      }, 300);
     }
   }, []);
 
