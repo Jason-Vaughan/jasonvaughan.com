@@ -556,7 +556,7 @@ export default function App() {
   const renderedSections = [...highlightedSections, ...otherSections];
 
   const activePersonaKey = visitorType && personaTaglines[visitorType] ? visitorType : "Default";
-  const activeTagline = personaTaglines[activePersonaKey];
+  const activeTagline = personaTaglines[activePersonaKey] || personaTaglines.Default;
 
   return (
     <div className="min-h-screen text-zinc-100" style={{ background: "#09090b", color: "#f4f4f5" }}>

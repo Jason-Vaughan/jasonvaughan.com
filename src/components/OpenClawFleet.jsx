@@ -330,7 +330,6 @@ function FleetCard({ entry, idx, onSelectImage }) {
                 onClick={() => onSelectImage(entry.thumbnail)}
                 style={{
                   background: "transparent",
-                  border: "none",
                   padding: 0,
                   cursor: "zoom-in",
                   textAlign: "left",
