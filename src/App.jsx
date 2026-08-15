@@ -103,6 +103,7 @@ const PASSCODE_CONFIGS = {
 
 export default function App() {
   const [projectStats, setProjectStats] = useState(null);
+  const [clawhubDownloads, setClawhubDownloads] = useState(null);
 
   // Gated Preview mode activation state
   const [isPreviewMode] = useState(() => {
