@@ -23,9 +23,9 @@ export const PERSONAS = {
     sections: ["openclaw-fleet", "clawhub", "career", "projects"],
   },
   Investor: {
-    label: "Investor / Founder",
-    bannerText: "Evaluating Jason's SaaS projects? We've highlighted metrics, active subscription products (TiLT, Cierre Sensei), and his pipeline roadmap.",
-    sections: ["tilt", "cierre-sensei", "career", "pipeline"],
+    label: "Production Systems Leader",
+    bannerText: "Viewing Jason's production history, technical program management, and event systems architecture.",
+    sections: ["about", "career", "certifications", "contact"],
   },
 };
 
