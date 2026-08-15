@@ -159,8 +159,8 @@ export default function App() {
       localStorage.setItem("visitorType", inferred);
       return inferred;
     }
-    // Default to Recruiter mode so site always renders a rich professional persona
-    return "Recruiter";
+    // Default to empty string for organic visitors so they see the clean welcome bar
+    return "";
   });
 
   // Dynamic sub-role filter within Recruiter mode
@@ -582,16 +582,16 @@ export default function App() {
         .card-highlight-pulse { animation: card-highlight 1.2s ease-in-out 2; }
       `}</style>
       
-      {/* Dynamic Top Banner for Gated Preview Mode */}
+      {/* Dynamic Top Sticky Banner */}
       {isPreviewMode && (
         <div style={{
-          background: visitorType ? "linear-gradient(90deg, #fbbf24 0%, #d97706 100%)" : "rgba(24, 24, 27, 0.8)",
-          color: visitorType ? "#000" : "#a1a1aa",
-          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+          background: "linear-gradient(90deg, #fbbf24 0%, #d97706 100%)",
+          color: "#000",
+          borderBottom: "1px solid rgba(0, 0, 0, 0.15)",
           textAlign: "center",
-          padding: "8px 24px",
+          padding: "9px 24px",
           fontSize: 13,
-          fontWeight: 600,
+          fontWeight: 700,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -600,7 +600,7 @@ export default function App() {
           position: "sticky",
           top: 0,
           zIndex: 1001,
-          backdropFilter: visitorType ? "none" : "blur(8px)",
+          boxShadow: "0 2px 12px rgba(251, 191, 36, 0.25)"
         }}>
           {activeBannerNote ? (
             <span style={{ fontSize: 13, lineHeight: 1.4 }}>
@@ -611,7 +611,9 @@ export default function App() {
               <strong>{PERSONAS[visitorType]?.label || "Custom Mode"}:</strong> {PERSONAS[visitorType]?.bannerText || `Viewing site customized for ${PERSONAS[visitorType]?.label}.`}
             </span>
           ) : (
-            <span>Welcome! Personalize this portfolio for your background:</span>
+            <span style={{ fontSize: 13, lineHeight: 1.4 }}>
+              <strong>✨ Welcome!</strong> Personalize this portfolio for your background:
+            </span>
           )}
           <PersonaDropdown current={visitorType} onSelect={handleSelectPersona} />
         </div>
