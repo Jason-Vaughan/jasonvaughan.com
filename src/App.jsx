@@ -94,14 +94,21 @@ export default function App() {
 
   // Gated Preview mode activation state
   const [isPreviewMode] = useState(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("preview") === "true") {
-      localStorage.setItem("previewMode", "true");
-      return true;
-    }
-    if (params.get("preview") === "false") {
-      localStorage.removeItem("previewMode");
-      return false;
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const queryPass = (params.get("pass") || params.get("password") || params.get("code") || "").trim().toLowerCase();
+      if (queryPass && PASSCODE_CONFIGS[queryPass]) {
+        localStorage.setItem("previewMode", "true");
+        return true;
+      }
+      if (params.get("preview") === "true") {
+        localStorage.setItem("previewMode", "true");
+        return true;
+      }
+      if (params.get("preview") === "false") {
+        localStorage.removeItem("previewMode");
+        return false;
+      }
     }
     return localStorage.getItem("previewMode") === "true";
   });
