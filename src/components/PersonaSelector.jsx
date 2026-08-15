@@ -87,15 +87,16 @@ export function PersonaDropdown({ current, onSelect }) {
     display: "inline-flex",
     alignItems: "center",
     gap: 8,
-    padding: "6px 12px",
+    padding: "6px 14px",
     borderRadius: 8,
-    background: current ? "rgba(0, 0, 0, 0.2)" : "rgba(251, 191, 36, 0.15)",
-    border: "1px solid rgba(0, 0, 0, 0.15)",
-    color: current ? "#000" : "#fbbf24",
-    fontSize: 12.5,
+    background: "#09090b",
+    border: "1px solid rgba(255, 255, 255, 0.2)",
+    color: "#ffffff",
+    fontSize: 13,
     fontWeight: 700,
     cursor: "pointer",
-    boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
+    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.4)",
+    transition: "background 0.15s, border-color 0.15s",
   };
 
   const menu = {
@@ -131,12 +132,10 @@ export function PersonaDropdown({ current, onSelect }) {
   return (
     <div data-persona-dropdown="" style={container}>
       <button style={trigger} onClick={() => setOpen(!open)}>
-        <span>{PERSONAS[current]?.label || "Personalize View ▾"}</span>
-        {!current && (
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        )}
+        <span>{PERSONAS[current]?.label || "Personalize View"}</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5">
+          <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       </button>
 
       <AnimatePresence>
