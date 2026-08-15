@@ -24,6 +24,7 @@ import Career from "./components/Career";
 import PortfolioModal from "./components/PortfolioModal";
 import { PERSONAS, inferPersona, PersonaDropdown } from "./components/PersonaSelector";
 import { personaTaglines } from "./data/about";
+import { ResumeGateModal } from "./components/ResumeGateModal";
 
 // Pre-assigned passcode configs & persona auto-selection (TASK-RESUME-2)
 const PASSCODE_CONFIGS = {
@@ -243,21 +244,27 @@ export default function App() {
     }
   };
 
-  const handlePasswordSubmit = (e) => {
-    e.preventDefault();
-    const normalized = passwordInput.trim().toLowerCase();
-    const variant = RESUME_PASSWORDS[normalized];
-    if (variant) {
-      setIsResumeUnlocked(true);
-      if (typeof window !== "undefined") {
-        localStorage.setItem("resumeUnlocked", "true");
-        localStorage.setItem("resumePassVariant", variant);
+  const handleResumeUnlockSuccess = (payload) => {
+    setIsResumeUnlocked(true);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("resumeUnlocked", "true");
+      if (payload.variant) {
+        localStorage.setItem("resumePassVariant", payload.variant);
       }
-      setIsPasswordModalOpen(false);
-      triggerResumeDownload();
-    } else {
-      setPasswordError(true);
+      if (payload.bannerNote) {
+        localStorage.setItem("resumeBannerNote", payload.bannerNote);
+        setActiveBannerNote(payload.bannerNote);
+      }
     }
+    if (payload.persona) {
+      setVisitorType(payload.persona);
+      localStorage.setItem("visitorType", payload.persona);
+    }
+    if (payload.roleFilter) {
+      setTargetRole(payload.roleFilter);
+    }
+    setIsPasswordModalOpen(false);
+    triggerResumeDownload();
   };
 
   // Concierge Portfolio Modal states
@@ -1195,112 +1202,13 @@ export default function App() {
         © {new Date().getFullYear()} Jason Vaughan
       </footer>
 
-      {/* Password Gating Modal */}
-      {isPasswordModalOpen && (
-        <div style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "100vh",
-          background: "rgba(9, 9, 11, 0.8)",
-          backdropFilter: "blur(8px)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          zIndex: 1002,
-          padding: 20
-        }}>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            style={{
-              width: "100%",
-              maxWidth: 400,
-              background: "#18181b",
-              border: "1px solid #3f3f46",
-              borderRadius: 16,
-              padding: 28,
-              boxShadow: "0 20px 50px rgba(0,0,0,0.6)",
-              display: "flex",
-              flexDirection: "column",
-              gap: 16
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <span style={{ fontSize: 22 }}>🔒</span>
-              <h3 style={{ fontSize: 18, fontWeight: 800, color: "#fff", margin: 0 }}>
-                Resume Password Required
-              </h3>
-            </div>
-            
-            <p style={{ margin: 0, fontSize: 13, color: "#a1a1aa", lineHeight: 1.5 }}>
-              Jason's detailed resume is password-protected. Please enter the access password. If you don't have one, feel free to request it via the contact form or chatbot!
-            </p>
-
-            <form onSubmit={handlePasswordSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <input
-                type="password"
-                placeholder="Enter access password"
-                value={passwordInput}
-                onChange={(e) => setPasswordInput(e.target.value)}
-                autoFocus
-                style={{
-                  width: "100%",
-                  padding: "10px 14px",
-                  borderRadius: 8,
-                  border: passwordError ? "1px solid #ef4444" : "1px solid #3f3f46",
-                  background: "#09090b",
-                  color: "#fff",
-                  fontSize: 14,
-                  outline: "none",
-                  boxSizing: "border-box"
-                }}
-              />
-              
-              {passwordError && (
-                <span style={{ fontSize: 12, color: "#ef4444", fontWeight: 600 }}>
-                  ❌ Invalid password. Please try again.
-                </span>
-              )}
-
-              <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginTop: 8 }}>
-                <button
-                  type="button"
-                  onClick={() => setIsPasswordModalOpen(false)}
-                  style={{
-                    padding: "8px 16px",
-                    borderRadius: 8,
-                    background: "transparent",
-                    border: "1px solid rgba(255,255,255,0.15)",
-                    color: "#a1a1aa",
-                    fontSize: 13,
-                    fontWeight: 600,
-                    cursor: "pointer"
-                  }}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  style={{
-                    padding: "8px 16px",
-                    borderRadius: 8,
-                    background: "linear-gradient(135deg, #fbbf24 0%, #d97706 100%)",
-                    border: "none",
-                    color: "#000",
-                    fontSize: 13,
-                    fontWeight: 700,
-                    cursor: "pointer"
-                  }}
-                >
-                  Unlock & Download
-                </button>
-              </div>
-            </form>
-          </motion.div>
-        </div>
-      )}
+      {/* Work Email OTP & VIP Passcode Resume Gate Modal */}
+      <ResumeGateModal
+        isOpen={isPasswordModalOpen}
+        onClose={() => setIsPasswordModalOpen(false)}
+        onUnlockSuccess={handleResumeUnlockSuccess}
+        passcodeConfigs={PASSCODE_CONFIGS}
+      />
 
       <ChatWidget visitorType={visitorType} onTriggerModal={handleTriggerModal} />
 
