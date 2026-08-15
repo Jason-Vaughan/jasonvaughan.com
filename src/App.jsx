@@ -60,7 +60,70 @@ export default function App() {
   // Dynamic sub-role filter within Recruiter mode
   const [targetRole, setTargetRole] = useState("");
 
-  // Pre-assigned password mapping (TASK-RESUME-1)
+  // Pre-assigned passcode configs & persona auto-selection (TASK-RESUME-2)
+  const PASSCODE_CONFIGS = {
+    anthropic: {
+      variant: "anthropic",
+      persona: "EventPro",
+      bannerNote: "Welcome Anthropic Hiring Team · AV Production & Broadcast View Unlocked",
+      roleFilter: "AV Production Specialist"
+    },
+    anthropic2026: {
+      variant: "anthropic",
+      persona: "EventPro",
+      bannerNote: "Welcome Anthropic Hiring Team · AV Production & Broadcast View Unlocked",
+      roleFilter: "AV Production Specialist"
+    },
+    tpm2026: {
+      variant: "tpm",
+      persona: "Recruiter",
+      bannerNote: "Welcome NVIDIA / Hiring Team · Technical Program Manager View Unlocked",
+      roleFilter: "Technical Program Manager"
+    },
+    google: {
+      variant: "google",
+      persona: "Recruiter",
+      bannerNote: "Welcome Google / Hiring Team · Technical Program Manager View Unlocked",
+      roleFilter: "Technical Program Manager"
+    },
+    google2026: {
+      variant: "google",
+      persona: "Recruiter",
+      bannerNote: "Welcome Google / Hiring Team · Technical Program Manager View Unlocked",
+      roleFilter: "Technical Program Manager"
+    },
+    eventpro: {
+      variant: "eventpro",
+      persona: "EventPro",
+      bannerNote: "Welcome Event Staging & Production Leads · AV Engineering View Unlocked",
+      roleFilter: ""
+    },
+    eventpro2026: {
+      variant: "eventpro",
+      persona: "EventPro",
+      bannerNote: "Welcome Event Staging & Production Leads · AV Engineering View Unlocked",
+      roleFilter: ""
+    },
+    moscone: {
+      variant: "eventpro",
+      persona: "EventPro",
+      bannerNote: "Welcome Moscone / Event Staging Leads · Video & Fiber View Unlocked",
+      roleFilter: ""
+    },
+    jason2026: {
+      variant: "master",
+      persona: "Recruiter",
+      bannerNote: "Welcome Hiring Manager · Master Portfolio & Systems OPS View Unlocked",
+      roleFilter: ""
+    },
+    master: {
+      variant: "master",
+      persona: "Recruiter",
+      bannerNote: "Welcome Hiring Manager · Master Portfolio View Unlocked",
+      roleFilter: ""
+    }
+  };
+
   const RESUME_PASSWORDS = {
     jason2026: "master",
     tpm2026: "tpm",
@@ -83,16 +146,32 @@ export default function App() {
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [passwordError, setPasswordError] = useState(false);
+  const [activeBannerNote, setActiveBannerNote] = useState(() => {
+    if (typeof window === "undefined") return "";
+    return localStorage.getItem("resumeBannerNote") || "";
+  });
 
-  // Auto-unlock via URL query parameter (e.g. ?pass=anthropic or ?password=google)
+  // Auto-unlock via URL query parameter (e.g. ?pass=anthropic or ?pass=tpm2026)
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
     const queryPass = (params.get("pass") || params.get("password") || params.get("code") || "").trim().toLowerCase();
-    if (queryPass && RESUME_PASSWORDS[queryPass]) {
+    
+    if (queryPass && PASSCODE_CONFIGS[queryPass]) {
+      const cfg = PASSCODE_CONFIGS[queryPass];
       setIsResumeUnlocked(true);
       localStorage.setItem("resumeUnlocked", "true");
-      localStorage.setItem("resumePassVariant", RESUME_PASSWORDS[queryPass]);
+      localStorage.setItem("resumePassVariant", cfg.variant);
+      localStorage.setItem("resumeBannerNote", cfg.bannerNote);
+      setActiveBannerNote(cfg.bannerNote);
+
+      if (cfg.persona) {
+        setVisitorType(cfg.persona);
+        localStorage.setItem("visitorType", cfg.persona);
+      }
+      if (cfg.roleFilter) {
+        setTargetRole(cfg.roleFilter);
+      }
     }
   }, []);
 
@@ -462,7 +541,11 @@ export default function App() {
           zIndex: 1001,
           backdropFilter: visitorType ? "none" : "blur(8px)",
         }}>
-          {visitorType ? (
+          {activeBannerNote ? (
+            <span style={{ fontSize: 13, lineHeight: 1.4 }}>
+              <strong>✨ {activeBannerNote}</strong>
+            </span>
+          ) : visitorType ? (
             <span style={{ fontSize: 13, lineHeight: 1.4 }}>
               <strong>{PERSONAS[visitorType]?.label || "Custom Mode"}:</strong> {PERSONAS[visitorType]?.bannerText || `Viewing site customized for ${PERSONAS[visitorType]?.label}.`}
             </span>
