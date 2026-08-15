@@ -3,33 +3,33 @@
 
 export const careerData = [
   {
-    company: "Google (Event Technology Team)",
-    role: "Technical Program Manager & Systems Operator",
-    period: "2025 - 2026 (Freelance Partner since 2012)",
+    company: "Google (Event Technology Team & Agencies)",
+    role: "Technical Program Manager & Demo Product Release Production Lead",
+    period: "Feb 2026 – June 2026 (Google XWF Contract | Freelance Partner since 2012)",
     bullets: {
       Recruiter: [
-        "ETT Technical Program Manager for Google Spotlights at Google Cloud Next since 2023. Pre Production demo coordination with Production team and onsite demo support for Executives.",
-        "Designed and maintained custom JS automation scripts to manage resource allocation and resolve scheduling conflicts across concurrent project schedules.",
-        "Ongoing close coordination with ETT Management Team for various event support Tasks; Google IO, Google Cloud Next, Google Engage, etc.",
-        "Ongoing 14-year relationship with Google Events & Projects in various roles."
+        "Brought back on as Location Technical Device Demo Lead for 'Made by Google 2026' Product Launch (August 2026): Managed remote Brooklyn live device-demo technical interface for global broadcast across 12 platforms and Times Square billboards.",
+        "Executed zero-fail live operations under extreme outdoor conditions (heat wave, rain, remote wireless connectivity challenges) while navigating multi-vendor relationships—earning Google management backing and Cloud extensions.",
+        "Embedded as Technical Program Manager across flagship Google programs (Google I/O, Zeitgeist, Made by Google, Google Cloud Next), translating complex technical requirements into show execution plans.",
+        "Coordinated directly with internal Google product teams, external vendors, union crews, and creative partners for demo readiness, technical documentation, rehearsal workflows, and real-time show troubleshooting."
       ],
       Engineer: [
-        "ETT Technical Program Manager for Google Spotlights at Google Cloud Next since 2023. Pre Production demo coordination with Production team and onsite demo support for Executives.",
-        "Designed and maintained custom JS automation scripts to manage resource allocation and resolve scheduling conflicts across concurrent project schedules.",
-        "Ongoing close coordination with ETT Management Team for various event support Tasks; Google IO, Google Cloud Next, Google Engage, etc.",
-        "Ongoing 14-year relationship with Google Events & Projects in various roles."
+        "Location Technical Device Demo Lead for 'Made by Google 2026': Managed remote live device-demo technical interface for global stream across 12 platforms and Times Square billboards.",
+        "Engineered fail-safe wireless connectivity and hardware signal redundancy under adverse weather conditions during flagship broadcast.",
+        "Embedded as TPM across Google I/O, Zeitgeist, Made by Google, and Google Cloud Next, designing automated SOP runbooks and technical floor plans.",
+        "Coordinated cross-functional product teams, vendors, and union crews for real-time show troubleshooting and rehearsal workflows."
       ],
       EventPro: [
-        "ETT Technical Program Manager for Google Spotlights at Google Cloud Next since 2023. Pre Production demo coordination with Production team and onsite demo support for Executives.",
-        "Designed and maintained custom JS automation scripts to manage resource allocation and resolve scheduling conflicts across concurrent project schedules.",
-        "Ongoing close coordination with ETT Management Team for various event support Tasks; Google IO, Google Cloud Next, Google Engage, etc.",
-        "Ongoing 14-year relationship with Google Events & Projects in various roles."
+        "Brought back on as Location Technical Device Demo Lead for 'Made by Google 2026' Product Launch (August 2026): Managed remote Brooklyn live device-demo technical interface for global broadcast.",
+        "Executed zero-fail live operations under extreme outdoor conditions while managing multi-vendor staging relationships.",
+        "Embedded as Technical Program Manager across flagship Google programs (Google I/O, Zeitgeist, Made by Google, Google Cloud Next).",
+        "Coordinated internal Google product teams, union crews, and creative partners for show execution plans and real-time troubleshooting."
       ],
       Default: [
-        "ETT Technical Program Manager for Google Spotlights at Google Cloud Next since 2023. Pre Production demo coordination with Production team and onsite demo support for Executives.",
-        "Designed and maintained custom JS automation scripts to manage resource allocation and resolve scheduling conflicts across concurrent project schedules.",
-        "Ongoing close coordination with ETT Management Team for various event support Tasks; Google IO, Google Cloud Next, Google Engage, etc.",
-        "Ongoing 14-year relationship with Google Events & Projects in various roles."
+        "Location Technical Device Demo Lead for 'Made by Google 2026' Product Launch (August 2026): Managed remote Brooklyn live device-demo technical interface for global broadcast.",
+        "Executed zero-fail live operations under extreme outdoor conditions while navigating multi-vendor relationships.",
+        "Embedded as Technical Program Manager across major Google programs (Google I/O, Zeitgeist, Made by Google, Google Cloud Next).",
+        "Coordinated with internal Google product teams, external vendors, union crews, and creative partners to support demo readiness and rehearsal workflows."
       ]
     }
   },

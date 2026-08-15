@@ -25,11 +25,11 @@
  */
 export const certifications = [
   {
-    name: "Stagecraft Apprenticeship — 7-Year",
+    name: "7-Year IATSE Stagehand Apprenticeship & Journeyperson",
     issuer: "IATSE Local 16",
     year: "",
     detail:
-      "Trained hands-on across the stagecraft trades — rigging, carpentry, audio, video, and live show management.",
+      "Journeyperson member in good standing — stagecraft, video production, rigging, AV infrastructure & live operations.",
   },
   {
     name: "Barco Video Engineering & High-Resolution Screen Switching",
