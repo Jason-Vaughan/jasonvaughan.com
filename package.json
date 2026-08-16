@@ -11,7 +11,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "generate:share-pages": "node scripts/generate-share-pages.mjs",
-    "generate:og-images": "node scripts/generate-og-images.mjs"
+    "generate:og-images": "node scripts/generate-og-images.mjs",
+    "generate:home-og": "node scripts/generate-home-og.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",
