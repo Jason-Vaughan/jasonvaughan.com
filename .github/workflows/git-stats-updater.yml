@@ -24,6 +24,13 @@ jobs:
             const query = `
               query($username: String!) {
                 user(login: $username) {
+                  repositories(first: 100, ownerAffiliations: OWNER, isFork: false) {
+                    nodes {
+                      name
+                      forkCount
+                      stargazerCount
+                    }
+                  }
                   contributionsCollection {
                     contributionCalendar {
                       totalContributions
@@ -42,21 +49,39 @@ jobs:
 
             try {
               const res = await github.graphql(query, { username });
-              const calendar = res.user.contributionsCollection.contributionCalendar;
+              const user = res.user;
+              const calendar = user.contributionsCollection.contributionCalendar;
               const allDays = calendar.weeks.flatMap(w => w.contributionDays);
               const past7Days = allDays.slice(-7);
               const weeklyCommits = past7Days.reduce((acc, d) => acc + d.contributionCount, 0);
+
+              let totalForks = 0;
+              let totalStars = 0;
+              const repoBreakdown = {};
+
+              if (user.repositories && user.repositories.nodes) {
+                user.repositories.nodes.forEach(repo => {
+                  const forks = repo.forkCount || 0;
+                  const stars = repo.stargazerCount || 0;
+                  totalForks += forks;
+                  totalStars += stars;
+                  repoBreakdown[repo.name] = { forks, stars };
+                });
+              }
 
               const statsData = {
                 username,
                 weeklyCommits,
                 totalContributionsYear: calendar.totalContributions,
+                totalForks,
+                totalStars,
+                repoBreakdown,
                 updatedAt: new Date().toISOString(),
                 weeks: calendar.weeks 
               };
 
               fs.writeFileSync('./public/git-stats.json', JSON.stringify(statsData, null, 2));
-              console.log(`Successfully logged ${weeklyCommits} commits for the past 7 days.`);
+              console.log(`Successfully logged ${weeklyCommits} commits, ${totalForks} forks, and ${totalStars} stars.`);
             } catch (err) {
               core.setFailed(`Action failed: ${err.message}`);
             }

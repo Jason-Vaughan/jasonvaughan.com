@@ -348,6 +348,18 @@ export default function BuilderStats({ visitorType }) {
     });
   }
 
+  // Repo Forks & Stars (TASK-FORKS-1)
+  const forksCount = gitStats?.totalForks ?? 13;
+  const starsCount = gitStats?.totalStars ?? 19;
+  stats.push({
+    label: "Repo Forks & Stars",
+    value: `${forksCount} 🍴 / ${starsCount} ⭐`,
+    exact: forksCount + starsCount,
+    color: "#fbbf24",
+    link: "https://github.com/Jason-Vaughan?tab=repositories",
+    description: "Direct developer and community adoption across all GitHub repositories. Forks indicate active developer cloning, modification, and integration into downstream workflows; Stars reflect public bookmarks and industry recognition.",
+  });
+
   if (totals.prs > 0) {
     stats.push({
       label: "PRs Merged",
