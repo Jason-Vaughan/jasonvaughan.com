@@ -1,85 +1,48 @@
 {
   "username": "Jason-Vaughan",
-  "weeklyCommits": 207,
-  "totalContributionsYear": 3761,
-  "totalForks": 13,
-  "totalStars": 19,
-  "repoBreakdown": {
-    "CLiTS": {
-      "forks": 0,
-      "stars": 2
-    },
-    "project-assets": {
-      "forks": 0,
-      "stars": 1
-    },
-    "refuctor": {
-      "forks": 0,
-      "stars": 2
-    },
-    "PortHub": {
-      "forks": 1,
-      "stars": 2
-    },
-    "barcoach-assets": {
-      "forks": 0,
-      "stars": 0
-    },
-    "jasonvaughan.com": {
-      "forks": 0,
-      "stars": 0
-    },
-    "cierre-sensei": {
-      "forks": 0,
-      "stars": 0
-    },
-    "TangleClaw": {
-      "forks": 3,
-      "stars": 8
-    },
-    "ClawBridge": {
-      "forks": 0,
-      "stars": 3
-    },
-    "TiLT-showcase": {
-      "forks": 0,
-      "stars": 0
-    },
-    "Medusa": {
-      "forks": 1,
-      "stars": 0
-    },
-    "ScrapeGoat": {
-      "forks": 0,
-      "stars": 0
-    },
-    "notse-releases": {
-      "forks": 0,
-      "stars": 0
-    },
-    "volta-stats": {
-      "forks": 0,
-      "stars": 0
-    },
-    "openclaw-google-oauth": {
-      "forks": 2,
-      "stars": 1
-    },
-    "openclaw-ebay-research": {
-      "forks": 0,
-      "stars": 0
-    },
-    "openclaw-ebay-seller": {
-      "forks": 1,
-      "stars": 0
-    },
-    "TangleBrain": {
-      "forks": 5,
-      "stars": 0
-    }
-  },
-  "updatedAt": "2026-08-17T04:47:48.743Z",
+  "weeklyCommits": 71,
+  "totalContributionsYear": 3568,
+  "updatedAt": "2026-08-17T04:44:49.081Z",
   "weeks": [
+    {
+      "contributionDays": [
+        {
+          "date": "2025-08-10",
+          "contributionCount": 0,
+          "color": "#ebedf0"
+        },
+        {
+          "date": "2025-08-11",
+          "contributionCount": 0,
+          "color": "#ebedf0"
+        },
+        {
+          "date": "2025-08-12",
+          "contributionCount": 0,
+          "color": "#ebedf0"
+        },
+        {
+          "date": "2025-08-13",
+          "contributionCount": 0,
+          "color": "#ebedf0"
+        },
+        {
+          "date": "2025-08-14",
+          "contributionCount": 0,
+          "color": "#ebedf0"
+        },
+        {
+          "date": "2025-08-15",
+          "contributionCount": 0,
+          "color": "#ebedf0"
+        },
+        {
+          "date": "2025-08-16",
+          "contributionCount": 0,
+          "color": "#ebedf0"
+        }
+      ]
+    },
     {
       "contributionDays": [
         {
@@ -2088,39 +2051,95 @@
         },
         {
           "date": "2026-08-12",
-          "contributionCount": 6,
+          "contributionCount": 5,
           "color": "#9be9a8"
         },
         {
           "date": "2026-08-13",
-          "contributionCount": 39,
-          "color": "#40c463"
-        },
-        {
-          "date": "2026-08-14",
-          "contributionCount": 72,
-          "color": "#216e39"
-        },
-        {
-          "date": "2026-08-15",
-          "contributionCount": 36,
-          "color": "#40c463"
-        }
-      ]
-    },
-    {
-      "contributionDays": [
-        {
-          "date": "2026-08-16",
-          "contributionCount": 45,
-          "color": "#30a14e"
-        },
-        {
-          "date": "2026-08-17",
           "contributionCount": 0,
           "color": "#ebedf0"
         }
       ]
     }
-  ]
+  ],
+  "totalForks": 13,
+  "totalStars": 19,
+  "repoBreakdown": {
+    "barcoach-assets": {
+      "forks": 0,
+      "stars": 0
+    },
+    "cierre-sensei": {
+      "forks": 0,
+      "stars": 0
+    },
+    "ClawBridge": {
+      "forks": 0,
+      "stars": 3
+    },
+    "CLiTS": {
+      "forks": 0,
+      "stars": 2
+    },
+    "jasonvaughan.com": {
+      "forks": 0,
+      "stars": 0
+    },
+    "Medusa": {
+      "forks": 1,
+      "stars": 0
+    },
+    "notse-releases": {
+      "forks": 0,
+      "stars": 0
+    },
+    "openclaw-ebay-research": {
+      "forks": 0,
+      "stars": 0
+    },
+    "openclaw-ebay-seller": {
+      "forks": 1,
+      "stars": 0
+    },
+    "openclaw-google-oauth": {
+      "forks": 2,
+      "stars": 1
+    },
+    "PortHub": {
+      "forks": 1,
+      "stars": 2
+    },
+    "prawduct": {
+      "forks": 0,
+      "stars": 0
+    },
+    "project-assets": {
+      "forks": 0,
+      "stars": 1
+    },
+    "refuctor": {
+      "forks": 0,
+      "stars": 2
+    },
+    "ScrapeGoat": {
+      "forks": 0,
+      "stars": 0
+    },
+    "TangleBrain": {
+      "forks": 5,
+      "stars": 0
+    },
+    "TangleClaw": {
+      "forks": 3,
+      "stars": 8
+    },
+    "TiLT-showcase": {
+      "forks": 0,
+      "stars": 0
+    },
+    "volta-stats": {
+      "forks": 0,
+      "stars": 0
+    }
+  }
 }

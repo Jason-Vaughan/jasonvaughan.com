@@ -149,7 +149,7 @@ function renderSparklineSvg(data, width, height, strokeColor, gradientId) {
 /**
  * Builder stats bar — fetches stats from all projects and displays aggregated totals.
  */
-export default function BuilderStats({ visitorType }) {
+export default function BuilderStats({ visitorType, onOpenForksModal }) {
   const [activeTab, setActiveTab] = useState("codebase");
   const [totals, setTotals] = useState(null);
   const [hoveredLabel, setHoveredLabel] = useState(null);
@@ -356,8 +356,9 @@ export default function BuilderStats({ visitorType }) {
     value: `${forksCount} 🍴 / ${starsCount} ⭐`,
     exact: forksCount + starsCount,
     color: "#fbbf24",
-    link: "https://github.com/Jason-Vaughan?tab=repositories",
-    description: "Direct developer and community adoption across all GitHub repositories. Forks indicate active developer cloning, modification, and integration into downstream workflows; Stars reflect public bookmarks and industry recognition.",
+    onClick: onOpenForksModal,
+    link: onOpenForksModal ? undefined : "https://github.com/Jason-Vaughan?tab=repositories",
+    description: "Direct developer and community adoption across all GitHub repositories. Click to view the interactive repositories breakdown and developer REST API cURL commands for custom scripting.",
   });
 
   if (totals.prs > 0) {
@@ -967,12 +968,17 @@ export default function BuilderStats({ visitorType }) {
           const isHovered = hoveredLabel === s.label;
           const hasTooltip = !!s.description;
           const hasDelta = typeof s.delta === "number" && (s.delta !== 0 || s.alwaysShowDelta);
-          const ElementType = s.link ? "a" : "div";
+          const ElementType = s.link ? "a" : (s.onClick ? "button" : "div");
           const linkProps = s.link
             ? {
                 href: s.link,
                 target: "_blank",
                 rel: "noreferrer",
+              }
+            : s.onClick
+            ? {
+                onClick: s.onClick,
+                type: "button",
               }
             : {};
           return (
@@ -984,9 +990,12 @@ export default function BuilderStats({ visitorType }) {
                 textAlign: "center",
                 padding: "8px 4px",
                 position: "relative",
-                cursor: s.link ? "pointer" : (hasTooltip ? "help" : "default"),
+                cursor: (s.link || s.onClick) ? "pointer" : (hasTooltip ? "help" : "default"),
                 textDecoration: "none",
                 display: "block",
+                background: "transparent",
+                border: "none",
+                width: "100%",
               }}
               {...linkProps}
             >
