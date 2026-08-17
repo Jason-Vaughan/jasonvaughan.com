@@ -25,6 +25,7 @@ import PortfolioModal from "./components/PortfolioModal";
 import { PERSONAS, inferPersona, PersonaDropdown } from "./components/PersonaSelector";
 import { personaTaglines } from "./data/about";
 import { ResumeGateModal } from "./components/ResumeGateModal";
+import { ForksApiModal } from "./components/ForksApiModal";
 
 // Pre-assigned passcode configs & persona auto-selection (TASK-RESUME-2)
 const PASSCODE_CONFIGS = {
@@ -117,6 +118,8 @@ const PASSCODE_CONFIGS = {
 export default function App() {
   const [projectStats, setProjectStats] = useState(null);
   const [clawhubDownloads, setClawhubDownloads] = useState(null);
+  const [isForksModalOpen, setIsForksModalOpen] = useState(false);
+  const [gitStatsData, setGitStatsData] = useState(null);
 
   // Dynamic Preview & Persona mode activation state (defaults to true so top bar is always available)
   const [isPreviewMode] = useState(() => {
@@ -355,8 +358,9 @@ export default function App() {
   useEffect(() => {
     Promise.allSettled([
       fetch("https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/clawhub-versions.json", { cache: "no-store" }).then(r => r.ok ? r.json() : null),
-      fetch("https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/_collect-meta.json", { cache: "no-store" }).then(r => r.ok ? r.json() : null)
-    ]).then(([clawhubRes, manifestRes]) => {
+      fetch("https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/_collect-meta.json", { cache: "no-store" }).then(r => r.ok ? r.json() : null),
+      fetch("/git-stats.json", { cache: "no-store" }).then(r => r.ok ? r.json() : null)
+    ]).then(([clawhubRes, manifestRes, gitStatsRes]) => {
       if (clawhubRes.status === "fulfilled" && clawhubRes.value?.items) {
         const total = clawhubRes.value.items.reduce((sum, item) => sum + (item.downloads || 0), 0);
         setClawhubDownloads(total);
@@ -367,6 +371,9 @@ export default function App() {
           if (p.ok && p.stats) stats[slug] = p.stats;
         }
         setProjectStats(stats);
+      }
+      if (gitStatsRes.status === "fulfilled" && gitStatsRes.value) {
+        setGitStatsData(gitStatsRes.value);
       }
     });
   }, []);
@@ -1098,7 +1105,7 @@ export default function App() {
       )}
 
       {/* Builder Stats - always shown at the top of the content */}
-      <BuilderStats visitorType={visitorType} />
+      <BuilderStats visitorType={visitorType} onOpenForksModal={() => setIsForksModalOpen(true)} />
 
       {renderedSections.map((sec) => (
         <React.Fragment key={sec.id}>
@@ -1221,6 +1228,13 @@ export default function App() {
         onClose={() => setIsPasswordModalOpen(false)}
         onUnlockSuccess={handleResumeUnlockSuccess}
         passcodeConfigs={PASSCODE_CONFIGS}
+      />
+
+      {/* GitHub Repos, Forks & REST API Developer Modal */}
+      <ForksApiModal
+        isOpen={isForksModalOpen}
+        onClose={() => setIsForksModalOpen(false)}
+        gitStats={gitStatsData}
       />
 
       <ChatWidget visitorType={visitorType} onTriggerModal={handleTriggerModal} />
