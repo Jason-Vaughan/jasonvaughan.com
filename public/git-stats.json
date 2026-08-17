@@ -2,7 +2,7 @@
   "username": "Jason-Vaughan",
   "weeklyCommits": 71,
   "totalContributionsYear": 3568,
-  "updatedAt": "2026-08-13T00:50:36.241Z",
+  "updatedAt": "2026-08-17T04:44:49.081Z",
   "weeks": [
     {
       "contributionDays": [
@@ -2061,5 +2061,85 @@
         }
       ]
     }
-  ]
+  ],
+  "totalForks": 13,
+  "totalStars": 19,
+  "repoBreakdown": {
+    "barcoach-assets": {
+      "forks": 0,
+      "stars": 0
+    },
+    "cierre-sensei": {
+      "forks": 0,
+      "stars": 0
+    },
+    "ClawBridge": {
+      "forks": 0,
+      "stars": 3
+    },
+    "CLiTS": {
+      "forks": 0,
+      "stars": 2
+    },
+    "jasonvaughan.com": {
+      "forks": 0,
+      "stars": 0
+    },
+    "Medusa": {
+      "forks": 1,
+      "stars": 0
+    },
+    "notse-releases": {
+      "forks": 0,
+      "stars": 0
+    },
+    "openclaw-ebay-research": {
+      "forks": 0,
+      "stars": 0
+    },
+    "openclaw-ebay-seller": {
+      "forks": 1,
+      "stars": 0
+    },
+    "openclaw-google-oauth": {
+      "forks": 2,
+      "stars": 1
+    },
+    "PortHub": {
+      "forks": 1,
+      "stars": 2
+    },
+    "prawduct": {
+      "forks": 0,
+      "stars": 0
+    },
+    "project-assets": {
+      "forks": 0,
+      "stars": 1
+    },
+    "refuctor": {
+      "forks": 0,
+      "stars": 2
+    },
+    "ScrapeGoat": {
+      "forks": 0,
+      "stars": 0
+    },
+    "TangleBrain": {
+      "forks": 5,
+      "stars": 0
+    },
+    "TangleClaw": {
+      "forks": 3,
+      "stars": 8
+    },
+    "TiLT-showcase": {
+      "forks": 0,
+      "stars": 0
+    },
+    "volta-stats": {
+      "forks": 0,
+      "stars": 0
+    }
+  }
 }

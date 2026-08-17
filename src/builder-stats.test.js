@@ -56,4 +56,11 @@ describe("BuilderStats component invariants", () => {
     expect(src).toContain('link: "https://github.com/Jason-Vaughan"');
     expect(src).toContain('link: "https://github.com/Jason-Vaughan?tab=repositories"');
   });
+
+  it("includes Repo Forks & Stars metric tile in BuilderStats", () => {
+    const src = componentSource();
+    expect(src).toContain('label: "Repo Forks & Stars"');
+    expect(src).toContain('forksCount');
+    expect(src).toContain('starsCount');
+  });
 });
