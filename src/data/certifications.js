@@ -55,7 +55,14 @@ export const certifications = [
     year: "",
     detail: "Dante audio networking, NDI/SDI routing, and fiber-optic signal distribution.",
   },
-  { name: "OSHA 30", issuer: "OSHA", year: "", detail: "General Industry & Staging Safety Certification." },
+  {
+    name: "OSHA 30",
+    issuer: "OSHA",
+    year: "",
+    detail: "General Industry & Staging Safety Certification.",
+    link: "/Osha_30.pdf",
+    thumbnail: "/images/osha_30_thumb.png",
+  },
   {
     name: "Google Project Management Professional Certificate",
     issuer: "Google · Coursera",
@@ -80,4 +87,52 @@ export const certifications = [
     detail:
       "Selected to teach current-generation show technology — networking, video engineering, and media systems — to fellow members.",
   },
+  {
+    name: "Adobe Illustrator CC: Mastery",
+    issuer: "LinkedIn Learning",
+    year: "",
+    detail: "Mastery-level vector graphics and typography techniques.",
+    link: "/images/li_illustrator_mastery.png",
+    thumbnail: "/images/li_illustrator_mastery.png",
+  },
+  {
+    name: "Adobe Illustrator CC: Advanced",
+    issuer: "LinkedIn Learning",
+    year: "",
+    detail: "Advanced vector illustration workflows.",
+    link: "/images/li_illustrator_advanced.png",
+    thumbnail: "/images/li_illustrator_advanced.png",
+  },
+  {
+    name: "Adobe Illustrator CC: Fundamentals",
+    issuer: "LinkedIn Learning",
+    year: "",
+    detail: "Core vector paths and illustration fundamentals.",
+    link: "/images/li_illustrator_fundamentals.png",
+    thumbnail: "/images/li_illustrator_fundamentals.png",
+  },
+  {
+    name: "Using Character Animator in Production",
+    issuer: "LinkedIn Learning",
+    year: "",
+    detail: "Rigging, motion capture, and expressive character animation.",
+    link: "/images/li_character_animation.png",
+    thumbnail: "/images/li_character_animation.png",
+  },
+  {
+    name: "Learning Vectorworks (2014)",
+    issuer: "LinkedIn Learning",
+    year: "",
+    detail: "3D Modeling and CAD drafting for stage design.",
+    link: "/images/li_vectorworks_2014.png",
+    thumbnail: "/images/li_vectorworks_2014.png",
+  },
+  {
+    name: "Learning Vectorworks",
+    issuer: "LinkedIn Learning",
+    year: "",
+    detail: "Fundamentals of CAD drafting and technical drawing.",
+    link: "/images/li_vectorworks.png",
+    thumbnail: "/images/li_vectorworks.png",
+  }
 ];
