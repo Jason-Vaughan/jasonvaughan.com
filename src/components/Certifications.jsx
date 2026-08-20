@@ -62,6 +62,30 @@ export default function Certifications({ highlighted = false }) {
             </div>
             <span style={issuerStyle}>{cert.issuer}</span>
             {cert.detail ? <span style={detailStyle}>{cert.detail}</span> : null}
+            {cert.thumbnail && cert.link && (
+              <a 
+                href={cert.link} 
+                target="_blank" 
+                rel="noreferrer" 
+                style={{ 
+                  marginTop: 12, 
+                  display: "inline-block", 
+                  width: "max-content",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  borderRadius: 6,
+                  overflow: "hidden",
+                  transition: "opacity 0.2s ease"
+                }}
+                onMouseOver={(e) => e.currentTarget.style.opacity = 0.8}
+                onMouseOut={(e) => e.currentTarget.style.opacity = 1}
+              >
+                <img 
+                  src={cert.thumbnail} 
+                  alt={`View ${cert.name}`} 
+                  style={{ display: "block", height: 100, objectFit: "cover" }} 
+                />
+              </a>
+            )}
           </div>
         ))}
       </div>

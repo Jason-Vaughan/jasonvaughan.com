@@ -62,6 +62,8 @@ export const certifications = [
     year: "2026",
     detail:
       "7-course professional program — project life cycle, Agile/Scrum, risk, budgeting, and stakeholder management.",
+    link: "/Google_Management_Certificate.pdf",
+    thumbnail: "/images/google_management_certificate_thumb.png",
   },
   {
     name: "Instructor — Production Technology",
