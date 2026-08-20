@@ -57,7 +57,7 @@ export const certifications = [
   },
   { name: "OSHA 30", issuer: "OSHA", year: "", detail: "General Industry & Staging Safety Certification." },
   {
-    name: "Project Management — Professional Certificate",
+    name: "Google Project Management Professional Certificate",
     issuer: "Google · Coursera",
     year: "2026",
     detail:
