@@ -66,6 +66,14 @@ export const certifications = [
     thumbnail: "/images/google_management_certificate_thumb.png",
   },
   {
+    name: "Introduction to Python",
+    issuer: "Coursera · Freedom Learning Group",
+    year: "2025",
+    detail: "Project-based learning credential for Python programming fundamentals.",
+    link: "/Coursera_Intro_To_Python.pdf",
+    thumbnail: "/images/coursera_intro_to_python_thumb.png",
+  },
+  {
     name: "Instructor — Production Technology",
     issuer: "IATSE Local 16 Training Trust Fund",
     year: "",
