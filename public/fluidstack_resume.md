@@ -4,12 +4,30 @@
 ## Summary of Qualifications
 Operations Engineer and Systems Builder with 25+ years of experience delivering mission-critical physical infrastructure and software pipelines where there is **zero room for failure**. Currently supporting Google product launches, ensuring devices, networks, and workflows execute flawlessly under extreme pressure and immovable deadlines. I combine the rigorous attention to detail and delivery timelines of elite technical project management with a relentless drive to "treat toil as a bug." By designing production SaaS tools (TiLT) and agentic AI frameworks (OpenClaw/TangleClaw), I replace fragile manual workflows with scalable, self-healing automation. Deeply experienced in hardware lifecycle management, cross-functional incident response, and orchestrating massive logistical operations without missing a beat.
 
-## Professional Highlights
-*   **Systems Automation & Software Engineering:** Built and deployed **TiLT**, a production PWA that automates complex Collective Bargaining Agreement (CBA) payroll calculations for distributed workforces, completely eliminating manual spreadsheet toil and human error.
+## Professional Experience
+
+**Software & Automation Builder (Creator of TiLT & TangleClaw)**
+*San Francisco, CA | 2024 – Present*
+*   **Systems Automation:** Built and deployed **TiLT**, a production PWA that automates complex Collective Bargaining Agreement (CBA) payroll calculations for IATSE Local 16 workforces, completely eliminating manual spreadsheet toil and human error.
 *   **Agentic AI Infrastructure:** Developed **TangleClaw** (a custom agentic IDE) and **OpenClaw** (a multi-agent framework). Deployed **TiLTClaw** to production to handle 24/7 autonomous support triage and incident escalation, acting as a force multiplier for operations.
-*   **High-Stakes Infrastructure Operations:** Managed complex, cross-functional technical programs (100+ concurrent projects) for clients like Google, Amazon, and Microsoft. Delivered reliable, zero-failure physical deployments (fiber grids, complex signal routing) on strict, unforgiving timelines.
-*   **Incident Response & Reliability:** Forged in the live-events industry where a system failure is immediately public. Carried ultimate responsibility for live-environment stability during global broadcasts, designing scalable runbooks and workflows that surfaced risks early and guaranteed 100% uptime when it mattered most.
-*   **Hardware Lifecycle & Resourcing:** Built automated resourcing and project-health tracking systems (using Google Apps Script and Airtable) to allocate hardware and staff dynamically. Managed vendor rate cards, contractor operations, and strict budget forecasting ($15M+).
+
+**Technical Program Manager (Contract)**
+*Google Event Technology Team | San Francisco, CA | Feb 2026 – Jun 2026*
+*   Embedded with Google’s Event Technology Team to support high-visibility, zero-failure product launches and technical workflows under compressed timelines.
+*   Served as the critical bridge between technical operators, engineers, and executive stakeholders, translating production needs into actionable plans and resolving issues in real time.
+*   Applied deep operational experience across signal flow, routing, networking, and production infrastructure to guarantee reliable execution for massive global audiences.
+
+**Video & Fiber Systems Lead**
+*Moscone Center / IATSE Local 16 | San Francisco, CA | 2015 – Present*
+*   Lead and support fiber-optic, telecom, and signal-distribution infrastructure for massive-scale corporate and technology events (Google Cloud Next, RSA, Dreamforce).
+*   **Incident Response & Reliability:** Forged in the live-events industry where a system failure is immediately public. Carried ultimate responsibility for live-environment stability, designing scalable runbooks and workflows that surfaced risks early and guaranteed 100% uptime when it mattered most.
+*   **Hardware Lifecycle & Resourcing:** Designed, troubleshot, and maintained highly complex signal paths involving fiber distribution, video routing, networking, and broadcast feeds across a multi-building campus.
+
+**Freelance Event Production & Technical Lead**
+*Various Agencies | San Francisco, CA | 2007 – Present*
+*   Produced and engineered 100+ large-scale corporate and broadcast events for clients including Google, Amazon, Microsoft, and Salesforce.
+*   Managed cross-functional technical teams (20+ people) and supported strict budget forecasting ($15M+) while balancing technical reliability and schedule pressure.
+*   Built automated resourcing and project-health tracking systems (using Google Apps Script and Airtable) to allocate hardware and staff dynamically.
 
 ## Skills & Expertise
 *   **Automation & AI Tooling:** Agentic Frameworks (Claude Code, Cursor, OpenClaw, TangleClaw), LLM APIs, Scripting & Automation (Apps Script, Python/Go via AI orchestration).
