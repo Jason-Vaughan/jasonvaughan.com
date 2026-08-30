@@ -1,7 +1,7 @@
 {
   "username": "Jason-Vaughan",
-  "weeklyCommits": 37,
-  "totalContributionsYear": 4062,
+  "weeklyCommits": 28,
+  "totalContributionsYear": 4066,
   "totalForks": 14,
   "totalStars": 20,
   "repoBreakdown": {
@@ -78,47 +78,8 @@
       "stars": 0
     }
   },
-  "updatedAt": "2026-08-29T04:24:40.668Z",
+  "updatedAt": "2026-08-30T01:52:52.816Z",
   "weeks": [
-    {
-      "contributionDays": [
-        {
-          "date": "2025-08-24",
-          "contributionCount": 0,
-          "color": "#ebedf0"
-        },
-        {
-          "date": "2025-08-25",
-          "contributionCount": 0,
-          "color": "#ebedf0"
-        },
-        {
-          "date": "2025-08-26",
-          "contributionCount": 0,
-          "color": "#ebedf0"
-        },
-        {
-          "date": "2025-08-27",
-          "contributionCount": 0,
-          "color": "#ebedf0"
-        },
-        {
-          "date": "2025-08-28",
-          "contributionCount": 2,
-          "color": "#9be9a8"
-        },
-        {
-          "date": "2025-08-29",
-          "contributionCount": 6,
-          "color": "#9be9a8"
-        },
-        {
-          "date": "2025-08-30",
-          "contributionCount": 3,
-          "color": "#9be9a8"
-        }
-      ]
-    },
     {
       "contributionDays": [
         {
@@ -2137,11 +2098,20 @@
         },
         {
           "date": "2026-08-28",
-          "contributionCount": 3,
+          "contributionCount": 4,
           "color": "#9be9a8"
         },
         {
           "date": "2026-08-29",
+          "contributionCount": 3,
+          "color": "#9be9a8"
+        }
+      ]
+    },
+    {
+      "contributionDays": [
+        {
+          "date": "2026-08-30",
           "contributionCount": 0,
           "color": "#ebedf0"
         }
