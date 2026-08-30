@@ -167,6 +167,8 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
       
       if (passVariant === "anthropic") {
         content = "Welcome Anthropic Hiring Team! 🌟 I'm Jason's AI portfolio guide. Ask me about his 25+ years in live event operations, Moscone Center fiber leadership, or his recent Made by Google 2026 Brooklyn device demo lead win for the live Times Square broadcast!";
+      } else if (passVariant === "fluidstack") {
+        content = "Welcome Fluidstack Hiring Team! 🚀 I'm Jason's AI portfolio guide. Ask me about his extensive experience building custom tooling, managing massive distributed infrastructure, and designing automated SRE solutions to treat toil as a bug!";
       } else if (passVariant === "tpm" || passVariant === "google") {
         content = "Welcome NVIDIA / Hiring Team! 🚀 I'm Jason's AI portfolio guide. Ask me about his Technical Program Management history, 100+ flagship keynotes, Moscone Center fiber grids, or his developer automation software!";
       } else if (visitorType === "Recruiter") {
