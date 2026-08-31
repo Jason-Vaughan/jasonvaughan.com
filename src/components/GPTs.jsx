@@ -100,7 +100,6 @@ export default function GPTs() {
   return (
     <section id="gpts" style={section}>
       <div style={wrap}>
-        <h2 style={h2Style}>Custom GPTs</h2>
 
         <div style={grid}>
           {gpts.map((g) => (

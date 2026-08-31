@@ -236,7 +236,6 @@ export default function ClawHub() {
   return (
     <section id="clawhub" style={section}>
       <div style={wrap}>
-        <h2 style={h2Style}>ClawHub Skills and Tools</h2>
         <p style={sub}>
           OpenClaw skills &amp; plugins published to clawhub.ai — direct-OAuth integrations
           that give an agent real-world hands (Google Workspace, eBay, Airbnb), no MCP gateway.

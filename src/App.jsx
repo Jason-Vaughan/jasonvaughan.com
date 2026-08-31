@@ -112,6 +112,13 @@ const PASSCODE_CONFIGS = {
     bannerNote: "Welcome Hiring Manager · Master Portfolio View Unlocked",
     roleFilter: "",
     autoSections: ["about", "career", "skills", "certifications", "projects"]
+  },
+  fluidstack: {
+    variant: "fluidstack",
+    persona: "Engineer",
+    bannerNote: "Welcome Fluidstack Hiring Team · Production Engineer, Compute View Unlocked",
+    roleFilter: "Production Engineer, Compute",
+    autoSections: ["about", "career", "skills", "projects", "infrastructure"]
   }
 };
 
@@ -183,7 +190,9 @@ export default function App() {
     eventpro: "eventpro",
     eventpro2026: "eventpro",
     master: "master",
-    general: "master"
+    general: "master",
+    fluidstack: "fluidstack",
+    fluidstack2026: "fluidstack"
   };
 
   // Password-gated resume states

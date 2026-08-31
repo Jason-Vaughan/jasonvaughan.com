@@ -97,7 +97,7 @@
   },
   "testCommand": null,
   "lintCommand": null,
-  "lastWrapSha": "f9ab9b3ae4f731ba7d5254cbf5acec2ef37dc9c5",
+  "lastWrapSha": "9da07cb54f078d028add36ed836edd1700f93d89",
   "startupRules": [
     "Remote Tailscale Clipboard Server: When operating remotely via TangleClaw web terminal (cursatory) from a laptop (elkaholic), serve long text packages, runbooks, or application materials by launching a private local Python HTTP server on port 9999 over Tailscale (http://cursatory.tail123678.ts.net:9999). This provides 1-tap JavaScript clipboard copy buttons directly to the laptop OS clipboard while keeping all contents 100% private."
   ],
