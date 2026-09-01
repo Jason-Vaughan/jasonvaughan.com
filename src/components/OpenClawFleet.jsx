@@ -417,11 +417,6 @@ export default function OpenClawFleet() {
   return (
     <section id="openclaw-fleet" style={sectionStyle}>
       <div style={wrap}>
-        <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
-          <h2 style={h2Style}>OpenClaw Fleet</h2>
-          <span style={subhead}>Internal AI agents in production and development</span>
-        </div>
-
         {FLEET.map((entry, idx) => (
           <FleetCard key={entry.id} entry={entry} idx={idx} onSelectImage={setSelectedImage} />
         ))}

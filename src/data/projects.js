@@ -67,14 +67,15 @@ export const featuredProjects = {
       { label: "npm Dependencies", key: "npmDeps", fallback: "0", valueOverride: "0" }
     ],
     screenshots: [
-      { src: `${tcScreenshots}/project%20splash%20screen%20with%20sampele%20cards.png`, alt: "Dashboard — Projects Directory" },
-      { src: `${tcScreenshots}/project%20info%20panel%20expanded.png`, alt: "Project Info Panel" },
-      { src: `${tcScreenshots}/porthub-registry%20list%20example.png`, alt: "PortHub Registry & Port Leases" },
-      { src: `${tcScreenshots}/ai%20model%20select%20modal.png`, alt: "Engine & Methodology Selection" },
-      { src: `${tcScreenshots}/global%20rules%20modal.png`, alt: "Global Rules Configuration" },
-      { src: `${tcScreenshots}/openclaw%20modal.png`, alt: "OpenClaw Integration" },
-      { src: `${tcScreenshots}/shared%20directories%20and%20files%20between%20groups%20modal.png`, alt: "Shared Documents & Groups" },
-      { src: `${tcScreenshots}/port%20conflict%20example%20warning.png`, alt: "Port Conflict Warning" }
+      { src: `${tcScreenshots}/project-master.png`, alt: "Dashboard — Project Master" },
+      { src: `${tcScreenshots}/session-view-switchboard.png`, alt: "Active Session & Engine Switchboard" },
+      { src: `${tcScreenshots}/project-info-drawer.png`, alt: "Project Info Drawer" },
+      { src: `${tcScreenshots}/porthub-registry.png`, alt: "PortHub Registry & Port Leases" },
+      { src: `${tcScreenshots}/global-rules.png`, alt: "Global Rules Configuration" },
+      { src: `${tcScreenshots}/session-rules.png`, alt: "Methodology Enforcement Rules" },
+      { src: `${tcScreenshots}/openclaw-connections.png`, alt: "OpenClaw Integration" },
+      { src: `${tcScreenshots}/project-groups.png`, alt: "Shared Documents & Groups" },
+      { src: `${tcScreenshots}/session-history-search.png`, alt: "Session History Search" }
     ]
   },
   tanglebrain: {

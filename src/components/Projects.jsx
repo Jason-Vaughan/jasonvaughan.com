@@ -167,7 +167,6 @@ export default function Projects() {
   return (
     <section id="projects" style={section}>
       <div style={wrap}>
-        <h2 style={h2Style}>Projects</h2>
         <div style={grid}>
           {projects.map((p) => (
             <div key={p.title} id={p.slug} style={card}>

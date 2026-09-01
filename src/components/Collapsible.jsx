@@ -84,7 +84,7 @@ export default function Collapsible({ id, title, icon, description, statPill, de
     gridTemplateRows: open ? "1fr" : "0fr",
     transition: "grid-template-rows .28s ease",
   };
-  const collapseInner = { minHeight: 0, overflow: "hidden" };
+  const collapseInner = { minHeight: 0, overflow: "hidden", opacity: open ? 1 : 0, transition: "opacity .28s ease" };
 
   // Avoid duplicate DOM ids: when wrapping an existing section component that
   // already renders its own `id={id}`, DON'T also put that id on the wrapper —

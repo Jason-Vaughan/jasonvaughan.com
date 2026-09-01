@@ -151,11 +151,6 @@ export default function Writing() {
   return (
     <section id="writing" style={section}>
       <div style={wrap}>
-        <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
-          <h2 style={h2Style}>Writing &amp; Research</h2>
-          <span style={subhead}>Long-form research and policy proposals</span>
-        </div>
-
         <div style={{ display: "grid", gap: 20, marginTop: 24 }}>
           {PAPERS.map((p, idx) => (
             <PaperCard key={p.slug} paper={p} idx={idx} accent={accent} card={card} tag={tag} />

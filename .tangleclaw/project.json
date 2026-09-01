@@ -7,9 +7,6 @@
   "versionFilePath": null,
   "wrapAutoPrEnabled": true,
   "wrapSections": null,
-  "startupRules": [
-    "Remote Tailscale Clipboard Server: When operating remotely via TangleClaw web terminal (cursatory) from a laptop (elkaholic), serve long text packages, runbooks, or application materials by launching a private local Python HTTP server on port 9999 over Tailscale (http://cursatory.tail123678.ts.net:9999). This provides 1-tap JavaScript clipboard copy buttons directly to the laptop OS clipboard while keeping all contents 100% private."
-  ],
   "wrapStepOverrides": {
     "open-pr-check": {
       "enabled": false
@@ -100,7 +97,10 @@
   },
   "testCommand": null,
   "lintCommand": null,
-  "lastWrapSha": "7579d27650821af09c5de2b3a9529f3bc9050268",
+  "lastWrapSha": "a9cfdec83739de66d2a202126dc0bdf5a90c5145",
+  "startupRules": [
+    "Remote Tailscale Clipboard Server: When operating remotely via TangleClaw web terminal (cursatory) from a laptop (elkaholic), serve long text packages, runbooks, or application materials by launching a private local Python HTTP server on port 9999 over Tailscale (http://cursatory.tail123678.ts.net:9999). This provides 1-tap JavaScript clipboard copy buttons directly to the laptop OS clipboard while keeping all contents 100% private."
+  ],
   "methodology": "minimal",
   "methodologyPhase": null,
   "actions": [],
