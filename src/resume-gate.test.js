@@ -27,7 +27,7 @@ describe("Resume Password Gate Invariants", () => {
   });
 
   test("Correct pre-assigned passwords unlock the resume and persist to localStorage", () => {
-    const validPasswords = ["jason2026", "tpm2026", "moscone", "anthropic", "anthropic2026", "google", "google2026", "eventpro"];
+    const validPasswords = ["jason2026", "tpm2026", "moscone", "anthropic", "anthropic2026", "google", "google2026", "eventpro", "stripe", "stripe2026"];
     const RESUME_PASSWORDS = {
       jason2026: "master",
       tpm2026: "tpm",
@@ -36,7 +36,9 @@ describe("Resume Password Gate Invariants", () => {
       anthropic2026: "anthropic",
       google: "google",
       google2026: "google",
-      eventpro: "eventpro"
+      eventpro: "eventpro",
+      stripe: "stripe",
+      stripe2026: "stripe"
     };
 
     for (const pwd of validPasswords) {

@@ -29,6 +29,20 @@ import { ForksApiModal } from "./components/ForksApiModal";
 
 // Pre-assigned passcode configs & persona auto-selection (TASK-RESUME-2)
 const PASSCODE_CONFIGS = {
+  stripe: {
+    variant: "stripe",
+    persona: "EventPro",
+    bannerNote: "Welcome Stripe Hiring Team · AV Events Manager View Unlocked",
+    roleFilter: "AV Events Manager",
+    autoSections: ["about", "career", "skills", "certifications", "projects"]
+  },
+  stripe2026: {
+    variant: "stripe",
+    persona: "EventPro",
+    bannerNote: "Welcome Stripe Hiring Team · AV Events Manager View Unlocked",
+    roleFilter: "AV Events Manager",
+    autoSections: ["about", "career", "skills", "certifications", "projects"]
+  },
   anthropic: {
     variant: "anthropic",
     persona: "EventPro",
@@ -183,6 +197,8 @@ export default function App() {
     nvidia: "tpm",
     nvidia2026: "tpm",
     moscone: "eventpro",
+    stripe: "stripe",
+    stripe2026: "stripe",
     anthropic: "anthropic",
     anthropic2026: "anthropic",
     google: "google",
@@ -568,7 +584,7 @@ export default function App() {
       icon: "💰",
       description: "Support the work.",
       element: <TipJar />,
-      visible: true,
+      visible: !activeBannerNote,
     },
     {
       id: "contact", // id="contact"
@@ -649,54 +665,56 @@ export default function App() {
           alignItems: "center"
         }}
       >
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          style={{ marginBottom: 16 }}
-        >
-          <a
-            href="https://buy.stripe.com/7sY5kD6X8bUA7iNfEEaMU01"
-            target="_blank"
-            rel="noreferrer"
-            title="Drop a tip — coffee, dinner, or a new car. Entirely up to you."
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              padding: "6px 14px 6px 10px",
-              borderRadius: 999,
-              background: "rgba(251, 191, 36, 0.1)",
-              border: "1px solid rgba(251, 191, 36, 0.4)",
-              color: "#fbbf24",
-              fontSize: 13,
-              fontWeight: 600,
-              textDecoration: "none",
-              transition: "background 0.15s, border-color 0.15s",
-              fontFamily: "inherit",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(251, 191, 36, 0.18)";
-              e.currentTarget.style.borderColor = "rgba(251, 191, 36, 0.7)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "rgba(251, 191, 36, 0.1)";
-              e.currentTarget.style.borderColor = "rgba(251, 191, 36, 0.4)";
-            }}
+        {!activeBannerNote && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            style={{ marginBottom: 16 }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <rect x="5" y="3" width="14" height="3" rx="0.8" fill="#a16207" />
-              <path d="M 6 6 L 18 6 L 17.5 20 Q 17.5 21 16.5 21 L 7.5 21 Q 6.5 21 6.5 20 Z"
-                fill="rgba(251, 191, 36, 0.15)" stroke="#fbbf24" strokeWidth="1.4" strokeLinejoin="round" />
-              <circle cx="9" cy="17" r="1.4" fill="#fbbf24" />
-              <circle cx="12" cy="18" r="1.2" fill="#fbbf24" />
-              <circle cx="15" cy="17" r="1.4" fill="#fbbf24" />
-              <path d="M 10.5 5.5 L 13.5 1 L 15 1.6 L 12 5.5 Z" fill="#34d399" stroke="#047857" strokeWidth="0.8" strokeLinejoin="round" />
-              <text x="12.7" y="3.6" fontSize="2" fontWeight="bold" fill="#065f46" transform="rotate(-30 12.7 3.6)">$</text>
-            </svg>
-            Tip Jar
-          </a>
-        </motion.div>
+            <a
+              href="https://buy.stripe.com/7sY5kD6X8bUA7iNfEEaMU01"
+              target="_blank"
+              rel="noreferrer"
+              title="Drop a tip — coffee, dinner, or a new car. Entirely up to you."
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "6px 14px 6px 10px",
+                borderRadius: 999,
+                background: "rgba(251, 191, 36, 0.1)",
+                border: "1px solid rgba(251, 191, 36, 0.4)",
+                color: "#fbbf24",
+                fontSize: 13,
+                fontWeight: 600,
+                textDecoration: "none",
+                transition: "background 0.15s, border-color 0.15s",
+                fontFamily: "inherit",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(251, 191, 36, 0.18)";
+                e.currentTarget.style.borderColor = "rgba(251, 191, 36, 0.7)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(251, 191, 36, 0.1)";
+                e.currentTarget.style.borderColor = "rgba(251, 191, 36, 0.4)";
+              }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="5" y="3" width="14" height="3" rx="0.8" fill="#a16207" />
+                <path d="M 6 6 L 18 6 L 17.5 20 Q 17.5 21 16.5 21 L 7.5 21 Q 6.5 21 6.5 20 Z"
+                  fill="rgba(251, 191, 36, 0.15)" stroke="#fbbf24" strokeWidth="1.4" strokeLinejoin="round" />
+                <circle cx="9" cy="17" r="1.4" fill="#fbbf24" />
+                <circle cx="12" cy="18" r="1.2" fill="#fbbf24" />
+                <circle cx="15" cy="17" r="1.4" fill="#fbbf24" />
+                <path d="M 10.5 5.5 L 13.5 1 L 15 1.6 L 12 5.5 Z" fill="#34d399" stroke="#047857" strokeWidth="0.8" strokeLinejoin="round" />
+                <text x="12.7" y="3.6" fontSize="2" fontWeight="bold" fill="#065f46" transform="rotate(-30 12.7 3.6)">$</text>
+              </svg>
+              Tip Jar
+            </a>
+          </motion.div>
+        )}
         
         <motion.h1
           initial={{ opacity: 0, y: 12 }}
