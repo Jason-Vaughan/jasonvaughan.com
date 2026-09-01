@@ -32,7 +32,11 @@ jobs:
       - name: Generate share pages (OG-tagged redirect stubs)
         run: npm run generate:share-pages
 
-      - run: npm run build
+      - name: Build site
+        env:
+          VITE_POSTHOG_KEY: ${{ secrets.VITE_POSTHOG_KEY }}
+          VITE_POSTHOG_HOST: ${{ secrets.VITE_POSTHOG_HOST }}
+        run: npm run build
 
       # Boot a preview server against the built dist/ so the OG screenshots
       # capture the exact HTML/CSS that will be deployed. `vite preview` runs
