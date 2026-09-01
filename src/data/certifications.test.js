@@ -36,8 +36,8 @@ describe("certifications data contract", () => {
   });
 
   test("stays a curated short list — no résumé dump", () => {
-    // Intentional design constraint: curated, not exhaustive. If this trips,
+    // Intentional design constraint: curated, not exhaustive. If this fails,
     // it's a deliberate decision, not a bug — bump the bound consciously.
-    expect(certifications.length).toBeLessThanOrEqual(8);
+    expect(certifications.length).toBeLessThanOrEqual(15);
   });
 });

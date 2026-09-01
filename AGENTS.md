@@ -1,6 +1,8 @@
 <!-- BEGIN:tangleclaw -->
 ## TangleClaw — generated; edits inside the markers are overwritten
 
+- **Run `tc capabilities` BEFORE concluding a TangleClaw capability is missing — never improvise one.** The `tc` CLI is on PATH in every TangleClaw-launched pane (verbs: `whoami`, `capabilities`, `sessions`, `message`, `ports`, `docs`, `rules`, `learnings`) and reports absence honestly. A capability assumed instead of checked is how sessions fabricate outcomes. If `tc` is not found, this pane was not launched by TangleClaw — say so rather than guessing.
+
 ## Core Rules (Enforced)
 
 - Update CHANGELOG.md with every change
