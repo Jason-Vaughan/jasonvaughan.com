@@ -266,3 +266,7 @@ Added live commit count and month-of-first-commit badge to TiLT and TangleClaw h
 ### Email status
 
 Cancelled Google Workspace migration in April — addresses were "in use" but GW wouldn't say where. Signed up for Outlook via GoDaddy for 6-12 months. Goal: eventually resolve the conflict and migrate to GW.
+
+## Open items / next session
+- **Phase 2 SEO Expansion**: The user wants to expand the site from a single-page layout to include dedicated, routable project pages (e.g., `/projects/tangleclaw`, `/projects/notse`) to capture organic search traffic. A step-by-step architectural plan (React Router + Vite SSG Pre-rendering) has been authored and is ready to execute.
+  - **Plan Document:** `/Users/jasonvaughan/Documents/Projects/JasonVaughanComPortfolio/.tangleclaw/plans/seo-expansion.md`
