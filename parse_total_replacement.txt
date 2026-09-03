@@ -1,0 +1,7 @@
+parse_total() {
+  local machine=$1
+  local usage_file=$2
+  local provider=$(basename "$usage_file" .json)
+  local state_file="$LOG_DIR/${provider}-${machine}-state.json"
+  python3 "$PROJECT_ASSETS/local-agent/incremental-ccusage.py" "$machine" "$usage_file" "$state_file"
+}
