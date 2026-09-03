@@ -69,14 +69,14 @@ describe("Resume Password Gate Invariants", () => {
   });
 
   test("App.jsx supports URL query parameter auto-unlock via pass parameter", () => {
-    const src = readFileSync(join(ROOT, "src/App.jsx"), "utf8");
+    const src = readFileSync(join(ROOT, "src/pages/Home.jsx"), "utf8");
     expect(src).toContain("RESUME_PASSWORDS");
     expect(src).toContain('params.get("pass")');
     expect(src).toContain("resumePassVariant");
   });
 
   test("App.jsx implements the password check gate before downloading", () => {
-    const src = readFileSync(join(ROOT, "src/App.jsx"), "utf8");
+    const src = readFileSync(join(ROOT, "src/pages/Home.jsx"), "utf8");
     // Verify that handleResumeClick checks isResumeUnlocked
     expect(src).toContain("if (isResumeUnlocked)");
     // Verify that the download triggers only when unlocked
@@ -86,7 +86,7 @@ describe("Resume Password Gate Invariants", () => {
   });
 
   test("No button/link in App.jsx directly references the secure PDF file path (must go through click handler)", () => {
-    const src = readFileSync(join(ROOT, "src/App.jsx"), "utf8");
+    const src = readFileSync(join(ROOT, "src/pages/Home.jsx"), "utf8");
     // Find all occurrences of the secure resume filename
     const matches = src.match(/Jason_Vaughan_Resume_secure_2026\.pdf/g) || [];
     // Should ONLY be referenced inside the triggerResumeDownload function helper, never as a raw href

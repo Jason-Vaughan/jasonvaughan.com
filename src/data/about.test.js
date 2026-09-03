@@ -60,7 +60,7 @@ describe("Persona Selector Configurations", () => {
   });
 
   it("should map each persona to collapsible IDs that literally exist in the app", () => {
-    const appSource = readFileSync(join(__dirname, "../App.jsx"), "utf8");
+    const appSource = readFileSync(join(__dirname, "../pages/Home.jsx"), "utf8");
     Object.entries(PERSONAS).forEach(([key, info]) => {
       info.sections.forEach((secId) => {
         if (secId === "skills") {
