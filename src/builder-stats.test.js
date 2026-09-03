@@ -52,7 +52,7 @@ describe("BuilderStats component invariants", () => {
 
   it("attaches GitHub profile links or onClick handlers to Commits, Projects, and Contributions tiles", () => {
     const src = componentSource();
-    expect(src).toContain('ElementType = s.link ? "a" : (s.onClick ? "button" : "div")');
+    expect(src).toContain('ElementType = s.link ? "a" : (isClickable ? "button" : "div")');
     expect(src).toContain('link: "https://github.com/Jason-Vaughan"');
     expect(src).toContain('link: "https://github.com/Jason-Vaughan?tab=repositories"');
   });
