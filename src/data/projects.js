@@ -25,6 +25,7 @@ export const featuredProjects = {
     pricing: "SaaS · Subscription",
     subtitle: "Union Time & Pay Tracking — Solved.",
     blurb: "A full-stack web application that automates union-compliant time tracking and pay calculations for IATSE members. Replaces manual spreadsheets with a configurable CBA rules engine that handles overtime, meal penalties, benefits eligibility, and complete audit trails — automatically.",
+    longDescription: "",
     statsUrl: "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/tilt-stats.json",
     repo: { owner: "Jason-Vaughan", repo: "TiLT-showcase" },
     techStack: ["Next.js 15", "React 19", "TypeScript", "PostgreSQL", "Prisma", "Tailwind CSS", "Vercel"],
