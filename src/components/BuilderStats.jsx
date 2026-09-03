@@ -278,6 +278,10 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
   const endDateLabel = formatDateLabel(0);
 
   const d = totals.deltas;
+  if (d && d.tokens < 0) {
+    d.tokens = null; // Hide the negative delta badge
+  }
+  
   const stats = [
     {
       label: "Lines of Code",
