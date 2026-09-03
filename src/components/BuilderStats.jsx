@@ -365,6 +365,7 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
       exact: totals.fixes,
       delta: d ? d.fixes : null,
       color: "#06b6d4",
+      chartKey: "fixes",
       description: "Commits whose subject is prefixed `fix:` / `fix(scope):` / `bugfix:` / `hotfix:` / `Fix ` / `Fixed ` / `Fixes ` (case-insensitive). Subject-only — `feat:` commits with fix bullets in the body don't count.",
     });
   }
@@ -389,6 +390,7 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
       exact: totals.prs,
       delta: d ? d.prs : null,
       color: "#f97316",
+      chartKey: "prs",
       description: "Pull requests merged to default branch across all GitHub repos. Forward-looking metric — most history is direct-to-main from before the 2026-04 PR-workflow shift, so this number is small but growing.",
     });
   }
@@ -411,6 +413,7 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
       exact: totals.refactored,
       delta: d ? d.refactored : null,
       color: "#ec4899",
+      chartKey: "refactored",
       description: "Lines rewritten or retired over the life of every repo — refactors, simplifications, dead-code cleanup. The counterpart to Lines Authored (not Lines of Code): of everything ever written, most is still in production and this is the slice that got sharpened along the way. Code that's revisited, not just stacked on.",
     });
   }

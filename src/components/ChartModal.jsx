@@ -32,6 +32,9 @@ export default function ChartModal({ chartKey, data, onClose }) {
     commits: { label: "Commits", color: "#a78bfa" },
     tests: { label: "Tests Passing", color: "#34d399" },
     tokens: { label: "AI Tokens", color: "#f472b6" },
+    fixes: { label: "Fixes Shipped", color: "#06b6d4" },
+    prs: { label: "PRs Merged", color: "#f97316" },
+    refactored: { label: "Lines Refactored", color: "#ec4899" },
   }[chartKey] || { label: chartKey, color: "#fff" };
 
   return (
