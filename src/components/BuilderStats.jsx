@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { formatBigNumber, formatDelta } from "../utils/format";
+import ChartModal from "./ChartModal";
 import {
   MONAD_STATS_URL,
   OPENCLAW_AGENT_STATS_URLS,
@@ -9,6 +10,9 @@ import {
 
 // Manifest produced by the centralized collector in project-assets.
 const MANIFEST_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/_collect-meta.json";
+
+// Historical data for charts
+const HISTORY_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/history.json";
 
 // Live version + download counts from the clawhub watch action.
 const CLAWHUB_VERSIONS_URL = "https://raw.githubusercontent.com/Jason-Vaughan/project-assets/main/clawhub-versions.json";
@@ -159,12 +163,22 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
   const [heatmapPalette, setHeatmapPalette] = useState("git"); // 'git' or 'cyber'
   const [hoveredDay, setHoveredDay] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [historyData, setHistoryData] = useState([]);
+  const [activeChart, setActiveChart] = useState(null);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Fetch historical stats for line charts
+  useEffect(() => {
+    fetch(HISTORY_URL, { cache: "no-store" })
+      .then((r) => r.ok ? r.json() : [])
+      .then((data) => setHistoryData(data))
+      .catch(() => {});
   }, []);
 
   // Fetch local token stats
@@ -289,6 +303,7 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
       exact: totals.loc,
       delta: d ? d.loc : null,
       color: "#38bdf8",
+      chartKey: "loc",
       description: "Current snapshot of source files across all tracked repos — what lives in the codebase right now. Counts hand-written source, markup, styles, docs, and config (JS/TS, Python, HTML, CSS, Markdown, and more) across every repo; generated and vendored files (lockfiles, build output, node_modules) are excluded. Different from lifetime-added, since refactoring removes lines as it adds new ones.",
     },
     {
@@ -297,7 +312,7 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
       exact: totals.commits,
       delta: d ? d.commits : null,
       color: "#a78bfa",
-      link: "https://github.com/Jason-Vaughan",
+      chartKey: "commits",
       description: "Total commits across all tracked repos, summed from `git rev-list HEAD` per repo. Includes both direct-to-main and squash-merged PRs.",
     },
     {
@@ -306,6 +321,7 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
       exact: totals.tests,
       delta: d ? d.tests : null,
       color: "#34d399",
+      chartKey: "tests",
       description: "Total active test cases. A core philosophy: every repository utilizes strict automated CI/CD pipelines to guarantee code correctness on every commit. If a test fails, the build halts. These numbers represent fully verified, green-lit code.",
     },
     {
@@ -336,6 +352,7 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
       exact: allTokens,
       delta: d ? d.tokens : null,
       color: "#f472b6",
+      chartKey: "tokens",
       description: "Lifetime tokens consumed across cloud providers (Anthropic, OpenAI, Cursor, Gemini, Copilot) plus local inference on Monad-1 and the OpenClaw fleet. Cloud totals refresh daily; local totals refresh every 15 min via each agent's self-published stats.",
       breakdown: breakdownLines.length > 1 ? breakdownLines : null,
     });
@@ -973,7 +990,8 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
           const isHovered = hoveredLabel === s.label;
           const hasTooltip = !!s.description;
           const hasDelta = typeof s.delta === "number" && (s.delta !== 0 || s.alwaysShowDelta);
-          const ElementType = s.link ? "a" : (s.onClick ? "button" : "div");
+          const isClickable = s.link || s.onClick || (s.chartKey && historyData.length > 0);
+          const ElementType = s.link ? "a" : (isClickable ? "button" : "div");
           const linkProps = s.link
             ? {
                 href: s.link,
@@ -983,6 +1001,11 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
             : s.onClick
             ? {
                 onClick: s.onClick,
+                type: "button",
+              }
+            : s.chartKey && historyData.length > 0
+            ? {
+                onClick: () => setActiveChart(s.chartKey),
                 type: "button",
               }
             : {};
@@ -1111,11 +1134,21 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
 };
 
   return (
-    <section id="builder-stats" style={{ padding: "24px 0" }}>
-      <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px" }}>
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
+    <>
+      <AnimatePresence>
+        {activeChart && historyData.length > 0 && (
+          <ChartModal
+            chartKey={activeChart}
+            data={historyData}
+            onClose={() => setActiveChart(null)}
+          />
+        )}
+      </AnimatePresence>
+      <section id="builder-stats" style={{ padding: "24px 0" }}>
+        <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px" }}>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
           style={{
             borderRadius: 16,
@@ -1255,5 +1288,6 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
         </motion.div>
       </div>
     </section>
+    </>
   );
 }
