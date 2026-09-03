@@ -984,6 +984,11 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
   const renderCodebaseView = () => {
     return (
       <>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+          <span style={{ fontSize: 13, color: "#a1a1aa", fontStyle: "italic" }}>
+            Click a stat tile to view its historical trend
+          </span>
+        </div>
         <div style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(80px, 1fr))",
