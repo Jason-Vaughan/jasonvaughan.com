@@ -1,3 +1,15 @@
+## Session 2026-09-02 — SEO Expansion & Playwright SSG
+
+**What happened:**
+- **Project Detail Pages:** Refactored `App.jsx` into a `<Router>` wrapper, moved the landing page to `Home.jsx`, and created a new `ProjectDetail.jsx` template that renders long-form project case studies.
+- **Unified Data Store:** Wired `ProjectDetail.jsx` to dynamically pull content, colors, links, and tags from `src/data/projects.js`, creating a single source of truth.
+- **Zero-Dependency SSG:** Built a custom 40-line `scripts/prerender.mjs` script using Playwright (already present in `devDependencies`). It hooks into `npm run build` to spin up a local preview server, hydrate React, and save the fully-rendered HTML for each `/projects/:slug` route directly into the `dist` folder.
+- **Sitemap & SEO:** Hardcoded the new static project routes into `public/sitemap.xml` so Googlebot finds them immediately.
+- **Plan Archived:** Moved `seo-expansion.md` to `.tangleclaw/plans/archive/`.
+
+**Open / next session:** 
+- User to manually write the long-form case studies by populating the `longDescription` fields (or similar content structure) for each project in `src/data/projects.js`.
+
 ## Session 2026-08-31 — Stripe Persona & PostHog Analytics
 
 **What happened:**
