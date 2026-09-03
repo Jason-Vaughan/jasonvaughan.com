@@ -420,7 +420,8 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
    */
   const renderProductivityView = () => {
     const weeklyCommits = gitStats?.weeklyCommits || (d?.commits ? d.commits : 142);
-    const tokens7d = d?.tokens ? d.tokens : Math.round(allTokens * 0.045);
+    // Guard against upstream 32-bit integer overflows in the telemetry pipeline returning negative tokens
+    const tokens7d = (d?.tokens && d.tokens > 0) ? d.tokens : Math.round(allTokens * 0.045);
     
     // Leverage Metrics
     const tokensPerCommit = weeklyCommits > 0 ? (tokens7d / weeklyCommits) : 0;
