@@ -243,8 +243,11 @@ export default function FeaturedProject() {
 
             {/* CTAs */}
             <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", gap: 12 }}>
+              <a href={`/projects/${p.slug}`} style={btnPrimary}>
+                Read Case Study
+              </a>
               {p.links.tour && (
-                <a href={p.links.tour} target="_blank" rel="noreferrer" style={btnPrimary}>
+                <a href={p.links.tour} target="_blank" rel="noreferrer" style={btnOutline("rgba(212,175,55,0.3)")}>
                   Sign Up for the Tour
                 </a>
               )}

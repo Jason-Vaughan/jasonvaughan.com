@@ -203,8 +203,11 @@ export default function FeaturedTangleClaw() {
 
             {/* CTAs */}
             <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", gap: 12 }}>
+              <a href={`/projects/${p.slug}`} style={btnPrimary}>
+                Read Case Study
+              </a>
               {p.links.github && (
-                <a href={p.links.github} target="_blank" rel="noreferrer" style={btnPrimary}>
+                <a href={p.links.github} target="_blank" rel="noreferrer" style={btnOutline("rgba(139,92,246,0.3)")}>
                   View on GitHub
                 </a>
               )}

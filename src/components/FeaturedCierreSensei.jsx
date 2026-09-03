@@ -179,8 +179,11 @@ export default function FeaturedCierreSensei() {
 
             {/* CTAs */}
             <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", gap: 12 }}>
+              <a href={`/projects/${p.slug}`} style={btnPrimary}>
+                Read Case Study
+              </a>
               {p.links.live && (
-                <a href={p.links.live} target="_blank" rel="noreferrer" style={btnPrimary}>
+                <a href={p.links.live} target="_blank" rel="noreferrer" style={btnOutline("rgba(34,197,94,0.3)")}>
                   Visit Cierre Sensei
                 </a>
               )}
