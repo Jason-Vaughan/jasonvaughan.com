@@ -183,7 +183,7 @@ export default function FeaturedCierreSensei() {
                 Read Case Study
               </a>
               {p.links.live && (
-                <a href={p.links.live} target="_blank" rel="noreferrer" style={btnOutline("rgba(34,197,94,0.3)")}>
+                <a href={p.links.live} target="_blank" rel="noreferrer" style={btnOutline}>
                   Visit Cierre Sensei
                 </a>
               )}

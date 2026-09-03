@@ -1,7 +1,7 @@
 <!-- BEGIN:tangleclaw -->
 ## TangleClaw — generated; edits inside the markers are overwritten
 
-- **Run `tc capabilities` BEFORE concluding a TangleClaw capability is missing — never improvise one.** The `tc` CLI is on PATH in every TangleClaw-launched pane (verbs: `whoami`, `capabilities`, `sessions`, `message`, `ports`, `docs`, `rules`, `learnings`) and reports absence honestly. A capability assumed instead of checked is how sessions fabricate outcomes. If `tc` is not found, this pane was not launched by TangleClaw — say so rather than guessing.
+- **Run `tc capabilities` BEFORE concluding a TangleClaw capability is missing — never improvise one.** The `tc` CLI is on PATH in every TangleClaw-launched pane (verbs: `whoami`, `capabilities`, `sessions`, `message`, `ports`, `docs`, `rules`, `learnings`) and reports absence honestly. A capability assumed instead of checked is how sessions fabricate outcomes. If `tc` is not found, this pane was not launched by TangleClaw — say so rather than guessing. A failed localhost `tc`/`curl` is **not proof of outage** — sandboxes block loopback; get a host-context check before reporting the server down.
 
 ## Core Rules (Enforced)
 
@@ -87,11 +87,11 @@ Substantive work goes through a feature-branch PR (even solo) — the PR documen
 - Branch names: `feat/`, `fix/`, `chore/`, `docs/`, `refactor/` + `<short-name>`.
 - PR titles in active voice ("Add X", "Fix Y when Z"). Body has What / Why / Test plan; link issues with `Fixes #N`. Delete branches after merge.
 
-**Rule: Pair `gh pr create` with `gh pr merge --auto --squash --delete-branch` for routine PRs** (docs, chore, version bumps, dependency updates, test-only) — GitHub then merges server-side the instant required checks pass, no session wait.
+**Rule: Pair `gh pr create` with `gh pr merge --auto --delete-branch` for routine PRs** (docs, chore, version bumps, dependency updates, test-only) — GitHub then merges server-side the instant required checks pass, no session wait.
 - **Use `--auto` for:** doc-only changes (README/CHANGELOG/MEMORY/plans/comments/JSDoc); mechanical chore PRs that don't shift how the project is built; test-only PRs.
 - **Don't `--auto`:** anything that triggered a Critic review with unaddressed findings (wait until addressed); PRs touching CI/deploy/secrets/branch-protection; anything the user wants to review first.
 - In Auto Mode the default is to enable `--auto` on every PR the session opens, including feature PRs and refactors. Branch protection still gates server-side, so the rule never overrides protection — it only removes the wait once gates clear.
-- `--squash` keeps `main` history linear and CHANGELOG-friendly.
+- The merge strategy (merge commit, squash or rebase) is the methodology layer's call — a project's governance sets it, and this file does not prescribe it.
 - Branch protection still gates: `--auto` waits for a required review, so it only removes the wait once gates clear — it never overrides protection. If auto-merge isn't enabled on the repo, `--auto` errors; enable it (Settings → Pull Requests) or fall back to `gh pr checks <PR#> --watch` + a manual merge.
 
 ## Releases & Versioning

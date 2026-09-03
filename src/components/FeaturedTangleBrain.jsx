@@ -213,7 +213,7 @@ export default function FeaturedTangleBrain() {
                 Read Case Study
               </a>
               {p.links.github && (
-                <a href={p.links.github} target="_blank" rel="noreferrer" style={btnOutline("rgba(236,72,153,0.3)")}>
+                <a href={p.links.github} target="_blank" rel="noreferrer" style={btnOutline}>
                   View on GitHub
                 </a>
               )}
