@@ -22,6 +22,7 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 - **DecomTangle skill to ClawHub** — added `decomtangle` to the ClawHub item registry (`src/components/ClawHub.jsx`), listing the new atomic tool-call decomposer skill for OpenClaw-style agents (v0.1.0, published to clawhub.ai). Added `decomtangle` to the daily watcher registry (`clawhub-versions.json` in `project-assets`) to track its version, downloads, and security status.
 
 ### Changed
+- **Skills Section UI Refactored** — Replaced the flat grid of skills with a vertical list of collapsible accordion cards (one per domain group). Addresses issue #81 to keep the section compact as more domains are added.
 - **Centralized project data extraction** — extracted all hardcoded project metadata, tech tags, CTAs, blurbs, and logo imports from `Projects.jsx`, `FeaturedProject.jsx`, `FeaturedTangleClaw.jsx`, `FeaturedTangleBrain.jsx`, and `FeaturedCierreSensei.jsx` into a single centralized data file (`src/data/projects.js`). This cleans up component codebases and prepares the site structure for future redesigns.
 - **Updated featured-cards.test.js** — refactored unit test checks to read PyPI distribution links directly from the centralized `projects.js` data store while keeping render assertions on component files.
 - **Renamed ClawHub section to ClawHub Skills and Tools** — updated both the collapsible section title in `src/App.jsx` and the inner section header in `src/components/ClawHub.jsx` to "ClawHub Skills and Tools" to improve clarity.
