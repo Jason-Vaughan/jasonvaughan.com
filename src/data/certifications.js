@@ -103,7 +103,7 @@ export const certifications = [
     detail: "Mastery-level vector graphics and typography techniques.",
     link: "/images/li_illustrator_mastery.png",
     thumbnail: "/images/li_illustrator_mastery.png",
-    logo: "/images/logos/linkedin.svg",
+    logo: "/images/logos/linkedin.png",
   },
   {
     name: "Adobe Illustrator CC: Advanced",
@@ -112,7 +112,7 @@ export const certifications = [
     detail: "Advanced vector illustration workflows.",
     link: "/images/li_illustrator_advanced.png",
     thumbnail: "/images/li_illustrator_advanced.png",
-    logo: "/images/logos/linkedin.svg",
+    logo: "/images/logos/linkedin.png",
   },
   {
     name: "Adobe Illustrator CC: Fundamentals",
@@ -121,7 +121,7 @@ export const certifications = [
     detail: "Core vector paths and illustration fundamentals.",
     link: "/images/li_illustrator_fundamentals.png",
     thumbnail: "/images/li_illustrator_fundamentals.png",
-    logo: "/images/logos/linkedin.svg",
+    logo: "/images/logos/linkedin.png",
   },
   {
     name: "Using Character Animator in Production",
@@ -130,7 +130,7 @@ export const certifications = [
     detail: "Rigging, motion capture, and expressive character animation.",
     link: "/images/li_character_animation.png",
     thumbnail: "/images/li_character_animation.png",
-    logo: "/images/logos/linkedin.svg",
+    logo: "/images/logos/linkedin.png",
   },
   {
     name: "Learning Vectorworks (2014)",
@@ -139,7 +139,7 @@ export const certifications = [
     detail: "3D Modeling and CAD drafting for stage design.",
     link: "/images/li_vectorworks_2014.png",
     thumbnail: "/images/li_vectorworks_2014.png",
-    logo: "/images/logos/linkedin.svg",
+    logo: "/images/logos/linkedin.png",
   },
   {
     name: "Learning Vectorworks",
@@ -148,6 +148,6 @@ export const certifications = [
     detail: "Fundamentals of CAD drafting and technical drawing.",
     link: "/images/li_vectorworks.png",
     thumbnail: "/images/li_vectorworks.png",
-    logo: "/images/logos/linkedin.svg",
+    logo: "/images/logos/linkedin.png",
   }
 ];
