@@ -130,7 +130,6 @@ export default function ClawHub() {
 
   const section = { background: "transparent", color: "#fafafa", padding: "48px 0" };
   const wrap = { maxWidth: 960, margin: "0 auto", padding: "0 24px" };
-  const h2Style = { fontSize: 32, fontWeight: 800, letterSpacing: -0.5 };
   const sub = { marginTop: 8, color: "#a1a1aa", fontSize: 15, maxWidth: 640 };
   const grid = {
     marginTop: 24,
