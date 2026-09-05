@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { formatBigNumber } from "../utils/format";
 import ShareLink from "./ShareLink";
+import InfrastructureModal from "./InfrastructureModal";
 
 // Monad-1 stats are published directly to project-assets by a small agent
 // running on the Monad-1 box (writes monad-stats.json, commits, pushes).
@@ -35,6 +36,8 @@ function formatUSD(n) {
  */
 export default function Infrastructure() {
   const [monadStats, setMonadStats] = useState(null);
+  const [error, setError] = useState(null);
+  const [selectedModel, setSelectedModel] = useState(null);
   // Legacy OpenClaw-agent token aggregation. Now a no-op: OPENCLAW_AGENT_STATS_URLS
   // is empty by design because routed agents (Volta, etc.) are already inside
   // Monad's published tokens.total (LiteLLM + Ollama tee) — summing them here
@@ -203,6 +206,7 @@ export default function Infrastructure() {
     "NVIDIA Blackwell",
   ];
   const modelsHistory = monadStats?.modelsHistory || [];
+  const testedModels = monadStats?.testedModels || [];
 
   // Tracking-window length — deliberately NOT kernel uptime. A real
   // poweroff (planned maintenance, hardware swap) resets uptime.daysOnline
@@ -524,7 +528,7 @@ export default function Infrastructure() {
             </div>
 
             {/* Models tested / history */}
-            {modelsHistory.length > 0 && (
+            {testedModels.length === 0 && modelsHistory.length > 0 && (
               <div style={{ marginTop: 18 }}>
                 <div style={{ fontSize: 10, fontWeight: 700, color: "#71717a", textTransform: "uppercase", letterSpacing: 1.5, marginBottom: 8 }}>
                   Models tested
@@ -533,6 +537,72 @@ export default function Infrastructure() {
                   {modelsHistory.map((m) => (
                     <span key={m} style={tagStyle}>{m}</span>
                   ))}
+                </div>
+              </div>
+            )}
+            {testedModels.length > 0 && (
+              <div style={{ marginTop: 24 }}>
+                <div style={{ fontSize: 10, fontWeight: 700, color: "#71717a", textTransform: "uppercase", letterSpacing: 1.5, marginBottom: 12 }}>
+                  Models Tested on Hardware
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  {testedModels.map((m) => {
+                    let outcomeBg = "rgba(255,255,255,0.06)";
+                    let outcomeColor = "#a1a1aa";
+                    if (m.outcome === "adopted") {
+                      outcomeBg = "rgba(34,197,94,0.15)";
+                      outcomeColor = "#4ade80";
+                    } else if (m.outcome === "superseded") {
+                      outcomeBg = "rgba(234,179,8,0.15)";
+                      outcomeColor = "#facc15";
+                    } else if (m.outcome === "rejected") {
+                      outcomeBg = "rgba(239,68,68,0.15)";
+                      outcomeColor = "#f87171";
+                    }
+
+                    return (
+                      <div
+                        key={m.name}
+                        onClick={() => setSelectedModel(m)}
+                        style={{
+                          background: "rgba(255,255,255,0.02)",
+                          border: "1px solid rgba(255,255,255,0.06)",
+                          borderRadius: 8,
+                          padding: "12px 16px",
+                          cursor: "pointer",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          gap: 16
+                        }}
+                      >
+                        <div style={{ minWidth: 0 }}>
+                          <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
+                            <span style={{ fontWeight: 700, fontSize: 14, color: "#fafafa" }}>{m.name}</span>
+                            {m.size && <span style={{ fontSize: 12, color: "#71717a" }}>{m.size}</span>}
+                          </div>
+                          <div style={{ fontSize: 13, color: "#a1a1aa", marginTop: 4, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                            {m.verdict}
+                          </div>
+                        </div>
+                        <div>
+                          <span style={{
+                            display: "inline-block",
+                            fontSize: 10,
+                            fontWeight: 800,
+                            letterSpacing: 0.5,
+                            padding: "3px 8px",
+                            borderRadius: 4,
+                            background: outcomeBg,
+                            color: outcomeColor,
+                            textTransform: "uppercase"
+                          }}>
+                            {m.outcome}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -704,6 +774,7 @@ export default function Infrastructure() {
           </div>
         </motion.div>
       </div>
+      <InfrastructureModal isOpen={!!selectedModel} onClose={() => setSelectedModel(null)} model={selectedModel} />
     </section>
   );
 }
