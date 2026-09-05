@@ -30,30 +30,35 @@ export const certifications = [
     year: "",
     detail:
       "Journeyperson member in good standing — stagecraft, video production, rigging, AV infrastructure & live operations.",
+    logo: "/images/logos/iatse.svg",
   },
   {
     name: "Barco Video Engineering & High-Resolution Screen Switching",
     issuer: "Barco",
     year: "",
     detail: "Certified operator & engineer for E2, ImagePro, and multi-destination screen switching systems.",
+    logo: "/images/logos/barco.svg",
   },
   {
     name: "Analog Way High-Resolution Switching & Video Engineering",
     issuer: "Analog Way",
     year: "",
     detail: "High-resolution switching, multi-screen blends, and signal routing.",
+    logo: "/images/logos/analogway.svg",
   },
   {
     name: "Millumin & Disguise Media Server Systems",
     issuer: "Millumin · Disguise · Dataton",
     year: "",
     detail: "Media playback, projection mapping, Watchout winches, and live show control integration.",
+    logo: "/images/logos/millumin.svg",
   },
   {
     name: "Dante & AV-over-IP Signal Flow Networking",
     issuer: "Audinate · SMPTE-2110",
     year: "",
     detail: "Dante audio networking, NDI/SDI routing, and fiber-optic signal distribution.",
+    logo: "/images/logos/audinate.svg",
   },
   {
     name: "OSHA 30",
@@ -62,6 +67,7 @@ export const certifications = [
     detail: "General Industry & Staging Safety Certification.",
     link: "/Osha_30.pdf",
     thumbnail: "/images/osha_30_thumb.png",
+    logo: "/images/logos/osha.svg",
   },
   {
     name: "Google Project Management Professional Certificate",
@@ -71,6 +77,7 @@ export const certifications = [
       "7-course professional program — project life cycle, Agile/Scrum, risk, budgeting, and stakeholder management.",
     link: "/Google_Management_Certificate.pdf",
     thumbnail: "/images/google_management_certificate_thumb.png",
+    logo: "/images/logos/google.svg",
   },
   {
     name: "Introduction to Python",
@@ -79,6 +86,7 @@ export const certifications = [
     detail: "Project-based learning credential for Python programming fundamentals.",
     link: "/Coursera_Intro_To_Python.pdf",
     thumbnail: "/images/coursera_intro_to_python_thumb.png",
+    logo: "/images/logos/coursera.svg",
   },
   {
     name: "Instructor — Production Technology",
@@ -86,6 +94,7 @@ export const certifications = [
     year: "",
     detail:
       "Selected to teach current-generation show technology — networking, video engineering, and media systems — to fellow members.",
+    logo: "/images/logos/iatse.svg",
   },
   {
     name: "Adobe Illustrator CC: Mastery",
@@ -94,6 +103,7 @@ export const certifications = [
     detail: "Mastery-level vector graphics and typography techniques.",
     link: "/images/li_illustrator_mastery.png",
     thumbnail: "/images/li_illustrator_mastery.png",
+    logo: "/images/logos/linkedin.svg",
   },
   {
     name: "Adobe Illustrator CC: Advanced",
@@ -102,6 +112,7 @@ export const certifications = [
     detail: "Advanced vector illustration workflows.",
     link: "/images/li_illustrator_advanced.png",
     thumbnail: "/images/li_illustrator_advanced.png",
+    logo: "/images/logos/linkedin.svg",
   },
   {
     name: "Adobe Illustrator CC: Fundamentals",
@@ -110,6 +121,7 @@ export const certifications = [
     detail: "Core vector paths and illustration fundamentals.",
     link: "/images/li_illustrator_fundamentals.png",
     thumbnail: "/images/li_illustrator_fundamentals.png",
+    logo: "/images/logos/linkedin.svg",
   },
   {
     name: "Using Character Animator in Production",
@@ -118,6 +130,7 @@ export const certifications = [
     detail: "Rigging, motion capture, and expressive character animation.",
     link: "/images/li_character_animation.png",
     thumbnail: "/images/li_character_animation.png",
+    logo: "/images/logos/linkedin.svg",
   },
   {
     name: "Learning Vectorworks (2014)",
@@ -126,6 +139,7 @@ export const certifications = [
     detail: "3D Modeling and CAD drafting for stage design.",
     link: "/images/li_vectorworks_2014.png",
     thumbnail: "/images/li_vectorworks_2014.png",
+    logo: "/images/logos/linkedin.svg",
   },
   {
     name: "Learning Vectorworks",
@@ -134,5 +148,6 @@ export const certifications = [
     detail: "Fundamentals of CAD drafting and technical drawing.",
     link: "/images/li_vectorworks.png",
     thumbnail: "/images/li_vectorworks.png",
+    logo: "/images/logos/linkedin.svg",
   }
 ];
