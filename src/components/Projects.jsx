@@ -79,7 +79,6 @@ export default function Projects() {
     gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
     gap: 24,
   };
-  const h2Style = { fontSize: 32, fontWeight: 800, letterSpacing: -0.5 };
 
   const card = {
     borderRadius: 16,

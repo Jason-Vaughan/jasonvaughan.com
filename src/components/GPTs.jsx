@@ -89,7 +89,6 @@ export default function GPTs() {
   };
 
   const cap = { padding: 20, color: "#e4e4e7", flex: 1, display: "flex", flexDirection: "column" };
-  const h2Style = { fontSize: 32, fontWeight: 800, letterSpacing: -0.5 };
   const h3Style = { marginTop: 4, fontSize: 22, fontWeight: 700 };
   const pStyle = { marginTop: 8, color: "#d4d4d8", lineHeight: 1.45, fontSize: 14, flex: 1 };
   const linkStyle = {
