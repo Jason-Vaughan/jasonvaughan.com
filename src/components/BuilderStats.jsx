@@ -353,7 +353,7 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
       delta: d ? d.tokens : null,
       color: "#f472b6",
       chartKey: "tokens",
-      description: "Lifetime tokens consumed across cloud providers (Anthropic, OpenAI, Cursor, Gemini, Copilot) plus local inference on Monad-1 and the OpenClaw fleet. Cloud totals refresh daily; local totals refresh every 15 min via each agent's self-published stats.",
+      description: "Lifetime tokens consumed across cloud providers (Anthropic, OpenAI, Gemini, Copilot, Legacy IDEs) plus local inference on Monad-1 and the OpenClaw fleet. Cloud totals refresh daily; local totals refresh every 15 min via each agent's self-published stats.",
       breakdown: breakdownLines.length > 1 ? breakdownLines : null,
     });
   }

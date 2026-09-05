@@ -199,7 +199,7 @@ export default function ClawHub() {
     borderRadius: 9999,
     background: "rgba(255,255,255,0.06)",
     border: "1px solid rgba(255,255,255,0.08)",
-    color: "#a1a1aa",
+    color: "#e4e4e7",
   };
   // Hover stats popover — floats above the card (needs card overflow:visible).
   const tip = {
