@@ -57,7 +57,12 @@ export default function Certifications({ highlighted = false }) {
         {certifications.map((cert) => (
           <div key={`${cert.issuer}-${cert.name}`} style={card}>
             <div style={topRow}>
-              <span style={nameStyle}>{cert.name}</span>
+              <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                {cert.logo && (
+                  <img src={cert.logo} alt="" style={{ width: 40, height: 40, borderRadius: 8, flexShrink: 0, objectFit: "cover" }} />
+                )}
+                <span style={nameStyle}>{cert.name}</span>
+              </div>
               {cert.year ? <span style={yearChip}>{cert.year}</span> : null}
             </div>
             <span style={issuerStyle}>{cert.issuer}</span>
