@@ -30,35 +30,35 @@ export const certifications = [
     year: "",
     detail:
       "Journeyperson member in good standing — stagecraft, video production, rigging, AV infrastructure & live operations.",
-    logo: "/images/logos/iatse.svg",
+    logo: "/images/logos/iatse.png",
   },
   {
     name: "Barco Video Engineering & High-Resolution Screen Switching",
     issuer: "Barco",
     year: "",
     detail: "Certified operator & engineer for E2, ImagePro, and multi-destination screen switching systems.",
-    logo: "/images/logos/barco.svg",
+    logo: "/images/logos/barco.png",
   },
   {
     name: "Analog Way High-Resolution Switching & Video Engineering",
     issuer: "Analog Way",
     year: "",
     detail: "High-resolution switching, multi-screen blends, and signal routing.",
-    logo: "/images/logos/analogway.svg",
+    logo: "/images/logos/analogway.png",
   },
   {
     name: "Millumin & Disguise Media Server Systems",
     issuer: "Millumin · Disguise · Dataton",
     year: "",
     detail: "Media playback, projection mapping, Watchout winches, and live show control integration.",
-    logo: "/images/logos/millumin.svg",
+    logo: "/images/logos/millumin.png",
   },
   {
     name: "Dante & AV-over-IP Signal Flow Networking",
     issuer: "Audinate · SMPTE-2110",
     year: "",
     detail: "Dante audio networking, NDI/SDI routing, and fiber-optic signal distribution.",
-    logo: "/images/logos/audinate.svg",
+    logo: "/images/logos/audinate.png",
   },
   {
     name: "OSHA 30",
@@ -67,7 +67,7 @@ export const certifications = [
     detail: "General Industry & Staging Safety Certification.",
     link: "/Osha_30.pdf",
     thumbnail: "/images/osha_30_thumb.png",
-    logo: "/images/logos/osha.svg",
+    logo: "/images/logos/osha.png",
   },
   {
     name: "Google Project Management Professional Certificate",
@@ -94,7 +94,7 @@ export const certifications = [
     year: "",
     detail:
       "Selected to teach current-generation show technology — networking, video engineering, and media systems — to fellow members.",
-    logo: "/images/logos/iatse.svg",
+    logo: "/images/logos/iatse.png",
   },
   {
     name: "Adobe Illustrator CC: Mastery",
