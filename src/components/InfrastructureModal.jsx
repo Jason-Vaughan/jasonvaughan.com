@@ -88,7 +88,7 @@ export default function InfrastructureModal({ isOpen, onClose, model }) {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             {model.evalTokPerSec && (
               <div>
-                <div style={{ fontSize: 11, fontWeight: 700, color: "#71717a", textTransform: "uppercase", letterSpacing: 1 }}>Throughput</div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: "#71717a", textTransform: "uppercase", letterSpacing: 1 }}>Eval Benchmark</div>
                 <div style={{ fontSize: 16, fontWeight: 600, color: "#fafafa", marginTop: 4 }}>
                   {model.evalTokPerSec.toFixed(1)} <span style={{ fontSize: 13, color: "#a1a1aa", fontWeight: 400 }}>tok/s</span>
                 </div>
