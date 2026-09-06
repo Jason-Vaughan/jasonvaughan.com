@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { formatBigNumber } from "../utils/format";
 import ShareLink from "./ShareLink";
 import InfrastructureModal from "./InfrastructureModal";
@@ -38,6 +38,7 @@ export default function Infrastructure() {
   const [monadStats, setMonadStats] = useState(null);
   const [error, setError] = useState(null);
   const [selectedModel, setSelectedModel] = useState(null);
+  const [isTestedModelsOpen, setIsTestedModelsOpen] = useState(false);
   // Legacy OpenClaw-agent token aggregation. Now a no-op: OPENCLAW_AGENT_STATS_URLS
   // is empty by design because routed agents (Volta, etc.) are already inside
   // Monad's published tokens.total (LiteLLM + Ollama tee) — summing them here
@@ -541,68 +542,92 @@ export default function Infrastructure() {
             )}
             {testedModels.length > 0 && (
               <div style={{ marginTop: 24 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, color: "#71717a", textTransform: "uppercase", letterSpacing: 1.5, marginBottom: 12 }}>
-                  Models Tested on Hardware
+                <div 
+                  onClick={() => setIsTestedModelsOpen(!isTestedModelsOpen)}
+                  style={{ 
+                    display: "flex", 
+                    justifyContent: "space-between", 
+                    alignItems: "center", 
+                    cursor: "pointer", 
+                    marginBottom: isTestedModelsOpen ? 12 : 0 
+                  }}
+                >
+                  <div style={{ fontSize: 10, fontWeight: 700, color: "#71717a", textTransform: "uppercase", letterSpacing: 1.5 }}>
+                    Models Tested on Hardware ({testedModels.length})
+                  </div>
+                  <div style={{ fontSize: 12, color: "#71717a", fontWeight: 700 }}>
+                    {isTestedModelsOpen ? "HIDE ▲" : "SHOW ▼"}
+                  </div>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  {testedModels.map((m) => {
-                    let outcomeBg = "rgba(255,255,255,0.06)";
-                    let outcomeColor = "#a1a1aa";
-                    if (m.outcome === "adopted") {
-                      outcomeBg = "rgba(34,197,94,0.15)";
-                      outcomeColor = "#4ade80";
-                    } else if (m.outcome === "superseded") {
-                      outcomeBg = "rgba(234,179,8,0.15)";
-                      outcomeColor = "#facc15";
-                    } else if (m.outcome === "rejected") {
-                      outcomeBg = "rgba(239,68,68,0.15)";
-                      outcomeColor = "#f87171";
-                    }
 
-                    return (
-                      <div
-                        key={m.name}
-                        onClick={() => setSelectedModel(m)}
-                        style={{
-                          background: "rgba(255,255,255,0.02)",
-                          border: "1px solid rgba(255,255,255,0.06)",
-                          borderRadius: 8,
-                          padding: "12px 16px",
-                          cursor: "pointer",
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          gap: 16
-                        }}
-                      >
-                        <div style={{ minWidth: 0 }}>
-                          <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
-                            <span style={{ fontWeight: 700, fontSize: 14, color: "#fafafa" }}>{m.name}</span>
-                            {m.size && <span style={{ fontSize: 12, color: "#71717a" }}>{m.size}</span>}
+                <AnimatePresence>
+                  {isTestedModelsOpen && (
+                    <motion.div 
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      style={{ overflow: "hidden", display: "flex", flexDirection: "column", gap: 8 }}
+                    >
+                      {testedModels.map((m) => {
+                        let outcomeBg = "rgba(255,255,255,0.06)";
+                        let outcomeColor = "#a1a1aa";
+                        if (m.outcome === "adopted") {
+                          outcomeBg = "rgba(34,197,94,0.15)";
+                          outcomeColor = "#4ade80";
+                        } else if (m.outcome === "superseded") {
+                          outcomeBg = "rgba(234,179,8,0.15)";
+                          outcomeColor = "#facc15";
+                        } else if (m.outcome === "rejected") {
+                          outcomeBg = "rgba(239,68,68,0.15)";
+                          outcomeColor = "#f87171";
+                        }
+
+                        return (
+                          <div
+                            key={m.name}
+                            onClick={() => setSelectedModel(m)}
+                            style={{
+                              background: "rgba(255,255,255,0.02)",
+                              border: "1px solid rgba(255,255,255,0.06)",
+                              borderRadius: 8,
+                              padding: "12px 16px",
+                              cursor: "pointer",
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              gap: 16
+                            }}
+                          >
+                            <div style={{ minWidth: 0 }}>
+                              <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
+                                <span style={{ fontWeight: 700, fontSize: 14, color: "#fafafa" }}>{m.name}</span>
+                                {m.size && <span style={{ fontSize: 12, color: "#71717a" }}>{m.size}</span>}
+                              </div>
+                              <div style={{ fontSize: 13, color: "#a1a1aa", marginTop: 4, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                                {m.verdict}
+                              </div>
+                            </div>
+                            <div>
+                              <span style={{
+                                display: "inline-block",
+                                fontSize: 10,
+                                fontWeight: 800,
+                                letterSpacing: 0.5,
+                                padding: "3px 8px",
+                                borderRadius: 4,
+                                background: outcomeBg,
+                                color: outcomeColor,
+                                textTransform: "uppercase"
+                              }}>
+                                {m.outcome}
+                              </span>
+                            </div>
                           </div>
-                          <div style={{ fontSize: 13, color: "#a1a1aa", marginTop: 4, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                            {m.verdict}
-                          </div>
-                        </div>
-                        <div>
-                          <span style={{
-                            display: "inline-block",
-                            fontSize: 10,
-                            fontWeight: 800,
-                            letterSpacing: 0.5,
-                            padding: "3px 8px",
-                            borderRadius: 4,
-                            background: outcomeBg,
-                            color: outcomeColor,
-                            textTransform: "uppercase"
-                          }}>
-                            {m.outcome}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                        );
+                      })}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             )}
 
