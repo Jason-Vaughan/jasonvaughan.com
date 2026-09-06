@@ -58,7 +58,7 @@ export const certifications = [
     issuer: "Audinate · SMPTE-2110",
     year: "",
     detail: "Dante audio networking, NDI/SDI routing, and fiber-optic signal distribution.",
-    logo: "/images/logos/audinate.png",
+    logo: "/images/logos/audinate.svg",
   },
   {
     name: "OSHA 30",
@@ -67,7 +67,7 @@ export const certifications = [
     detail: "General Industry & Staging Safety Certification.",
     link: "/Osha_30.pdf",
     thumbnail: "/images/osha_30_thumb.png",
-    logo: "/images/logos/osha.png",
+    logo: "/images/logos/osha.svg",
   },
   {
     name: "Google Project Management Professional Certificate",
