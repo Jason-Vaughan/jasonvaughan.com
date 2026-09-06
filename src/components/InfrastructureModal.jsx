@@ -13,11 +13,15 @@ export default function InfrastructureModal({ isOpen, onClose, model }) {
     };
   }, [isOpen]);
 
-  if (!model) return null;
+  // Keep the previous model in state so we can animate it out when it closes
+  const [displayModel, setDisplayModel] = React.useState(model);
+  useEffect(() => {
+    if (model) setDisplayModel(model);
+  }, [model]);
 
   return (
     <AnimatePresence>
-      {isOpen && (
+      {isOpen && displayModel && (
         <div style={{
           position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
           zIndex: 99999, display: "flex", alignItems: "center", justifyContent: "center",
@@ -25,6 +29,7 @@ export default function InfrastructureModal({ isOpen, onClose, model }) {
         }}>
           {/* Backdrop */}
           <motion.div
+            key="backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -37,6 +42,7 @@ export default function InfrastructureModal({ isOpen, onClose, model }) {
 
           {/* Dialog */}
           <motion.div
+            key="dialog"
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
@@ -52,12 +58,12 @@ export default function InfrastructureModal({ isOpen, onClose, model }) {
             <div style={{ padding: "20px 24px", borderBottom: "1px solid #27272a", display: "flex", justifyContent: "space-between", alignItems: "center", background: "rgba(255,255,255,0.02)" }}>
               <div>
                 <h3 style={{ margin: 0, fontSize: 20, fontWeight: 800, color: "#fafafa", letterSpacing: -0.3 }}>
-                  {model.name}
+                  {displayModel.name}
                 </h3>
                 <div style={{ marginTop: 6, fontSize: 13, color: "#a1a1aa", display: "flex", gap: 12 }}>
-                  {model.size && <span>{model.size}</span>}
-                  {model.precision && <span>{model.precision}</span>}
-                  {model.role && <span style={{ textTransform: "capitalize" }}>{model.role} Role</span>}
+                  {displayModel.size && <span>{displayModel.size}</span>}
+                  {displayModel.precision && <span>{displayModel.precision}</span>}
+                  {displayModel.role && <span style={{ textTransform: "capitalize" }}>{displayModel.role} Role</span>}
                 </div>
               </div>
               <button
@@ -74,30 +80,30 @@ export default function InfrastructureModal({ isOpen, onClose, model }) {
             {/* Body */}
             <div style={{ padding: 24, overflowY: "auto" }}>
               <div style={{ fontSize: 15, color: "#e4e4e7", lineHeight: 1.6, fontWeight: 500, marginBottom: 20 }}>
-                {model.verdict}
+                {displayModel.verdict}
               </div>
 
-              {model.notes && (
+              {displayModel.notes && (
                 <div style={{ fontSize: 14, color: "#a1a1aa", lineHeight: 1.6, marginBottom: 24, padding: "16px", background: "rgba(255,255,255,0.03)", borderRadius: 8 }}>
-                  {model.notes}
+                  {displayModel.notes}
                 </div>
               )}
 
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-                {model.evalTokPerSec && (
+                {displayModel.evalTokPerSec && (
                   <div>
                     <div style={{ fontSize: 11, fontWeight: 700, color: "#71717a", textTransform: "uppercase", letterSpacing: 1 }}>Throughput</div>
                     <div style={{ fontSize: 16, fontWeight: 600, color: "#fafafa", marginTop: 4 }}>
-                      {model.evalTokPerSec.toFixed(1)} <span style={{ fontSize: 13, color: "#a1a1aa", fontWeight: 400 }}>tok/s</span>
+                      {displayModel.evalTokPerSec.toFixed(1)} <span style={{ fontSize: 13, color: "#a1a1aa", fontWeight: 400 }}>tok/s</span>
                     </div>
                   </div>
                 )}
                 
-                {model.evaluated && (
+                {displayModel.evaluated && (
                   <div>
                     <div style={{ fontSize: 11, fontWeight: 700, color: "#71717a", textTransform: "uppercase", letterSpacing: 1 }}>Evaluated</div>
                     <div style={{ fontSize: 14, color: "#fafafa", marginTop: 6 }}>
-                      {new Date(model.evaluated).toLocaleDateString()}
+                      {new Date(displayModel.evaluated).toLocaleDateString()}
                     </div>
                   </div>
                 )}
