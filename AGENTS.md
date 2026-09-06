@@ -13,6 +13,10 @@
 - Follow session wrap protocol before ending
 - All port assignments go through PortHub
 
+## Extension Rules
+
+- Log at the "info" level
+
 ## Global Rules
 
 These rules apply to all TangleClaw-managed projects, across all engines. Edit them from the TangleClaw landing page or via the API.
