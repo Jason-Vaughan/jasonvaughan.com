@@ -19,6 +19,23 @@ export default function InfrastructureModal({ isOpen, onClose, model }) {
     if (model) setDisplayModel(model);
   }, [model]);
 
+  // Prevent double-fire or phantom click closures immediately after opening
+  const [canClose, setCanClose] = React.useState(false);
+  useEffect(() => {
+    if (isOpen) {
+      setCanClose(false);
+      const timer = setTimeout(() => setCanClose(true), 400);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
+  const handleClose = (e) => {
+    if (e) e.stopPropagation();
+    if (canClose) {
+      onClose();
+    }
+  };
+
   return (
     <AnimatePresence>
       {isOpen && displayModel && (
@@ -33,7 +50,7 @@ export default function InfrastructureModal({ isOpen, onClose, model }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
+            onClick={handleClose}
             style={{
               position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
               background: "rgba(0,0,0,0.8)", backdropFilter: "blur(4px)", pointerEvents: "auto"
@@ -46,6 +63,7 @@ export default function InfrastructureModal({ isOpen, onClose, model }) {
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            onClick={(e) => e.stopPropagation()}
             style={{
               background: "#18181b", border: "1px solid #3f3f46", borderRadius: 16,
               width: "100%", maxWidth: 500, pointerEvents: "auto",
@@ -67,7 +85,7 @@ export default function InfrastructureModal({ isOpen, onClose, model }) {
                 </div>
               </div>
               <button
-                onClick={onClose}
+                onClick={handleClose}
                 style={{
                   background: "transparent", border: "none", color: "#a1a1aa",
                   cursor: "pointer", fontSize: 24, padding: 4, lineHeight: 1,
