@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function InfrastructureModal({ isOpen, onClose, model }) {
@@ -36,7 +37,7 @@ export default function InfrastructureModal({ isOpen, onClose, model }) {
     }
   };
 
-  return (
+  const modalContent = (
     <AnimatePresence>
       {isOpen && displayModel && (
         <div style={{
@@ -132,4 +133,6 @@ export default function InfrastructureModal({ isOpen, onClose, model }) {
       )}
     </AnimatePresence>
   );
+
+  return typeof document !== "undefined" ? createPortal(modalContent, document.body) : null;
 }
