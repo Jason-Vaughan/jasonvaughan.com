@@ -7,47 +7,6 @@
   "versionFilePath": null,
   "wrapAutoPrEnabled": true,
   "wrapSections": null,
-  "wrapStepOverrides": {
-    "open-pr-check": {
-      "enabled": false
-    },
-    "changelog-update": {
-      "enabled": false
-    },
-    "version-bump": {
-      "enabled": false
-    },
-    "learnings-capture": {
-      "enabled": false
-    },
-    "learnings-db-write": {
-      "enabled": false
-    },
-    "rule-proposal": {
-      "enabled": false
-    },
-    "next-session-prime": {
-      "enabled": false
-    },
-    "features-toc": {
-      "enabled": false
-    },
-    "project-map": {
-      "enabled": false
-    },
-    "index-describe": {
-      "enabled": false
-    },
-    "memory-update": {
-      "enabled": false
-    },
-    "continuity-write": {
-      "enabled": false
-    },
-    "apply-pr-resolutions": {
-      "enabled": false
-    }
-  },
   "defaultLaunchMode": "bypassPermissions",
   "showLaunchModePicker": true,
   "orchestrationKeyRef": null,
@@ -97,22 +56,12 @@
   },
   "testCommand": null,
   "lintCommand": null,
-  "lastWrapSha": "09c7b41d8b145089413febada71e727adebe8d9d",
+  "lastWrapSha": "d31532b1064486fbf2fac29405ca48c1475fa61f",
   "startupRules": [
     "Remote Tailscale Clipboard Server: When operating remotely via TangleClaw web terminal (cursatory) from a laptop (elkaholic), serve long text packages, runbooks, or application materials by launching a private local Python HTTP server on port 9999 over Tailscale (http://cursatory.tail123678.ts.net:9999). This provides 1-tap JavaScript clipboard copy buttons directly to the laptop OS clipboard while keeping all contents 100% private."
   ],
-  "methodology": "minimal",
-  "methodologyPhase": null,
   "actions": [],
   "wrapV2": true,
   "medusaEnabled": true,
-  "medusaWake": true,
-  "methodologyArchives": [
-    {
-      "methodology": "prawduct",
-      "archivePath": ".prawduct.archived",
-      "archivedAt": "2026-07-18T06:42:08.834Z"
-    }
-  ],
-  "wrapOverridesSeeded": true
+  "medusaWake": true
 }
