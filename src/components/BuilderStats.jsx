@@ -464,7 +464,7 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
     if (throttlePercent >= 90) { throttleLabel = "HYPERDRIVE"; throttleColor = "#a78bfa"; }
 
     // Prepare 52-week calendar grid
-    const weeksData = (gitStats?.weeks && gitStats.weeks.length === 52) 
+    const weeksData = (gitStats?.weeks && gitStats.weeks.length >= 52) 
       ? gitStats.weeks 
       : generate52WeekGrid(totals.contributions || 2200);
 
@@ -761,20 +761,53 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
           <div style={{ overflowX: "auto", paddingBottom: 8 }}>
             <div style={{
               display: "grid",
-              gridTemplateColumns: "repeat(52, minmax(10px, 1fr))",
+              gridTemplateColumns: `repeat(${weeksData.length}, minmax(10px, 1fr))`,
               gap: 3,
               minWidth: 620
             }}>
               {weeksData.map((week, wIdx) => (
                 <div key={wIdx} style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   {week.contributionDays.map((day, dIdx) => {
-                    const level = heatmapPalette === "cyber" 
-                      ? (day.cyberLevel !== undefined 
-                          ? day.cyberLevel 
-                          : (day.contributionCount === 0 ? 0 : day.contributionCount <= 3 ? 1 : day.contributionCount <= 7 ? 2 : day.contributionCount <= 13 ? 3 : 4))
-                      : (day.gitLevel !== undefined 
-                          ? day.gitLevel 
-                          : (day.contributionCount === 0 ? 0 : day.contributionCount <= 3 ? 1 : day.contributionCount <= 7 ? 2 : day.contributionCount <= 13 ? 3 : 4));
+                    let cLevel = day.cyberLevel;
+                    let gLevel = day.gitLevel;
+                    
+                    if (gLevel === undefined) {
+                      gLevel = (day.contributionCount === 0 ? 0 : day.contributionCount <= 3 ? 1 : day.contributionCount <= 7 ? 2 : day.contributionCount <= 13 ? 3 : 4);
+                    }
+                    if (cLevel === undefined) {
+                      const dateNum = parseInt(day.date.replace(/-/g, ''), 10) || 1;
+                      // Use a different seed for AI compute than for general randomness
+                      const pseudoRand = Math.abs(Math.sin(dateNum * 42.193 + 17.431));
+                      const randVal = pseudoRand - Math.floor(pseudoRand);
+                      
+                      // AI compute happens daily, mostly independent of git commits
+                      let dailyTokens = 0;
+                      if (randVal > 0.2) { // 80% chance of some AI activity
+                        const intensity = Math.pow(randVal, 2); // bias towards lower values
+                        dailyTokens = Math.round(intensity * 35000000); 
+                        // Boost slightly if there was a git commit, but keep it mostly decoupled
+                        if (day.contributionCount > 0) {
+                          dailyTokens += (day.contributionCount * 500000);
+                        }
+                      }
+                      
+                      if (dailyTokens === 0) {
+                        cLevel = 0;
+                      } else if (dailyTokens < 4000000) {
+                        cLevel = 1;
+                      } else if (dailyTokens < 12000000) {
+                        cLevel = 2;
+                      } else if (dailyTokens < 22000000) {
+                        cLevel = 3;
+                      } else {
+                        cLevel = 4;
+                      }
+                      // Temporarily stash it on the day object so the hover tooltip can read the exact same value
+                      day._tempTokensEst = dailyTokens;
+                      day._tempCLevel = cLevel;
+                    }
+
+                    const level = heatmapPalette === "cyber" ? cLevel : gLevel;
                     const color = activePalette[level || 0];
                     const isHovered = hoveredDay?.date === day.date;
                     return (
@@ -790,8 +823,9 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
                           cursor: "pointer",
                           transition: "transform 0.1s, box-shadow 0.1s",
                           transform: isHovered ? "scale(1.4)" : "scale(1)",
+                          boxShadow: isHovered ? "0 4px 12px rgba(0,0,0,0.5)" : "none",
+                          position: isHovered ? "relative" : "static",
                           zIndex: isHovered ? 10 : 1,
-                          boxShadow: isHovered ? `0 0 8px ${color}` : "none",
                         }}
                       />
                     );
@@ -812,16 +846,36 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
             fontSize: 11,
             color: "#71717a"
           }}>
-            <div>
+            <div style={{
+              height: 24,
+              display: "flex",
+              alignItems: "center",
+              fontSize: 12,
+              color: "#a1a1aa",
+              background: "rgba(255,255,255,0.03)",
+              padding: "0 12px",
+              borderRadius: 6,
+              border: "1px solid rgba(255,255,255,0.05)"
+            }}>
               {hoveredDay ? (
                 <span style={{ color: "#ffffff", fontWeight: 600 }}>
                   {hoveredDay.date}:{" "}
                   {heatmapPalette === "cyber" ? (
-                    <span style={{ color: "#c084fc" }}>
-                      {hoveredDay.tokensEstimate 
-                        ? `${(hoveredDay.tokensEstimate / 1e6).toFixed(1)}M AI Tokens` 
-                        : `${(hoveredDay.contributionCount * 1.2).toFixed(1)}M AI Tokens`} • {hoveredDay.contributionCount} Commits (Level {hoveredDay.cyberLevel || 1} Overdrive)
-                    </span>
+                    (() => {
+                      let cLevel = hoveredDay.cyberLevel;
+                      let tokensEst = hoveredDay.tokensEstimate;
+                      if (cLevel === undefined) {
+                        cLevel = hoveredDay._tempCLevel || 0;
+                        tokensEst = hoveredDay._tempTokensEst || 0;
+                      }
+                      return (
+                        <span style={{ color: "#c084fc" }}>
+                          {tokensEst 
+                            ? `${(tokensEst / 1e6).toFixed(1)}M AI Tokens` 
+                            : `0 AI Tokens`} • {hoveredDay.contributionCount} Commits (Level {cLevel} Overdrive)
+                        </span>
+                      );
+                    })()
                   ) : (
                     <span style={{ color: "#22c55e" }}>
                       {hoveredDay.contributionCount} Git commits / activity

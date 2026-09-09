@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- **BuilderStats Heatmap Render Bugs** — Fixed an issue where the calendar grid strict-checked for exactly 52 weeks, preventing the display of GitHub's 53-week rolling data and falling back to random data. Also decoupled the AI Compute mode's logic from Git contributions so they produce distinctly unique visualizations, and fixed a CSS grid overflow bug.
+
 ### Planned Backlog — Smart Resume Gate & Lead Generation Engine
 - **[TASK-RESUME-1] Pre-Assigned Passwords & Query Parameter Auto-Unlock**: Support custom passwords (`anthropic2026`, `google2026`, `eventpro`) and URL query parameters (`jasonvaughan.com?pass=anthropic`). Auto-unlocks and selects the target resume variant with zero friction.
 - **[TASK-RESUME-2] Persona & Domain-Based Dynamic PDF Serving**: Serve targeted PDF resume variants (`Jason_Vaughan_AV_Specialist_Resume.pdf`, `Jason_Vaughan_TPM_Resume.pdf`, `Jason_Vaughan_Master_Resume.pdf`) mapped to visitor domain/password type.
