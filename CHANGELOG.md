@@ -4,6 +4,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **Certifications** — Added the Google Cloud Fundamentals: Core Infrastructure certification.
+
 ### Fixed
 - **BuilderStats Heatmap Render Bugs** — Fixed an issue where the calendar grid strict-checked for exactly 52 weeks, preventing the display of GitHub's 53-week rolling data and falling back to random data. Also decoupled the AI Compute mode's logic from Git contributions so they produce distinctly unique visualizations, and fixed a CSS grid overflow bug.
 

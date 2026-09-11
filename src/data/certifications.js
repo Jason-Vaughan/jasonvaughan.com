@@ -70,6 +70,15 @@ export const certifications = [
     logo: "/images/logos/osha.svg",
   },
   {
+    name: "Google Cloud Fundamentals: Core Infrastructure",
+    issuer: "Google Cloud · Coursera",
+    year: "2026",
+    detail: "Core infrastructure, networking, compute, and storage architecture on Google Cloud.",
+    link: "/Coursera_Google_Cloud_Core_Infrastructure.pdf",
+    thumbnail: "/images/coursera_google_cloud_core_infrastructure_thumb.png",
+    logo: "/images/logos/google.svg",
+  },
+  {
     name: "Google Project Management Professional Certificate",
     issuer: "Google · Coursera",
     year: "2026",
