@@ -42,3 +42,9 @@ When operating remotely via TangleClaw web terminal (`https://cursatory.tail1236
 - **Durable Solution for Long Text Packages / Runbooks**: Save raw text files to `~/filename.txt` on the host (`cursatory`), then spin up a private local Python HTTP server bound to `0.0.0.0:9999` over Tailscale.
 - **Client Experience**: Opening `http://cursatory.tail123678.ts.net:9999` in the laptop (`elkaholic`) browser gives native JavaScript `navigator.clipboard.writeText()` 1-tap buttons that copy text directly into the laptop's OS clipboard while keeping all contents 100% private to the Tailscale mesh network.
 
+
+## 2026-09-17 — Test suite brittleness + Visual debugging traps
+
+- **Hardcoded array bounds on curated lists break CI:** The main branch CI failed because a test for `certifications.test.js` strictly asserted `length <= 15`. When a new certification was legitimately added (PR #164), the test broke the deployment pipeline. Bounds-checking tests on curated data that is expected to grow should either be removed or the limit should be actively managed in the same PR.
+- **Dangling issues from forgotten keywords:** Issue #89 was left open because the PR that addressed it (#145) failed to include the `Fixes #89` keyword in its description. Always double check if an issue needs to be manually closed if the merging PR missed the auto-close syntax.
+- **Visual bugs vs data bugs:** A user reporting "I don't see the new button" after a UI rename + restructure (CSS grid transition instead of Framer Motion) led to checking the data fetch, the DOM structure, and the Playwright tests (which all passed). The real issue was that the `main` branch CI was failing, so the GitHub Pages deployment was stuck on an older version of the site without the new UI. Always verify the deployment status and the live JS bundle when debugging a "missing feature" on production.

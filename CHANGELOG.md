@@ -59,6 +59,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 - **Registered Kobold in share card registry** — added `kobold` to `src/data/share-cards.js` to ensure the build pipeline generates the `/share/kobold/` redirect page and preview metadata stub, resolving the 404 error when clicking its copy-share link.
 - **Hardened deep-link scroll and flash logic** — refactored the hash highlight routine in `src/App.jsx` to resiliently poll and retry if a deep-link's target section is not registered in the DOM accordion registry yet on initial load. Prevents scroll operations from failing or silently aborting during early render ticks.
 
+### Internal
+- **Fix Base Branch CI** — bumped the `certifications.test.js` array count bound from 15 to 16 to accommodate the newly added Google Cloud Core Infrastructure cert from #164, fixing the broken main branch CI suite (#165).
+
 ## [0.3.0] - 2026-07-03
 
 ### Added
