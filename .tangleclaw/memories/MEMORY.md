@@ -1,16 +1,17 @@
 **Open / next session:** 
-- **User content generation:** Manually write the long-form case studies by populating the `longDescription` fields (or similar content structure) for each project in `src/data/projects.js`.
-- **Cursor 7B keep/retire decision:** User previously stated they no longer use Cursor. Need to decide whether to retire the static 7B metric from `projects.yml` or keep it as a frozen legacy stat.
-- **Backlog:** Bake hero-card fallback stats at build time; fill in `project-preferences.md`.
+- **Migration:** Extract the missing virtual interview knowledge context from the `portfolio-chat` Cloudflare UI and perform the migration to a GitHub-backed Vercel route with Gemini embeddings (Issue #167).
+- **Backlog:** Fill in `project-preferences.md`.
 - **PAT rotation reminder:** `STATS_COLLECTOR_TOKEN` and `OPENAI_ADMIN_KEY` need manual rotation before they expire.
 
-## Last Session (2026-09-17 — Fix CI Bounds & Close Dangling Issues)
+## Last Session (2026-09-20 — Cross-Agent Ops & UI Updates)
 
 **What shipped:**
-- Fixed a broken CI suite on the `main` branch by bumping the bounds-check in `certifications.test.js` from 15 to 16, accommodating a newly added Google Cloud cert (#165).
-- Closed issue #89 (TangleClaw 4.0 screenshots) which was already implemented in PR #145 but left dangling due to a missing `Fixes #89` keyword.
-- Debugged a "missing feature" visual bug report for the "✨ AI Models Evaluated" UI, proving that the local dev server rendering logic works but the live GitHub Pages deployment was stuck on an older version due to the aforementioned CI failure. Provided Anthropic-specific tailnet links for the recruiter.
+- Fulfilled Medusa Switchboard capability requests: integrated `react-markdown` into the virtual interview ChatWidget, and updated the TangleClaw portfolio project entry to `.com` and rewrote its description to highlight its "AI-native SDLC orchestration platform" pivot.
+- Wrote extensive multi-paragraph Case Studies for the portfolio projects (`projects.js`), avoiding generic stub content.
+- Replaced a static Cursor 7B token stat with dynamic fallback telemetry (`scripts/bake-stats.mjs`) fetched at build time.
+- Investigated the missing "deep interview records" for the portfolio chatbot and confirmed they exist only within the Cloudflare Worker web UI context, isolated from local code or GitHub repositories. Opened tracking Issue #167 for eventual Cloudflare-to-Vercel migration.
 
 **What was learned:**
-- Hardcoded array bounds on curated lists are a fast track to broken CI when content is updated.
-- Visual bugs reported on production can simply be deployment pipeline failures. Always verify the deployed bundle hash.
+- When a user believes data is "in the repository" for a Cloudflare Worker that isn't checked into git (`portfolio-chat`), the prompt is likely hardcoded directly via the Cloudflare web UI.
+- GitHub Actions injected secrets (e.g., `VITE_POSTHOG_KEY`) won't be available in `.env` for local peer agents asking for them.
+- Medusa Switchboard loops must be actively closed by explicitly calling `/read` and optionally replying to acknowledge resolution.

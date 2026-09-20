@@ -5,7 +5,16 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 ## [Unreleased]
 
 ### Added
+- **Long-Form Case Studies** — Wrote and injected comprehensive markdown case studies for TiLT, TangleClaw, TangleBrain, and Cierre Sensei into `src/data/projects.js` to serve as the new content source.
+- **Baked Stats Fallback** — Created `scripts/bake-stats.mjs` to fetch live telemetry JSON files (`tilt-stats.json`, etc.) at build time, format them, and save to `src/data/baked-stats.json`. Wired `src/data/projects.js` and `package.json` to consume this dynamically so stats render without a hydration mismatch.
+- **Virtual Interview Markdown** — Updated the chatbot widget (`src/components/ChatWidget.jsx`) to parse and render AI responses using `react-markdown` with Tailwind typography, successfully completing a capability request received from the PV-AI-Guidebook Medusa agent.
 - **Certifications** — Added the Google Cloud Fundamentals: Core Infrastructure certification.
+
+### Changed
+- **TangleClaw Portfolio Tile** — Updated the `tangleclaw` object in `src/data/projects.js` based on a Medusa agent request. Pointed the primary link to `tangleclaw.com` and rewrote the description to reflect its evolution into an "open-source, local-first AI-native SDLC orchestration platform" (highlighting Medusa Switchboard, PortHub, Agent Roles, and GitHub integration).
+
+### Removed
+- **Cursor 7B Token Stat** — Deleted the stale `cursor_usage/` export directory and removed its reference from `PROJECT-MAP.md`, retiring the static 7B token figure in favor of upstream dynamic stats.
 
 ### Fixed
 - **BuilderStats Heatmap Render Bugs** — Fixed an issue where the calendar grid strict-checked for exactly 52 weeks, preventing the display of GitHub's 53-week rolling data and falling back to random data. Also decoupled the AI Compute mode's logic from Git contributions so they produce distinctly unique visualizations, and fixed a CSS grid overflow bug.

@@ -1,3 +1,14 @@
+## Last Session (2026-09-17 — Fix CI Bounds & Close Dangling Issues)
+
+**What shipped:**
+- Fixed a broken CI suite on the `main` branch by bumping the bounds-check in `certifications.test.js` from 15 to 16, accommodating a newly added Google Cloud cert (#165).
+- Closed issue #89 (TangleClaw 4.0 screenshots) which was already implemented in PR #145 but left dangling due to a missing `Fixes #89` keyword.
+- Debugged a "missing feature" visual bug report for the "✨ AI Models Evaluated" UI, proving that the local dev server rendering logic works but the live GitHub Pages deployment was stuck on an older version due to the aforementioned CI failure. Provided Anthropic-specific tailnet links for the recruiter.
+
+**What was learned:**
+- Hardcoded array bounds on curated lists are a fast track to broken CI when content is updated.
+- Visual bugs reported on production can simply be deployment pipeline failures. Always verify the deployed bundle hash.
+
 # Wrap Log — demoted session blocks
 
 Older `Last Session` blocks demoted from `MEMORY.md` to keep it scannable. Most-recent first. The full canon for stats infrastructure lives in the auto-memory files (e.g. `project_stats_agent_tcc_fix`, `project_stats_system`).
