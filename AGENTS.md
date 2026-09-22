@@ -1,7 +1,7 @@
 <!-- BEGIN:tangleclaw -->
 ## TangleClaw — generated; edits inside the markers are overwritten
 
-- **Run `tc capabilities` BEFORE concluding a TangleClaw capability is missing — never improvise one.** The `tc` CLI is on PATH in every TangleClaw-launched pane (verbs: `whoami`, `capabilities`, `sessions`, `message`, `ports`, `docs`, `rules`, `learnings`) and reports absence honestly. A capability assumed instead of checked is how sessions fabricate outcomes. If `tc` is not found, this pane was not launched by TangleClaw — say so rather than guessing. A failed localhost `tc`/`curl` is **not proof of outage** — sandboxes block loopback; get a host-context check before reporting the server down.
+- **Run `tc capabilities` BEFORE concluding a capability is missing — never improvise one.** `tc` is normally on PATH in a launched pane (verbs: `whoami`, `capabilities`, `sessions`, `message`, `start`, `ports`, `docs`, `rules`, `learnings`) and reports absence honestly; a capability assumed not checked is how sessions fabricate outcomes. If `tc` is missing, check `TANGLECLAW_API`; a renamed install can break PATH. Use the API with verified launch identity. If context is missing or inconsistent, report it and stop identity-dependent actions — absence of both is unavailable context, not proof of being unmanaged. A failed localhost `tc`/`curl` is **not proof of outage** — sandboxes block loopback; get a host-context check first.
 
 - **Plans are served at a shareable URL.** .tangleclaw/plans/ are served at a shareable URL: GET /api/projects/<projectId>/plans lists each one with the link to hand the operator (tc capabilities shows it with your project id) — hand back that link, never a local file path.
 
@@ -39,7 +39,8 @@ Some engines store plans in their own global directory (Claude Code uses `~/.cla
 - Don't rely on an engine's global plans directory as the cross-session source of truth.
 
 **Rule: Make plans and design docs openable from anywhere, not just as a local file path.** A local file path can't be opened from another machine, and the operator often reads on a different device.
-- When you present a substantial plan, design doc, or reference deliverable, also make it available at a **shareable hosted link** the operator can open from any device — using whatever publishing capability your engine or harness provides.
+- **To the OPERATOR:** When you present a substantial plan, design doc, or reference deliverable to the operator, hand them the **shareable hosted link**, never a bare local file path. Published links must use the MagicDNS format (e.g. `https://cursatory.tail123678.ts.net:8443/plans/<projectId>/<file>.md`). Never use engine-hosted artifact links (like claude.ai artifacts); if the operator clicks it, it must be MagicDNS.
+- **AGENT to AGENT:** When handing off plans or documents to a peer agent on this host, send **BOTH the hosted link AND the canonical absolute local file path**. Peer sessions cannot read the hosted link because it sits behind an authentication gate; they need the local path to read the contents.
 - Keep the **same** link updated in place as the document evolves; don't mint a new link on each edit.
 - The project-local file stays the canonical source; the shared link mirrors it.
 
@@ -74,6 +75,10 @@ When two sessions work related-but-distinct repos (advisor/builder, coordinator/
 - Either session may edit shared infrastructure (TangleClaw config, ports) — neither owns it.
 
 This avoids merge conflicts, surprise git-log entries, and ambiguity over who owns which commit.
+
+**Rule: Rule Authoring Policy.** The ProjectManager (PM) does NOT author, edit, or rewrite global or session rules. The Builders author and maintain the rules for themselves and the rest of the fleet. If questions arise about rule structure or policy, the Builders consult the Architect directly.
+- Any session that finds a missing, incorrect or conflicting rule reports it to a Builder. The PM may coordinate the assignment.
+- The shared-infrastructure allowance above excludes rule authoring. Its allowance for ports and other TangleClaw config is unchanged.
 
 ## Issues & Feature Requests
 
@@ -152,8 +157,17 @@ TangleClaw is the central port registry for every project on this machine — re
 - **Register before binding** to a port (dev server, database, API, etc.).
 - **Check for conflicts** before claiming a port — another project may already own it. The
   registry now enforces this: claiming a port another project holds returns **409**, it does
-  not silently take it.
+  not silently take it. On this machine it also asks the OS: a port with a listener that no
+  lease records returns **409 `PORT_IN_USE`** naming the process.
+- **Send `host`** when the service is not on this machine. Leases are keyed on `(host, port)`,
+  every route defaults `host` to `localhost`, and the same port number can belong to different projects
+  on different hosts.
 - **Release** a port once it's no longer needed (service stopped, teardown, cleanup).
+- **Declare `reach`** when the service is meant to be reachable beyond loopback. A service that
+  binds `127.0.0.1` is already stating its intent; `reach` is where another process can read it.
+  TangleClaw's Caddyfile divergence check cross-references it, so a proxy fronting a port whose
+  owner meant it to stay local is reported rather than silently accepted. A lease with no `reach`
+  is treated as `loopback` and never as permission to expose the port.
 
 ### Port Ranges Convention
 - **3100-3199**: TangleClaw infrastructure (ttyd, server) — do not use
@@ -163,11 +177,11 @@ TangleClaw is the central port registry for every project on this machine — re
 
 ### Authentication
 
-When the operator has enabled the M2M service-token gate (AUTH-4), every `/api/ports*` call needs `Authorization: Bearer <token>` (else `401`). TC injects the header with the live token below this guide — copy it onto each request. Off by default (no token needed). Rotating the token invalidates the old one — relaunch to pick up the new value.
+When the operator has enabled the M2M service-token gate (AUTH-4), every `/api/ports*` call needs `Authorization: Bearer <token>` (else `401`). Where this guide sits in a file the project COMMITS, the live token is deliberately not beside it — fetch it from `$TANGLECLAW_API/api/service-token` (#1619). In an engine-private config TC still injects the header with the live token below this guide. Off by default (no token needed). Rotating the token invalidates the old one — relaunch to pick up the new value.
 
 ### API Operations
 
-All calls are JSON. The API base URL is injected **below this guide**; use it as-is — its scheme already reflects what the server serves (plain `http://` under `ingressMode: caddy` or with no certificates, else `https://`; don't "upgrade" it). For a mkcert `https://` URL, pass `curl -k` or trust the mkcert root CA.
+All calls are JSON. In an engine-private config the API base URL is injected **below this guide**; in a committed carrier it is not written at all — read `$TANGLECLAW_API`, which your launch exported (#1619). Either way use it as-is: its scheme already reflects what the server serves (plain `http://` under `ingressMode: caddy` or with no certificates, else `https://`; don't "upgrade" it). For a mkcert `https://` URL, pass `curl -k` or trust the mkcert root CA.
 
 ```
 # Check what's taken (before picking a port)
@@ -175,9 +189,16 @@ GET /api/ports
 
 # Register a port. Pass "permanent": true to survive restarts (the default over
 # HTTP is false — an omitted flag gives you a non-permanent lease).
-# Returns 201 on success, or 409 if another project already holds the port.
+# "reach" declares how far the service is MEANT to be reachable —
+# "loopback" (default) | "tailnet" | "lan". Omitting it means loopback on EVERY
+# write, renewals included, so restate a wider reach each time you re-register.
+# Returns 201 on success, or 409 if another project already holds the port or an
+# unleased process is listening on it. Already started the service yourself? Add
+# "adoptListener": true to say the listener is yours.
+# "ownerKind": "external" records an owner that is not a TangleClaw project (a
+# brew services database); an omitted ownerKind keeps whatever the lease had.
 POST /api/ports/lease
-{ "port": 3200, "project": "my-project", "service": "dev-server", "permanent": true }
+{ "port": 3200, "host": "localhost", "project": "my-project", "service": "dev-server", "permanent": true, "reach": "loopback" }
 
 # Register a temporary port (expires after TTL unless heartbeated)
 POST /api/ports/lease
@@ -185,14 +206,16 @@ POST /api/ports/lease
 
 # Release a port when done. Always send your own "project": ownership is verified
 # when present — releasing a port a DIFFERENT project still holds returns 409
-# (add "force": true to override). Omitting "project" skips the check.
+# (add "force": true to override). Omitting "project" skips the check. Omitting
+# "host" means localhost, and is refused with 400 HOST_REQUIRED when another host
+# also leases that port.
 POST /api/ports/release
-{ "port": 3200, "project": "my-project" }
+{ "port": 3200, "host": "localhost", "project": "my-project" }
 
 # Heartbeat to keep a TTL lease alive. Send "project" too: renewing another
 # project's lease returns 409.
 POST /api/ports/heartbeat
-{ "port": 4000, "project": "my-project" }
+{ "port": 4000, "host": "localhost", "project": "my-project" }
 ```
 
 ### When to Register / Release
@@ -211,6 +234,15 @@ Claiming a port another project holds returns **409** with the current owner:
 
 **Pick a different port in the same range.** That is the answer in almost every case — the
 owner in the response tells you who has it without a second call.
+
+A port with a listener but no lease returns **409** `PORT_IN_USE` with the process instead of
+an owner (`"listener": { "port", "pid", "command" }`). The same rule applies: pick another
+port, unless that listener is your own service, in which case repeat with
+`"adoptListener": true`. That flag is separate from `force`, which takes over another project's
+lease. `GET /api/ports` lists these unleased listeners as `systemPorts`. A 201 carries
+`listenerCheck`, which says what the check found: `clear`, `adopted`, `renewal`, `takeover`,
+`not-local` (another host, which this machine cannot see), or `unavailable` (lsof could not run,
+so the port was granted unchecked).
 
 Re-leasing a port **your own project** already holds is a renewal, not a conflict: it
 succeeds normally, so idempotent re-registration on every boot needs no special handling.
@@ -231,22 +263,23 @@ binds the caller to the project name it sends, so a caller that supplies someone
 can still act on their lease. Treat release as the destructive call it is: send your `project`,
 and release only ports your own project holds.
 
-**TangleClaw API base URL**: `http://localhost:3102`
+**TangleClaw API base URL**: read it from the `TANGLECLAW_API` environment variable your launch exported (`tc whoami` prints it too). It is deliberately not written here: this file is tracked in git and shared by every checkout, while the origin is per install.
 
 ## Medusa Switchboard
 
-You can exchange messages with other TangleClaw sessions. TangleClaw already runs your WebSocket listener — do NOT register your own for this workspace (two consumers on one id fight over the queue).
-
-**This is context, not a task.** Do not check the inbox or explore the switchboard unprompted — participate when a message actually arrives (TangleClaw nudges you), or when the operator asks.
-
-| | |
-|---|---|
-| inbox | `GET http://localhost:3102/api/sessions/JasonVaughanComPortfolio/medusa/messages` |
-| mark handled | `POST http://localhost:3102/api/sessions/JasonVaughanComPortfolio/medusa/read` — `{"ids": ["<id>", ...]}`; they leave the inbox |
-| send (initiate or respond) | `POST http://localhost:3102/api/sessions/JasonVaughanComPortfolio/medusa/send` — `{"to": "<workspace-id>", "message": "..."}` |
-| peers | `GET http://localhost:3102/api/sessions/JasonVaughanComPortfolio/medusa/roster` |
-
-**The initiator closes an exchange**, so a message you do not answer leaves the sender blocked. Reply over the same channel rather than printing into your own pane — the sender cannot see your pane.
+- TangleClaw runs your listener — do NOT open your own. Context, not a task: participate when a message arrives or when asked.
+- Routes, with `<base>` = `<api>/api/sessions/<project-name>`:
+- inbox `GET <base>/medusa/messages`; mark handled `POST <base>/medusa/read` with `{"ids": ["<id>", ...]}`;
+- send (initiate or respond) `POST <base>/medusa/send` with `{"to": "<workspace-id>", "message": "..."}`;
+- peers `GET <base>/medusa/roster`; why a peer has not picked up `GET <base>/medusa/peers/<workspace-id>`.
+- Resolve both placeholders at run time — they are launch facts, not repository facts, and this file is shared by every checkout:
+- `<api>` — the `TANGLECLAW_API` your launch exported.
+- `<project-name>` — `tc whoami`, or GET `$TANGLECLAW_API/api/tc/whoami?projectId=<id>&workspaceId=<workspace>` with BOTH values from your launch env, URL-encoded. Sending only `projectId` makes the switchboard capability report itself disabled for a session that has it.
+- URL-encode the name into the path too: names may contain spaces.
+- whoami ECHOES the workspace you claim — it does not validate it. Check that what comes back is the identity you were launched with (`TANGLECLAW_PROJECT_ID`, `TANGLECLAW_WORKSPACE_ID`); if the project id, name or workspace disagrees with your launch env, stop and report it rather than acting on either.
+- Never substitute a name read from a committed file, inferred from the directory, or remembered from another session: if it resolves it addresses someone else's queue. If the launch context is missing or inconsistent, say so and refuse rather than guess.
+- The INITIATOR closes an exchange, so a message you do not answer leaves the sender blocked. Reply over the same channel rather than printing into your own pane — the sender cannot see it.
+- The peer route returns the wake monitor's latest reason code for a peer on this host, with its `meaning` (`local: false` for one it cannot see).
 
 ## Shared Documents
 
@@ -258,11 +291,24 @@ A **group** links related projects (e.g. "backend services"). Each group can hav
 
 ### Authentication
 
-When the M2M service-token gate (AUTH-4) is on, every `/api/shared-docs*` call and a group's `/sync` need `Authorization: Bearer <token>` (else `401`); TC injects the header with the live token below this guide. Off by default. Rotating the token invalidates the old one — relaunch to refresh.
+When the M2M service-token gate (AUTH-4) is on, every `/api/shared-docs*` call and a group's `/sync` need `Authorization: Bearer <token>` (else `401`). In a committed carrier the live token is deliberately absent — fetch it from `$TANGLECLAW_API/api/service-token` (#1619); in an engine-private config TC injects it below this guide. Off by default. Rotating the token invalidates the old one — relaunch to refresh.
+
+### Identify Your Project
+
+Send your project binding as two headers on every shared-docs and groups request:
+
+```
+x-tangleclaw-project-id: $TANGLECLAW_PROJECT_ID
+x-tangleclaw-launch-id: $TANGLECLAW_LAUNCH_ID
+```
+
+TangleClaw exports both variables into every pane it launches, whatever the engine. They identify which project is asking: the launch id names your live session, and the project claim must agree with it. They are required: a shared-docs or groups request without them is refused with `403`, and with them you can read and change documents only in the groups your project belongs to — on these routes, another project's group or document answers `404`, as if it did not exist. Changing a document's registration (its file path, name or injection settings) or deleting it, and creating, changing or deleting a group or its members, are the operator's alone (`403 OPERATOR_ONLY`): ask the operator. Editing a document's contents is not a registration change; lock it first. With `curl`, that is `-H "x-tangleclaw-project-id: $TANGLECLAW_PROJECT_ID" -H "x-tangleclaw-launch-id: $TANGLECLAW_LAUNCH_ID"`. A pane with no `TANGLECLAW_LAUNCH_ID` predates launch binding: relaunch the session.
+
+**Send `groupId`** when listing documents, to name the group you mean. Without it the list holds the documents of every group your project is in, never another project's. To find your group's id, `GET /api/groups` lists the groups your project is in.
 
 ### API Operations
 
-All calls are JSON; the API base URL is injected **below this guide**.
+All calls are JSON and carry the two binding headers above. In an engine-private config the API base URL is injected **below this guide**; in a committed carrier read `$TANGLECLAW_API` instead (#1619).
 
 ```
 # List docs available to your project
@@ -272,7 +318,7 @@ GET /api/shared-docs?groupId=<group-id>
 POST /api/shared-docs
 { "groupId": "<group-id>", "name": "NETWORK", "filePath": "/path/to/NETWORK.md", "injectIntoConfig": true, "injectMode": "reference" }
 
-# Lock before editing (prevents concurrent edits), then unlock after
+# Lock before editing a document's contents (prevents concurrent edits), then unlock after
 POST /api/shared-docs/<doc-id>/lock
 { "sessionId": <session-id>, "projectName": "my-project" }
 DELETE /api/shared-docs/<doc-id>/lock
@@ -283,7 +329,7 @@ POST /api/groups/<group-id>/sync
 
 ### Lock Etiquette
 
-Lock before editing a shared doc and unlock after, so other sessions can access it. Locks expire after **30 minutes** if not released; sessions auto-release all locks on wrap or kill.
+Lock before editing a shared doc's contents and unlock after, so other sessions can access it. Locks expire after **30 minutes** if not released; sessions auto-release all locks on wrap or kill.
 
 ## Session Memory
 

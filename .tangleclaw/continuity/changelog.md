@@ -8,3 +8,9 @@
 
 - 2026-07-04 (session:591) Refresh the Tangle hero cards for two upstream releases: TangleClaw 4.0 copy rewrite + TangleBrain "On PyPI" chip and `pip install tanglebrain` CTA (PR #90, with new featured-cards invariant tests), then sharpen the TangleClaw claim to "zero npm dependencies" after verifying the repo has no package.json at all (PR #91, trivial fast-path). Also tags the overdue v0.2.0 at its cut commit and publishes the GitHub Release, enables repo auto-merge, and files #89 for 4.0 screenshots. Both PRs merged, deployed (one Pages flake rerun), and verified live by bundle grep.
   files: CLAUDE.md, PROJECT-MAP.md, package.json
+
+- 2026-09-17 (session:993) Fixed a broken CI test suite on the main branch by bumping a hardcoded array bound in `certifications.test.js`, closed dangling issue #89, and diagnosed a production UI missing feature report as a stuck deployment pipeline.
+  files: public/git-stats.json, src/data/certifications.test.js, .tangleclaw/memories/MEMORY.md, .tangleclaw/memories/learnings.md, .tangleclaw/memories/wrap-log.md, .tangleclaw/project.json, AGENTS.md, CHANGELOG.md, FEATURES.md, PROJECT-MAP.md, live-bundle.js
+
+- 2026-09-20 (session:1053) Handled Medusa cross-agent requests to inject Markdown rendering into the virtual chatbot and updated TangleClaw's portfolio entry, alongside authoring deep-dive case studies for all hero projects.
+  files: .tangleclaw/memories/MEMORY.md, .tangleclaw/memories/learnings.md, .tangleclaw/memories/wrap-log.md, .tangleclaw/project.json, AGENTS.md, CHANGELOG.md, FEATURES.md, PROJECT-MAP.md, package-lock.json, package.json, scripts/bake-stats.mjs, src/components/ChatWidget.jsx, src/data/baked-stats.json, src/data/projects.js

@@ -1,0 +1,24 @@
+{
+  "tilt": {
+    "loc": "311K+",
+    "tests": "4.8K+",
+    "commits": "2.8K+",
+    "endpoints": "137"
+  },
+  "tangleclaw": {
+    "loc": "366K+",
+    "tests": "12.5K+",
+    "commits": "1.7K+",
+    "engines": "4",
+    "npmDeps": "0"
+  },
+  "tanglebrain": {
+    "loc": "25.0K+",
+    "tests": "871",
+    "commits": "137"
+  },
+  "cierre_sensei": {
+    "loc": "12.9K+",
+    "commits": "94"
+  }
+}

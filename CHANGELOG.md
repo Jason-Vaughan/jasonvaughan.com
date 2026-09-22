@@ -4,8 +4,20 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-09-22
+
 ### Added
+- **Admin PostHog Opt-out** — Added a secret `?ignore_me=true` URL parameter to bypass PostHog initialization and prevent tracking of administrative visits, alongside a visual alert confirmation.
+- **Long-Form Case Studies** — Wrote and injected comprehensive markdown case studies for TiLT, TangleClaw, TangleBrain, and Cierre Sensei into `src/data/projects.js` to serve as the new content source.
+- **Baked Stats Fallback** — Created `scripts/bake-stats.mjs` to fetch live telemetry JSON files (`tilt-stats.json`, etc.) at build time, format them, and save to `src/data/baked-stats.json`. Wired `src/data/projects.js` and `package.json` to consume this dynamically so stats render without a hydration mismatch.
+- **Virtual Interview Markdown** — Updated the chatbot widget (`src/components/ChatWidget.jsx`) to parse and render AI responses using `react-markdown` with Tailwind typography, successfully completing a capability request received from the PV-AI-Guidebook Medusa agent.
 - **Certifications** — Added the Google Cloud Fundamentals: Core Infrastructure certification.
+
+### Changed
+- **TangleClaw Portfolio Tile** — Updated the `tangleclaw` object in `src/data/projects.js` based on a Medusa agent request. Pointed the primary link to `tangleclaw.com` and rewrote the description to reflect its evolution into an "open-source, local-first AI-native SDLC orchestration platform" (highlighting Medusa Switchboard, PortHub, Agent Roles, and GitHub integration).
+
+### Removed
+- **Cursor 7B Token Stat** — Deleted the stale `cursor_usage/` export directory and removed its reference from `PROJECT-MAP.md`, retiring the static 7B token figure in favor of upstream dynamic stats.
 
 ### Fixed
 - **BuilderStats Heatmap Render Bugs** — Fixed an issue where the calendar grid strict-checked for exactly 52 weeks, preventing the display of GitHub's 53-week rolling data and falling back to random data. Also decoupled the AI Compute mode's logic from Git contributions so they produce distinctly unique visualizations, and fixed a CSS grid overflow bug.
@@ -58,6 +70,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 - **Implemented dialed-in watermark background for TiLTClaw** — imported `tiltclawLogo`, set `banner: null` to remove the duplicate top banner, and configured `watermarkBackground: true`, `watermarkSize: 1150`, and `watermarkOpacity: 0.105` on the TiLTClaw card in `src/components/OpenClawFleet.jsx` based on playground proofing.
 - **Registered Kobold in share card registry** — added `kobold` to `src/data/share-cards.js` to ensure the build pipeline generates the `/share/kobold/` redirect page and preview metadata stub, resolving the 404 error when clicking its copy-share link.
 - **Hardened deep-link scroll and flash logic** — refactored the hash highlight routine in `src/App.jsx` to resiliently poll and retry if a deep-link's target section is not registered in the DOM accordion registry yet on initial load. Prevents scroll operations from failing or silently aborting during early render ticks.
+
+### Internal
+- **Fix Base Branch CI** — bumped the `certifications.test.js` array count bound from 15 to 16 to accommodate the newly added Google Cloud Core Infrastructure cert from #164, fixing the broken main branch CI suite (#165).
 
 ## [0.3.0] - 2026-07-03
 
