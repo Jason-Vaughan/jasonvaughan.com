@@ -13,8 +13,10 @@ if (typeof window !== 'undefined') {
   if (params.get('ignore_me') === 'true') {
     localStorage.setItem('admin_ignore_me', 'true');
     window.history.replaceState({}, document.title, window.location.pathname);
+    alert("Tracking disabled. You are now invisible to PostHog on this browser.");
   } else if (params.get('ignore_me') === 'false') {
     localStorage.removeItem('admin_ignore_me');
+    alert("Tracking re-enabled.");
   }
 }
 
@@ -24,6 +26,7 @@ if (posthogKey && typeof window !== 'undefined' && !isStealth) {
   posthog.init(posthogKey, {
     api_host: posthogHost,
     person_profiles: 'identified_only',
+    persistence: 'memory', // Cookieless tracking to avoid cookie banners
   });
 }
 
