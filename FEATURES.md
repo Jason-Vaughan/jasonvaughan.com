@@ -17,3 +17,7 @@ Format: - **Name** — short description. file.js:line, file2.js:line.
 ## Methodologies / Engines
 
 ## CLI / Tooling
+
+## TODO (auto-stubbed 2026-09-22)
+
+- **TBD** — touched in this session: `src/main.jsx`. <!-- describe -->

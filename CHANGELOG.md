@@ -4,7 +4,10 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-09-22
+
 ### Added
+- **Admin PostHog Opt-out** — Added a secret `?ignore_me=true` URL parameter to bypass PostHog initialization and prevent tracking of administrative visits, alongside a visual alert confirmation.
 - **Long-Form Case Studies** — Wrote and injected comprehensive markdown case studies for TiLT, TangleClaw, TangleBrain, and Cierre Sensei into `src/data/projects.js` to serve as the new content source.
 - **Baked Stats Fallback** — Created `scripts/bake-stats.mjs` to fetch live telemetry JSON files (`tilt-stats.json`, etc.) at build time, format them, and save to `src/data/baked-stats.json`. Wired `src/data/projects.js` and `package.json` to consume this dynamically so stats render without a hydration mismatch.
 - **Virtual Interview Markdown** — Updated the chatbot widget (`src/components/ChatWidget.jsx`) to parse and render AI responses using `react-markdown` with Tailwind typography, successfully completing a capability request received from the PV-AI-Guidebook Medusa agent.
