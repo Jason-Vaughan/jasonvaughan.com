@@ -29,6 +29,20 @@ import { ForksApiModal } from "../components/ForksApiModal";
 
 // Pre-assigned passcode configs & persona auto-selection (TASK-RESUME-2)
 const PASSCODE_CONFIGS = {
+  a16z: {
+    variant: "a16z",
+    persona: "A16z",
+    bannerNote: "Welcome a16z Crypto Hiring Team · Events Associate View Unlocked",
+    roleFilter: "Events Associate, Crypto",
+    autoSections: ["about", "career", "skills", "certifications", "projects"]
+  },
+  a16z2026: {
+    variant: "a16z",
+    persona: "A16z",
+    bannerNote: "Welcome a16z Crypto Hiring Team · Events Associate View Unlocked",
+    roleFilter: "Events Associate, Crypto",
+    autoSections: ["about", "career", "skills", "certifications", "projects"]
+  },
   stripe: {
     variant: "stripe",
     persona: "EventPro",

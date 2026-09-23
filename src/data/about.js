@@ -83,6 +83,10 @@ export const personaTaglines = {
     bio: "Systems & Infrastructure Lead with 25+ years of experience bridging live broadcast networks, physical fiber infrastructure, and local-first AI orchestration.",
     highlight: "I build robust production tools and high-performance routing backends, backed by decades of zero-downtime enterprise show operations."
   },
+  A16z: {
+    bio: "Events Production & Operations Leader with 25+ years managing high-touch executive events, multi-vendor relationships, and large-scale technical production.",
+    highlight: "Combines deep experience producing flagship summits (Google, AWS, Salesforce) with elite project and budget management skills."
+  },
   EventPro: {
     bio: "Production Technology Leader & Technical Director with 25+ years managing complex signal flow, fiber arrays, Barco screen switching, and broadcast staging for global keynotes.",
     highlight: "Live production authority merging physical show networks with intelligent automation to eliminate backstage friction."

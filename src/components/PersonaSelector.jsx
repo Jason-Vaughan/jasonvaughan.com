@@ -17,6 +17,11 @@ export const PERSONAS = {
     bannerText: "Looks like you're in live production or broadcast. We've highlighted Jason's keynote staging experience, signal flow engineering, and ETT program operations.",
     sections: ["skills", "certifications", "career", "writing"],
   },
+  A16z: {
+    label: "a16z Mode",
+    bannerText: "Welcome a16z Crypto Hiring Team! We've highlighted Jason's experience with high-touch executive events, budget & vendor management, and large-scale technical production.",
+    sections: ["about", "career", "skills", "certifications", "projects"],
+  },
   OpenClaw: {
     label: "OpenClaw Mode",
     bannerText: "Looks like you're interested in OpenClaw. We've highlighted Jason's custom agent fleet, his published ClawHub plugins, and his contributions to the ecosystem.",
