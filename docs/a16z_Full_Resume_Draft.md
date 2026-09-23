@@ -2,7 +2,7 @@
 527 Broadway #11, San Francisco, CA 94133 | 415-336-6116 | jason@jasonvaughan.com | [https://jasonvaughan.com/?pass=a16z](https://jasonvaughan.com/?pass=a16z)
 
 ## Summary of Qualifications
-Events Production & Operations Leader with 25+ years of experience delivering mission-critical physical infrastructure, executive summits, and large-scale conferences where there is **zero room for failure**. Currently supporting Google product launches, ensuring high-touch executive experiences and complex logistical workflows execute flawlessly under extreme pressure and immovable deadlines. I combine the rigorous attention to detail and delivery timelines of elite technical project management with a relentless drive to streamline processes. Deeply experienced in budget forecasting ($15M+), vendor and contract negotiation, cross-functional team leadership, and orchestrating massive logistical operations without missing a beat.
+Events Production & Operations Leader with 25+ years of experience delivering mission-critical physical infrastructure, executive summits, and large-scale conferences where there is **zero room for failure**. Currently supporting Google product launches, ensuring high-touch executive experiences and complex logistical workflows execute flawlessly under extreme pressure and immovable deadlines. I combine the rigorous attention to detail and delivery timelines of elite technical project management with a relentless drive to streamline processes. Deeply experienced in budget forecasting ($15M+), vendor and contract negotiation, cross-functional team leadership, and orchestrating massive logistical operations without missing a beat. I am also deeply ingrained in the Web3 ecosystem as an early Bitcoin miner and active multi-token holder, seamlessly blending native crypto fluency with elite event production.
 
 ## Professional Experience
 
@@ -31,6 +31,7 @@ Events Production & Operations Leader with 25+ years of experience delivering mi
 ## Skills & Expertise
 • **Event Production & Management:** Large-Scale Conference Planning, Executive Experiences, Budget Oversight ($15M+), Vendor & Contract Negotiation, Cross-Functional Team Leadership.
 • **Tools & Systems:** Airtable, Google Workspace, Splash, Salesforce, CRM Workflows, Project-Health Tracking.
+• **Crypto & Web3 Fluency:** Early Bitcoin Miner, Mt. Gox survivor, Active trader and holder across diverse token ecosystems.
 • **Production Engineering:** Technical Direction, Incident Response & Postmortems, Capacity Planning, Workflow Design & SOPs, Massive-scale Signal Flow.
 
 ## Key Achievements
