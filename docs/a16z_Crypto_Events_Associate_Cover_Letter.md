@@ -1,0 +1,21 @@
+# Draft: Cover Letter for a16z Crypto Events Associate
+
+**To: The a16z Crypto Hiring Team**
+
+Over the last 25 years, I’ve managed the technical execution, signal flow, and staging for some of the world’s most high-stakes live events—including flagship executive summits like Google I/O, AWS re:Invent, and Salesforce Dreamforce. I’m writing to express my strong interest in the Partner 18, Events Associate role at a16z Crypto, where I can bring my extensive background in end-to-end event production, multi-vendor coordination, and strict budget management to your team.
+
+Throughout my career as a Technical Program Manager and Production Lead, I have specialized in translating complex technical and creative visions into flawless, zero-fail live operations. At my most recent Google XWF contract, I successfully directed the location technical device demo interface for the "Made by Google 2026" product launch, managing remote operations, extensive vendor contracts, and union crews for a broadcast reaching over 30 million viewers. Whether I’m navigating the intricacies of budget negotiations, troubleshooting high-pressure live AV configurations, or orchestrating salon-style internal programming, I pride myself on an entrepreneurial approach that anticipates problems before they arise.
+
+In addition to my event staging expertise, I am highly proficient with tools critical to seamless event management—from Airtable and Splash to custom CRM workflows. I even leverage AI automation and write custom software (such as TiLT, a time-tracking system built specifically for live event crews) to streamline the heavy operational lifting behind the scenes. 
+
+I know that executing high-touch, large-scale events for a premier firm like Andreessen Horowitz requires absolute precision and strong cross-functional communication. I'd love the opportunity to bring my blend of hands-on production expertise and strategic project management to the crypto team.
+
+I have put together a dedicated portfolio view highlighting my relevant background and projects for your team here: **[https://jasonvaughan.com/?pass=a16z](https://jasonvaughan.com/?pass=a16z)**
+
+Thank you for your time and consideration. I look forward to the possibility of discussing how my experience aligns with the vision of a16z Crypto.
+
+Best regards,
+
+**Jason Vaughan**
+[jasonvaughan.com](https://jasonvaughan.com)
+[LinkedIn](https://linkedin.com/in/YOUR-LINKEDIN-HANDLE)
