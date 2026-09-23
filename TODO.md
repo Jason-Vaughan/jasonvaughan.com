@@ -8,6 +8,9 @@ Issues fixed in PRs are removed from this list — git history is the record. Us
 
 ## Active
 
+- [ ] **Portfolio-Chat Migration** — Extract the missing virtual interview knowledge context from the `portfolio-chat` Cloudflare UI and perform the migration to a GitHub-backed Vercel route with Gemini embeddings (Issue #167).
+- [ ] **Project Preferences** — Fill in `project-preferences.md`.
+
 ### Content / Bio
 - [ ] **Portfolio interview** — structured intake before writing portfolio content (resumes don't capture everything). Goal: get the "why" behind each project.
 - [ ] **Cierre Sensei screenshots** — add to the Cierre Sensei hero card.

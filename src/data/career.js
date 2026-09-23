@@ -25,6 +25,12 @@ export const careerData = [
         "Embedded as Technical Program Manager across flagship Google programs (Google I/O, Zeitgeist, Made by Google, Google Cloud Next).",
         "Coordinated internal Google product teams, union crews, and creative partners for show execution plans and real-time troubleshooting."
       ],
+      A16z: [
+        "MOST RECENT CONTRACT: Location Technical Device Demo Lead for 'Made by Google 2026' Product Launch (August 2026): Managed remote Brooklyn live device-demo technical interface for global broadcast (30M+ views).",
+        "Executed zero-fail live operations and managed large-scale multi-vendor relationships for high-touch executive experiences.",
+        "Embedded as Technical Program Manager across flagship Google programs (Google I/O, Zeitgeist, Made by Google, Google Cloud Next).",
+        "Coordinated internal Google product teams, union crews, and creative partners, managing project execution, budgets, and troubleshooting."
+      ],
       Default: [
         "MOST RECENT CONTRACT: Location Technical Device Demo Lead for 'Made by Google 2026' Product Launch (August 2026): Managed remote Brooklyn live device-demo technical interface for global broadcast (30M+ views).",
         "Executed zero-fail live operations under extreme outdoor conditions while navigating multi-vendor relationships.",
@@ -52,6 +58,11 @@ export const careerData = [
         "Serve as Signal Flow Lead, designing and distributing fiber loops for primary keynote screens, broadcast production trucks, and overflow stages.",
         "Manage massive fiber patch panels and optical conversion grids to route UHD video feeds across multiple exhibition halls.",
         "Collaborate with staging and broadcast partners to set up stable signal feeds with zero single points of failure."
+      ],
+      A16z: [
+        "Serve as Signal Flow Lead, designing and distributing fiber loops for primary keynote screens, broadcast production trucks, and overflow stages.",
+        "Manage massive fiber patch panels and optical conversion grids to route UHD video feeds across multiple exhibition halls.",
+        "Collaborate with staging and broadcast partners to set up stable signal feeds, managing onsite vendor relationships for executive summits."
       ],
       Default: [
         "Serve as Signal Flow Lead and Fiber Optics Specialist at the Moscone Center under ASM Global management.",
@@ -85,6 +96,11 @@ export const careerData = [
         "Build and launch custom SaaS applications, including TiLT (labor time-tracking PWA) and Cierre Sensei (closing cost calculator).",
         "Develop open-source developer tools including TangleClaw (remote TTYD AI session plane) and TangleBrain (local LLM router).",
         "Deploy robust, zero-npm-dependency Node.js backends and serverless architectures on secure edge networks."
+      ],
+      A16z: [
+        "Shipped TiLT, a production time-tracking PWA that automates complex Collective Bargaining Agreement (CBA) pay rate calculations for live event crews.",
+        "Designed and published TangleClaw and TangleBrain, integrating cloud infrastructures and AI workflows.",
+        "Created tools to manage and track complex project logic, similar to Airtable and CRM workflows."
       ]
     }
   },
@@ -105,6 +121,11 @@ export const careerData = [
       EventPro: [
         "Served as ACT Video Head, managing video systems, projection mapping layouts, and optical signal flow setups.",
         "Designed backup power loops, switcher configurations, and media server systems to ensure zero show interruptions."
+      ],
+      A16z: [
+        "Served as ACT Video Head, managing video systems, projection mapping layouts, and optical signal flow setups for high-profile theatrical events.",
+        "Coordinated multi-department stage logistics, equipment budgets, and safety compliance protocols.",
+        "Managed complex vendor relationships and equipment rentals for long-running productions."
       ],
       Default: [
         "Served as ACT Video Head, directing staging setups, crew assignments, and safety protocols for major theatrical productions.",
@@ -131,6 +152,11 @@ export const careerData = [
         "Served as Video Lead and TD, directing multi-camera show feeds and live digital backdrop configurations.",
         "Managed massive fiber patch grids and optical conversion hardware to distribute UHD feeds to main and overflow screens.",
         "Troubleshot complex AV setups under tight timelines to maintain live broadcast integrity."
+      ],
+      A16z: [
+        "Led onsite event production and technical project management for large-scale conferences and summits (Salesforce Dreamforce, AWS re:Invent, Google Next).",
+        "Managed cross-functional crews of up to 40+ technicians under compressed, high-stress load-in and broadcast schedules.",
+        "Collaborated with production agencies to resource equipment packages, negotiate vendor contracts, and coordinate local labor crews."
       ],
       Default: [
         "Freelance graphics operator, video engineer, and technical director for global tech summits and corporate shows.",
@@ -161,6 +187,11 @@ export const careerData = [
         "Co-founded iPolis, an early SaaS webcasting service that pioneered video streaming for municipal governments.",
         "Designed real-time network streaming pipelines, transcoders, and video distribution systems.",
         "Led company through product-market fit, client growth, and a successful acquisition in 2007."
+      ],
+      A16z: [
+        "Co-founded a pioneering webcasting company, securing municipal city contracts and building it to a successful acquisition in 2007.",
+        "Translated technical streaming capabilities into business propositions for government, education, and corporate clients.",
+        "Created resourcing, pricing, and execution models, maintaining strong budget management while scaling operations."
       ]
     }
   }
