@@ -29,6 +29,20 @@ import { ForksApiModal } from "../components/ForksApiModal";
 
 // Pre-assigned passcode configs & persona auto-selection (TASK-RESUME-2)
 const PASSCODE_CONFIGS = {
+  github: {
+    variant: "github",
+    persona: "Engineer",
+    bannerNote: "Welcome fellow builder! · Developer Portfolio View Unlocked",
+    roleFilter: "Software Engineering & AI Tooling",
+    autoSections: ["tangleclaw", "tanglebrain", "clawhub", "projects", "career", "writing"]
+  },
+  dev: {
+    variant: "github",
+    persona: "Engineer",
+    bannerNote: "Welcome fellow builder! · Developer Portfolio View Unlocked",
+    roleFilter: "Software Engineering & AI Tooling",
+    autoSections: ["tangleclaw", "tanglebrain", "clawhub", "projects", "career", "writing"]
+  },
   a16z: {
     variant: "a16z",
     persona: "A16z",
