@@ -4,6 +4,11 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **Targeted Application Routing** — Added a custom `a16z` passcode (`/?pass=a16z`) that unlocks a tailored "Events Associate View" (highlighting budget management, vendor negotiations, and executive-level live events).
+- **GitHub Developer Routing** — Added a custom `github` passcode (`/?pass=github`) and a new `SystemsBuilder` persona that highlights high-performance AI tooling, TangleClaw/TiLT, and automated operations for visitors coming from the GitHub profile.
+- **Application Materials** — Generated tailored Cover Letter and Resume drafts specifically targeted for the a16z Crypto role and saved them to `docs/` in both Markdown and HTML formats.
+
 ## [0.4.0] - 2026-09-22
 
 ### Added
