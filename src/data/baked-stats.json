@@ -6,9 +6,9 @@
     "endpoints": "137"
   },
   "tangleclaw": {
-    "loc": "366K+",
-    "tests": "12.5K+",
-    "commits": "1.7K+",
+    "loc": "391K+",
+    "tests": "13.5K+",
+    "commits": "1.8K+",
     "engines": "4",
     "npmDeps": "0"
   },

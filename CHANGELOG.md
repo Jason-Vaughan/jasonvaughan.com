@@ -9,6 +9,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 - **GitHub Developer Routing** — Added a custom `github` passcode (`/?pass=github`) and a new `SystemsBuilder` persona that highlights high-performance AI tooling, TangleClaw/TiLT, and automated operations for visitors coming from the GitHub profile.
 - **Application Materials** — Generated tailored Cover Letter and Resume drafts specifically targeted for the a16z Crypto role and saved them to `docs/` in both Markdown and HTML formats.
 
+### Internal
+- **Baked Stats** — Updated `src/data/baked-stats.json` with the latest TangleClaw telemetry data.
+
 ## [0.4.0] - 2026-09-22
 
 ### Added
