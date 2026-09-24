@@ -79,6 +79,10 @@ export const personaTaglines = {
     bio: "AV Production Specialist & Technical Program Manager with 25+ years of experience leading flagship broadcasts, executive keynotes, and enterprise event technology.",
     highlight: "Senior production leader and AI-native developer who designs automated SOP runbooks and fail-safe show workflows."
   },
+  SystemsBuilder: {
+    bio: "Systems Builder & Infrastructure Lead with 25+ years of experience bridging live broadcast networks, physical fiber infrastructure, and local-first AI orchestration.",
+    highlight: "I build robust production tools and high-performance routing backends, replacing manual operational toil with scalable automation."
+  },
   Engineer: {
     bio: "Systems & Infrastructure Lead with 25+ years of experience bridging live broadcast networks, physical fiber infrastructure, and local-first AI orchestration.",
     highlight: "I build robust production tools and high-performance routing backends, backed by decades of zero-downtime enterprise show operations."

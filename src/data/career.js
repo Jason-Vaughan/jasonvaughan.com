@@ -13,6 +13,12 @@ export const careerData = [
         "Embedded as Technical Program Manager across major Google programs (Google I/O, Zeitgeist, Made by Google, Google Cloud Next), translating complex technical requirements into actionable show-execution plans.",
         "Coordinated directly with internal Google product teams, external vendors, union crews, and creative partners for demo readiness, technical documentation, rehearsal workflows, and real-time show troubleshooting."
       ],
+      SystemsBuilder: [
+        "MOST RECENT CONTRACT: Location Technical Device Demo Lead for 'Made by Google 2026' Product Launch (August 2026): Managed remote Brooklyn live device-demo technical interface for flagship broadcast across 12 platforms and Times Square (30M+ views).",
+        "Engineered fail-safe wireless connectivity and hardware signal redundancy under adverse weather conditions during flagship broadcast.",
+        "Embedded as TPM across Google I/O, Zeitgeist, Made by Google, and Google Cloud Next, designing automated SOP runbooks and technical floor plans.",
+        "Coordinated cross-functional product teams, vendors, and union crews for real-time show troubleshooting and rehearsal workflows."
+      ],
       Engineer: [
         "MOST RECENT CONTRACT: Location Technical Device Demo Lead for 'Made by Google 2026' Product Launch (August 2026): Managed remote Brooklyn live device-demo technical interface for flagship broadcast across 12 platforms and Times Square (30M+ views).",
         "Engineered fail-safe wireless connectivity and hardware signal redundancy under adverse weather conditions during flagship broadcast.",
@@ -49,6 +55,11 @@ export const careerData = [
         "Coordinate directly with client engineering and technical program leads (Google, Apple, Salesforce) to scope, test, and commission temporary show networks.",
         "Lead specialized on-site patching teams, managing tight execution timelines and safety protocols under high-stakes conditions."
       ],
+      SystemsBuilder: [
+        "Design, build, and operate high-capacity network topologies and fiber-optic backbones for enterprise footprints under strict SLA constraints.",
+        "Configure managed layer-2 and layer-3 switches, routing tables, and VLANs, troubleshooting complex networking bottlenecks.",
+        "Program redundant hardware transceivers, multiplexers, and failover architectures to guarantee 99.999% network availability for live global keynotes."
+      ],
       Engineer: [
         "Design, build, and operate high-capacity network topologies and fiber-optic backbones for enterprise footprints under strict SLA constraints.",
         "Configure managed layer-2 and layer-3 switches, routing tables, and VLANs, troubleshooting complex networking bottlenecks.",
@@ -80,6 +91,12 @@ export const careerData = [
         "Shipped TiLT, a production time-tracking PWA that automates complex Collective Bargaining Agreement (CBA) pay rate calculations for live event crews.",
         "Built Cierre Sensei, a commercial Mexican real-estate closing cost SaaS supporting tax calculations across all 32 Mexican states.",
         "Successfully integrated secure Stripe subscription billing models and user authentication flows for active SaaS operations."
+      ],
+      SystemsBuilder: [
+        "Designed and published TangleClaw, a zero-dependency remote terminal and process orchestration plane for persistent session persistence.",
+        "Built TangleBrain, a Python-based local LLM router and gateway that manages concurrent local/cloud inference backends (LiteLLM, Ollama, llama.cpp).",
+        "Created ClawBridge, an HTTP-to-IPC daemon that exposes local agent instances as supervised background build/execution services for automation tools.",
+        "Author lightweight developer tools, prioritizing performance profiling, high-concurrency request handling, and zero-npm dependency footprints."
       ],
       Engineer: [
         "Designed and published TangleClaw, a zero-dependency remote terminal and process orchestration plane for persistent session persistence.",
@@ -114,6 +131,10 @@ export const careerData = [
         "Coordinated multi-department stage logistics, equipment budgets, and safety compliance protocols.",
         "Mentored and trained union apprentices, teaching advanced stagecraft, electrical safety, and signal flow."
       ],
+      SystemsBuilder: [
+        "Configured stable local networks and digital signal distributions for complex multi-screen theatrical staging environments.",
+        "Programmed local video playback server clusters and automated show control cues."
+      ],
       Engineer: [
         "Configured stable local networks and digital signal distributions for complex multi-screen theatrical staging environments.",
         "Programmed local video playback server clusters and automated show control cues."
@@ -143,6 +164,10 @@ export const careerData = [
         "Led onsite technical production and signal routing for 100+ high-stakes corporate keynotes (Salesforce Dreamforce, AWS re:Invent, Google Next).",
         "Managed cross-functional crews of up to 40+ technicians under compressed, high-stress load-in and broadcast schedules.",
         "Collaborated with production agencies (Jack Morton, etc.) to resource equipment packages and coordinate local labor crews."
+      ],
+      SystemsBuilder: [
+        "Designed and deployed temporary network backbones, fiber distribution loops, and hardware switches for large-scale corporate arenas.",
+        "Programmed high-end video processors, including Barco E2, Analog Way, and Disguise media servers."
       ],
       Engineer: [
         "Designed and deployed temporary network backbones, fiber distribution loops, and hardware switches for large-scale corporate arenas.",
@@ -174,6 +199,10 @@ export const careerData = [
         "Co-founded a pioneering webcasting company, securing municipal city contracts and building it to a successful acquisition in 2007.",
         "Translated technical streaming capabilities into business propositions for government, education, and corporate clients.",
         "Created resourcing, pricing, and execution models that scaled operations while maintaining profitability."
+      ],
+      SystemsBuilder: [
+        "Architected a pioneering municipal SaaS streaming platform, writing custom media distribution pipelines and RTMP ingest engines.",
+        "Deployed, tuned, and managed dedicated Linux server clusters, optimizing kernel network parameters and packet routing to handle massive streaming loads."
       ],
       Engineer: [
         "Architected a pioneering municipal SaaS streaming platform, writing custom media distribution pipelines and RTMP ingest engines.",

@@ -31,16 +31,16 @@ import { ForksApiModal } from "../components/ForksApiModal";
 const PASSCODE_CONFIGS = {
   github: {
     variant: "github",
-    persona: "Engineer",
-    bannerNote: "Welcome fellow builder! · Developer Portfolio View Unlocked",
-    roleFilter: "Software Engineering & AI Tooling",
+    persona: "SystemsBuilder",
+    bannerNote: "Welcome fellow builder! · Systems Builder View Unlocked",
+    roleFilter: "Systems Builder",
     autoSections: ["tangleclaw", "tanglebrain", "clawhub", "projects", "career", "writing"]
   },
   dev: {
     variant: "github",
-    persona: "Engineer",
-    bannerNote: "Welcome fellow builder! · Developer Portfolio View Unlocked",
-    roleFilter: "Software Engineering & AI Tooling",
+    persona: "SystemsBuilder",
+    bannerNote: "Welcome fellow builder! · Systems Builder View Unlocked",
+    roleFilter: "Systems Builder",
     autoSections: ["tangleclaw", "tanglebrain", "clawhub", "projects", "career", "writing"]
   },
   a16z: {

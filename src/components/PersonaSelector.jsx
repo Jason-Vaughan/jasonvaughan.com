@@ -7,6 +7,11 @@ export const PERSONAS = {
     bannerText: "Welcome! It looks like you're evaluating Jason professionally. We've highlighted his experience, certifications, and resume to help you quickly assess his background.",
     sections: ["about", "career", "certifications", "contact"],
   },
+  SystemsBuilder: {
+    label: "Systems Builder Mode",
+    bannerText: "Welcome fellow builder! We've highlighted Jason's systems engineering projects, local LLM integration, and software workflow automations.",
+    sections: ["tangleclaw", "tanglebrain", "clawhub", "career", "projects", "writing"],
+  },
   Engineer: {
     label: "Engineer Mode",
     bannerText: "Looks like you're interested in AI development. We've highlighted Jason's systems engineering projects, local LLM integration, and software workflow automations.",
