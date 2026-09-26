@@ -5,11 +5,15 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 ## [Unreleased]
 
 ### Added
+- **Chatbot Vercel Migration** — Migrated the portfolio chat widget backend from an external Cloudflare Worker to a native Vercel Serverless Function (`api/chat.js`), implementing Gemini vector embeddings for semantic context retrieval.
+- **Apple Keynote Landing Page** — Built a highly targeted, native web Graphics Resume (`/graphics-resume`) and custom recruiter landing page (`/graphics`) specifically optimized for an Apple Keynote Designer application.
+- **Project Preferences** — Formalized tech stack, persona guidelines, and AI workflow rules into `project-preferences.md`.
 - **Targeted Application Routing** — Added a custom `a16z` passcode (`/?pass=a16z`) that unlocks a tailored "Events Associate View" (highlighting budget management, vendor negotiations, and executive-level live events).
 - **GitHub Developer Routing** — Added a custom `github` passcode (`/?pass=github`) and a new `SystemsBuilder` persona that highlights high-performance AI tooling, TangleClaw/TiLT, and automated operations for visitors coming from the GitHub profile.
 - **Application Materials** — Generated tailored Cover Letter and Resume drafts specifically targeted for the a16z Crypto role and saved them to `docs/` in both Markdown and HTML formats.
 
 ### Internal
+- **Vercel Build Optimization** — Separated `prerender.mjs` out of the primary `package.json` build command into a new `build:ghpages` script to resolve Playwright Chromium installation crashes on Vercel's free tier.
 - **Baked Stats** — Updated `src/data/baked-stats.json` with the latest TangleClaw telemetry data.
 
 ## [0.4.0] - 2026-09-22
