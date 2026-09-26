@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-embeddings.js && node scripts/bake-stats.mjs && vite build && npx playwright install chromium && node scripts/prerender.mjs",
+    "build": "node scripts/generate-embeddings.js && node scripts/bake-stats.mjs && vite build",
+    "build:ghpages": "node scripts/bake-stats.mjs && vite build && npx playwright install --with-deps chromium && node scripts/prerender.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
