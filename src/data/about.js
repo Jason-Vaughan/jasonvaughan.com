@@ -20,6 +20,11 @@ export const aboutData = {
       tags: ["Technical Direction", "SMPTE-2110", "Dante", "Fiber Optics", "Barco E2", "Disguise", "QLab"]
     },
     {
+      title: "Presentation & Motion Graphics",
+      description: "Transforming complex, engineer-authored content into visually compelling narratives for high-stakes technical presentations, working directly with technical stakeholders to support system-level concepts.",
+      tags: ["Keynote", "PowerPoint", "After Effects", "Motion Graphics", "Speaker Coaching"]
+    },
+    {
       title: "AI & Automation",
       description: "Local-first LLM routing, agentic coding workflows, and Model Context Protocol (MCP) integrations.",
       tags: ["Local Inference", "Ollama", "Model Routing", "Agent Systems", "Workflow Automation"]

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/bake-stats.mjs && vite build && node scripts/prerender.mjs",
+    "build": "node scripts/generate-embeddings.js && node scripts/bake-stats.mjs && vite build && node scripts/prerender.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
@@ -15,6 +15,7 @@
     "generate:home-og": "node scripts/generate-home-og.mjs"
   },
   "dependencies": {
+    "@google/genai": "^2.24.0",
     "framer-motion": "^12.38.0",
     "posthog-js": "^1.422.5",
     "react": "^19.1.1",

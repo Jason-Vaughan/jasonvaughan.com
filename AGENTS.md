@@ -1,9 +1,13 @@
 <!-- BEGIN:tangleclaw -->
 ## TangleClaw — generated; edits inside the markers are overwritten
 
-- **Run `tc capabilities` BEFORE concluding a capability is missing — never improvise one.** `tc` is normally on PATH in a launched pane (verbs: `whoami`, `capabilities`, `sessions`, `message`, `start`, `freshness`, `ports`, `docs`, `rules`, `learnings`) and reports absence honestly; a capability assumed not checked is how sessions fabricate outcomes. If `tc` is missing, check `TANGLECLAW_API`; a renamed install can break PATH. Use the API with verified launch identity. If context is missing or inconsistent, report it and stop identity-dependent actions — absence of both is unavailable context, not proof of being unmanaged. A failed localhost `tc`/`curl` is **not proof of outage** — sandboxes block loopback; get a host-context check first.
+- **Run `tc capabilities` BEFORE concluding a capability is missing — never improvise one.** `tc` is normally on PATH in a launched pane (verbs: `whoami`, `capabilities`, `sessions`, `message`, `control`, `start`, `freshness`, `ports`, `docs`, `rules`, `learnings`) and reports absence honestly; a capability assumed not checked is how sessions fabricate outcomes. If `tc` is missing, check `TANGLECLAW_API`; a renamed install can break PATH. Use the API with verified launch identity. If context is missing or inconsistent, report it and stop identity-dependent actions — absence of both is unavailable context, not proof of being unmanaged. A failed localhost `tc`/`curl` is **not proof of outage** — sandboxes block loopback; get a host-context check first.
 
 - **Plans are served at a shareable URL.** .tangleclaw/plans/ are served at a shareable URL: GET /api/projects/<projectId>/plans lists each one with the link to hand the operator (tc capabilities shows it with your project id) — hand back that link, never a local file path.
+
+- **Lost your launch context?** If your context was cleared or compacted mid-session, run `tc start review` to re-read the launch context you attested, rules included, before acting. It is read-only: do not re-attest or re-propose. Without a launch sequence, `tc rules` re-reads the project rules.
+
+- **Held or stopped?** A HOLD or STOP from your assignment's authorities is stored by TangleClaw and wins over any earlier go-ahead, even one you read later. `tc control status` shows your lane; acknowledge with `tc control ack <generation>`. While held, TangleClaw refuses its own governed mutations (wrap, commit, push, PR, restart); it cannot block shell `git`/`gh`, so honour the hold there too.
 
 ## Core Rules (Enforced)
 
@@ -239,7 +243,10 @@ A port with a listener but no lease returns **409** `PORT_IN_USE` with the proce
 an owner (`"listener": { "port", "pid", "command" }`). The same rule applies: pick another
 port, unless that listener is your own service, in which case repeat with
 `"adoptListener": true`. That flag is separate from `force`, which takes over another project's
-lease. `GET /api/ports` lists these unleased listeners as `systemPorts`. A 201 carries
+lease. `GET /api/ports` lists these unleased listeners as `systemPorts`, including ones owned by
+root or other users. `command` is `null` for a listener the machine cannot name, and `pid` is
+`null` too where it is unknown, which is always the case on Linux for a listener this user does not
+own. A 201 carries
 `listenerCheck`, which says what the check found: `clear`, `adopted`, `renewal`, `takeover`,
 `not-local` (another host, which this machine cannot see), or `unavailable` (lsof could not run,
 so the port was granted unchecked).
@@ -279,6 +286,7 @@ and release only ports your own project holds.
 - whoami ECHOES the workspace you claim — it does not validate it. Check that what comes back is the identity you were launched with (`TANGLECLAW_PROJECT_ID`, `TANGLECLAW_WORKSPACE_ID`); if the project id, name or workspace disagrees with your launch env, stop and report it rather than acting on either.
 - Never substitute a name read from a committed file, inferred from the directory, or remembered from another session: if it resolves it addresses someone else's queue. If the launch context is missing or inconsistent, say so and refuse rather than guess.
 - The INITIATOR closes an exchange, so a message you do not answer leaves the sender blocked. Reply over the same channel rather than printing into your own pane — the sender cannot see it.
+- If you cannot continue without an answer, send with `"priority": "blocking"` (it needs your launch headers; `tc message send --priority blocking` sends them) so an unanswered message escalates instead of waiting silently. Answer one with `"inReplyTo": "<message-id>"`. A message that needs a reply stays open until you close it with `POST <base>/medusa/exchanges/<exchange-id>/close` (`tc message close`); one that needs none closes when its recipient acknowledges it.
 - The peer route returns the wake monitor's latest reason code for a peer on this host, with its `meaning` (`local: false` for one it cannot see).
 
 ## Shared Documents

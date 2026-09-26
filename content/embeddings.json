@@ -1,0 +1,177 @@
+[
+  {
+    "type": "bio",
+    "id": "name",
+    "text": "Bio - name: Jason Vaughan"
+  },
+  {
+    "type": "bio",
+    "id": "title",
+    "text": "Bio - title: Full-Stack Builder & Renaissance Developer"
+  },
+  {
+    "type": "bio",
+    "id": "background",
+    "text": "Bio - background: 25 years of experience spanning live events, broadcast, SaaS development, and AI-assisted engineering."
+  },
+  {
+    "type": "bio",
+    "id": "philosophy",
+    "text": "Bio - philosophy: A lifelong self-learner who believes the most important skill is the ability to teach oneself any capability. Dives in, gets hands dirty, and prioritizes real-world, practical execution over formal credentials. Values polyglot versatility and common sense over academic theory."
+  },
+  {
+    "type": "bio",
+    "id": "software_origin",
+    "text": "Bio - software_origin: Credits designing iPolis, a first-of-its-kind SaaS webcasting service, for establishing a base understanding of software development. Constant in-depth software design, research, and coding over the past two years have refined this base into highly robust system engineering."
+  },
+  {
+    "type": "project",
+    "id": "tilt",
+    "text": "Project TiLT: Born from personal frustration with the complexity of tracking earnings, benefits, and union hours as a live-events operator. After maintaining complex spreadsheets for years, used early AI capabilities to build a personal tracking system. When colleagues saw it and requested access, expanded it from a local utility into a fully hosted, enterprise-grade job, payment, and benefit management system during time off."
+  },
+  {
+    "type": "project",
+    "id": "tangleclaw",
+    "text": "Project TangleClaw: Sparked by a frustrating trip to Mexico where remote SSH dev connections kept getting disconnected due to VPN disconnects, closing the laptop lid, or computer sleep. After bricking a remote dev server, built a remote TTYD and AI orchestration plane to prevent getting stranded again. It allows pausing a session and picking it up seamlessly from a phone or other device. Extended it to replace Cursor/Windsurf, drastically streamlining dev environment management and boosting productivity."
+  },
+  {
+    "type": "project",
+    "id": "tanglebrain",
+    "text": "Project TangleBrain: Created after building a custom local inference hardware cluster ('Monad'). Realized a need for a robust, local-first, config-driven LLM router. Designed from day one to either stand alone or integrate cleanly as the routing engine for the TangleClaw system."
+  },
+  {
+    "type": "project",
+    "id": "notse",
+    "text": "Project Notse: Networked teleprompter for broadcast and live event production, connecting Windows/macOS over WebSockets."
+  },
+  {
+    "type": "project",
+    "id": "scrapegoat",
+    "text": "Project ScrapeGoat: PDF calendar schedule extractor PWA driven by local AI parsing template generation."
+  },
+  {
+    "type": "project",
+    "id": "cierre_sensei",
+    "text": "Project Cierre Sensei: Mexican real-estate closing-cost engine supporting all 32 Mexican states."
+  },
+  {
+    "type": "career",
+    "id": "0",
+    "text": "Career at Google (Event Technology Team) as Technical Program Manager & Systems Operator (2025 - Present): Served as surrogate TPM for Google Cloud Next, managing Google-led Spotlight sessions (up to 1,500 people) and coordinating planning/resources with content and dev teams for months. Bridged the gap between Google product teams and event production teams at Google Hardware launches, Google I/O, and other Google events, managing hands-on setup and operation of demo desk devices debuted to hundreds of millions of users. Managed capacity planning and contractor lifecycles (SOWs, JDs) on programs ranging from $15M to $250M."
+  },
+  {
+    "type": "career",
+    "id": "1",
+    "text": "Career at ASM Global (Moscone Center) as Signal Flow Lead & Fiber Optics Specialist (2015 - Present): Technical lead directing fiber-optic communications, temporary broadcast signal flows, and high-capacity network infrastructures across the Moscone Center campus for major enterprise tech shows (Google Next, Salesforce Dreamforce, Apple keynotes). Leads specialized staging patching teams under strict load-in timelines."
+  },
+  {
+    "type": "career",
+    "id": "2",
+    "text": "Career at Independent Software & AI Builder as Lead Systems Architect & Product Developer (2024 - Present): Developed and launched commercial SaaS products (TiLT labor tracker, Cierre Sensei real-estate calc) using Node.js, SQLite, Stripe billing, and user auth. Built and published TangleClaw remote shell orchestrator and TangleBrain local LLM router."
+  },
+  {
+    "type": "career",
+    "id": "3",
+    "text": "Career at ACT (American Conservatory Theater) as Video Head (2016 - 2025): Directed video operations, staging setups, projection mapping layouts, and optical signal flows for major theatrical productions. Managed equipment budgets and safety compliance. Taught advanced stagecraft and electrical safety as a union apprentice mentor."
+  },
+  {
+    "type": "career",
+    "id": "4",
+    "text": "Career at Freelance Live Event Specialist as Graphics Operator, Video Engineer & Technical Director (2004 - Present): Led onsite technical video production, fiber-optic distribution grids, and signal flow networks for 100+ global corporate keynotes (Salesforce Dreamforce, AWS re:Invent, Google Next). Programmed high-end video switchers (Barco E2), media servers (Disguise), and managed technicians crews."
+  },
+  {
+    "type": "career",
+    "id": "5",
+    "text": "Career at iPolis Webcasting as Co-Founder & Technology Director (2000 - 2007): Co-founded early webcasting SaaS service, building transcoding video ingestion pipelines, secure municipal broadcast platforms, and leading to a successful acquisition in 2007."
+  },
+  {
+    "type": "anecdote",
+    "id": "ett-llm-load-limitations",
+    "text": "Q: How do you handle capacity planning and scaling for live AI presentations?\nA: During a live AI demo for a major keynote presentation, one of our presenters required live usage of an LLM. It was my job as the TPM to analyze the failure scenarios one-on-one with them and eliminate variables. The one thing we could not simulate was how the LLM would respond in a room filled with 1,500 people. This caused unexpected latency behaviors during the show, which we managed backstage on comms. This taught me that simulated capacity load testing is essential for live AI segments, but it's resource-intensive. As a TPM, it's critical to determine the client's risk tolerance early: sometimes the juice is not worth the squeeze, but if they want zero failure, the simulation process is mandatory."
+  },
+  {
+    "type": "anecdote",
+    "id": "keynote-app-crash",
+    "text": "Q: Tell me about a high-stakes live event challenge you resolved.\nA: A main visual playback application crashed 60 seconds before the presenter walked on stage. Using my headset comms for coordination, I stayed calm, asserted authority backstage, and resolved the configuration error on the show machine within 45 seconds. Ten seconds on stage feels like ten minutes. Calmness is contagious; acting decisively and keeping a steady hand backstage allows you to save the show without the client or audience ever realizing there was a crisis."
+  },
+  {
+    "type": "anecdote",
+    "id": "adu-project-management",
+    "text": "Q: How do you manage contractors, bidding, and large budgets?\nA: During the pandemic, I project managed ADU (Accessory Dwelling Unit) construction in California. I managed budgeting, utility coordination, structural engineers, and contractors. I set up a strict RFP process requiring a minimum of 3 (preferably 5) qualified bids. I directly negotiated estimates down, saving clients tens of thousands of dollars. Vetting references and requiring physical evidence rather than verbal assurances was key. My philosophy is that 50% of the project is completed in the planning phase."
+  },
+  {
+    "type": "anecdote",
+    "id": "cursor-ceo-encounter",
+    "text": "Q: How do you bridge the gap between staging production and principal engineers?\nA: I am AI-fluent and hands-on with tools. Once while freelancing at a tech conference and coding on-site using Cursor, the CEO of Cursor walked past backstage, looked over, saw me using the editor, had a chuckle, and walked on stage. Being technically competent and holding a solid foundation in systems engineering gives me the authority to save shows and instills confidence in clients."
+  },
+  {
+    "type": "anecdote",
+    "id": "union-safety-mentorship",
+    "text": "Q: What is your philosophy on staging safety and teaching apprentices?\nA: Safety is absolute—nothing matters more than everyone walking off the site uninjured. I completed my OSHA 30 (about 50 hours of study) and OSHA 10 to enforce safety. When teaching, I believe in core prerequisites first. For my 5-day stagehand networking course, I spent Days 1-2 on whiteboard theory. On Day 3, we did cabling and switches, and in the final 2 hours I had them leave the room, sabotaged their networks, and made them troubleshoot the errors without knowing what I did. Days 4-5 involved networking real lighting, audio, and camera consoles sourced from vendors. Teach a man to fish."
+  },
+  {
+    "type": "anecdote",
+    "id": "tangleclaw-evolution",
+    "text": "Q: Why did you build TangleClaw, TangleBrain, and Monad?\nA: I switched to Claude Code CLI and set up a dedicated offline machine for dev security, accessing it via VPN/SSH. While working in Mexico, drops in the VPN kept bricking my terminal sessions. I built TangleClaw as a browser-based, persistent shell connection manager. I also built Monad, a $35,000 multi-GPU local inference server, and TangleBrain, a config-driven orchestrator that routes complex prompts using cloud frontier models but pushes execution down to Monad to save token costs."
+  },
+  {
+    "type": "anecdote",
+    "id": "tilt-cba-lessons",
+    "text": "Q: What is the background of TiLT and your biggest engineering lessons?\nA: Working under 40-50 employers a year as a stagehand makes tracking hours, pay rates, and union benefits complex. I built TiLT from scratch as a Node/SQLite app with a custom CBA rules engine, porting it to Vercel in a 72-hour window using Grok's promo. The hardest part was building a walkthrough tour in January 2026 without tests, which caused regressions and cost me $1,300 in Cursor billing. This taught me to switch to Claude Code, focus on regression testing (tripling unit tests), and establish the self-improvement AI rules workflow."
+  },
+  {
+    "type": "anecdote",
+    "id": "moscone-fiber-triage",
+    "text": "Q: How do you manage complex fiber optic signal flows and high-pressure staging under union rules?\nA: At Moscone Center, I report directly to the Facilities Manager, provisioning and supporting audio/video signal distribution topologies. Because it is a union building, even though I am a stagehand, I act as a facility rep in the IT department, working cooperatively with the CWA (Communications Workers of America) who handle data cabling. When clients order circuits, we test every line A-to-Z for decibel loss against pass/fail thresholds. Often, clients show up requesting circuits the day we arrive, and 1/3 of the 40-50 lines require cleaning or repatching. I stay calm, triage path priorities with stakeholders, work the crew on overtime/double-time, and leverage the trust and reputation I've built over 25 years to deliver under pressure."
+  },
+  {
+    "type": "anecdote",
+    "id": "speaker-ready-room-rsa",
+    "text": "Q: How did you help pioneer the modern Speaker Ready Room?\nA: While working for JBA, an event IT support company that built custom networks for production, I was hired to do a PowerPoint graphics job in Singapore because I had been teaching Microsoft Office classes at the Small Business Administration in San Francisco. This led to doing presentation graphics globally. I realized presenters were highly disoriented backstage because they had never seen downstage monitors (DSM) or presidential teleprompter screens. I convinced my boss to set up a dedicated space replicating the stage environment with speaker coaches. For RSA in Paris, I managed our first full Speaker Ready Room, featuring a check-in desk for re-encoding media and QC'ing aspect ratios, alongside side rehearsal chambers. It was a massive success and became a standard industry practice."
+  },
+  {
+    "type": "anecdote",
+    "id": "local-llm-routing-monad",
+    "text": "Q: What models run on Monad-1 and how does it integrate with your staging work?\nA: Monad-1 is a $35,000 computing node featuring NVIDIA RTX PRO 6000 Blackwell (96 GiB VRAM), AMD Threadripper 9970X CPU, and 251 GiB RAM. It runs local open-weights models like GPT-OSS 120B (MXFP4 precision, coding workhorse) and Qwen2.5 14B 1M (Q6_K precision, optimized for chat). I point all four of my OpenClaw agent systems directly to Monad-1 over Tailscale, utilizing GPT Codex frontier and Copilot as backups. Crucially, the server is built so I can dual-boot it into Windows and use it on-site as a high-end media server (owner-operator rig) for show work, replacing ShowSage media servers. I am highly proficient in Dataton Watchout, Millumin (macOS), Pixera, and Disguise."
+  },
+  {
+    "type": "anecdote",
+    "id": "ipolis-webcasting-history",
+    "text": "Q: Tell me about your early co-founding experience with iPolis.\nA: Co-founding iPolis in 2000 was the 'Wild West' of webcasting. I was one of the country's first certified Microsoft Windows Media Service Providers, but we primarily built on RealMedia RTSP/MMS UDP packet systems. We landed an 8-year contract with the City and County of San Francisco to broadcast CityWatch council meetings. We pioneered index points: the clerk clicked agenda items in the encoder UI, which recorded local timestamps, publishing indexed links alongside the webcast. Viewers could click any agenda item to start playback from that point—a first-in-industry feature. iPolis was a highly profitable monthly subscription SAAS moat. We sold in 2007. I structured my contract to exit immediately with no non-compete, eventually rewriting the code and building NTE Hosting."
+  },
+  {
+    "type": "anecdote",
+    "id": "screen-switching-ae-templates",
+    "text": "Q: What is your approach to complex multi-screen layouts and video mathematics?\nA: I switch networks using Barco E2/E3, Analogue Way, and Spyder. On a major SPIE show at Moscone Center, I operated E2, media servers, and drafted all drawings for a 100' wide LED wall, 9 other LED walls, 8 towers, and a 2-projector center blend (3840x1080). I built After Effects templates for the content designers that factored in physical 'negative space' (the actual gaps in real space between towers and screens) and matched different projection/LED pixel pitches. By puzzle-piecing all outputs together, we packed 16K of visual content into a single 4K portrait output, mapped via processors. Redundancy is standard: E2 auto-failover, closed-loop LED processor backup paths, and 'OH SHIT' buttons (send logo or black) ensure the screen never goes dark."
+  },
+  {
+    "type": "anecdote",
+    "id": "watchout-lineset-tracking",
+    "text": "Q: How do you coordinate moving set winches with projection mapping systems?\nA: During a theatrical show at ACT, a designer wanted to project dynamic backdrops (BART train, night sky, streetlights) onto a projection screen that was pulled up and down by overhead winches. Manually cueing it was impossible, so I researched and configured a Watchout network plugin to capture encoder data from the winches on the fly rail. Under extreme time pressure, I got 15 minutes of set time with the carpenter and calculated encoder scaling ratios at the top and bottom limits. Using the assistant production manager to double-check the equations, we programmed a 6-digit decimal ratio into the Watchout plugin, enabling the video to track and scale to the moving screen perfectly at any speed."
+  },
+  {
+    "type": "anecdote",
+    "id": "soul-train-act-broadway",
+    "text": "Q: Tell me about a complex pre-Broadway theater setup and its technical challenges.\nA: I served as production video lead for the pre-Broadway debut of 'Soul Train the Hippest Trip' co-produced by ACT. It was a massive setup: 5 stage LED walls, 50-foot projection screens, and a 3,500-lb overhead 30° angled LED soundwave. The grid was overloaded, requiring us to reinforce trusses on-site. The custom steel frames had CAD errors, so I had the carpenters modify the frames and cheat them together using longer bolts. When the vendor engineer left, I mapped all processors on the fly and wrote custom spreadsheet formulas to bypass a Disguise media server pixel mapping bug. During rehearsals, we realized the 30° angle caused extreme color distortion for balcony viewers, so we spent days peeling off tens of thousands of adhesive shaders. It became the highest-selling show in ACT history."
+  },
+  {
+    "type": "anecdote",
+    "id": "fiber-gotchas-stagecraft",
+    "text": "Q: What are the common pitfalls in stagecraft and fiber optic routing?\nA: Mentorship in the union is informal, coaching apprentices on the fly. In fiber optics, the ends are fragile and gotchas are common. I once diagnosed an apprentice's intermittent comms bug in seconds by noticing they had patched a yellow single-mode circuit with an aqua multimode jumper. Mixing up ST/LC fiber barrels (single-mode vs multimode barrels) also ruins line loss calibrations. Beyond technical gotchas, the job is about people skills: building trust with managers, and triaging and communicating clearly during outages."
+  },
+  {
+    "type": "anecdote",
+    "id": "owner-operator-advantage",
+    "text": "Q: What is the advantage of owning and operating your own high-end media servers?\nA: Being an owner-operator of media servers (like my $35,000 dual-boot Monad server running Windows/Linux) gives me absolute familiarity with my equipment. Rental gear is often corrupted by poor maintenance or bad drivers—which is a death sentence for media servers. I maintain strict system images and restore them after use. Financially, owning the gear allows me to charge rental fees and command higher union day rates. Technically, it eliminates finger-pointing: operators can't blame the vendor and vendors can't blame the operator. It forces me to know my gear inside and out, which builds strong trust with producers."
+  },
+  {
+    "type": "anecdote",
+    "id": "openclaw-kobold-node",
+    "text": "Q: What is Kobold and how does it fit into your OpenClaw fleet?\nA: Kobold is a private, stealth-mode voice-operated AI Assistant Video Engineer that plugs into local show networks to scan, monitor, and configure video hardware. It runs an OpenClaw Gateway in Docker on a local mini-PC and connects via Tailscale to Monad-1 (my $35k GPU rig) as its local LLM backend to deliver hands-free, offline, on-site intelligence. Because the project is private, its operational details and source code are redacted."
+  },
+  {
+    "type": "anecdote",
+    "id": "made-by-google-2026-brooklyn",
+    "text": "Q: Tell me about your recent work on Made by Google 2026.\nA: Google Event Technology (ETT) brought me on as Technical Program Manager and Location Technical Device Demo Lead specifically to manage the device demo technical interface for the remote Brooklyn live broadcast of 'Made by Google 2026'—broadcast across 12 global platforms and live on Times Square billboards. I owned the on-site technical setup and real-time execution under extreme outdoor conditions (heat wave, sudden rain, remote wireless connectivity challenges). When a complex vendor relationship presented technical friction, I maintained absolute technical calm, executed flawless device demo operations, and kept the broadcast seamless. The ETT management team rallied around me, elevating my reputation across Google. Both Google ETT and Google Cloud teams subsequently requested my direct return for ongoing enterprise contract work."
+  }
+]

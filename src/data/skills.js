@@ -61,8 +61,10 @@ export const skillGroups = [
     ],
   },
   {
-    domain: "Design",
+    domain: "Design & Presentation",
     skills: [
+      { name: "Keynote / PowerPoint", level: "" },
+      { name: "Motion Graphics", level: "" },
       { name: "Adobe Photoshop", level: "" },
       { name: "Adobe Illustrator", level: "" },
     ],

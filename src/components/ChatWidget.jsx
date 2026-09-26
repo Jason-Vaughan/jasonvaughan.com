@@ -2,9 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 
-const WORKER_URL = import.meta.env.DEV
-  ? "http://localhost:8787"
-  : "https://portfolio-chat.jasonvaughan.workers.dev";
+const WORKER_URL = "/api/chat";
 
 export default function ChatWidget({ visitorType, onTriggerModal }) {
   const [isOpen, setIsOpen] = useState(false);

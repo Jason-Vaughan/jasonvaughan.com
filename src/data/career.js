@@ -157,13 +157,13 @@ export const careerData = [
   },
   {
     company: "Freelance Live Event Specialist",
-    role: "Graphics Operator, Video Engineer & Technical Director",
+    role: "Presentation & Motion Graphics Designer, Video Engineer & Technical Director",
     period: "2004 - Present",
     bullets: {
       Recruiter: [
-        "Led onsite technical production and signal routing for 100+ high-stakes corporate keynotes (Salesforce Dreamforce, AWS re:Invent, Google Next).",
-        "Managed cross-functional crews of up to 40+ technicians under compressed, high-stress load-in and broadcast schedules.",
-        "Collaborated with production agencies (Jack Morton, etc.) to resource equipment packages and coordinate local labor crews."
+        "Design expert-level Keynote and PowerPoint decks for technical presentations, transforming complex, system-level concepts into visually compelling narratives.",
+        "Collaborate directly with engineering teams and technical stakeholders to manage content independently under tight, high-stakes deadlines.",
+        "Led onsite technical production and signal routing for 100+ global corporate keynotes (Salesforce Dreamforce, AWS re:Invent, Google Next)."
       ],
       SystemsBuilder: [
         "Designed and deployed temporary network backbones, fiber distribution loops, and hardware switches for large-scale corporate arenas.",
@@ -174,9 +174,9 @@ export const careerData = [
         "Programmed high-end video processors, including Barco E2, Analog Way, and Disguise media servers."
       ],
       EventPro: [
-        "Served as Video Lead and TD, directing multi-camera show feeds and live digital backdrop configurations.",
-        "Managed massive fiber patch grids and optical conversion hardware to distribute UHD feeds to main and overflow screens.",
-        "Troubleshot complex AV setups under tight timelines to maintain live broadcast integrity."
+        "Served as Presentation Graphics Designer, Video Lead, and TD, creating custom Keynote/PowerPoint decks and motion graphics.",
+        "Programmed advanced media servers and managed massive fiber patch grids to distribute UHD feeds to screens.",
+        "Troubleshot complex AV setups and collaborated with speakers to refine on-screen graphics under tight timelines."
       ],
       A16z: [
         "Led onsite event production and technical project management for large-scale conferences and summits (Salesforce Dreamforce, AWS re:Invent, Google Next).",
@@ -184,9 +184,9 @@ export const careerData = [
         "Collaborated with production agencies to resource equipment packages, negotiate vendor contracts, and coordinate local labor crews."
       ],
       Default: [
-        "Freelance graphics operator, video engineer, and technical director for global tech summits and corporate shows.",
-        "Coordinated signal distributions, backup power systems, and multi-display screen grids.",
-        "Programmed advanced media servers and video processors for high-visibility client events."
+        "Freelance presentation and motion graphics designer, video engineer, and technical director for global tech summits.",
+        "Design high-end Keynote and PowerPoint presentations from scratch, collaborating directly with executive presenters.",
+        "Program advanced media servers and video processors, integrating custom After Effects motion graphics for high-visibility client events."
       ]
     }
   },
