@@ -179,11 +179,12 @@ export default function FeaturedProject() {
                 </span>
               )}
             
+              <ShareLink id="tilt" compact style={{ marginLeft: "auto" }} />
               <svg 
                 viewBox="0 0 24 24" 
                 fill="none" 
                 style={{
-                  width: 24, height: 24, marginLeft: "auto", color: "#71717a",
+                  width: 24, height: 24, color: "#71717a", marginLeft: 8,
                   transform: open ? "rotate(180deg)" : "rotate(0deg)",
                   transition: "transform .25s ease"
                 }}
@@ -296,7 +297,7 @@ export default function FeaturedProject() {
                   GitHub
                 </a>
               )}
-              <ShareLink id="tilt" style={{ marginLeft: "auto", alignSelf: "center" }} />
+              
             </div>
               </div>
             </div>
