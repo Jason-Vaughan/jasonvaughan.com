@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import { GoogleGenAI } from '@google/genai';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 function cosineSimilarity(vecA, vecB) {
   let dotProduct = 0;
@@ -39,6 +38,7 @@ export default async function handler(req, res) {
       db = JSON.parse(fs.readFileSync(embeddingsPath, 'utf8'));
     }
 
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     let contextText = '';
     if (db.length > 0 && retrievalQuery.trim()) {
       // Embed the user's query
@@ -101,7 +101,7 @@ ${contextText || "Jason Vaughan is a self-taught full-stack developer with 25 ye
     }));
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-3.1-flash-lite',
       contents: formattedMessages,
       config: {
         systemInstruction: systemPrompt,
@@ -111,6 +111,6 @@ ${contextText || "Jason Vaughan is a self-taught full-stack developer with 25 ye
     return res.status(200).json({ text: response.text });
   } catch (error) {
     console.error('Chat endpoint error:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: error.message || 'Internal server error' });
   }
 }
