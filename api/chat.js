@@ -43,7 +43,7 @@ export default async function handler(req, res) {
     if (db.length > 0 && retrievalQuery.trim()) {
       // Embed the user's query
       const embedResponse = await ai.models.embedContent({
-        model: 'text-embedding-004',
+        model: 'gemini-embedding-2',
         contents: retrievalQuery,
       });
       const queryVec = embedResponse.embeddings[0].values;

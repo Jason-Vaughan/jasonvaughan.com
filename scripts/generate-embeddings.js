@@ -40,7 +40,7 @@ async function main() {
     const chunk = chunks[i];
     try {
       const response = await ai.models.embedContent({
-        model: 'text-embedding-004',
+        model: 'gemini-embedding-2',
         contents: chunk.text,
       });
       chunk.embedding = response.embeddings[0].values;
