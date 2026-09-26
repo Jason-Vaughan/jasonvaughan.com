@@ -506,6 +506,7 @@ export default function Home() {
       statPill: projectStats?.tilt?.tests ? `${projectStats.tilt.tests.toLocaleString()} tests passing` : null,
       element: <FeaturedProject />,
       visible: true,
+      isCustom: true,
     },
     {
       id: "tangleclaw", // id="tangleclaw"
@@ -515,6 +516,7 @@ export default function Home() {
       statPill: projectStats?.tangleclaw?.tests ? `${projectStats.tangleclaw.tests.toLocaleString()} tests passing` : null,
       element: <FeaturedTangleClaw />,
       visible: true,
+      isCustom: true,
     },
     {
       id: "tanglebrain", // id="tanglebrain"
@@ -524,6 +526,7 @@ export default function Home() {
       statPill: projectStats?.tanglebrain?.tests ? `${projectStats.tanglebrain.tests.toLocaleString()} tests passing` : null,
       element: <FeaturedTangleBrain />,
       visible: true,
+      isCustom: true,
     },
     {
       id: "cierre-sensei", // id="cierre-sensei"
@@ -532,6 +535,7 @@ export default function Home() {
       description: "Mexican real-estate closing-cost engine.",
       element: <FeaturedCierreSensei />,
       visible: true,
+      isCustom: true,
     },
     {
       id: "projects", // id="projects"

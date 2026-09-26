@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { registerSection, unregisterSection } from "../utils/sectionRegistry";
 import ShareLink from "./ShareLink";
 import { featuredProjects } from "../data/projects";
 
@@ -24,6 +25,18 @@ function formatSince(iso) {
  */
 export default function FeaturedCierreSensei() {
   const [liveStats, setLiveStats] = useState(null);
+
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    registerSection("cierre-sensei", () => setOpen(true), () => setOpen(false));
+    return () => unregisterSection("cierre-sensei");
+  }, []);
+
+  useEffect(() => {
+    if (window.location.hash.slice(1) === "cierre-sensei") setOpen(true);
+  }, []);
+
 
   useEffect(() => {
     fetch(p.statsUrl, { cache: "no-store" })
@@ -115,7 +128,7 @@ export default function FeaturedCierreSensei() {
 
           <div style={{ padding: 32 }}>
             {/* Title row */}
-            <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", cursor: "pointer", userSelect: "none" }} onClick={() => setOpen(!open)}>
               <img src={p.logo} alt={`${p.title} logo`} style={{ height: 48, width: 48, objectFit: "contain" }} />
               <h3 style={{ fontSize: 28, fontWeight: 700, color: "#fafafa", margin: 0 }}>{p.title}</h3>
               <span style={{

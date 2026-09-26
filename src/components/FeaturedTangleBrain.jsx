@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { registerSection, unregisterSection } from "../utils/sectionRegistry";
 import useGitHubLatestRelease from "../hooks/useGitHubLatestRelease";
 import ShareLink from "./ShareLink";
 import { featuredProjects } from "../data/projects";
@@ -25,6 +26,18 @@ function formatSince(iso) {
  */
 export default function FeaturedTangleBrain() {
   const [liveStats, setLiveStats] = useState(null);
+
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    registerSection("tanglebrain", () => setOpen(true), () => setOpen(false));
+    return () => unregisterSection("tanglebrain");
+  }, []);
+
+  useEffect(() => {
+    if (window.location.hash.slice(1) === "tanglebrain") setOpen(true);
+  }, []);
+
   const version = useGitHubLatestRelease(p.repo.owner, p.repo.repo);
 
   useEffect(() => {
@@ -116,7 +129,7 @@ export default function FeaturedTangleBrain() {
 
           <div style={{ padding: 32 }}>
             {/* Title row */}
-            <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", cursor: "pointer", userSelect: "none" }} onClick={() => setOpen(!open)}>
               <img src={p.logo} alt={`${p.title} logo`} style={{ height: 48, width: 48, objectFit: "contain" }} />
               <h3 style={{ fontSize: 28, fontWeight: 700, color: "#fafafa", margin: 0 }}>{p.title}</h3>
               <span style={{
@@ -175,9 +188,28 @@ export default function FeaturedTangleBrain() {
                   Building since {since}
                 </span>
               )}
+            
+              <svg 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                style={{
+                  width: 24, height: 24, marginLeft: "auto", color: "#71717a",
+                  transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                  transition: "transform .25s ease"
+                }}
+              >
+                <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </div>
 
-            <p style={{ marginTop: 4, fontSize: 13, color: "#71717a" }}>Local-first, config-driven LLM router</p>
+            
+            <div style={{
+              display: "grid",
+              gridTemplateRows: open ? "1fr" : "0fr",
+              transition: "grid-template-rows .28s ease",
+            }}>
+              <div style={{ minHeight: 0, overflow: "hidden", opacity: open ? 1 : 0, transition: "opacity .28s ease" }}>
+<p style={{ marginTop: 4, fontSize: 13, color: "#71717a" }}>Local-first, config-driven LLM router</p>
 
             <p style={{ marginTop: 12, fontSize: 18, fontWeight: 600, color: p.accentLight }}>
               {p.subtitle}
@@ -236,6 +268,8 @@ export default function FeaturedTangleBrain() {
                 </a>
               )}
               <ShareLink id="tanglebrain" style={{ marginLeft: "auto", alignSelf: "center" }} />
+            </div>
+              </div>
             </div>
           </div>
         </motion.div>
