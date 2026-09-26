@@ -25,7 +25,7 @@ describe("About Data Integrity", () => {
 
   it("should contain pillars with valid fields", () => {
     expect(Array.isArray(aboutData.pillars)).toBe(true);
-    expect(aboutData.pillars.length).toBe(4);
+    expect(aboutData.pillars.length).toBe(5);
     aboutData.pillars.forEach((pillar) => {
       expect(typeof pillar.title).toBe("string");
       expect(typeof pillar.description).toBe("string");
