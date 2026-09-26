@@ -1,14 +1,14 @@
 {
   "tilt": {
-    "loc": "311K+",
+    "loc": "312K+",
     "tests": "4.8K+",
     "commits": "2.8K+",
     "endpoints": "137"
   },
   "tangleclaw": {
-    "loc": "391K+",
-    "tests": "13.5K+",
-    "commits": "1.8K+",
+    "loc": "421K+",
+    "tests": "14.2K+",
+    "commits": "1.9K+",
     "engines": "4",
     "npmDeps": "0"
   },
