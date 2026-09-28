@@ -6,6 +6,7 @@ export default function VisualPortfolio() {
   const [activeTab, setActiveTab] = useState("photography");
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [featuredIndex, setFeaturedIndex] = useState(0);
+  const [isGridExpanded, setIsGridExpanded] = useState(false);
 
   // Flatten images for the active tab
   const currentImages = useMemo(() => {
@@ -35,6 +36,7 @@ export default function VisualPortfolio() {
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     setFeaturedIndex(0);
+    setIsGridExpanded(false);
   };
 
   const openLightbox = (idx) => setLightboxIndex(idx);
@@ -83,8 +85,10 @@ export default function VisualPortfolio() {
             <div 
               style={{ 
                 width: "100%", 
-                height: 450, 
-                marginBottom: 32, 
+                height: "70vh", 
+                maxHeight: 800,
+                minHeight: 400,
+                marginBottom: 24, 
                 borderRadius: 16, 
                 overflow: "hidden", 
                 position: "relative",
@@ -111,7 +115,37 @@ export default function VisualPortfolio() {
             </div>
           )}
 
-          {/* Grid */}
+          {/* Grid Drawer Toggle */}
+          <div style={{ textAlign: "center", marginBottom: 32 }}>
+            <button 
+              onClick={() => setIsGridExpanded(!isGridExpanded)}
+              style={{
+                background: "rgba(255, 255, 255, 0.05)",
+                border: "1px dashed rgba(255, 255, 255, 0.2)",
+                color: "#a1a1aa",
+                padding: "12px 24px",
+                borderRadius: 8,
+                cursor: "pointer",
+                fontWeight: 600,
+                transition: "all 0.2s"
+              }}
+              onMouseOver={(e) => { e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)"; e.currentTarget.style.color = "#fff"; }}
+              onMouseOut={(e) => { e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)"; e.currentTarget.style.color = "#a1a1aa"; }}
+            >
+              {isGridExpanded ? "Close Thumbnail Grid" : `View All ${currentImages.length} Thumbnails`}
+            </button>
+          </div>
+
+          <AnimatePresence>
+            {isGridExpanded && (
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                style={{ overflow: "hidden" }}
+              >
+                {/* Grid */}
+
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 16 }}>
             {currentImages.map((img, idx) => {
               const src = activeTab === "photography" ? img.medium : img.original;
@@ -142,7 +176,10 @@ export default function VisualPortfolio() {
                 </motion.div>
               );
             })}
-          </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </>
       )}
 
