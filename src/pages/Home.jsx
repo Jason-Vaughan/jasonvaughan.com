@@ -87,14 +87,14 @@ const PASSCODE_CONFIGS = {
   },
   apple: {
     variant: "apple",
-    persona: "EventPro",
+    persona: "Inspyr",
     bannerNote: "Welcome INSPYR Hiring Team · Technical Presentation Design View Unlocked",
     roleFilter: "Production",
     autoSections: ["about", "career", "skills", "certifications", "contact"]
   },
   inspyr: {
     variant: "apple",
-    persona: "EventPro",
+    persona: "Inspyr",
     bannerNote: "Welcome INSPYR Hiring Team · Technical Presentation Design View Unlocked",
     roleFilter: "Production",
     autoSections: ["about", "career", "skills", "certifications", "contact"]

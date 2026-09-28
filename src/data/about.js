@@ -96,6 +96,10 @@ export const personaTaglines = {
     bio: "Events Production & Operations Leader with 25+ years managing high-touch executive events, multi-vendor relationships, and large-scale technical production.",
     highlight: "Combines deep experience producing flagship summits (Google, AWS, Salesforce) with elite project and budget management skills."
   },
+  Inspyr: {
+    bio: "Keynote Designer & Technical Presentation Specialist with 25+ years of experience transforming complex, engineer-authored content into visually compelling narratives for high-stakes technical keynotes.",
+    highlight: "I don't just layout slides; I build robust, editable presentation systems and collaborate directly with engineering teams under zero-downtime, live show stakes."
+  },
   EventPro: {
     bio: "Production Technology Leader & Technical Director with 25+ years managing complex signal flow, fiber arrays, Barco screen switching, and broadcast staging for global keynotes.",
     highlight: "Live production authority merging physical show networks with intelligent automation to eliminate backstage friction."

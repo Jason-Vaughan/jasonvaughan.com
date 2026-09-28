@@ -27,6 +27,11 @@ export const PERSONAS = {
     bannerText: "Welcome a16z Crypto Hiring Team! We've highlighted Jason's experience with high-touch executive events, budget & vendor management, and large-scale technical production.",
     sections: ["about", "career", "skills", "certifications", "projects"],
   },
+  Inspyr: {
+    label: "Keynote Designer Mode",
+    bannerText: "Welcome INSPYR Hiring Team! We've highlighted Jason's Keynote design expertise, ability to translate complex engineering concepts into narratives, and experience working with stakeholders.",
+    sections: ["about", "career", "skills", "certifications", "contact"],
+  },
   OpenClaw: {
     label: "OpenClaw Mode",
     bannerText: "Looks like you're interested in OpenClaw. We've highlighted Jason's custom agent fleet, his published ClawHub plugins, and his contributions to the ecosystem.",

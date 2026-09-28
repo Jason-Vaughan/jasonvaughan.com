@@ -70,6 +70,11 @@ export const careerData = [
         "Manage massive fiber patch panels and optical conversion grids to route UHD video feeds across multiple exhibition halls.",
         "Collaborate with staging and broadcast partners to set up stable signal feeds with zero single points of failure."
       ],
+      Inspyr: [
+        "Led onsite technical production and signal routing for 100+ global corporate keynotes (Salesforce Dreamforce, AWS re:Invent, Google Next).",
+        "Deeply fluent in the physical networking and hardware required to push high-resolution presentation graphics to the main stage without failure.",
+        "Interface directly with CEOs, CFOs, EVPs, and engineering leads in high-stakes backstage environments."
+      ],
       A16z: [
         "Serve as Signal Flow Lead, designing and distributing fiber loops for primary keynote screens, broadcast production trucks, and overflow stages.",
         "Manage massive fiber patch panels and optical conversion grids to route UHD video feeds across multiple exhibition halls.",
@@ -177,6 +182,12 @@ export const careerData = [
         "Served as Presentation Graphics Designer, Video Lead, and TD, creating custom Keynote/PowerPoint decks and motion graphics.",
         "Programmed advanced media servers and managed massive fiber patch grids to distribute UHD feeds to screens.",
         "Troubleshot complex AV setups and collaborated with speakers to refine on-screen graphics under tight timelines."
+      ],
+      Inspyr: [
+        "Expert level in Keynote, capable of creating polished, high-impact decks under tight deadlines—especially for technical presentations.",
+        "20+ years of experience designing for Software Products and Technology teams, transforming raw, engineer-authored content into visually compelling narratives.",
+        "Proven ability to support complex, system-level concepts through clear, thoughtful visual design.",
+        "Work seamlessly with technical stakeholders, give and receive feedback effectively, and manage content independently."
       ],
       A16z: [
         "Led onsite event production and technical project management for large-scale conferences and summits (Salesforce Dreamforce, AWS re:Invent, Google Next).",
