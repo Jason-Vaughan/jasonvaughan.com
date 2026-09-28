@@ -14,9 +14,11 @@ export const aboutData = {
       "As AI technology became viable, I focused on building custom tools to automate the workflows I manage daily. Tired of complex spreadsheets for tracking union pay rates, I built TiLT. Frustrated by unstable remote SSH connections during a trip to Mexico, I designed TangleClaw and TangleBrain. I write software to scratch my own operational itches first, and then package those tools so others can run them reliably on their own hardware."
     ],
     Inspyr: [
-      "I've spent the last 20+ years living at the intersection of technical engineering and high-stakes visual design. I started my career transforming raw, system-level concepts into polished presentation narratives for executives who needed to communicate complex software architecture to massive audiences.",
-      "Working directly with product teams and C-suite stakeholders, I build robust, editable Keynote and PowerPoint systems that look beautiful but are structured to survive last-minute backstage edits.",
-      "When you're designing for flagship global keynotes like Google Next or AWS re:Invent, there's zero margin for error. My background in live broadcast operations means I don't just layout slides; I understand the physical signal flow and the pressure of the show environment, ensuring every pixel hits the screen flawlessly."
+      "For more than 25 years, I’ve worked across visual design, technical production, and live presentation, helping executives, engineers, producers, and creative teams transform ideas into visuals that communicate clearly to an audience.",
+      "My work often begins well before anything reaches the screen. I collaborate directly with stakeholders to understand what they’re trying to communicate, develop visual approaches and proofs, and then carry those ideas through graphics, animation, motion content, and presentation design.",
+      "I’m equally comfortable designing and building the work myself or leading the team responsible for delivering it. Years of operating major live events have also shaped how I design: presentations need to remain flexible, editable, and dependable through rehearsals, executive changes, and meet the realistic boundaries of a live show.",
+      "My video engineering background allows me to bridge the gap between why something should look a certain way and how those pixels ultimately reach the audience through complex display systems. That ability to connect creative intent with technical execution has become a specialty I’m known for, and it’s often why I’m brought into a project.",
+      "This combination of creative development and technical production has taken me from professional theater to executive presentations and major technology events around the world."
     ]
   },
   
