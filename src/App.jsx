@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import ProjectDetail from "./pages/ProjectDetail";
 import DevLab from "./pages/DevLab";
-import DesignerPreview from "./pages/DesignerPreview";
+import DesignerPortfolio from "./pages/DesignerPortfolio";
 
 export default function App() {
   return (
@@ -12,7 +12,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/dev" element={<DevLab />} />
-        <Route path="/temp" element={<DesignerPreview />} />
+        <Route path="/designer-portfolio" element={<DesignerPortfolio />} />
       </Routes>
     </Router>
   );

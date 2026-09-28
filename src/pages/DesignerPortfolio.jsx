@@ -5,7 +5,7 @@ import { aboutData } from "../data/about";
 import VisualPortfolio from "../components/VisualPortfolio";
 import FeaturedCierreSensei from "../components/FeaturedCierreSensei";
 
-export default function DesignerPreview() {
+export default function DesignerPortfolio() {
   const visitorType = "Inspyr";
   const d = aboutData;
 
