@@ -163,7 +163,14 @@ export default function VisualPortfolio() {
                           initial={{ scale: 1 }}
                           animate={{ scale: 1.03 }}
                           transition={{ scale: { duration: 6, ease: "linear" } }}
-                          style={{ gridArea: "1/1", maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
+                          style={{ gridArea: "1/1", maxWidth: "100%", maxHeight: "100%", objectFit: "contain", display: "block" }}
+                          onLoad={(e) => {
+                            // Dynamically force the grid container to match the image's intrinsic aspect ratio
+                            const aspect = e.target.naturalWidth / e.target.naturalHeight;
+                            if(e.target.parentElement) {
+                              e.target.parentElement.style.aspectRatio = aspect;
+                            }
+                          }}
                         />
                         {activeTab === "digitalArt" && (
                            <div style={{ gridArea: "1/1", placeSelf: "end end", background: "#111", color: "rgba(255,255,255,0.7)", padding: "6px 12px", fontSize: 13, fontWeight: 500, borderTopLeftRadius: 8, zIndex: 10 }}>
