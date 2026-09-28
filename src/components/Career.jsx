@@ -1,7 +1,9 @@
 import React from "react";
 import { careerData } from "../data/career";
 
-export default function Career({ visitorType }) {
+import { useState } from "react";
+export default function Career({ visitorType, expandableAfter = 0 }) {
+  const [isExpanded, setIsExpanded] = useState(false);
   const container = {
     display: "flex",
     flexDirection: "column",
@@ -78,7 +80,24 @@ export default function Career({ visitorType }) {
 
   return (
     <div style={container}>
-      {careerData.map((job, idx) => {
+      {(() => {
+        let displayData = careerData;
+        if (visitorType === "Inspyr") {
+          // Sort for Inspyr mode: Google (0), Freelance (4), ACT (3), ASM (1), Independent Software (2), iPolis (5)
+          const order = {
+            "Google (Event Technology Team)": 1,
+            "Freelance Live Event Specialist": 2,
+            "ACT (American Conservatory Theater)": 3,
+            "ASM Global (Moscone Center)": 4,
+            "Independent Software & AI Builder": 5,
+            "iPolis Webcasting": 6
+          };
+          displayData = [...careerData].sort((a, b) => order[a.company] - order[b.company]);
+        }
+        return displayData.map((job, idx) => {
+          if (expandableAfter > 0 && !isExpanded && idx >= expandableAfter) return null;
+        if (expandableAfter > 0 && !isExpanded && idx >= expandableAfter) return null;
+
         // Resolve bullets for active visitor type
         let bullets = job.bullets.Default;
         let isTailored = false;
@@ -122,7 +141,27 @@ export default function Career({ visitorType }) {
             </ul>
           </div>
         );
-      })}
+        });
+      })()}
+      {expandableAfter > 0 && careerData.length > expandableAfter && (
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          style={{
+            background: "rgba(255, 255, 255, 0.05)",
+            border: "1px dashed rgba(255, 255, 255, 0.2)",
+            color: "#a1a1aa",
+            padding: "12px 24px",
+            borderRadius: 8,
+            cursor: "pointer",
+            fontWeight: 600,
+            transition: "all 0.2s"
+          }}
+          onMouseOver={(e) => { e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)"; e.currentTarget.style.color = "#fff"; }}
+          onMouseOut={(e) => { e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)"; e.currentTarget.style.color = "#a1a1aa"; }}
+        >
+          {isExpanded ? "Collapse Additional Experience" : "View Additional Experience"}
+        </button>
+      )}
     </div>
   );
 }

@@ -62,7 +62,7 @@ export default function DesignerPreview() {
         <div>
           <h3 style={{ fontSize: 28, fontWeight: 800, color: "#fff", marginBottom: 32 }}>Experience</h3>
           <div style={{ ...card, padding: 0, background: "transparent", border: "none" }}>
-            <Career visitorType={visitorType} />
+            <Career visitorType={visitorType} expandableAfter={4} />
           </div>
         </div>
 
@@ -91,12 +91,6 @@ export default function DesignerPreview() {
           </div>
         </div>
         
-        {/* 9. Technical tools / platforms */}
-        <div>
-          <h3 style={{ fontSize: 28, fontWeight: 800, color: "#fff", marginBottom: 32 }}>Technical Toolbox</h3>
-          <Skills />
-        </div>
-        
         {/* 10. Professional theater */}
         <div style={card}>
           <h3 style={{ fontSize: 20, fontWeight: 700, color: "#fff", marginBottom: 16 }}>Professional Theater Roots</h3>
@@ -104,6 +98,14 @@ export default function DesignerPreview() {
             My foundation was built in professional theater, managing complex technical systems for massive live audiences. Designing for the stage requires absolute reliability, rapid on-the-fly troubleshooting, and the ability to seamlessly blend technical precision with artistic intent under the pressure of a live show.
           </p>
         </div>
+        
+        {/* 9. Tools & Technical Fluency */}
+        <div>
+          <h3 style={{ fontSize: 28, fontWeight: 800, color: "#fff", marginBottom: 32 }}>Tools & Technical Fluency</h3>
+          <Skills />
+        </div>
+        
+
         
         {/* 8. AI-NATIVE */}
         <div style={{ ...card, background: "rgba(139, 92, 246, 0.08)", border: "1px solid rgba(139, 92, 246, 0.25)", textAlign: "center" }}>
