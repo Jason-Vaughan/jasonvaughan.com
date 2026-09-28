@@ -85,9 +85,8 @@ export default function VisualPortfolio() {
             <div 
               style={{ 
                 width: "100%", 
-                height: "70vh", 
-                maxHeight: 800,
-                minHeight: 400,
+                aspectRatio: "16 / 9",
+                background: "#000",
                 marginBottom: 24, 
                 borderRadius: 16, 
                 overflow: "hidden", 
@@ -103,13 +102,13 @@ export default function VisualPortfolio() {
                   key={featuredIndex}
                   src={activeTab === "photography" ? currentImages[featuredIndex].large : currentImages[featuredIndex].original}
                   initial={{ opacity: 0, scale: 1 }}
-                  animate={{ opacity: 1, scale: 1.1 }}
+                  animate={{ opacity: 1, scale: 1.03 }}
                   exit={{ opacity: 0 }}
                   transition={{ 
                     opacity: { duration: 1.5 },
                     scale: { duration: 6, ease: "linear" }
                   }}
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  style={{ width: "100%", height: "100%", objectFit: "contain" }}
                 />
               </AnimatePresence>
             </div>
