@@ -3,8 +3,8 @@
 
 export const aboutData = {
   hero: {
-    title: "I build systems that solve complex technical problems.",
-    subtitle: "For over 25 years I've led technology for some of the world's largest live events while building AI tools and software that automate the work I do every day."
+    title: "I turn ideas into experiences.",
+    subtitle: ""
   },
   
   story: {
