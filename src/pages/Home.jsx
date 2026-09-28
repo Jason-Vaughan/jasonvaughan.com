@@ -825,10 +825,11 @@ export default function Home() {
           {activeTagline.bio}
         </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
+        {visitorType !== "Inspyr" && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
           style={{
             marginTop: 46,
             display: "flex",
@@ -863,6 +864,7 @@ export default function Home() {
             {activeTagline.highlight}
           </span>
         </motion.div>
+        )}
 
         {/* Aggressive Recruiter CTA Buttons right in the Hero */}
         {isPreviewMode && visitorType === "Recruiter" && (
