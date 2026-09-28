@@ -2,6 +2,7 @@ import React from "react";
 import Career from "../components/Career";
 import Skills from "../components/Skills";
 import { aboutData } from "../data/about";
+import VisualPortfolio from "../components/VisualPortfolio";
 import FeaturedCierreSensei from "../components/FeaturedCierreSensei";
 
 export default function DesignerPreview() {
@@ -38,9 +39,9 @@ export default function DesignerPreview() {
         </div>
 
         {/* 3. Selected work / visual portfolio */}
-        <div style={{ ...card, textAlign: "center", padding: 64, border: "1px dashed #52525b" }}>
-          <h3 style={{ fontSize: 24, fontWeight: 700, color: "#fff", marginBottom: 8 }}>Selected Work</h3>
-          <p style={{ color: "#a1a1aa" }}>[ Visual Portfolio Gallery Placeholder ]</p>
+        <div style={{ ...card, padding: 32, border: "1px solid #27272a" }}>
+          <h3 style={{ fontSize: 28, fontWeight: 800, color: "#fff", marginBottom: 24, textAlign: "center" }}>Selected Work</h3>
+          <VisualPortfolio />
         </div>
 
         {/* 4. What I do */}
