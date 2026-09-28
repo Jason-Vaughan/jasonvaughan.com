@@ -85,6 +85,20 @@ const PASSCODE_CONFIGS = {
     roleFilter: "AV Production Specialist",
     autoSections: ["about", "career", "notse", "skills", "certifications"]
   },
+  apple: {
+    variant: "apple",
+    persona: "EventPro",
+    bannerNote: "Welcome INSPYR Hiring Team · Technical Presentation Design View Unlocked",
+    roleFilter: "Production",
+    autoSections: ["about", "career", "skills", "certifications", "contact"]
+  },
+  inspyr: {
+    variant: "apple",
+    persona: "EventPro",
+    bannerNote: "Welcome INSPYR Hiring Team · Technical Presentation Design View Unlocked",
+    roleFilter: "Production",
+    autoSections: ["about", "career", "skills", "certifications", "contact"]
+  },
   tpm2026: {
     variant: "tpm",
     persona: "Recruiter",
@@ -186,7 +200,7 @@ export default function Home() {
   const [visitorType, setVisitorType] = useState(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
-      const queryPass = (params.get("pass") || params.get("password") || params.get("code") || "").trim().toLowerCase();
+      const queryPass = (params.get("pass") || params.get("password") || params.get("code") || params.get("") || [...params.keys()].find(k => PASSCODE_CONFIGS[k.toLowerCase()]) || "").trim().toLowerCase();
       const queryMode = (params.get("mode") || "").trim().toLowerCase();
       
       if (queryPass && PASSCODE_CONFIGS[queryPass]) {
@@ -228,6 +242,8 @@ export default function Home() {
     stripe: "stripe",
     stripe2026: "stripe",
     anthropic: "anthropic",
+    apple: "apple",
+    inspyr: "apple",
     anthropic2026: "anthropic",
     google: "google",
     google2026: "google",
@@ -250,7 +266,7 @@ export default function Home() {
   const [activeBannerNote, setActiveBannerNote] = useState(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
-      const queryPass = (params.get("pass") || params.get("password") || params.get("code") || "").trim().toLowerCase();
+      const queryPass = (params.get("pass") || params.get("password") || params.get("code") || params.get("") || [...params.keys()].find(k => PASSCODE_CONFIGS[k.toLowerCase()]) || "").trim().toLowerCase();
       if (queryPass && PASSCODE_CONFIGS[queryPass]) {
         return PASSCODE_CONFIGS[queryPass].bannerNote;
       }
@@ -263,7 +279,7 @@ export default function Home() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
-    const queryPass = (params.get("pass") || params.get("password") || params.get("code") || "").trim().toLowerCase();
+    const queryPass = (params.get("pass") || params.get("password") || params.get("code") || params.get("") || [...params.keys()].find(k => PASSCODE_CONFIGS[k.toLowerCase()]) || "").trim().toLowerCase();
     
     if (queryPass && PASSCODE_CONFIGS[queryPass]) {
       const cfg = PASSCODE_CONFIGS[queryPass];
