@@ -15,12 +15,10 @@ describe("About Data Integrity", () => {
     expect(typeof aboutData.hero.subtitle).toBe("string");
   });
 
-  it("should contain story as an array of paragraphs", () => {
-    expect(Array.isArray(aboutData.story)).toBe(true);
-    expect(aboutData.story.length).toBeGreaterThan(0);
-    aboutData.story.forEach((p) => {
-      expect(typeof p).toBe("string");
-    });
+  it("should contain story as an object mapping arrays of paragraphs", () => {
+    expect(typeof aboutData.story).toBe("object");
+    expect(Array.isArray(aboutData.story.Default)).toBe(true);
+    expect(aboutData.story.Default.length).toBeGreaterThan(0);
   });
 
   it("should contain pillars with valid fields", () => {

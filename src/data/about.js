@@ -7,11 +7,18 @@ export const aboutData = {
     subtitle: "For over 25 years I've led technology for some of the world's largest live events while building AI tools and software that automate the work I do every day."
   },
   
-  story: [
-    "My software journey started in the early 2000s with iPolis, a first-of-its-kind SaaS webcasting service. Designing and operating that platform gave me a core foundation in software architecture, network streaming, and system engineering from the ground up.",
-    "Parallel to code, my career grew in the live event industry. I transitioned from a stagecraft apprentice to freelance technical directing, managing high-stakes technology deployments for global giants like Google, AWS, Adobe, and Salesforce. Operating live broadcast environments with zero margin for error taught me about fail-safes, signal flow, and real-time networking.",
-    "As AI technology became viable, I focused on building custom tools to automate the workflows I manage daily. Tired of complex spreadsheets for tracking union pay rates, I built TiLT. Frustrated by unstable remote SSH connections during a trip to Mexico, I designed TangleClaw and TangleBrain. I write software to scratch my own operational itches first, and then package those tools so others can run them reliably on their own hardware."
-  ],
+  story: {
+    Default: [
+      "My software journey started in the early 2000s with iPolis, a first-of-its-kind SaaS webcasting service. Designing and operating that platform gave me a core foundation in software architecture, network streaming, and system engineering from the ground up.",
+      "Parallel to code, my career grew in the live event industry. I transitioned from a stagecraft apprentice to freelance technical directing, managing high-stakes technology deployments for global giants like Google, AWS, Adobe, and Salesforce. Operating live broadcast environments with zero margin for error taught me about fail-safes, signal flow, and real-time networking.",
+      "As AI technology became viable, I focused on building custom tools to automate the workflows I manage daily. Tired of complex spreadsheets for tracking union pay rates, I built TiLT. Frustrated by unstable remote SSH connections during a trip to Mexico, I designed TangleClaw and TangleBrain. I write software to scratch my own operational itches first, and then package those tools so others can run them reliably on their own hardware."
+    ],
+    Inspyr: [
+      "I've spent the last 20+ years living at the intersection of technical engineering and high-stakes visual design. I started my career transforming raw, system-level concepts into polished presentation narratives for executives who needed to communicate complex software architecture to massive audiences.",
+      "Working directly with product teams and C-suite stakeholders, I build robust, editable Keynote and PowerPoint systems that look beautiful but are structured to survive last-minute backstage edits.",
+      "When you're designing for flagship global keynotes like Google Next or AWS re:Invent, there's zero margin for error. My background in live broadcast operations means I don't just layout slides; I understand the physical signal flow and the pressure of the show environment, ensuring every pixel hits the screen flawlessly."
+    ]
+  },
   
   pillars: [
     {
@@ -22,7 +29,8 @@ export const aboutData = {
     {
       title: "Presentation & Motion Graphics",
       description: "Transforming complex, engineer-authored content into visually compelling narratives for high-stakes technical presentations, working directly with technical stakeholders to support system-level concepts.",
-      tags: ["Keynote", "PowerPoint", "After Effects", "Motion Graphics", "Speaker Coaching"]
+      tags: ["Keynote", "PowerPoint", "After Effects", "Motion Graphics", "Speaker Coaching"],
+      highlightFor: ["Inspyr"]
     },
     {
       title: "AI & Automation",

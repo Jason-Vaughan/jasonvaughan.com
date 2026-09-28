@@ -111,7 +111,7 @@ export default function About({ visitorType, onDownloadResume }) {
         <div style={card}>
           <h4 style={titleStyle}>My Story</h4>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-            {d.story.map((p, idx) => (
+            {((Array.isArray(d.story) ? d.story : (d.story[visitorType] || d.story.Default)) || []).map((p, idx) => (
               <p key={idx} style={{ color: "#d4d4d8", fontSize: 14, lineHeight: 1.6 }}>
                 {p}
               </p>
@@ -177,8 +177,10 @@ export default function About({ visitorType, onDownloadResume }) {
       <div>
         <h4 style={{ ...titleStyle, marginBottom: 20 }}>What I Do</h4>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 20 }}>
-          {d.pillars.map((pillar) => (
-            <div key={pillar.title} style={{ ...card, padding: 20, gap: 12 }}>
+          {d.pillars.map((pillar) => {
+            const isHighlighted = pillar.highlightFor && pillar.highlightFor.includes(visitorType);
+            return (
+            <div key={pillar.title} style={{ ...card, padding: 20, gap: 12, ...(isHighlighted ? { border: "1px solid #fbbf24", background: "rgba(251, 191, 36, 0.05)", transform: "translateY(-4px)", boxShadow: "0 8px 24px rgba(251, 191, 36, 0.15)", transition: "all 0.3s ease" } : { transition: "all 0.3s ease" }) }}>
               <h5 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: "#fafafa" }}>{pillar.title}</h5>
               <p style={{ margin: 0, color: "#a1a1aa", fontSize: 13, lineHeight: 1.5, flexGrow: 1 }}>{pillar.description}</p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 8 }}>
@@ -195,7 +197,8 @@ export default function About({ visitorType, onDownloadResume }) {
                 ))}
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
