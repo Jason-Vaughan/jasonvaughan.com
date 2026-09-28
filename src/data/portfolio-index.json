@@ -2,10 +2,6 @@
   "photography": {
     "Artistic": [
       {
-        "filename": "IMG_2492.jpg",
-        "large": "/portfolio/Photography/Artistic/IMG_2492.jpg"
-      },
-      {
         "filename": "IMG_5492.jpg",
         "large": "/portfolio/Photography/Artistic/IMG_5492.jpg"
       }
@@ -232,12 +228,7 @@
         "large": "/portfolio/Photography/Solar%20Eclipse/IMG_9993.jpg"
       }
     ],
-    "Water Scenes": [
-      {
-        "filename": "IMG_2664.jpg",
-        "large": "/portfolio/Photography/Water%20Scenes/IMG_2664.jpg"
-      }
-    ],
+    "Water Scenes": [],
     "macro-jellies": [
       {
         "filename": "IMG_9622.jpg",
@@ -330,11 +321,6 @@
         "large": "/portfolio/Photography/skaters/IMG_2217.jpg"
       },
       {
-        "filename": "IMG_2223.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_2223.jpg",
-        "hoverLarge": "/portfolio/Photography/skaters/IMG_2223_1.jpg"
-      },
-      {
         "filename": "IMG_2491.jpg",
         "large": "/portfolio/Photography/skaters/IMG_2491.jpg"
       },
@@ -359,28 +345,8 @@
         "large": "/portfolio/Photography/skaters/IMG_2797.jpg"
       },
       {
-        "filename": "IMG_2806.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_2806.jpg"
-      },
-      {
-        "filename": "IMG_2846.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_2846.jpg"
-      },
-      {
-        "filename": "IMG_3209.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_3209.jpg"
-      },
-      {
-        "filename": "IMG_3245.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_3245.jpg"
-      },
-      {
         "filename": "IMG_3267.jpg",
         "large": "/portfolio/Photography/skaters/IMG_3267.jpg"
-      },
-      {
-        "filename": "IMG_3341.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_3341.jpg"
       },
       {
         "filename": "IMG_3350.jpg",
@@ -426,26 +392,13 @@
         "large": "/portfolio/Photography/skaters/IMG_3626.jpg"
       },
       {
-        "filename": "IMG_3638.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_3638.jpg"
-      },
-      {
         "filename": "IMG_3640.jpg",
         "large": "/portfolio/Photography/skaters/IMG_3640.jpg"
-      },
-      {
-        "filename": "IMG_3648.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_3648.jpg"
       },
       {
         "filename": "IMG_3699.jpg",
         "large": "/portfolio/Photography/skaters/IMG_3699.jpg",
         "hoverLarge": "/portfolio/Photography/skaters/IMG_3699_1.jpg"
-      },
-      {
-        "filename": "IMG_3736.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_3736.jpg",
-        "hoverLarge": "/portfolio/Photography/skaters/IMG_3736_1.jpg"
       },
       {
         "filename": "IMG_4003.jpg",
@@ -466,10 +419,6 @@
       {
         "filename": "IMG_4017.jpg",
         "large": "/portfolio/Photography/skaters/IMG_4017.jpg"
-      },
-      {
-        "filename": "IMG_4018.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_4018.jpg"
       },
       {
         "filename": "IMG_4031.jpg",
@@ -506,10 +455,6 @@
         "hoverLarge": "/portfolio/Photography/skaters/IMG_4222-Edit_1.jpg"
       },
       {
-        "filename": "IMG_4222.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_4222.jpg"
-      },
-      {
         "filename": "IMG_4223.jpg",
         "large": "/portfolio/Photography/skaters/IMG_4223.jpg"
       },
@@ -519,17 +464,8 @@
         "hoverLarge": "/portfolio/Photography/skaters/IMG_4225_1.jpg"
       },
       {
-        "filename": "IMG_4229.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_4229.jpg",
-        "hoverLarge": "/portfolio/Photography/skaters/IMG_4229_1.jpg"
-      },
-      {
         "filename": "IMG_4230.jpg",
         "large": "/portfolio/Photography/skaters/IMG_4230.jpg"
-      },
-      {
-        "filename": "IMG_4585.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_4585.jpg"
       },
       {
         "filename": "IMG_4653.jpg",
@@ -574,11 +510,6 @@
       {
         "filename": "IMG_4665.jpg",
         "large": "/portfolio/Photography/skaters/IMG_4665.jpg"
-      },
-      {
-        "filename": "IMG_4666.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_4666.jpg",
-        "hoverLarge": "/portfolio/Photography/skaters/IMG_4666_1.jpg"
       },
       {
         "filename": "IMG_4667.jpg",
@@ -793,10 +724,6 @@
         "large": "/portfolio/Photography/skaters/IMG_4752.jpg"
       },
       {
-        "filename": "IMG_4753.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_4753.jpg"
-      },
-      {
         "filename": "IMG_4754.jpg",
         "large": "/portfolio/Photography/skaters/IMG_4754.jpg"
       },
@@ -994,24 +921,12 @@
         "large": "/portfolio/Photography/skaters/IMG_4817.jpg"
       },
       {
-        "filename": "IMG_4821.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_4821.jpg"
-      },
-      {
         "filename": "IMG_4826.jpg",
         "large": "/portfolio/Photography/skaters/IMG_4826.jpg"
       },
       {
         "filename": "IMG_4829.jpg",
         "large": "/portfolio/Photography/skaters/IMG_4829.jpg"
-      },
-      {
-        "filename": "IMG_4861.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_4861.jpg"
-      },
-      {
-        "filename": "IMG_4884.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_4884.jpg"
       },
       {
         "filename": "IMG_4893.jpg",
@@ -1054,10 +969,6 @@
         "large": "/portfolio/Photography/skaters/IMG_4932.jpg"
       },
       {
-        "filename": "IMG_4935.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_4935.jpg"
-      },
-      {
         "filename": "IMG_4940.jpg",
         "large": "/portfolio/Photography/skaters/IMG_4940.jpg"
       },
@@ -1068,10 +979,6 @@
       {
         "filename": "IMG_4942.jpg",
         "large": "/portfolio/Photography/skaters/IMG_4942.jpg"
-      },
-      {
-        "filename": "IMG_4946.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_4946.jpg"
       },
       {
         "filename": "IMG_4954.jpg",
@@ -1254,10 +1161,6 @@
         "large": "/portfolio/Photography/skaters/IMG_5028.jpg"
       },
       {
-        "filename": "IMG_5029.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_5029.jpg"
-      },
-      {
         "filename": "IMG_5030.jpg",
         "large": "/portfolio/Photography/skaters/IMG_5030.jpg"
       },
@@ -1286,20 +1189,8 @@
         "large": "/portfolio/Photography/skaters/IMG_5053.jpg"
       },
       {
-        "filename": "IMG_5056.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_5056.jpg"
-      },
-      {
-        "filename": "IMG_5062.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_5062.jpg"
-      },
-      {
         "filename": "IMG_5063.jpg",
         "large": "/portfolio/Photography/skaters/IMG_5063.jpg"
-      },
-      {
-        "filename": "IMG_5064.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_5064.jpg"
       },
       {
         "filename": "IMG_5065.jpg",
@@ -1312,10 +1203,6 @@
       {
         "filename": "IMG_5067.jpg",
         "large": "/portfolio/Photography/skaters/IMG_5067.jpg"
-      },
-      {
-        "filename": "IMG_5072.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_5072.jpg"
       },
       {
         "filename": "IMG_5075.jpg",
@@ -1890,10 +1777,6 @@
         "large": "/portfolio/Photography/skaters/IMG_5263.jpg"
       },
       {
-        "filename": "IMG_5264.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_5264.jpg"
-      },
-      {
         "filename": "IMG_5265.jpg",
         "large": "/portfolio/Photography/skaters/IMG_5265.jpg"
       },
@@ -1908,10 +1791,6 @@
       {
         "filename": "IMG_5268.jpg",
         "large": "/portfolio/Photography/skaters/IMG_5268.jpg"
-      },
-      {
-        "filename": "IMG_5269.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_5269.jpg"
       },
       {
         "filename": "IMG_5270.jpg",
@@ -2072,10 +1951,6 @@
       {
         "filename": "IMG_5316.jpg",
         "large": "/portfolio/Photography/skaters/IMG_5316.jpg"
-      },
-      {
-        "filename": "IMG_5317.jpg",
-        "large": "/portfolio/Photography/skaters/IMG_5317.jpg"
       },
       {
         "filename": "IMG_5318.jpg",
@@ -2301,10 +2176,6 @@
       {
         "filename": "Shop_Panorama1.jpg",
         "large": "/portfolio/Photography/yocha_dehe/Shop_Panorama1.jpg"
-      },
-      {
-        "filename": "Untitled_Panorama1.jpg",
-        "large": "/portfolio/Photography/yocha_dehe/Untitled_Panorama1.jpg"
       },
       {
         "filename": "Untitled_Panorama2.jpg",
