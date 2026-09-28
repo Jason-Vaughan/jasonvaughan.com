@@ -1,40 +1,41 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import portfolioData from "../data/portfolio-index.json";
 
 export default function VisualPortfolio() {
-  const [activeTab, setActiveTab] = useState("photography"); // 'photography', 'digitalArt', 'presentations'
-  
-  // Default to first category
-  const [activeCategory, setActiveCategory] = useState(() => {
-    return Object.keys(portfolioData.photography)[0] || "";
-  });
-
+  const [activeTab, setActiveTab] = useState("photography");
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [featuredIndex, setFeaturedIndex] = useState(0);
 
-  // When changing tabs, reset category to the first one in that tab
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-    if (tab === "photography") {
-      setActiveCategory(Object.keys(portfolioData.photography)[0] || "");
-    } else if (tab === "digitalArt") {
-      setActiveCategory(Object.keys(portfolioData.digitalArt)[0] || "");
-    } else {
-      setActiveCategory("");
+  // Flatten images for the active tab
+  const currentImages = useMemo(() => {
+    let images = [];
+    if (activeTab === "photography") {
+      Object.keys(portfolioData.photography).forEach(cat => {
+        images = images.concat(portfolioData.photography[cat]);
+      });
+    } else if (activeTab === "digitalArt") {
+      Object.keys(portfolioData.digitalArt).forEach(cat => {
+        images = images.concat(portfolioData.digitalArt[cat]);
+      });
     }
-  };
-
-  const categories = useMemo(() => {
-    if (activeTab === "photography") return Object.keys(portfolioData.photography).sort();
-    if (activeTab === "digitalArt") return Object.keys(portfolioData.digitalArt).sort();
-    return [];
+    // Simple deterministic shuffle so it looks mixed
+    return images.sort((a, b) => (a.filename > b.filename ? 1 : -1));
   }, [activeTab]);
 
-  const currentImages = useMemo(() => {
-    if (activeTab === "photography") return portfolioData.photography[activeCategory] || [];
-    if (activeTab === "digitalArt") return portfolioData.digitalArt[activeCategory] || [];
-    return [];
-  }, [activeTab, activeCategory]);
+  // Rotate featured image every 5 seconds
+  useEffect(() => {
+    if (currentImages.length === 0) return;
+    const interval = setInterval(() => {
+      setFeaturedIndex(prev => (prev + 1) % currentImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [currentImages]);
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    setFeaturedIndex(0);
+  };
 
   const openLightbox = (idx) => setLightboxIndex(idx);
   const closeLightbox = () => setLightboxIndex(null);
@@ -64,7 +65,7 @@ export default function VisualPortfolio() {
   return (
     <div style={{ width: "100%" }}>
       {/* Top Tabs */}
-      <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 24, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 32, flexWrap: "wrap" }}>
         <button style={tabStyle(activeTab === "photography")} onClick={() => handleTabChange("photography")}>Photography</button>
         <button style={tabStyle(activeTab === "digitalArt")} onClick={() => handleTabChange("digitalArt")}>Digital Art</button>
         <button style={tabStyle(activeTab === "presentations")} onClick={() => handleTabChange("presentations")}>Presentations</button>
@@ -77,39 +78,46 @@ export default function VisualPortfolio() {
         </div>
       ) : (
         <>
-          {/* Category Selector */}
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: 32 }}>
-            <select 
-              value={activeCategory} 
-              onChange={(e) => setActiveCategory(e.target.value)}
-              style={{
-                background: "#18181b",
-                color: "#e4e4e7",
+          {/* Featured Image Hero */}
+          {currentImages.length > 0 && (
+            <div 
+              style={{ 
+                width: "100%", 
+                height: 450, 
+                marginBottom: 32, 
+                borderRadius: 16, 
+                overflow: "hidden", 
+                position: "relative",
+                cursor: "pointer",
                 border: "1px solid #3f3f46",
-                padding: "8px 16px",
-                borderRadius: 8,
-                fontSize: 14,
-                fontWeight: 600,
-                outline: "none",
-                cursor: "pointer"
+                boxShadow: "0 8px 32px rgba(0,0,0,0.5)"
               }}
+              onClick={() => openLightbox(featuredIndex)}
             >
-              {categories.map(cat => (
-                <option key={cat} value={cat}>{cat}</option>
-              ))}
-            </select>
-          </div>
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={featuredIndex}
+                  src={activeTab === "photography" ? currentImages[featuredIndex].large : currentImages[featuredIndex].original}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 1.5 }}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              </AnimatePresence>
+            </div>
+          )}
 
           {/* Grid */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 16 }}>
             {currentImages.map((img, idx) => {
-              const src = activeTab === "photography" ? img.thumb : img.original;
+              const src = activeTab === "photography" ? img.medium : img.original;
               return (
                 <motion.div 
-                  key={img.filename}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: idx * 0.02 }}
+                  key={img.filename + idx}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: (idx % 20) * 0.02 }}
                   onClick={() => openLightbox(idx)}
                   style={{
                     aspectRatio: "1",
@@ -167,8 +175,6 @@ export default function VisualPortfolio() {
                 }}
                 onClick={(e) => e.stopPropagation()}
               />
-              
-              {/* Controls */}
               {currentImages.length > 1 && (
                 <>
                   <button onClick={prevImage} style={{ position: "absolute", left: -40, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "#fff", fontSize: 32, cursor: "pointer", padding: 10 }}>‹</button>
