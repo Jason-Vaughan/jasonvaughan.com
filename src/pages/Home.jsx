@@ -831,20 +831,21 @@ export default function Home() {
           transition={{ duration: 0.8, delay: 0.1 }}
           style={{
             marginTop: 46,
-            display: "inline-flex",
+            display: "flex",
+            flexDirection: "column",
             alignItems: "center",
-            flexWrap: "wrap",
             justifyContent: "center",
             gap: 12,
-            padding: "6px 16px",
-            borderRadius: 9999,
+            padding: "18px 28px",
+            borderRadius: 24,
             background: "rgba(139, 92, 246, 0.08)",
             border: "1px solid rgba(139, 92, 246, 0.25)",
             fontSize: 13.5,
             color: "#d4d4d8",
             fontWeight: 500,
-            maxWidth: "min(640px, 90vw)",
-            boxShadow: "0 0 15px rgba(139, 92, 246, 0.05)"
+            maxWidth: "min(720px, 90vw)",
+            boxShadow: "0 0 15px rgba(139, 92, 246, 0.05)",
+            textAlign: "center"
           }}
         >
           <span style={{
