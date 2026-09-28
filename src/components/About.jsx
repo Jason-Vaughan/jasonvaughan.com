@@ -4,6 +4,7 @@ import { aboutData as d } from "../data/about";
 
 export default function About({ visitorType, onDownloadResume }) {
   const activeHero = d.hero[visitorType] || d.hero.Default || d.hero;
+  const activePhilosophy = (d.philosophy[visitorType] || d.philosophy.Default || d.philosophy) || [];
   const containerStyle = {
     display: "flex",
     flexDirection: "column",
@@ -163,9 +164,9 @@ export default function About({ visitorType, onDownloadResume }) {
 
           {/* Philosophy Section */}
           <div style={card}>
-            <h4 style={titleStyle}>Philosophy</h4>
+            <h4 style={titleStyle}>{visitorType === "Inspyr" ? "Design Philosophy" : "Philosophy"}</h4>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              {d.philosophy.map((item, idx) => (
+              {activePhilosophy.map((item, idx) => (
                 <div key={idx}>
                   <div style={{ fontWeight: 600, color: "#fbbf24", fontSize: 13.5 }}>{item.question}</div>
                   <div style={{ color: "#a1a1aa", fontSize: 13, marginTop: 4, lineHeight: 1.45 }}>{item.answer}</div>

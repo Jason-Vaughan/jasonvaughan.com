@@ -57,20 +57,36 @@ export const aboutData = {
     }
   ],
   
-  philosophy: [
-    {
-      question: "Why local AI?",
-      answer: "Privacy, predictability, and ownership. Sending every basic task to a cloud API is expensive and unnecessary when you can run capable models locally on hardware you own."
-    },
-    {
-      question: "Why open source?",
-      answer: "I believe software should be inspectable and auditable. Building transparent tools like TangleClaw fosters community collaboration and keeps developers in control of their environments."
-    },
-    {
-      question: "What problems excite you?",
-      answer: "Bridging physical and digital worlds. I love building systems where software interacts directly with hardware—whether it's broadcast switchers, networking pipes, or AI agents editing files."
-    }
-  ],
+  philosophy: {
+    Default: [
+      {
+        question: "Why local AI?",
+        answer: "Privacy, predictability, and ownership. Sending every basic task to a cloud API is expensive and unnecessary when you can run capable models locally on hardware you own."
+      },
+      {
+        question: "Why open source?",
+        answer: "I believe software should be inspectable and auditable. Building transparent tools like TangleClaw fosters community collaboration and keeps developers in control of their environments."
+      },
+      {
+        question: "What problems excite you?",
+        answer: "Bridging physical and digital worlds. I love building systems where software interacts directly with hardware—whether it's broadcast switchers, networking pipes, or AI agents editing files."
+      }
+    ],
+    Inspyr: [
+      {
+        question: "What makes a visual successful?",
+        answer: "Clarity comes first. The job is not to decorate information — it’s to understand what the audience needs to see, feel, or understand, then find the strongest visual way to communicate it."
+      },
+      {
+        question: "How do you approach technical content?",
+        answer: "I start by understanding the idea, not the slide. I work directly with engineers, executives, producers, and subject-matter experts to find the story inside complex material, then translate it into visuals that make sense without oversimplifying the content."
+      },
+      {
+        question: "What changes when the work is going live?",
+        answer: "Everything has to survive contact with the real world. Presentations change during rehearsals, executives revise content backstage, and technical systems introduce their own constraints. I design with that reality in mind — flexible enough to change, structured enough to remain reliable, and polished enough to work in front of an audience."
+      }
+    ]
+  },
   
   timeline: [
     { year: "2000", event: "Co-designed iPolis webcasting SaaS, establishing my base in software development." },
