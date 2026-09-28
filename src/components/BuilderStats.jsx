@@ -153,7 +153,7 @@ function renderSparklineSvg(data, width, height, strokeColor, gradientId) {
 /**
  * Builder stats bar — fetches stats from all projects and displays aggregated totals.
  */
-export default function BuilderStats({ visitorType, onOpenForksModal }) {
+export default function BuilderStats({ visitorType, onOpenForksModal, displayMode = "full" }) {
   const [activeTab, setActiveTab] = useState("codebase");
   const [totals, setTotals] = useState(null);
   const [hoveredLabel, setHoveredLabel] = useState(null);
@@ -1194,6 +1194,40 @@ export default function BuilderStats({ visitorType, onOpenForksModal }) {
     </>
   );
 };
+
+  if (displayMode === "mini") {
+    if (!totals) return null;
+    const ch = clawhubTotals;
+    const dlText = ch ? ` • ${(ch.skills + ch.plugins).toLocaleString()} Downloads` : "";
+    
+    return (
+      <section id="builder-stats" style={{ padding: "0 0 24px" }}>
+        <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px" }}>
+          <div style={{
+            borderRadius: 12,
+            border: "1px solid #3f3f46",
+            background: "linear-gradient(135deg, rgba(24,24,27,0.95), rgba(39,39,42,0.95))",
+            padding: "16px 24px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 16,
+            flexWrap: "wrap",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.2)"
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <span style={{ fontSize: 24 }}>📊</span>
+              <div>
+                <h4 style={{ margin: 0, fontSize: 14, color: "#fafafa" }}>Live Software Telemetry</h4>
+                <p style={{ margin: 0, fontSize: 12, color: "#a1a1aa" }}>{formatBigNumber(totals.loc)} LOC • {totals.projects} Projects{dlText}</p>
+              </div>
+            </div>
+            {/* We can omit the expand button or make it link down to something else if needed, but a clean badge is great */}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <>

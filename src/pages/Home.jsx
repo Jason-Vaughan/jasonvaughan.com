@@ -1180,7 +1180,7 @@ export default function Home() {
       )}
 
       {/* Builder Stats - always shown at the top of the content */}
-      <BuilderStats visitorType={visitorType} onOpenForksModal={() => setIsForksModalOpen(true)} />
+      <BuilderStats visitorType={visitorType} displayMode={(visitorType === "Inspyr" || visitorType === "Recruiter") ? "mini" : "full"} onOpenForksModal={() => setIsForksModalOpen(true)} />
 
       {renderedSections.map((sec) => (
         <React.Fragment key={sec.id}>
