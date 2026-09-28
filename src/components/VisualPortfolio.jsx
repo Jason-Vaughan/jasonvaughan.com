@@ -84,7 +84,10 @@ export default function VisualPortfolio() {
           {currentImages.length > 0 && (
             <div 
               style={{ 
-                width: "100%", 
+                width: "calc(100vw - 40px)", 
+                maxWidth: 1200,
+                marginLeft: "50%",
+                transform: "translateX(-50%)",
                 aspectRatio: "16 / 9",
                 background: "#000",
                 marginBottom: 24, 
