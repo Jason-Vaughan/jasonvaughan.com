@@ -20,8 +20,18 @@ export default function VisualPortfolio() {
         images = images.concat(portfolioData.digitalArt[cat]);
       });
     }
+    // Remove duplicates caused by the same image existing in multiple category folders
+    const uniqueImages = [];
+    const seen = new Set();
+    images.forEach(img => {
+      if (!seen.has(img.filename)) {
+        seen.add(img.filename);
+        uniqueImages.push(img);
+      }
+    });
+
     // Simple deterministic shuffle so it looks mixed
-    return images.sort((a, b) => (a.filename > b.filename ? 1 : -1));
+    return uniqueImages.sort((a, b) => (a.filename > b.filename ? 1 : -1));
   }, [activeTab]);
 
   // Rotate featured image every 5 seconds
