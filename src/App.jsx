@@ -12,7 +12,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/dev" element={<DevLab />} />
-        <Route path="/designer-portfolio" element={<DesignerPortfolio />} />
+        <Route path="/tmp" element={<DesignerPortfolio />} />
       </Routes>
     </Router>
   );
