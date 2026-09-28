@@ -149,18 +149,29 @@ export default function VisualPortfolio() {
                   onClick={() => openLightbox(featuredIndex)}
                 >
                   <AnimatePresence mode="wait">
-                    <motion.img
+                    <motion.div
                       key={featuredIndex}
-                      src={activeTab === "photography" ? allImagesInTab[featuredIndex].large : allImagesInTab[featuredIndex].original}
-                      initial={{ opacity: 0, scale: 1 }}
-                      animate={{ opacity: 1, scale: 1.03 }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ 
-                        opacity: { duration: 1.5 },
-                        scale: { duration: 6, ease: "linear" }
-                      }}
-                      style={{ width: "100%", height: "100%", objectFit: "contain" }}
-                    />
+                      transition={{ duration: 1.5 }}
+                      style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", justifyContent: "center", alignItems: "center" }}
+                    >
+                      <div style={{ position: "relative", maxWidth: "100%", maxHeight: "100%", display: "flex", borderRadius: 16, overflow: "hidden" }}>
+                        <motion.img
+                          src={activeTab === "photography" ? allImagesInTab[featuredIndex].large : allImagesInTab[featuredIndex].original}
+                          initial={{ scale: 1 }}
+                          animate={{ scale: 1.03 }}
+                          transition={{ scale: { duration: 6, ease: "linear" } }}
+                          style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
+                        />
+                        {activeTab === "digitalArt" && (
+                           <div style={{ position: "absolute", bottom: 0, right: 0, background: "#111", color: "rgba(255,255,255,0.7)", padding: "6px 12px", fontSize: 13, fontWeight: 500, borderTopLeftRadius: 8, zIndex: 10 }}>
+                             © Jason Vaughan
+                           </div>
+                        )}
+                      </div>
+                    </motion.div>
                   </AnimatePresence>
                 </div>
               )}
@@ -241,6 +252,7 @@ export default function VisualPortfolio() {
                       transition={{ duration: 0.2, delay: (idx % 10) * 0.02 }}
                       onClick={() => openLightbox(idx)}
                       style={{
+                        position: "relative",
                         aspectRatio: "1",
                         borderRadius: 12,
                         overflow: "hidden",
@@ -258,6 +270,11 @@ export default function VisualPortfolio() {
                         onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.05)"}
                         onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
                       />
+                      {activeTab === "digitalArt" && (
+                         <div style={{ position: "absolute", bottom: 0, right: 0, background: "#111", color: "rgba(255,255,255,0.7)", padding: "4px 8px", fontSize: 10, fontWeight: 500, borderTopLeftRadius: 6, zIndex: 10, pointerEvents: "none" }}>
+                           © Jason Vaughan
+                         </div>
+                      )}
                     </motion.div>
                   );
                 })}
@@ -287,18 +304,23 @@ export default function VisualPortfolio() {
             }}
           >
             <div style={{ position: "relative", maxWidth: "90vw", maxHeight: "90vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <img 
-                src={activeTab === "photography" ? activeLightboxImages[lightboxIndex].large : activeLightboxImages[lightboxIndex].original} 
-                alt="Enlarged"
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: "90vh",
-                  objectFit: "contain",
-                  borderRadius: 8,
-                  boxShadow: "0 10px 40px rgba(0,0,0,0.8)"
-                }}
-                onClick={(e) => e.stopPropagation()}
-              />
+              <div style={{ position: "relative", maxWidth: "100%", maxHeight: "100%", display: "flex", borderRadius: 8, overflow: "hidden", boxShadow: "0 10px 40px rgba(0,0,0,0.8)" }}>
+                <img 
+                  src={activeTab === "photography" ? activeLightboxImages[lightboxIndex].large : activeLightboxImages[lightboxIndex].original} 
+                  alt="Enlarged"
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "90vh",
+                    objectFit: "contain"
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                />
+                {activeTab === "digitalArt" && (
+                   <div style={{ position: "absolute", bottom: 0, right: 0, background: "#111", color: "rgba(255,255,255,0.7)", padding: "8px 16px", fontSize: 14, fontWeight: 500, borderTopLeftRadius: 8, zIndex: 10, pointerEvents: "none" }}>
+                     © Jason Vaughan
+                   </div>
+                )}
+              </div>
               {activeLightboxImages.length > 1 && (
                 <>
                   <button onClick={prevImage} style={{ position: "absolute", left: -60, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "#fff", fontSize: 40, cursor: "pointer", padding: 10 }}>‹</button>
