@@ -157,16 +157,16 @@ export default function VisualPortfolio() {
                       transition={{ duration: 1.5 }}
                       style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", justifyContent: "center", alignItems: "center" }}
                     >
-                      <div style={{ position: "relative", maxWidth: "100%", maxHeight: "100%", display: "flex", borderRadius: 16, overflow: "hidden" }}>
+                      <div style={{ display: "grid", placeItems: "center", maxWidth: "100%", maxHeight: "100%", borderRadius: 16, overflow: "hidden" }}>
                         <motion.img
                           src={activeTab === "photography" ? allImagesInTab[featuredIndex].large : allImagesInTab[featuredIndex].original}
                           initial={{ scale: 1 }}
                           animate={{ scale: 1.03 }}
                           transition={{ scale: { duration: 6, ease: "linear" } }}
-                          style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
+                          style={{ gridArea: "1/1", maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
                         />
                         {activeTab === "digitalArt" && (
-                           <div style={{ position: "absolute", bottom: 0, right: 0, background: "#111", color: "rgba(255,255,255,0.7)", padding: "6px 12px", fontSize: 13, fontWeight: 500, borderTopLeftRadius: 8, zIndex: 10 }}>
+                           <div style={{ gridArea: "1/1", placeSelf: "end end", background: "#111", color: "rgba(255,255,255,0.7)", padding: "6px 12px", fontSize: 13, fontWeight: 500, borderTopLeftRadius: 8, zIndex: 10 }}>
                              © Jason Vaughan
                            </div>
                         )}
@@ -304,11 +304,12 @@ export default function VisualPortfolio() {
             }}
           >
             <div style={{ position: "relative", maxWidth: "90vw", maxHeight: "90vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <div style={{ position: "relative", maxWidth: "100%", maxHeight: "100%", display: "flex", borderRadius: 8, overflow: "hidden", boxShadow: "0 10px 40px rgba(0,0,0,0.8)" }}>
+              <div style={{ display: "grid", placeItems: "center", maxWidth: "100%", maxHeight: "100%", borderRadius: 8, overflow: "hidden", boxShadow: "0 10px 40px rgba(0,0,0,0.8)" }}>
                 <img 
                   src={activeTab === "photography" ? activeLightboxImages[lightboxIndex].large : activeLightboxImages[lightboxIndex].original} 
                   alt="Enlarged"
                   style={{
+                    gridArea: "1/1",
                     maxWidth: "100%",
                     maxHeight: "90vh",
                     objectFit: "contain"
@@ -316,7 +317,7 @@ export default function VisualPortfolio() {
                   onClick={(e) => e.stopPropagation()}
                 />
                 {activeTab === "digitalArt" && (
-                   <div style={{ position: "absolute", bottom: 0, right: 0, background: "#111", color: "rgba(255,255,255,0.7)", padding: "8px 16px", fontSize: 14, fontWeight: 500, borderTopLeftRadius: 8, zIndex: 10, pointerEvents: "none" }}>
+                   <div style={{ gridArea: "1/1", placeSelf: "end end", background: "#111", color: "rgba(255,255,255,0.7)", padding: "8px 16px", fontSize: 14, fontWeight: 500, borderTopLeftRadius: 8, zIndex: 10, pointerEvents: "none" }}>
                      © Jason Vaughan
                    </div>
                 )}
