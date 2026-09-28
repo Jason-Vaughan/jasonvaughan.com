@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { aboutData as d } from "../data/about";
 
 export default function About({ visitorType, onDownloadResume }) {
+  const activeHero = d.hero[visitorType] || d.hero.Default || d.hero;
   const containerStyle = {
     display: "flex",
     flexDirection: "column",
@@ -67,11 +68,11 @@ export default function About({ visitorType, onDownloadResume }) {
       {/* 1. Hero Block */}
       <div style={{ ...card, background: "linear-gradient(135deg, rgba(24,24,27,0.85) 0%, rgba(9,9,11,0.95) 100%)", border: "1px solid rgba(251, 191, 36, 0.25)", textAlign: "center", padding: "32px 24px" }}>
         <h3 style={{ fontSize: 32, fontWeight: 800, color: "#fff", lineHeight: 1.3 }}>
-          {d.hero.title}
+          {activeHero.title}
         </h3>
-        {d.hero.subtitle && (
+        {activeHero.subtitle && (
           <p style={{ marginTop: 12, color: "#a1a1aa", fontSize: 15, lineHeight: 1.6 }}>
-            {d.hero.subtitle}
+            {activeHero.subtitle}
           </p>
         )}
         {visitorType === "Recruiter" && (

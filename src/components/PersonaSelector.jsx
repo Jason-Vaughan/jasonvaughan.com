@@ -28,7 +28,7 @@ export const PERSONAS = {
     sections: ["about", "career", "skills", "certifications", "projects"],
   },
   Inspyr: {
-    label: "Keynote Designer Mode",
+    label: "Designer Mode",
     bannerText: "Welcome INSPYR Hiring Team! We've highlighted Jason's Keynote design expertise, ability to translate complex engineering concepts into narratives, and experience working with stakeholders.",
     sections: ["about", "career", "skills", "certifications", "contact"],
   },
