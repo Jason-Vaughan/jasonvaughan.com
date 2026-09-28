@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<mediaGroup>
+<amgVersion version="1.3"/>
+<groupInfo>
+<author/>
+<authorApplication>Lightroom 4.0</authorApplication>
+<creationDate>05/05/12, 12:57:41 AM</creationDate>
+<galleryMaker name="Adobe Flash Gallery" version="1.3"/>
+<groupData groupID="" groupName=""/>
+<authorID/>
+<custom>
+<groupTitle>Pano Candidates</groupTitle>
+<groupDescription>Various photos of birds</groupDescription>
+<siteTitle>Yocha Dehe</siteTitle>
+<contactName>Call: 916-290-8606</contactName>
+<contactEmail>mailto:user@domain</contactEmail>
+</custom>
+</groupInfo>
+<sizes>
+<imageSize maxheight="96" maxwidth="96" size="thumb"/>
+<imageSize maxheight="520" maxwidth="1040" size="small"/>
+<imageSize maxheight="650" maxwidth="1150" size="medium"/>
+<imageSize maxheight="850" maxwidth="1275" size="large"/>
+</sizes>
+<media totalGallerySize="11">
+<item>
+<title></title>
+<description></description>
+<imageID id="17974" dbtype="Adobe Lightroom 3.0" dbname="main"/>
+<mediaType format="jpeg" category="image"/>
+<renditions>
+<rendition height="230" src="images/large/vantage3-panoV3.jpg" width="1275" size="large"/>
+<rendition height="208" src="images/medium/vantage3-panoV3.jpg" width="1150" size="medium"/>
+<rendition height="188" src="images/small/vantage3-panoV3.jpg" width="1040" size="small"/>
+<rendition height="17" src="images/thumb/vantage3-panoV3.jpg" width="96" size="thumb"/>
+</renditions>
+</item>
+<item>
+<title></title>
+<description></description>
+<imageID id="17920" dbtype="Adobe Lightroom 3.0" dbname="main"/>
+<mediaType format="jpeg" category="image"/>
+<renditions>
+<rendition height="425" src="images/large/Pond3-v1.jpg" width="1275" size="large"/>
+<rendition height="383" src="images/medium/Pond3-v1.jpg" width="1150" size="medium"/>
+<rendition height="347" src="images/small/Pond3-v1.jpg" width="1040" size="small"/>
+<rendition height="32" src="images/thumb/Pond3-v1.jpg" width="96" size="thumb"/>
+</renditions>
+</item>
+<item>
+<title></title>
+<description></description>
+<imageID id="16815" dbtype="Adobe Lightroom 3.0" dbname="main"/>
+<mediaType format="jpeg" category="image"/>
+<renditions>
+<rendition height="190" src="images/large/Pond2_pano.jpg" width="1275" size="large"/>
+<rendition height="172" src="images/medium/Pond2_pano.jpg" width="1150" size="medium"/>
+<rendition height="155" src="images/small/Pond2_pano.jpg" width="1040" size="small"/>
+<rendition height="14" src="images/thumb/Pond2_pano.jpg" width="96" size="thumb"/>
+</renditions>
+</item>
+<item>
+<title></title>
+<description></description>
+<imageID id="18087" dbtype="Adobe Lightroom 3.0" dbname="main"/>
+<mediaType format="jpeg" category="image"/>
+<renditions>
+<rendition height="217" src="images/large/clubhouse_pano1.jpg" width="1275" size="large"/>
+<rendition height="196" src="images/medium/clubhouse_pano1.jpg" width="1150" size="medium"/>
+<rendition height="177" src="images/small/clubhouse_pano1.jpg" width="1040" size="small"/>
+<rendition height="16" src="images/thumb/clubhouse_pano1.jpg" width="96" size="thumb"/>
+</renditions>
+</item>
+<item>
+<title></title>
+<description></description>
+<imageID id="17823" dbtype="Adobe Lightroom 3.0" dbname="main"/>
+<mediaType format="jpeg" category="image"/>
+<renditions>
+<rendition height="549" src="images/large/clubhouse2-V1.jpg" width="1275" size="large"/>
+<rendition height="495" src="images/medium/clubhouse2-V1.jpg" width="1150" size="medium"/>
+<rendition height="448" src="images/small/clubhouse2-V1.jpg" width="1040" size="small"/>
+<rendition height="41" src="images/thumb/clubhouse2-V1.jpg" width="96" size="thumb"/>
+</renditions>
+</item>
+<item>
+<title></title>
+<description></description>
+<imageID id="17756" dbtype="Adobe Lightroom 3.0" dbname="main"/>
+<mediaType format="jpeg" category="image"/>
+<renditions>
+<rendition height="282" src="images/large/vinyard1-V1.jpg" width="1275" size="large"/>
+<rendition height="254" src="images/medium/vinyard1-V1.jpg" width="1150" size="medium"/>
+<rendition height="230" src="images/small/vinyard1-V1.jpg" width="1040" size="small"/>
+<rendition height="21" src="images/thumb/vinyard1-V1.jpg" width="96" size="thumb"/>
+</renditions>
+</item>
+<item>
+<title></title>
+<description></description>
+<imageID id="16716" dbtype="Adobe Lightroom 3.0" dbname="main"/>
+<mediaType format="jpeg" category="image"/>
+<renditions>
+<rendition height="146" src="images/large/landscape1b-2.jpg" width="1275" size="large"/>
+<rendition height="132" src="images/medium/landscape1b-2.jpg" width="1150" size="medium"/>
+<rendition height="119" src="images/small/landscape1b-2.jpg" width="1040" size="small"/>
+<rendition height="11" src="images/thumb/landscape1b-2.jpg" width="96" size="thumb"/>
+</renditions>
+</item>
+<item>
+<title></title>
+<description></description>
+<imageID id="16781" dbtype="Adobe Lightroom 3.0" dbname="main"/>
+<mediaType format="jpeg" category="image"/>
+<renditions>
+<rendition height="330" src="images/large/Shop_Panorama1.jpg" width="1275" size="large"/>
+<rendition height="297" src="images/medium/Shop_Panorama1.jpg" width="1150" size="medium"/>
+<rendition height="269" src="images/small/Shop_Panorama1.jpg" width="1040" size="small"/>
+<rendition height="25" src="images/thumb/Shop_Panorama1.jpg" width="96" size="thumb"/>
+</renditions>
+</item>
+<item>
+<title></title>
+<description></description>
+<imageID id="17938" dbtype="Adobe Lightroom 3.0" dbname="main"/>
+<mediaType format="jpeg" category="image"/>
+<renditions>
+<rendition height="572" src="images/large/vantage1-panoV1.jpg" width="1275" size="large"/>
+<rendition height="516" src="images/medium/vantage1-panoV1.jpg" width="1150" size="medium"/>
+<rendition height="467" src="images/small/vantage1-panoV1.jpg" width="1040" size="small"/>
+<rendition height="43" src="images/thumb/vantage1-panoV1.jpg" width="96" size="thumb"/>
+</renditions>
+</item>
+<item>
+<title></title>
+<description></description>
+<imageID id="17956" dbtype="Adobe Lightroom 3.0" dbname="main"/>
+<mediaType format="jpeg" category="image"/>
+<renditions>
+<rendition height="328" src="images/large/vantage2-panoV1.jpg" width="1275" size="large"/>
+<rendition height="295" src="images/medium/vantage2-panoV1.jpg" width="1150" size="medium"/>
+<rendition height="267" src="images/small/vantage2-panoV1.jpg" width="1040" size="small"/>
+<rendition height="25" src="images/thumb/vantage2-panoV1.jpg" width="96" size="thumb"/>
+</renditions>
+</item>
+<item>
+<title></title>
+<description></description>
+<imageID id="17842" dbtype="Adobe Lightroom 3.0" dbname="main"/>
+<mediaType format="jpeg" category="image"/>
+<renditions>
+<rendition height="380" src="images/large/holex-v1.jpg" width="1275" size="large"/>
+<rendition height="343" src="images/medium/holex-v1.jpg" width="1150" size="medium"/>
+<rendition height="310" src="images/small/holex-v1.jpg" width="1040" size="small"/>
+<rendition height="29" src="images/thumb/holex-v1.jpg" width="96" size="thumb"/>
+</renditions>
+</item>
+</media>
+</mediaGroup>

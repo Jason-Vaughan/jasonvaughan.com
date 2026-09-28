@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<mediaGroup>
+<amgVersion version="1.3"/>
+<groupInfo>
+<author/>
+<authorApplication>Lightroom 4.0</authorApplication>
+<creationDate>05/19/12, 11:33:12 AM</creationDate>
+<galleryMaker name="Adobe Flash Gallery" version="1.3"/>
+<groupData groupID="" groupName=""/>
+<authorID/>
+<custom>
+<groupTitle>Night Photos</groupTitle>
+<groupDescription>Various photos of birds</groupDescription>
+<siteTitle>Photography by Jason Vaughan</siteTitle>
+<contactName>Call: 916-290-8606</contactName>
+<contactEmail>mailto:user@domain</contactEmail>
+</custom>
+</groupInfo>
+<sizes>
+<imageSize maxheight="96" maxwidth="96" size="thumb"/>
+<imageSize maxheight="520" maxwidth="1040" size="small"/>
+<imageSize maxheight="650" maxwidth="1150" size="medium"/>
+<imageSize maxheight="850" maxwidth="1275" size="large"/>
+</sizes>
+<media totalGallerySize="3">
+<item>
+<title></title>
+<description></description>
+<imageID id="12019" dbtype="Adobe Lightroom 3.0" dbname="main"/>
+<mediaType format="jpeg" category="image"/>
+<renditions>
+<rendition height="488" src="images/large/IMG_2223.jpg" width="1275" size="large"/>
+<rendition height="441" src="images/medium/IMG_2223.jpg" width="1150" size="medium"/>
+<rendition height="398" src="images/small/IMG_2223.jpg" width="1040" size="small"/>
+<rendition height="37" src="images/thumb/IMG_2223.jpg" width="96" size="thumb"/>
+</renditions>
+</item>
+<item>
+<title></title>
+<description></description>
+<imageID id="12847" dbtype="Adobe Lightroom 3.0" dbname="main"/>
+<mediaType format="jpeg" category="image"/>
+<renditions>
+<rendition height="512" src="images/large/IMG_2806.jpg" width="1275" size="large"/>
+<rendition height="462" src="images/medium/IMG_2806.jpg" width="1150" size="medium"/>
+<rendition height="418" src="images/small/IMG_2806.jpg" width="1040" size="small"/>
+<rendition height="39" src="images/thumb/IMG_2806.jpg" width="96" size="thumb"/>
+</renditions>
+</item>
+<item>
+<title></title>
+<description></description>
+<imageID id="22189" dbtype="Adobe Lightroom 3.0" dbname="main"/>
+<mediaType format="jpeg" category="image"/>
+<renditions>
+<rendition height="521" src="images/large/moon1.jpg" width="1187" size="large"/>
+<rendition height="505" src="images/medium/moon1.jpg" width="1150" size="medium"/>
+<rendition height="456" src="images/small/moon1.jpg" width="1040" size="small"/>
+<rendition height="42" src="images/thumb/moon1.jpg" width="96" size="thumb"/>
+</renditions>
+</item>
+</media>
+</mediaGroup>
