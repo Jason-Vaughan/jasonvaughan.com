@@ -105,7 +105,7 @@ export const personaTaglines = {
     highlight: "Combines deep experience producing flagship summits (Google, AWS, Salesforce) with elite project and budget management skills."
   },
   Inspyr: {
-    bio: "Keynote Designer & Technical Presentation Specialist with 25+ years of experience transforming complex, engineer-authored content into visually compelling narratives for high-stakes technical keynotes.",
+    bio: "Visual storytelling and technical presentation specialist with 25+ years of experience translating ideas into graphics, animation, motion content, and live visual experiences for executive presentations, major technology events, and professional theater. Collaborates directly with executives, engineers, producers, and artistic directors from initial concept and proofing through design, programming, rehearsal, and final delivery, either hands-on or leading multidisciplinary creative teams.",
     highlight: "I don't just layout slides; I build robust, editable presentation systems and collaborate directly with engineering teams under zero-downtime, live show stakes."
   },
   EventPro: {
