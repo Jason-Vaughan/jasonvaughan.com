@@ -150,7 +150,7 @@ export default function VisualPortfolio() {
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 16 }}>
             {currentImages.map((img, idx) => {
-              const src = activeTab === "photography" ? img.medium : img.original;
+              const src = activeTab === "photography" ? img.large : img.original;
               return (
                 <motion.div 
                   key={img.filename + idx}
@@ -206,7 +206,7 @@ export default function VisualPortfolio() {
           >
             <div style={{ position: "relative", maxWidth: "90vw", maxHeight: "90vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <img 
-                src={activeTab === "photography" ? (currentImages[lightboxIndex].large || currentImages[lightboxIndex].medium) : currentImages[lightboxIndex].original} 
+                src={activeTab === "photography" ? currentImages[lightboxIndex].large : currentImages[lightboxIndex].original} 
                 alt="Enlarged"
                 style={{
                   maxWidth: "100%",
