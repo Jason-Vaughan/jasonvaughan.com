@@ -54,6 +54,24 @@ export default function VisualPortfolio() {
     return [];
   }, [activeTab, selectedCategory]);
 
+  // Randomize category cover photos once per mount
+  const categoryCovers = useMemo(() => {
+    const covers = {};
+    const tabs = ["photography", "digitalArt"];
+    tabs.forEach(tab => {
+      const source = portfolioData[tab];
+      if (source) {
+        Object.keys(source).forEach(cat => {
+          if (source[cat] && source[cat].length > 0) {
+            const randomIndex = Math.floor(Math.random() * source[cat].length);
+            covers[`${tab}_${cat}`] = source[cat][randomIndex];
+          }
+        });
+      }
+    });
+    return covers;
+  }, []);
+
   const activeLightboxImages = viewMode === "grid" ? currentCategoryImages : allImagesInTab;
 
   // Slideshow rotation
@@ -180,7 +198,8 @@ export default function VisualPortfolio() {
                 {Object.keys(activeTab === "photography" ? portfolioData.photography : portfolioData.digitalArt).map((cat) => {
                   const catImages = (activeTab === "photography" ? portfolioData.photography : portfolioData.digitalArt)[cat];
                   if (!catImages || catImages.length === 0) return null;
-                  const coverImg = activeTab === "photography" ? catImages[0].large : catImages[0].original;
+                  const randomCover = categoryCovers[`${activeTab === "photography" ? "photography" : "digitalArt"}_${cat}`] || catImages[0];
+                  const coverImg = activeTab === "photography" ? randomCover.large : randomCover.original;
                   return (
                     <motion.div 
                       key={cat}
