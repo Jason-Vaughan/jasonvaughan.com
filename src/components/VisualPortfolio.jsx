@@ -77,9 +77,10 @@ export default function VisualPortfolio() {
   // Slideshow rotation
   useEffect(() => {
     if (viewMode !== "slideshow" || activeTab === "presentations") return;
+    const rotationSpeed = activeTab === "digitalArt" ? 7000 : 5000;
     const interval = setInterval(() => {
       setFeaturedIndex((prev) => (prev + 1) % allImagesInTab.length);
-    }, 5000);
+    }, rotationSpeed);
     return () => clearInterval(interval);
   }, [allImagesInTab.length, viewMode, activeTab]);
 
@@ -162,7 +163,7 @@ export default function VisualPortfolio() {
                           src={activeTab === "photography" ? allImagesInTab[featuredIndex].large : allImagesInTab[featuredIndex].original}
                           initial={{ scale: 1 }}
                           animate={{ scale: 1.03 }}
-                          transition={{ scale: { duration: 6, ease: "linear" } }}
+                          transition={{ scale: { duration: activeTab === "digitalArt" ? 8 : 6, ease: "linear" } }}
                           style={{ gridArea: "1/1", maxWidth: "100%", maxHeight: "100%", objectFit: "contain", display: "block" }}
                           onLoad={(e) => {
                             // Dynamically force the grid container to match the image's intrinsic aspect ratio
