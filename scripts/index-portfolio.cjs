@@ -16,11 +16,9 @@ if (fs.existsSync(photoDir)) {
   
   for (const cat of categories) {
     portfolioData.photography[cat] = [];
-    const imagesDir = path.join(photoDir, cat, 'images');
-    if (fs.existsSync(imagesDir)) {
-      const largeDir = path.join(imagesDir, 'large');
-      if (fs.existsSync(largeDir)) {
-        const files = fs.readdirSync(largeDir).filter(f => !f.startsWith('.') && f.endsWith('.jpg'));
+    const catDir = path.join(photoDir, cat);
+    if (fs.existsSync(catDir)) {
+      const files = fs.readdirSync(catDir).filter(f => !f.startsWith('.') && f.endsWith('.jpg'));
         
         // Group by base name
         const imageMap = {};
@@ -36,7 +34,7 @@ if (fs.existsSync(photoDir)) {
           if (!imageMap[baseName]) {
             imageMap[baseName] = {
               filename: baseName,
-              large: `/portfolio/Photography/${encodeURIComponent(cat)}/images/large/${encodeURIComponent(baseName)}`,
+              large: `/portfolio/Photography/${encodeURIComponent(cat)}/${encodeURIComponent(baseName)}`,
               
               
               
@@ -45,12 +43,11 @@ if (fs.existsSync(photoDir)) {
 
           if (isHover) {
             
-            imageMap[baseName].hoverLarge = `/portfolio/Photography/${encodeURIComponent(cat)}/images/large/${encodeURIComponent(file)}`;
+            imageMap[baseName].hoverLarge = `/portfolio/Photography/${encodeURIComponent(cat)}/${encodeURIComponent(file)}`;
           }
         }
         
         portfolioData.photography[cat] = Object.values(imageMap);
-      }
     }
   }
 }
