@@ -495,6 +495,16 @@ export default function Home() {
 
   const allSections = [
     {
+      id: "about", // id="about"
+      title: "About",
+      icon: "👤",
+      description: "Who I am — narrative, pillars, milestones, and AI interview.",
+      bodyInWrap: true,
+      provideId: true,
+      element: <About visitorType={visitorType} onDownloadResume={handleResumeClick} />,
+      visible: true,
+    },
+    {
       id: "coding-stats",
       title: "Coding Statistics & Telemetry",
       icon: "📊",
@@ -507,16 +517,6 @@ export default function Home() {
         </div>
       ),
       visible: !!activeBannerNote && activeBannerNote.includes("Anthropic"),
-    },
-    {
-      id: "about", // id="about"
-      title: "About",
-      icon: "👤",
-      description: "Who I am — narrative, pillars, milestones, and AI interview.",
-      bodyInWrap: true,
-      provideId: true,
-      element: <About visitorType={visitorType} onDownloadResume={handleResumeClick} />,
-      visible: true,
     },
     {
       id: "career", // id="career"
@@ -1096,7 +1096,7 @@ export default function Home() {
       )}
 
       {/* Inline AI Concierge CTA Block - Hero Adjacent */}
-      {isPreviewMode && (
+      {isPreviewMode && !(!!activeBannerNote && activeBannerNote.includes("Anthropic")) && (
         <div style={{ maxWidth: 960, margin: "24px auto 24px auto", padding: "0 24px" }}>
           <div style={{
             borderRadius: 16,
@@ -1273,7 +1273,108 @@ export default function Home() {
         </React.Fragment>
       ))}
 
-      {/* Selected Work Footer Concierge CTA Panel */}
+            {/* Inline AI Concierge CTA Block - Moved to bottom for Anthropic */}
+      {isPreviewMode && (!!activeBannerNote && activeBannerNote.includes("Anthropic")) && (
+        <div style={{ maxWidth: 960, margin: "24px auto 24px auto", padding: "0 24px" }}>
+          <div style={{
+            borderRadius: 16,
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            background: "linear-gradient(135deg, rgba(24, 24, 27, 0.5) 0%, rgba(9, 9, 11, 0.6) 100%)",
+            padding: 24,
+            boxShadow: "0 8px 32px rgba(0,0,0,0.25)",
+            display: "flex",
+            flexDirection: "column",
+            gap: 16
+          }}>
+            <div>
+              <span style={{ fontSize: 11, fontWeight: 800, textTransform: "uppercase", letterSpacing: 1.5, color: "#fbbf24", display: "flex", alignItems: "center", gap: 6 }}>
+                🤖 AI Portfolio Concierge
+              </span>
+              <p style={{ margin: "4px 0 0", color: "#a1a1aa", fontSize: 13.5, lineHeight: 1.4 }}>
+                Get a fast, tailored summary of Jason’s experience, projects, technical leadership, and career fit.
+              </p>
+            </div>
+
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              <button
+                onClick={() => handleTriggerModal("recruiterPortfolio")}
+                style={{
+                  padding: "8px 16px",
+                  borderRadius: 8,
+                  background: "rgba(251, 191, 36, 0.08)",
+                  border: "1px solid rgba(251, 191, 36, 0.25)",
+                  color: "#fbbf24",
+                  fontSize: 12.5,
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  transition: "all 0.15s"
+                }}
+              >
+                Show strongest examples
+              </button>
+
+              <button
+                onClick={() => handleTriggerModal("googleExperience")}
+                style={{
+                  padding: "8px 16px",
+                  borderRadius: 8,
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  color: "#d4d4d8",
+                  fontSize: 12.5,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  transition: "all 0.15s"
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#fbbf24"; e.currentTarget.style.color = "#fbbf24"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "#d4d4d8"; }}
+              >
+                Summarize Google experience
+              </button>
+
+              <button
+                onClick={() => handleTriggerModal("jobMatch")}
+                style={{
+                  padding: "8px 16px",
+                  borderRadius: 8,
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  color: "#d4d4d8",
+                  fontSize: 12.5,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  transition: "all 0.15s"
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#fbbf24"; e.currentTarget.style.color = "#fbbf24"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "#d4d4d8"; }}
+              >
+                Match to job description
+              </button>
+
+              <button
+                onClick={() => handleAskChatbot("Let's start a virtual interview. Please introduce yourself as Jason's virtual guide and ask how you can help me evaluate Jason.")}
+                style={{
+                  padding: "8px 16px",
+                  borderRadius: 8,
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  color: "#d4d4d8",
+                  fontSize: 12.5,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  transition: "all 0.15s"
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#fbbf24"; e.currentTarget.style.color = "#fbbf24"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "#d4d4d8"; }}
+              >
+                Virtual interview
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+{/* Selected Work Footer Concierge CTA Panel */}
       {isPreviewMode && (
         <div style={{ maxWidth: 960, margin: "24px auto", padding: "0 24px", textAlign: "center" }}>
           <div style={{
