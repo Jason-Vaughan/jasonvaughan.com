@@ -192,6 +192,11 @@ export default function Home() {
         localStorage.setItem("previewMode", "false");
         return false;
       }
+      const queryPass = (params.get("pass") || params.get("password") || params.get("code") || params.get("") || [...params.keys()].find(k => PASSCODE_CONFIGS[k.toLowerCase()]) || "").trim().toLowerCase();
+      if (queryPass && PASSCODE_CONFIGS[queryPass]) {
+        // Force preview mode on for passcodes so they see the highlights and concierge tools
+        return true;
+      }
     }
     return localStorage.getItem("previewMode") !== "false";
   });
@@ -406,8 +411,12 @@ export default function Home() {
   // Helper to check if a section is recommended for the active persona
   const isSectionHighlighted = (secId) => {
     if (!isPreviewMode || !visitorType) return false;
-    const info = PERSONAS[visitorType];
-    return info?.sections?.includes(secId) || false;
+    const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
+    const queryPass = params ? (params.get("pass") || params.get("password") || params.get("code") || params.get("") || [...params.keys()].find(k => PASSCODE_CONFIGS[k.toLowerCase()]) || "").trim().toLowerCase() : "";
+    const passcodeConfig = queryPass && PASSCODE_CONFIGS[queryPass] ? PASSCODE_CONFIGS[queryPass] : null;
+    
+    const hIds = passcodeConfig?.autoSections || PERSONAS[visitorType]?.sections || [];
+    return hIds.includes(secId);
   };
 
   // Auto-expand default sections on mode change or mount
@@ -659,7 +668,12 @@ export default function Home() {
   ];
 
   const visibleSections = allSections.filter(s => s.visible);
-  const highlightedSectionIds = PERSONAS[visitorType]?.sections || [];
+  
+  const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
+  const queryPass = params ? (params.get("pass") || params.get("password") || params.get("code") || params.get("") || [...params.keys()].find(k => PASSCODE_CONFIGS[k.toLowerCase()]) || "").trim().toLowerCase() : "";
+  const passcodeConfig = queryPass && PASSCODE_CONFIGS[queryPass] ? PASSCODE_CONFIGS[queryPass] : null;
+  
+  const highlightedSectionIds = passcodeConfig?.autoSections || PERSONAS[visitorType]?.sections || [];
   
   const highlightedSections = [];
   highlightedSectionIds.forEach(id => {

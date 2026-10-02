@@ -11,8 +11,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 describe("About Data Integrity", () => {
   it("should contain the required hero properties", () => {
     expect(aboutData.hero).toBeDefined();
-    expect(typeof aboutData.hero.title).toBe("string");
-    expect(typeof aboutData.hero.subtitle).toBe("string");
+    expect(typeof aboutData.hero.Default.title).toBe("string");
+    expect(typeof aboutData.hero.Default.subtitle).toBe("string");
   });
 
   it("should contain story as an object mapping arrays of paragraphs", () => {
