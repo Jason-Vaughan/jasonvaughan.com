@@ -76,14 +76,14 @@ const PASSCODE_CONFIGS = {
     persona: "EventPro",
     bannerNote: "Welcome Anthropic Hiring Team · AV Production Specialist & AI Ops View Unlocked",
     roleFilter: "AV Production Specialist",
-    autoSections: ["about", "career", "notse", "skills", "certifications"]
+    autoSections: ["about", "career", "coding-stats", "notse", "skills", "certifications"]
   },
   anthropic2026: {
     variant: "anthropic",
     persona: "EventPro",
     bannerNote: "Welcome Anthropic Hiring Team · AV Production Specialist & AI Ops View Unlocked",
     roleFilter: "AV Production Specialist",
-    autoSections: ["about", "career", "notse", "skills", "certifications"]
+    autoSections: ["about", "career", "coding-stats", "notse", "skills", "certifications"]
   },
   apple: {
     variant: "apple",
@@ -494,6 +494,20 @@ export default function Home() {
   }, []);
 
   const allSections = [
+    {
+      id: "coding-stats",
+      title: "Coding Statistics & Telemetry",
+      icon: "📊",
+      description: "Live CI/CD codebase telemetry and traction",
+      bodyInWrap: true,
+      provideId: true,
+      element: (
+        <div style={{ padding: "0" }}>
+          <BuilderStats visitorType="Engineer" displayMode="collapsible" onOpenForksModal={() => setIsForksModalOpen(true)} />
+        </div>
+      ),
+      visible: !!activeBannerNote && activeBannerNote.includes("Anthropic"),
+    },
     {
       id: "about", // id="about"
       title: "About",
@@ -1183,7 +1197,7 @@ export default function Home() {
       )}
 
       {/* Builder Stats - Top placement for technical personas */}
-      {!(visitorType === "Inspyr" || visitorType === "Recruiter") && (
+      {!(visitorType === "Inspyr" || visitorType === "Recruiter" || (!!activeBannerNote && activeBannerNote.includes("Anthropic"))) && (
         <BuilderStats visitorType={visitorType} displayMode="full" onOpenForksModal={() => setIsForksModalOpen(true)} />
       )}
 
