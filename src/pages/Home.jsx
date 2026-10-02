@@ -48,126 +48,126 @@ const PASSCODE_CONFIGS = {
     persona: "A16z",
     bannerNote: "Welcome a16z Crypto Hiring Team · Events Associate View Unlocked",
     roleFilter: "Events Associate, Crypto",
-    autoSections: ["about", "career", "skills", "certifications", "projects"]
+    autoSections: ["about", "career", "certifications", "skills", "projects"]
   },
   a16z2026: {
     variant: "a16z",
     persona: "A16z",
     bannerNote: "Welcome a16z Crypto Hiring Team · Events Associate View Unlocked",
     roleFilter: "Events Associate, Crypto",
-    autoSections: ["about", "career", "skills", "certifications", "projects"]
+    autoSections: ["about", "career", "certifications", "skills", "projects"]
   },
   stripe: {
     variant: "stripe",
     persona: "EventPro",
     bannerNote: "Welcome Stripe Hiring Team · AV Events Manager View Unlocked",
     roleFilter: "AV Events Manager",
-    autoSections: ["about", "career", "skills", "certifications", "projects"]
+    autoSections: ["about", "career", "certifications", "skills", "projects"]
   },
   stripe2026: {
     variant: "stripe",
     persona: "EventPro",
     bannerNote: "Welcome Stripe Hiring Team · AV Events Manager View Unlocked",
     roleFilter: "AV Events Manager",
-    autoSections: ["about", "career", "skills", "certifications", "projects"]
+    autoSections: ["about", "career", "certifications", "skills", "projects"]
   },
   anthropic: {
     variant: "anthropic",
     persona: "EventPro",
     bannerNote: "Welcome Anthropic Hiring Team · AV Production Specialist & AI Ops View Unlocked",
     roleFilter: "AV Production Specialist",
-    autoSections: ["about", "career", "coding-stats", "notse", "skills", "certifications"]
+    autoSections: ["about", "career", "coding-stats", "notse", "certifications", "skills"]
   },
   anthropic2026: {
     variant: "anthropic",
     persona: "EventPro",
     bannerNote: "Welcome Anthropic Hiring Team · AV Production Specialist & AI Ops View Unlocked",
     roleFilter: "AV Production Specialist",
-    autoSections: ["about", "career", "coding-stats", "notse", "skills", "certifications"]
+    autoSections: ["about", "career", "coding-stats", "notse", "certifications", "skills"]
   },
   apple: {
     variant: "apple",
     persona: "Inspyr",
     bannerNote: "Welcome INSPYR Hiring Team · Technical Presentation Design View Unlocked",
     roleFilter: "Production",
-    autoSections: ["about", "career", "skills", "certifications", "contact"]
+    autoSections: ["about", "career", "certifications", "skills", "contact"]
   },
   inspyr: {
     variant: "apple",
     persona: "Inspyr",
     bannerNote: "Welcome INSPYR Hiring Team · Technical Presentation Design View Unlocked",
     roleFilter: "Production",
-    autoSections: ["about", "career", "skills", "certifications", "contact"]
+    autoSections: ["about", "career", "certifications", "skills", "contact"]
   },
   tpm2026: {
     variant: "tpm",
     persona: "Recruiter",
     bannerNote: "Welcome NVIDIA Hiring Team · Technical Producer & Staging TPM View Unlocked",
     roleFilter: "Technical Program Manager",
-    autoSections: ["about", "career", "skills", "certifications", "infrastructure"]
+    autoSections: ["about", "career", "certifications", "skills", "infrastructure"]
   },
   nvidia: {
     variant: "tpm",
     persona: "Recruiter",
     bannerNote: "Welcome NVIDIA Hiring Team · Technical Producer & Staging TPM View Unlocked",
     roleFilter: "Technical Program Manager",
-    autoSections: ["about", "career", "skills", "certifications", "infrastructure"]
+    autoSections: ["about", "career", "certifications", "skills", "infrastructure"]
   },
   nvidia2026: {
     variant: "tpm",
     persona: "Recruiter",
     bannerNote: "Welcome NVIDIA Hiring Team · Technical Producer & Staging TPM View Unlocked",
     roleFilter: "Technical Program Manager",
-    autoSections: ["about", "career", "skills", "certifications", "infrastructure"]
+    autoSections: ["about", "career", "certifications", "skills", "infrastructure"]
   },
   google: {
     variant: "google",
     persona: "Recruiter",
     bannerNote: "Welcome Google Hiring Team · Technical Program Manager View Unlocked",
     roleFilter: "Technical Program Manager",
-    autoSections: ["about", "career", "skills", "certifications"]
+    autoSections: ["about", "career", "certifications", "skills"]
   },
   google2026: {
     variant: "google",
     persona: "Recruiter",
     bannerNote: "Welcome Google Hiring Team · Technical Program Manager View Unlocked",
     roleFilter: "Technical Program Manager",
-    autoSections: ["about", "career", "skills", "certifications"]
+    autoSections: ["about", "career", "certifications", "skills"]
   },
   eventpro: {
     variant: "eventpro",
     persona: "EventPro",
     bannerNote: "Welcome Event Staging & Production Leads · AV Engineering View Unlocked",
     roleFilter: "",
-    autoSections: ["about", "skills", "certifications", "career"]
+    autoSections: ["about", "certifications", "skills", "career"]
   },
   eventpro2026: {
     variant: "eventpro",
     persona: "EventPro",
     bannerNote: "Welcome Event Staging & Production Leads · AV Engineering View Unlocked",
     roleFilter: "",
-    autoSections: ["about", "skills", "certifications", "career"]
+    autoSections: ["about", "certifications", "skills", "career"]
   },
   moscone: {
     variant: "eventpro",
     persona: "EventPro",
     bannerNote: "Welcome Moscone & Staging Leads · Fiber Infrastructure & Video View Unlocked",
     roleFilter: "",
-    autoSections: ["about", "skills", "certifications", "career"]
+    autoSections: ["about", "certifications", "skills", "career"]
   },
   jason2026: {
     variant: "master",
     persona: "Recruiter",
     bannerNote: "Welcome Hiring Manager · Master Portfolio & Systems OPS View Unlocked",
     roleFilter: "",
-    autoSections: ["about", "career", "skills", "certifications", "projects"]
+    autoSections: ["about", "career", "certifications", "skills", "projects"]
   },
   master: {
     variant: "master",
     persona: "Recruiter",
     bannerNote: "Welcome Hiring Manager · Master Portfolio View Unlocked",
     roleFilter: "",
-    autoSections: ["about", "career", "skills", "certifications", "projects"]
+    autoSections: ["about", "career", "certifications", "skills", "projects"]
   },
   fluidstack: {
     variant: "fluidstack",
@@ -620,15 +620,15 @@ export default function Home() {
       visible: true,
     },
     {
-      id: "skills", // id="skills"
-      isCustom: true,
-      element: <Skills key="skills" highlighted={isSectionHighlighted("skills")} />,
-      visible: true,
-    },
-    {
       id: "certifications", // id="certifications"
       isCustom: true,
       element: <Certifications key="certifications" highlighted={isSectionHighlighted("certifications")} />,
+      visible: true,
+    },
+    {
+      id: "skills", // id="skills"
+      isCustom: true,
+      element: <Skills key="skills" highlighted={isSectionHighlighted("skills")} />,
       visible: true,
     },
     {
@@ -1240,7 +1240,7 @@ export default function Home() {
                     { label: "Technical Program Manager", key: "TPM", sections: ["certifications", "tilt", "contact"] },
                     { label: "Engineering Manager", key: "EM", sections: ["tangleclaw", "tanglebrain", "projects", "contact"] },
                     { label: "AI Infrastructure", key: "AI", sections: ["tangleclaw", "tanglebrain", "research", "openclaw-fleet", "clawhub"] },
-                    { label: "Production Technology", key: "Production", sections: ["skills", "certifications", "writing", "contact"] },
+                    { label: "Production Technology", key: "Production", sections: ["certifications", "skills", "writing", "contact"] },
                     { label: "Principal Engineer", key: "Principal", sections: ["tangleclaw", "tanglebrain", "projects", "research"] }
                   ].map((role) => {
                     const isActive = targetRole === role.key;
