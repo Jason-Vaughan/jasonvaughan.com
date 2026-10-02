@@ -73,17 +73,17 @@ const PASSCODE_CONFIGS = {
   },
   anthropic: {
     variant: "anthropic",
-    persona: "EventPro",
+    persona: "Anthropic",
     bannerNote: "Welcome Anthropic Hiring Team · AV Production Specialist & AI Ops View Unlocked",
     roleFilter: "AV Production Specialist",
-    autoSections: ["about", "career", "coding-stats", "notse", "certifications", "skills"]
+    autoSections: ["about", "career", "coding-stats", "projects", "certifications", "skills"]
   },
   anthropic2026: {
     variant: "anthropic",
-    persona: "EventPro",
+    persona: "Anthropic",
     bannerNote: "Welcome Anthropic Hiring Team · AV Production Specialist & AI Ops View Unlocked",
     roleFilter: "AV Production Specialist",
-    autoSections: ["about", "career", "coding-stats", "notse", "certifications", "skills"]
+    autoSections: ["about", "career", "coding-stats", "projects", "certifications", "skills"]
   },
   apple: {
     variant: "apple",

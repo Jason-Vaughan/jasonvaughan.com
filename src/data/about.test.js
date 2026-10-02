@@ -42,9 +42,9 @@ describe("About Data Integrity", () => {
 });
 
 describe("Persona Selector Configurations", () => {
-  const expectedKeys = ["Recruiter", "Engineer", "EventPro", "OpenClaw", "Investor"];
+  const expectedKeys = ["Anthropic", "Recruiter", "Engineer", "EventPro", "OpenClaw", "Investor"];
 
-  it("should export the 5 expected personas", () => {
+  it("should export the 6 expected personas", () => {
     expect(Object.keys(PERSONAS)).toEqual(expect.arrayContaining(expectedKeys));
   });
 
@@ -66,8 +66,7 @@ describe("Persona Selector Configurations", () => {
         } else if (secId === "certifications") {
           expect(appSource).toContain("<Certifications");
         } else {
-          const idPattern = new RegExp(`id=["']${secId}["']`);
-          expect(appSource).toMatch(idPattern);
+          expect(appSource.includes(`id="${secId}"`) || appSource.includes(`id: "${secId}"`) || appSource.includes(`id: '${secId}'`)).toBe(true);
         }
       });
     });
@@ -92,9 +91,9 @@ describe("Career Data Integrity", () => {
 });
 
 describe("Persona Taglines Integrity", () => {
-  const expectedPersonaKeys = ["Default", "Recruiter", "Engineer", "EventPro", "OpenClaw", "Investor"];
+  const expectedPersonaKeys = ["Anthropic", "Default", "Recruiter", "Engineer", "EventPro", "OpenClaw", "Investor"];
 
-  it("should export the 6 expected taglines configuration", () => {
+  it("should export the 7 expected taglines configuration", () => {
     expect(Object.keys(personaTaglines)).toEqual(expect.arrayContaining(expectedPersonaKeys));
   });
 

@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const PERSONAS = {
+  Anthropic: {
+    label: "Anthropic Hiring Team",
+    bannerText: "Welcome Anthropic Hiring Team · AV Production Specialist & AI Ops View Unlocked",
+    sections: ["about", "career", "coding-stats", "projects", "certifications", "skills"],
+  },
   Recruiter: {
     label: "Recruiter Mode",
     bannerText: "Welcome! It looks like you're evaluating Jason professionally. We've highlighted his experience, certifications, and resume to help you quickly assess his background.",

@@ -14,6 +14,11 @@ export const aboutData = {
   },
   
   story: {
+    Anthropic: [
+      "My software journey started in the early 2000s with iPolis, a first-of-its-kind SaaS webcasting service. Designing, operating, and eventually successfully selling that business gave me a core foundation in software architecture, network streaming, and entrepreneurship from the ground up.",
+      "Parallel to code, my career grew in the live event industry. I transitioned from a stagecraft apprentice to freelance technical directing, managing high-stakes technology deployments for global giants like Google, AWS, Adobe, and Salesforce. Operating live broadcast environments with zero margin for error taught me about fail-safes, signal flow, and real-time networking.",
+      "After years of incredibly rewarding freelance work and building a strong reputation in the business, I'm looking for the right place to call home. As a daily driver of frontier AI who is constantly building, I genuinely love the products Anthropic offers. There are very few places I would consider committing to full-time, but I deeply value a great team and a company with strong growth opportunities, and I know I would enjoy a long-term career at Anthropic."
+    ],
     Default: [
       "My software journey started in the early 2000s with iPolis, a first-of-its-kind SaaS webcasting service. Designing and operating that platform gave me a core foundation in software architecture, network streaming, and system engineering from the ground up.",
       "Parallel to code, my career grew in the live event industry. I transitioned from a stagecraft apprentice to freelance technical directing, managing high-stakes technology deployments for global giants like Google, AWS, Adobe, and Salesforce. Operating live broadcast environments with zero margin for error taught me about fail-safes, signal flow, and real-time networking.",
@@ -131,6 +136,10 @@ export const personaTaglines = {
   Inspyr: {
     bio: "Visual storytelling and technical presentation specialist with 25+ years of experience translating ideas into graphics, animation, motion content, and live visual experiences for executive presentations, major technology events, and professional theater. Collaborates directly with executives, engineers, producers, and artistic directors from initial concept and proofing through design, programming, rehearsal, and final delivery, either hands-on or leading multidisciplinary creative teams.",
     highlight: "Deeply immersed in applied AI since 2020, integrating generative models into creative development, technical problem-solving, visual exploration, and production workflows."
+  },
+  Anthropic: {
+    bio: "Production Technology Leader & Technical Director with 25+ years managing complex signal flow, fiber arrays, Barco screen switching, and broadcast staging for global keynotes.",
+    highlight: "Live production authority merging physical show networks with intelligent automation to eliminate backstage friction."
   },
   EventPro: {
     bio: "Production Technology Leader & Technical Director with 25+ years managing complex signal flow, fiber arrays, Barco screen switching, and broadcast staging for global keynotes.",
