@@ -1274,7 +1274,7 @@ export default function Home() {
       ))}
 
             {/* Inline AI Concierge CTA Block - Moved to bottom for Anthropic */}
-      {isPreviewMode && (!!activeBannerNote && activeBannerNote.includes("Anthropic")) && (
+      {(!!activeBannerNote && activeBannerNote.includes("Anthropic")) && (
         <div style={{ maxWidth: 960, margin: "24px auto 24px auto", padding: "0 24px" }}>
           <div style={{
             borderRadius: 16,
