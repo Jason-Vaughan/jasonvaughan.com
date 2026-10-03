@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/openai.2",
+      "destination": "/openai.2/index.html"
+    },
+    {
       "source": "/openai",
       "destination": "/openai/index.html"
     },
