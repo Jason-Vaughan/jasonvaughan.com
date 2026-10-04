@@ -10,6 +10,8 @@ to file paths — this maps the layout itself.
 
 ## Structure
 
+- `api/` — Vercel serverless functions (contains `chat.js` for the virtual interview chatbot with Gemini embeddings).
+- `content/` — pre-generated data files (contains `embeddings.json` for semantic search).
 - `docs/` — non-app documents: resume/cover-letter files (`Resume/`), plus a legacy built `index.html` + `legacyfiles/` from the pre-GitHub-Actions docs/-folder Pages deploy.
 - `public/` — static assets served verbatim by Vite/Pages: `CNAME`, the `/notse` landing page, OG-rich `/share/<id>/` stubs + `share-images/`, `writing/`, images.
 - `scratch/` — agent scratchpad for temporary files and data.

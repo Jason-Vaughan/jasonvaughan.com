@@ -4,7 +4,13 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-10-04
+
 ### Added
+- **OpenAI Static Dossier** — Added a dedicated static, machine-readable landing page (`/openai`) configured via Vercel rewrites specifically for OpenAI recruiters, featuring custom CSS grids and bypassing React routing entirely for strict crawler accessibility.
+- **Anthropic Persona Routing** — Added a custom `anthropic` passcode routing to a targeted layout highlighting TangleClaw, Notse, and AI-native builds, along with custom story mapping and collapsible coding stats.
+- **Visual Portfolio & Designer Mode** — Promoted a permanent `/designer-portfolio` route featuring a new `VisualPortfolio` gallery component with dynamic CSS grid aspect ratios, 16:9 hero containers, true randomization, Ken Burns zoom effects, and non-destructive copyright watermarking.
+- **INSPYR Persona** — Added a targeted `inspyr` passcode featuring a custom design philosophy bio and expanded visual storytelling highlights.
 - **Chatbot Vercel Migration** — Migrated the portfolio chat widget backend from an external Cloudflare Worker to a native Vercel Serverless Function (`api/chat.js`), implementing Gemini vector embeddings for semantic context retrieval.
 - **Apple Keynote Landing Page** — Built a highly targeted, native web Graphics Resume (`/graphics-resume`) and custom recruiter landing page (`/graphics`) specifically optimized for an Apple Keynote Designer application.
 - **Project Preferences** — Formalized tech stack, persona guidelines, and AI workflow rules into `project-preferences.md`.
