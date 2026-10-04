@@ -1,7 +1,7 @@
 {
   "name": "jasonvaughan.com",
   "private": true,
-  "version": "0.4.0",
+  "version": "0.5.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,6 +19,7 @@
     "@google/genai": "^2.24.0",
     "framer-motion": "^12.38.0",
     "posthog-js": "^1.422.5",
+    "puppeteer": "^25.12.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-markdown": "^10.1.0",

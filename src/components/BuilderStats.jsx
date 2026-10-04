@@ -1210,14 +1210,14 @@ export default function BuilderStats({ visitorType, onOpenForksModal, displayMod
             padding: "16px 24px",
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between",
+            justifyContent: "center",
             gap: 16,
             flexWrap: "wrap",
             boxShadow: "0 4px 12px rgba(0,0,0,0.2)"
           }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, textAlign: "center" }}>
               <span style={{ fontSize: 24 }}>📊</span>
-              <div>
+              <div style={{ textAlign: "left" }}>
                 <h4 style={{ margin: 0, fontSize: 14, color: "#fafafa" }}>Live Software Telemetry</h4>
                 <p style={{ margin: 0, fontSize: 12, color: "#a1a1aa" }}>{formatBigNumber(totals.loc)} LOC • {totals.projects} Projects{dlText}</p>
               </div>
