@@ -10,8 +10,9 @@
   "wrapKeepSessionRunning": null,
   "wrapSections": null,
   "wrapStepOverrides": {},
+  "provenanceWatermark": null,
   "defaultLaunchMode": "bypassPermissions",
-  "showLaunchModePicker": true,
+  "showLaunchModePicker": false,
   "orchestrationKeyRef": null,
   "rules": {
     "core": {

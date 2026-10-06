@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export const PERSONAS = {
   Anthropic: {
+    hidden: true,
     label: "Anthropic Hiring Team",
     bannerText: "Welcome Anthropic Hiring Team · AV Production Specialist & AI Ops View Unlocked",
     sections: ["about", "career", "coding-stats", "projects", "certifications", "skills"],
@@ -10,17 +11,17 @@ export const PERSONAS = {
   Recruiter: {
     label: "Recruiter Mode",
     bannerText: "Welcome! It looks like you're evaluating Jason professionally. We've highlighted his experience, certifications, and resume to help you quickly assess his background.",
-    sections: ["about", "career", "certifications", "contact"],
+    sections: ["about", "career", "certifications", "coding-stats", "contact"],
   },
   SystemsBuilder: {
     label: "Systems Builder Mode",
     bannerText: "Welcome fellow builder! We've highlighted Jason's systems engineering projects, local LLM integration, and software workflow automations.",
-    sections: ["tangleclaw", "tanglebrain", "clawhub", "career", "projects", "writing"],
+    sections: ["tangleclaw", "tanglebrain", "coding-stats", "clawhub", "career", "projects", "writing"],
   },
   Engineer: {
     label: "Engineer Mode",
     bannerText: "Looks like you're interested in AI development. We've highlighted Jason's systems engineering projects, local LLM integration, and software workflow automations.",
-    sections: ["tangleclaw", "tanglebrain", "clawhub", "career", "projects"],
+    sections: ["tangleclaw", "tanglebrain", "coding-stats", "clawhub", "career", "projects"],
   },
   EventPro: {
     label: "Event Pro Mode",
@@ -28,11 +29,13 @@ export const PERSONAS = {
     sections: ["skills", "certifications", "career", "writing"],
   },
   A16z: {
+    hidden: true,
     label: "a16z Mode",
     bannerText: "Welcome a16z Crypto Hiring Team! We've highlighted Jason's experience with high-touch executive events, budget & vendor management, and large-scale technical production.",
     sections: ["about", "career", "skills", "certifications", "projects"],
   },
   Inspyr: {
+    hidden: true,
     label: "Designer Mode",
     bannerText: "Welcome INSPYR Hiring Team! We've highlighted Jason's Keynote design expertise, ability to translate complex engineering concepts into narratives, and experience working with stakeholders.",
     sections: ["about", "career", "skills", "certifications", "contact"],
@@ -167,7 +170,9 @@ export function PersonaDropdown({ current, onSelect }) {
             transition={{ duration: 0.1 }}
             style={menu}
           >
-            {Object.entries(PERSONAS).map(([key, info]) => (
+            {Object.entries(PERSONAS)
+              .filter(([_, info]) => !info.hidden)
+              .map(([key, info]) => (
               <button
                 key={key}
                 onClick={() => {

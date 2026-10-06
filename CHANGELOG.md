@@ -4,6 +4,13 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **Comprehensive Stats API** — Created a new Vercel serverless function (`/api/stats`) that dynamically aggregates telemetry from local baked stats, `_collect-meta.json` (cloud tokens), `monad-stats.json` (local inference), `git-stats.json` (commits), and `clawhub-versions.json` (downloads), exposing a unified AI compute velocity and performance payload with CORS headers for external site consumption.
+
+### Changed
+- **Persona Selector Updates** — Hid specific targeted company modes (Anthropic, a16z, Designer/Inspyr) from the public persona dropdown selector while maintaining their accessibility via direct secret links.
+- **Builder Stats Visibility** — Added the `coding-stats` section to render by default on the `Recruiter`, `SystemsBuilder`, and `Engineer` persona views.
+
 ## [0.5.0] - 2026-10-04
 
 ### Added

@@ -1,3 +1,16 @@
+## Previous Session (2026-10-04 — Vercel cache busting, Anthropic/OpenAI dossiers, Visual Portfolio)
+
+**What shipped:**
+- Created targeted static recruiter page for OpenAI (`/openai`) using Vercel rewrites to bypass React for strict crawler accessibility.
+- Implemented cache-busting and rollback routing updates.
+- Promoted a permanent `/designer-portfolio` route featuring dynamic CSS grids, true randomization, Ken Burns zoom effects, and non-destructive copyright watermarking.
+- Shipped dedicated `anthropic` and `inspyr` passcodes and persona layouts to highlight visual storytelling and AI-native builds.
+- Refactored component layout and CSS grid structures to fix display flexbox overlap bugs.
+
+**What was learned:**
+- Vercel rewrites (`vercel.json`) run strictly before filesystem checks. Explicit rewrites mapping directories to `index.html` will override React routers, but they suffer from 30-45s propagation delay post-push.
+- Pure static HTML fallback files are required when delivering dossiers to JS-disabled recruitment crawlers.
+
 ## Last Session (2026-09-22 — Admin PostHog Opt-Out)
 
 **What shipped:**
