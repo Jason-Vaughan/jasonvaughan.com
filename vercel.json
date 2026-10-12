@@ -5,6 +5,14 @@
       "destination": "/openai/index.html"
     },
     {
+      "source": "/share/:slug",
+      "destination": "/share/:slug/index.html"
+    },
+    {
+      "source": "/share/:slug/",
+      "destination": "/share/:slug/index.html"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/api/$1"
     },

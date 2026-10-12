@@ -11,6 +11,9 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 - **Persona Selector Updates** — Hid specific targeted company modes (Anthropic, a16z, Designer/Inspyr) from the public persona dropdown selector while maintaining their accessibility via direct secret links.
 - **Builder Stats Visibility** — Added the `coding-stats` section to render by default on the `Recruiter`, `SystemsBuilder`, and `Engineer` persona views.
 
+### Fixed
+- **Static Share Links** — Fixed broken routing for static `/share/*` URLs (e.g. `monad-1`) on Vercel by adding explicit rewrites to bypass the SPA fallback.
+
 ## [0.5.0] - 2026-10-04
 
 ### Added
