@@ -100,9 +100,9 @@ export default function ProjectDetail() {
 
         {/* Links */}
         <div style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
-          {project.links?.live && (
-            <a href={project.links.live} target="_blank" rel="noreferrer" style={btnPrimary}>
-              View Live Site
+          {(project.links?.website || project.links?.live) && (
+            <a href={project.links.website || project.links.live} target="_blank" rel="noreferrer" style={btnPrimary}>
+              {project.links.website ? `Visit ${project.links.website.replace(/^https?:\/\//, "")} ↗` : "View Live Site"}
             </a>
           )}
           {project.links?.github && (

@@ -24,6 +24,7 @@ export const portfolioItems = [
     skills: ["AI Systems", "Local LLMs", "Config-driven Routing", "Node.js", "System Architecture"],
     stats: ["Open Source", "100% Test Coverage"],
     links: [
+      { label: "Visit tangleclaw.com ↗", target: "https://tangleclaw.com" },
       { label: "View TangleClaw", target: "#tangleclaw" },
       { label: "View TangleBrain", target: "#tanglebrain" }
     ],

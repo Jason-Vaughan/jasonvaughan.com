@@ -26,6 +26,17 @@ describe("featured Tangle cards", () => {
     expect(src).toContain("pip install tanglebrain");
   });
 
+  it("TangleClaw card and detail page link to tangleclaw.com more prominently than GitHub", () => {
+    const src = cardSource("FeaturedTangleClaw.jsx");
+    const detailSrc = readFileSync(join(ROOT, "src/pages/ProjectDetail.jsx"), "utf8");
+    const dataSrc = readFileSync(join(ROOT, "src/data/projects.js"), "utf8");
+    expect(dataSrc).toContain("https://tangleclaw.com");
+    expect(src).toContain("Visit tangleclaw.com");
+    expect(src.indexOf("Visit tangleclaw.com")).toBeLessThan(src.indexOf("p.links.github"));
+    expect(detailSrc).toContain("project.links?.website");
+    expect(detailSrc.indexOf("project.links?.website")).toBeLessThan(detailSrc.indexOf("project.links?.github"));
+  });
+
   it.each(["FeaturedTangleClaw.jsx", "FeaturedTangleBrain.jsx"])(
     "%s sources its version chip from useGitHubLatestRelease, no hardcoded version",
     (file) => {

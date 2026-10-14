@@ -25,6 +25,10 @@ export default function PortfolioModal({ isOpen, onClose, modalType, onSetModalT
   );
 
   const handleCardAction = (target) => {
+    if (target.startsWith("http")) {
+      window.open(target, "_blank", "noopener,noreferrer");
+      return;
+    }
     onClose();
     // Smooth scroll and highlight section
     if (target.startsWith("#")) {
