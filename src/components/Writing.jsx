@@ -127,7 +127,6 @@ export default function Writing() {
 
   const section = { background: "transparent", color: "#fafafa", padding: "48px 0" };
   const wrap = { maxWidth: 960, margin: "0 auto", padding: "0 24px" };
-  const subhead = { fontSize: 14, color: "#71717a" };
 
   const card = {
     borderRadius: 16,

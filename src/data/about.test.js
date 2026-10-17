@@ -49,7 +49,7 @@ describe("Persona Selector Configurations", () => {
   });
 
   it("should configure valid sections for each persona", () => {
-    Object.entries(PERSONAS).forEach(([key, info]) => {
+    Object.entries(PERSONAS).forEach(([_key, info]) => {
       expect(typeof info.label).toBe("string");
       expect(typeof info.bannerText).toBe("string");
       expect(Array.isArray(info.sections)).toBe(true);
@@ -59,7 +59,7 @@ describe("Persona Selector Configurations", () => {
 
   it("should map each persona to collapsible IDs that literally exist in the app", () => {
     const appSource = readFileSync(join(__dirname, "../pages/Home.jsx"), "utf8");
-    Object.entries(PERSONAS).forEach(([key, info]) => {
+    Object.entries(PERSONAS).forEach(([_key, info]) => {
       info.sections.forEach((secId) => {
         if (secId === "skills") {
           expect(appSource).toContain("<Skills");
@@ -98,7 +98,7 @@ describe("Persona Taglines Integrity", () => {
   });
 
   it("should have valid bio and highlight strings for each persona", () => {
-    Object.entries(personaTaglines).forEach(([key, val]) => {
+    Object.entries(personaTaglines).forEach(([_key, val]) => {
       expect(typeof val.bio).toBe("string");
       expect(typeof val.highlight).toBe("string");
       expect(val.bio.length).toBeGreaterThan(10);

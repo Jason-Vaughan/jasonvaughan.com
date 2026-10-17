@@ -266,8 +266,8 @@ export default function Home() {
     return localStorage.getItem("resumeUnlocked") === "true";
   });
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
-  const [passwordInput, setPasswordInput] = useState("");
-  const [passwordError, setPasswordError] = useState(false);
+  const [_passwordInput, setPasswordInput] = useState("");
+  const [_passwordError, setPasswordError] = useState(false);
   const [activeBannerNote, setActiveBannerNote] = useState(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);

@@ -36,7 +36,6 @@ function formatUSD(n) {
  */
 export default function Infrastructure() {
   const [monadStats, setMonadStats] = useState(null);
-  const [error, setError] = useState(null);
   const [selectedModel, setSelectedModel] = useState(null);
   const [isTestedModelsOpen, setIsTestedModelsOpen] = useState(false);
   // Legacy OpenClaw-agent token aggregation. Now a no-op: OPENCLAW_AGENT_STATS_URLS
@@ -85,7 +84,6 @@ export default function Infrastructure() {
 
   const section = { background: "transparent", color: "#fafafa", padding: "48px 0" };
   const wrap = { maxWidth: 960, margin: "0 auto", padding: "0 24px" };
-  const subhead = { fontSize: 14, color: "#71717a" };
 
   const card = {
     borderRadius: 16,
@@ -121,7 +119,7 @@ export default function Infrastructure() {
     gap: 14,
   };
 
-  const statCell = (color = accentLight) => ({
+  const statCell = (_color = accentLight) => ({
     padding: "10px 12px",
     background: "rgba(255,255,255,0.03)",
     border: `1px solid ${border}`,

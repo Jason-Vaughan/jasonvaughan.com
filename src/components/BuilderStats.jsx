@@ -44,7 +44,7 @@ function generateTimeseries(endValue, percentageIncrease, seed) {
 /**
  * Helper to generate a 52-week activity calendar grid if GitHub Action data is loading.
  */
-function generate52WeekGrid(totalContribs) {
+function generate52WeekGrid(_totalContribs) {
   const weeks = [];
   const today = new Date();
   const totalDays = 52 * 7;
@@ -153,7 +153,7 @@ function renderSparklineSvg(data, width, height, strokeColor, gradientId) {
 /**
  * Builder stats bar — fetches stats from all projects and displays aggregated totals.
  */
-export default function BuilderStats({ visitorType, onOpenForksModal, displayMode = "full" }) {
+export default function BuilderStats({ visitorType: _visitorType, onOpenForksModal, displayMode = "full" }) {
   const [activeTab, setActiveTab] = useState("codebase");
   const [totals, setTotals] = useState(null);
   const [hoveredLabel, setHoveredLabel] = useState(null);

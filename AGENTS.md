@@ -82,9 +82,9 @@ When two sessions work related-but-distinct repos (advisor/builder, coordinator/
 
 This avoids merge conflicts, surprise git-log entries, and ambiguity over who owns which commit.
 
-**Rule: Rule Authoring Policy.** The ProjectManager (PM) does NOT author, edit, or rewrite global or session rules. The Builders author and maintain the rules for themselves and the rest of the fleet. If questions arise about rule structure or policy, the Builders consult the Architect directly.
-- Any session that finds a missing, incorrect or conflicting rule reports it to a Builder. The PM may coordinate the assignment.
-- The shared-infrastructure allowance above excludes rule authoring. Its allowance for ports and other TangleClaw config is unchanged.
+**Rule: Rule Authoring & Consolidation Policy.** To prevent rule bloat, rules must be kept short, concise, and consolidated (replacing obsolete rules rather than piling on new ones). The ProjectManager (PM), Architect, or an assigned Builder may draft and propose rule replacements via `POST /api/session-rules`. Under an approved sprint rule (such as PM Rule #256/#258), PM and Architect may approve bounded operational rule amendments when the charter names the rule, scope, expiry, and rollback; core authority, no-agent, lifecycle, release/deploy, credential, ingress, destructive, migration-cutover, notification, and global rules remain Operator-approved.
+- Any session that finds a missing, incorrect, or conflicting rule reports it to the PM, Architect, or a Builder so a consolidated replacement proposal can be drafted.
+- Shared-infrastructure config (ports and TangleClaw config) remains governed by its own access gates; durable rule activation requires Operator approval (or bounded charter authority where explicitly granted).
 
 ## Issues & Feature Requests
 
@@ -193,6 +193,17 @@ TangleClaw is the central port registry for every project on this machine — re
 
 When the operator has enabled the M2M service-token gate (AUTH-4), every `/api/ports*` call needs `Authorization: Bearer <token>` (else `401`). Where this guide sits in a file the project COMMITS, the live token is deliberately not beside it — fetch it from `$TANGLECLAW_API/api/service-token` (#1619). In an engine-private config TC still injects the header with the live token below this guide. Off by default (no token needed). Rotating the token invalidates the old one — relaunch to pick up the new value.
 
+### Identify Your Session
+
+Every call that changes a lease (`lease`, `release`, `heartbeat`) must say who is asking, with the two headers TangleClaw exports into every pane it launches:
+
+```
+x-tangleclaw-project-id: $TANGLECLAW_PROJECT_ID
+x-tangleclaw-launch-id: $TANGLECLAW_LAUNCH_ID
+```
+
+Without them the call is refused with `403 LAUNCH_BINDING_REQUIRED`. A launch that has ended, or that a newer session of the same project has replaced, gets `403 LAUNCH_BINDING_INVALID`: relaunch the session. Reading `GET /api/ports` needs neither header. A service that is not a TangleClaw session identifies itself with the service token instead, which these calls accept only while the operator has that gate enabled.
+
 ### API Operations
 
 All calls are JSON. In an engine-private config the API base URL is injected **below this guide**; in a committed carrier it is not written at all — read `$TANGLECLAW_API`, which your launch exported (#1619). Either way use it as-is: its scheme already reflects what the server serves (plain `http://` under `ingressMode: caddy` or with no certificates, else `https://`; don't "upgrade" it). For a mkcert `https://` URL, pass `curl -k` or trust the mkcert root CA.
@@ -288,16 +299,18 @@ and release only ports your own project holds.
 - Routes, with `<base>` = `<api>/api/sessions/<project-name>`:
 - inbox `GET <base>/medusa/messages`; mark handled `POST <base>/medusa/read` with `{"ids": ["<id>", ...]}`;
 - send (initiate or respond) `POST <base>/medusa/send` with `{"to": "<workspace-id>", "message": "..."}`;
+- every write (`/read`, `/send`, `/exchanges/.../close`) is refused without your launch headers, `x-tangleclaw-launch-id: $TANGLECLAW_LAUNCH_ID` and `x-tangleclaw-project-id: $TANGLECLAW_PROJECT_ID`; `tc message` sends them for you;
 - peers `GET <base>/medusa/roster`; why a peer has not picked up `GET <base>/medusa/peers/<workspace-id>`.
 - Resolve both placeholders at run time — they are launch facts, not repository facts, and this file is shared by every checkout:
 - `<api>` — the `TANGLECLAW_API` your launch exported.
 - `<project-name>` — `tc whoami`, or GET `$TANGLECLAW_API/api/tc/whoami?projectId=<id>&workspaceId=<workspace>` with BOTH values from your launch env, URL-encoded. Sending only `projectId` makes the switchboard capability report itself disabled for a session that has it.
 - URL-encode the name into the path too: names may contain spaces.
-- whoami ECHOES the workspace you claim — it does not validate it. Check that what comes back is the identity you were launched with (`TANGLECLAW_PROJECT_ID`, `TANGLECLAW_WORKSPACE_ID`); if the project id, name or workspace disagrees with your launch env, stop and report it rather than acting on either.
+- whoami ECHOES the workspace you claim — it does not validate it. Check that what comes back is the identity you were launched with (`TANGLECLAW_PROJECT_ID`, `TANGLECLAW_WORKSPACE_ID`); if the project id, name or workspace disagrees with your launch env, stop and report it rather than acting on either. What it does check is your launch id: a `tc whoami` that does not read `Launch binding: verified` means stop and report that too.
 - Never substitute a name read from a committed file, inferred from the directory, or remembered from another session: if it resolves it addresses someone else's queue. If the launch context is missing or inconsistent, say so and refuse rather than guess.
 - The INITIATOR closes an exchange, so a message you do not answer leaves the sender blocked. Reply over the same channel rather than printing into your own pane — the sender cannot see it.
 - If you cannot continue without an answer, send with `"priority": "blocking"` (it needs your launch headers; `tc message send --priority blocking` sends them) so an unanswered message escalates instead of waiting silently. Answer one with `"inReplyTo": "<message-id>"`. A message that needs a reply stays open until you close it with `POST <base>/medusa/exchanges/<exchange-id>/close` (`tc message close`); one that needs none closes when its recipient acknowledges it.
 - The peer route returns the wake monitor's latest reason code for a peer on this host, with its `meaning` (`local: false` for one it cannot see).
+- Reply with `tc message send --in-reply-to <message-id> <workspace-id> "<reply>"` (a raw send carrying `inReplyTo` needs your launch headers, or it is refused), BEFORE you mark the message handled; `tc message owed` lists what you still owe. Never use `/clear` as an acknowledgement.
 
 ## Shared Documents
 

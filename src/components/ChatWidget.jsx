@@ -112,7 +112,9 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
         try {
           const data = await res.json();
           if (data.error) errorMsg = data.error;
-        } catch (_) {}
+        } catch (_) {
+          // Ignore non-JSON error responses
+        }
         throw new Error(errorMsg);
       }
 
@@ -342,12 +344,12 @@ export default function ChatWidget({ visitorType, onTriggerModal }) {
                   {m.role === "assistant" ? (
                     <ReactMarkdown
                       components={{
-                        ul: ({node, ...props}) => <ul className="list-disc pl-5 my-2 space-y-1" {...props} />,
-                        ol: ({node, ...props}) => <ol className="list-decimal pl-5 my-2 space-y-1" {...props} />,
-                        li: ({node, ...props}) => <li className="mb-1" {...props} />,
-                        p: ({node, ...props}) => <p className="mb-2 last:mb-0" {...props} />,
-                        strong: ({node, ...props}) => <strong className="font-semibold text-white" {...props} />,
-                        a: ({node, ...props}) => <a className="underline hover:text-blue-400 transition-colors" target="_blank" rel="noopener noreferrer" {...props} />
+                        ul: ({node: _node, ...props}) => <ul className="list-disc pl-5 my-2 space-y-1" {...props} />,
+                        ol: ({node: _node, ...props}) => <ol className="list-decimal pl-5 my-2 space-y-1" {...props} />,
+                        li: ({node: _node, ...props}) => <li className="mb-1" {...props} />,
+                        p: ({node: _node, ...props}) => <p className="mb-2 last:mb-0" {...props} />,
+                        strong: ({node: _node, ...props}) => <strong className="font-semibold text-white" {...props} />,
+                        a: ({node: _node, ...props}) => <a className="underline hover:text-blue-400 transition-colors" target="_blank" rel="noopener noreferrer" {...props} />
                       }}
                     >
                       {m.content}
