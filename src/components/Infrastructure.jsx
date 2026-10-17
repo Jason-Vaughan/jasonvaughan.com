@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { formatBigNumber } from "../utils/format";
+import { partitionMonadModels } from "../utils/monadModels";
 import ShareLink from "./ShareLink";
 import InfrastructureModal from "./InfrastructureModal";
 
@@ -169,31 +170,13 @@ export default function Infrastructure() {
   const costSavedLifetime = monadStats?.costSaved?.estimated;
   const sustainedTokPerS = monadStats?.throughput?.tokensPerSec;
   const requestsLifetime = monadStats?.requests?.lifetime;
-  // Model list — three contract layers, all read with graceful fallback:
-  //   - availableModels (newest): every model installed on the box, each with
-  //     a `resident: true|false` flag for whether it's currently loaded in VRAM
-  //   - currentModels (mid-era): array of currently-loaded models only
-  //   - currentModel (oldest, singular): the active chat model only
-  // We prefer availableModels when present (it's a strict superset); the
-  // resident flag on each entry tells us which are "loaded" vs "cold".
-  const availableModels = Array.isArray(monadStats?.availableModels)
-    ? monadStats.availableModels
-    : null;
-  const currentModels = Array.isArray(monadStats?.currentModels)
-    ? monadStats.currentModels
-    : (monadStats?.currentModel ? [monadStats.currentModel] : []);
-  // Render source: availableModels (with synthesized resident flags from
-  // currentModels membership if availableModels is missing the field for any
-  // entry) takes precedence. Falls back to currentModels treated as all-resident.
-  const modelList = availableModels && availableModels.length > 0
-    ? availableModels.map((m) => ({
-        ...m,
-        resident: typeof m.resident === "boolean"
-          ? m.resident
-          : currentModels.some((c) => c.name === m.name),
-      }))
-    : currentModels.map((m) => ({ ...m, resident: true }));
-  const residentCount = modelList.filter((m) => m.resident).length;
+  const {
+    residentModels,
+    installedModels,
+    totalModels,
+    residentEmptyText,
+    installedEmptyText,
+  } = partitionMonadModels(monadStats);
   const gpuTempC = monadStats?.gpu?.temp;
   const gpuUtilization = monadStats?.gpu?.utilization;
   const gpuPowerDraw = monadStats?.gpu?.powerDraw;
@@ -415,13 +398,10 @@ export default function Infrastructure() {
               </div>
             )}
 
-            {/* Model library — every model installed on the box (via
-                availableModels), with a "loaded" pill on the ones currently
-                resident in VRAM. Falls back to currentModels treated as all-
-                resident when availableModels isn't published. The cold/loaded
-                visual distinction is forward-looking: as more models are
-                installed, the inventory tells the bigger story. */}
-            {modelList.length > 0 && (
+            {/* Model library — two grouped sections:
+                1. Resident now (N) — models currently loaded in VRAM (hot path)
+                2. Also installed (N) — cold models on disk, loaded on first request */}
+            {totalModels > 0 && (
               <div style={{
                 marginTop: 18,
                 padding: "12px 14px",
@@ -430,76 +410,124 @@ export default function Infrastructure() {
                 borderRadius: 10,
                 fontSize: 13,
                 color: "#d4d4d8",
+                display: "flex",
+                flexDirection: "column",
+                gap: 14,
               }}>
-                <div style={{
-                  fontSize: 10,
-                  fontWeight: 700,
-                  color: accent,
-                  textTransform: "uppercase",
-                  letterSpacing: 1,
-                  marginBottom: 8,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 6,
-                  flexWrap: "wrap",
-                }}>
-                  <span>Installed models</span>
-                  <span style={{ color: "#71717a", fontWeight: 600, letterSpacing: 0.5 }}>
-                    · {residentCount} loaded / {modelList.length} installed
-                  </span>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                  {modelList.map((m, idx) => (
-                    <div
-                      key={m.name + idx}
-                      style={{
-                        display: "flex",
-                        alignItems: "baseline",
-                        gap: 8,
-                        flexWrap: "wrap",
-                        opacity: m.resident ? 1 : 0.7,
-                      }}
-                    >
-                      {m.resident ? (
-                        <span style={{
-                          fontSize: 9,
-                          fontWeight: 700,
-                          color: accentLight,
-                          textTransform: "uppercase",
-                          letterSpacing: 1,
-                          padding: "2px 7px",
-                          borderRadius: 9999,
-                          background: "rgba(16,185,129,0.12)",
-                          border: "1px solid rgba(16,185,129,0.3)",
-                        }}>
-                          ● Loaded{m.role ? ` · ${m.role}` : ""}
-                        </span>
-                      ) : (
-                        <span style={{
-                          fontSize: 9,
-                          fontWeight: 700,
-                          color: "#71717a",
-                          textTransform: "uppercase",
-                          letterSpacing: 1,
-                          padding: "2px 7px",
-                          borderRadius: 9999,
-                          background: "rgba(255,255,255,0.03)",
-                          border: "1px solid rgba(255,255,255,0.08)",
-                        }}>
-                          ○ Cold{m.role ? ` · ${m.role}` : ""}
-                        </span>
-                      )}
-                      <span style={{ fontWeight: 700, color: m.resident ? "#fafafa" : "#d4d4d8" }}>
-                        {m.name}
-                      </span>
-                      {m.precision && (
-                        <span style={{ color: "#71717a" }}>· {m.precision}</span>
-                      )}
-                      {m.size && (
-                        <span style={{ color: "#71717a" }}>· {m.size}</span>
-                      )}
+                {/* Section 1: Resident now */}
+                <div>
+                  <div style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    color: accent,
+                    textTransform: "uppercase",
+                    letterSpacing: 1,
+                    marginBottom: 8,
+                  }}>
+                    Resident now ({residentModels.length})
+                  </div>
+                  {residentModels.length > 0 ? (
+                    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                      {residentModels.map((m, idx) => (
+                        <div
+                          key={m.name + idx}
+                          style={{
+                            display: "flex",
+                            alignItems: "baseline",
+                            gap: 8,
+                            flexWrap: "wrap",
+                          }}
+                        >
+                          <span style={{
+                            fontSize: 9,
+                            fontWeight: 700,
+                            color: accentLight,
+                            textTransform: "uppercase",
+                            letterSpacing: 1,
+                            padding: "2px 7px",
+                            borderRadius: 9999,
+                            background: "rgba(16,185,129,0.12)",
+                            border: "1px solid rgba(16,185,129,0.3)",
+                          }}>
+                            ● Loaded{m.role ? ` · ${m.role}` : ""}
+                          </span>
+                          <span style={{ fontWeight: 700, color: "#fafafa" }}>
+                            {m.name}
+                          </span>
+                          {m.precision && (
+                            <span style={{ color: "#71717a" }}>· {m.precision}</span>
+                          )}
+                          {m.size && (
+                            <span style={{ color: "#71717a" }}>· {m.size}</span>
+                          )}
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  ) : (
+                    <div style={{ fontSize: 12, color: "#71717a", fontStyle: "italic" }}>
+                      {residentEmptyText}
+                    </div>
+                  )}
+                </div>
+
+                {/* Section 2: Also installed */}
+                <div style={{
+                  borderTop: "1px solid rgba(255,255,255,0.08)",
+                  paddingTop: 10,
+                }}>
+                  <div style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    color: "#a1a1aa",
+                    textTransform: "uppercase",
+                    letterSpacing: 1,
+                    marginBottom: 8,
+                  }}>
+                    Also installed ({installedModels.length})
+                  </div>
+                  {installedModels.length > 0 ? (
+                    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                      {installedModels.map((m, idx) => (
+                        <div
+                          key={m.name + idx}
+                          style={{
+                            display: "flex",
+                            alignItems: "baseline",
+                            gap: 8,
+                            flexWrap: "wrap",
+                            opacity: 0.78,
+                          }}
+                        >
+                          <span style={{
+                            fontSize: 9,
+                            fontWeight: 700,
+                            color: "#a1a1aa",
+                            textTransform: "uppercase",
+                            letterSpacing: 1,
+                            padding: "2px 7px",
+                            borderRadius: 9999,
+                            background: "rgba(255,255,255,0.04)",
+                            border: "1px solid rgba(255,255,255,0.1)",
+                          }}>
+                            ○ Cold{m.role ? ` · ${m.role}` : ""}
+                          </span>
+                          <span style={{ fontWeight: 700, color: "#d4d4d8" }}>
+                            {m.name}
+                          </span>
+                          {m.precision && (
+                            <span style={{ color: "#71717a" }}>· {m.precision}</span>
+                          )}
+                          {m.size && (
+                            <span style={{ color: "#71717a" }}>· {m.size}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div style={{ fontSize: 12, color: "#71717a", fontStyle: "italic" }}>
+                      {installedEmptyText}
+                    </div>
+                  )}
                 </div>
               </div>
             )}
