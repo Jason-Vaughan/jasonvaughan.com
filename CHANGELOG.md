@@ -8,11 +8,13 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 - **Comprehensive Stats API** — Created a new Vercel serverless function (`/api/stats`) that dynamically aggregates telemetry from local baked stats, `_collect-meta.json` (cloud tokens), `monad-stats.json` (local inference), `git-stats.json` (commits), and `clawhub-versions.json` (downloads), exposing a unified AI compute velocity and performance payload with CORS headers for external site consumption.
 
 ### Changed
+- **Monad-1 Grouped Model Sections** — Updated the Monad-1 card in `src/components/Infrastructure.jsx` (with `partitionMonadModels` in `src/utils/monadModels.js`) to render `availableModels[]` in two distinct sections (`Resident now (N)` and `Also installed (N)`) with empty-state helper text and legacy `currentModels` fallback (#45).
 - **TangleClaw Website Link Prominence** — Added prominent `tangleclaw.com` links across all TangleClaw cards and views (`FeaturedTangleClaw`, `ProjectDetail`, and `PortfolioModal`), positioning the live website as the primary CTA ahead of GitHub.
 - **Persona Selector Updates** — Hid specific targeted company modes (Anthropic, a16z, Designer/Inspyr) from the public persona dropdown selector while maintaining their accessibility via direct secret links.
 - **Builder Stats Visibility** — Added the `coding-stats` section to render by default on the `Recruiter`, `SystemsBuilder`, and `Engineer` persona views.
 
 ### Fixed
+- **Tag-Pill Contrast (WCAG AA)** — Increased tag-pill badge text contrast from `#a1a1aa` to `#e4e4e7` across card components (`ClawHub`, `FeaturedCierreSensei`, `FeaturedProject`, `FeaturedTangleBrain`, `FeaturedTangleClaw`, `Infrastructure`, `OpenClawFleet`, `Pipeline`, and `Projects`) (#155).
 - **Static Share Links** — Fixed broken routing for static `/share/*` URLs (e.g. `monad-1`) on Vercel by adding explicit rewrites to bypass the SPA fallback, and tracked the missing `public/share/kobold/index.html` Open Graph redirect stub alongside a parity test for `SHARE_CARDS`.
 
 ### Internal
