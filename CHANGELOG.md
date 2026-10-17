@@ -17,6 +17,7 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ### Internal
 - **Repository & Lint Cleanup** — Removed 20 tracked one-off scratch/debug scripts (`live-bundle.js`, `check-site*`, `patch_*.cjs`, `test_modal*.js`, etc.) from the repository root, archived the shipped `openai-page-audit.md` plan to `.tangleclaw/plans/archive/`, and updated ESLint configuration and unused variables across `src/` to bring `npm run lint` to zero errors.
+- **Baked Stats Refresh** — Re-ran `scripts/bake-stats.mjs` to update `src/data/baked-stats.json` with current TangleClaw telemetry (`606K+` LOC, `22.0K+` tests, `3.1K+` commits).
 
 ## [0.5.0] - 2026-10-04
 
