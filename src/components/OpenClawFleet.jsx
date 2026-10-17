@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import ShareLink from "./ShareLink";
-import tiltclawBanner from "../assets/projects/tiltclaw_banner.png";
 import tiltclawLogo from "../assets/projects/tiltclaw_logo.png";
 import voltaBanner from "../assets/projects/volta_banner.png";
 import voltaLogo from "../assets/projects/volta_logo.png";
@@ -137,7 +136,6 @@ const FLEET = [
 
 const sectionStyle = { background: "transparent", color: "#fafafa", padding: "48px 0" };
 const wrap = { maxWidth: 960, margin: "0 auto", padding: "0 24px" };
-const subhead = { fontSize: 14, color: "#71717a" };
 
 const cardBase = {
   borderRadius: 16,

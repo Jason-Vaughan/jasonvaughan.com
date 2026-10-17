@@ -1,7 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { SHARE_CARDS } from "./data/share-cards.js";
 
 // Repo root, relative to this file (src/featured-cards.test.js).
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -45,4 +46,13 @@ describe("featured Tangle cards", () => {
       expect(src).not.toMatch(/v\d+\.\d+\.\d+/);
     },
   );
+
+  it("every SHARE_CARDS entry has a generated share stub and preview image in public/", () => {
+    for (const card of SHARE_CARDS) {
+      const stubPath = join(ROOT, "public/share", card.id, "index.html");
+      const imagePath = join(ROOT, "public/share-images", `${card.id}.png`);
+      expect(existsSync(stubPath), `Missing share stub for ${card.id}`).toBe(true);
+      expect(existsSync(imagePath), `Missing share image for ${card.id}`).toBe(true);
+    }
+  });
 });

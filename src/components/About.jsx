@@ -34,18 +34,6 @@ export default function About({ visitorType, onDownloadResume }) {
     marginBottom: 16
   };
 
-  const pill = {
-    fontSize: 11,
-    fontWeight: 700,
-    letterSpacing: 0.5,
-    textTransform: "uppercase",
-    padding: "3px 9px",
-    borderRadius: 999,
-    background: "rgba(245, 158, 11, 0.08)",
-    color: "#fbbf24",
-    border: "1px solid rgba(245, 158, 11, 0.25)"
-  };
-
   const timelineRow = {
     display: "flex",
     gap: 16,

@@ -65,7 +65,9 @@ export async function sendResumeOtp(email) {
           message: `Recruiter from ${companyName} (${cleanEmail}) requested OTP verification for resume download.`
         })
       }).catch(() => {});
-    } catch (_) {}
+    } catch (_) {
+      // Ignore telemetry failures
+    }
   }
 
   return {

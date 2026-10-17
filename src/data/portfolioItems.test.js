@@ -44,7 +44,7 @@ describe("Curated Portfolio Items Integrity", () => {
     expect(keys).toContain("googleExperience");
     expect(keys).toContain("jobMatch");
 
-    Object.entries(modalTypes).forEach(([key, info]) => {
+    Object.entries(modalTypes).forEach(([_key, info]) => {
       expect(typeof info.title).toBe("string");
       expect(typeof info.subheader).toBe("string");
       expect(typeof info.modeFilter).toBe("string");

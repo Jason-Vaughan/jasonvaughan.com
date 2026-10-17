@@ -58,7 +58,6 @@ export default function usePaperMetadata(slug, fallback) {
       })
       .catch((err) => {
         if (cancelled) return;
-        // eslint-disable-next-line no-console
         console.warn(
           `[usePaperMetadata] ${slug}: meta.json fetch failed (${err.message}), using fallback`,
         );

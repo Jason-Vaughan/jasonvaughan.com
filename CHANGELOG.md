@@ -13,7 +13,10 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 - **Builder Stats Visibility** — Added the `coding-stats` section to render by default on the `Recruiter`, `SystemsBuilder`, and `Engineer` persona views.
 
 ### Fixed
-- **Static Share Links** — Fixed broken routing for static `/share/*` URLs (e.g. `monad-1`) on Vercel by adding explicit rewrites to bypass the SPA fallback.
+- **Static Share Links** — Fixed broken routing for static `/share/*` URLs (e.g. `monad-1`) on Vercel by adding explicit rewrites to bypass the SPA fallback, and tracked the missing `public/share/kobold/index.html` Open Graph redirect stub alongside a parity test for `SHARE_CARDS`.
+
+### Internal
+- **Repository & Lint Cleanup** — Removed 20 tracked one-off scratch/debug scripts (`live-bundle.js`, `check-site*`, `patch_*.cjs`, `test_modal*.js`, etc.) from the repository root, archived the shipped `openai-page-audit.md` plan to `.tangleclaw/plans/archive/`, and updated ESLint configuration and unused variables across `src/` to bring `npm run lint` to zero errors.
 
 ## [0.5.0] - 2026-10-04
 
