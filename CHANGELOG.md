@@ -4,6 +4,8 @@ All notable changes to JasonVaughanComPortfolio are documented in this file.
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-10-27
+
 ### Added
 - **Comprehensive Stats API** — Created a new Vercel serverless function (`/api/stats`) that dynamically aggregates telemetry from local baked stats, `_collect-meta.json` (cloud tokens), `monad-stats.json` (local inference), `git-stats.json` (commits), and `clawhub-versions.json` (downloads), exposing a unified AI compute velocity and performance payload with CORS headers for external site consumption.
 

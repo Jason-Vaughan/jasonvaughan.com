@@ -18,7 +18,6 @@ to file paths — this maps the layout itself.
 - `scripts/` — build-time generators: `generate-share-pages.mjs` (per-card `/share/<id>/` OG stubs) and `generate-og-images.mjs` (their social-preview PNGs).
 - `src/` — the React app (Vite): `components/` (hero cards, BuilderStats, Collapsible…), `data/` (card/skill/cert data + share-cards), `hooks/` (`useGitHubLatestRelease`), `utils/`, with vitest tests colocated next to what they cover.
 - `tests/` — only a pytest-xdist `conftest.py` (directory-grouped parallelization); the real suite is the colocated vitest files under `src/`.
-- `tools/` — `product-hook`, the Prawduct governance CLI (test-evidence/Critic/PR-gate checks used by the pr/critic skills and wrap hooks).
 
 ## Shared directories / doc groups
 

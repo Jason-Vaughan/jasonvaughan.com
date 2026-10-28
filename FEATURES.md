@@ -56,3 +56,17 @@ Format: - **Name** — short description. file.js:line, file2.js:line.
 - **Package Lock** — exact dependency versions tree. `package-lock.json`.
 - **Package Config** — NPM scripts and dependency lists. `package.json`.
 - **Embeddings Script** — utility to generate vector embeddings for semantic search. `scripts/generate-embeddings.js`.
+
+## TODO (auto-stubbed 2026-10-27)
+
+- **TBD** — touched in this session: `eslint.config.js`. <!-- describe -->
+- **TBD** — touched in this session: `public/share/kobold/index.html`. <!-- describe -->
+- **TBD** — touched in this session: `src/components/Infrastructure.jsx`. <!-- describe -->
+- **TBD** — touched in this session: `src/components/OpenClawFleet.jsx`. <!-- describe -->
+- **TBD** — touched in this session: `src/components/Writing.jsx`. <!-- describe -->
+- **TBD** — touched in this session: `src/data/portfolioItems.test.js`. <!-- describe -->
+- **TBD** — touched in this session: `src/featured-cards.test.js`. <!-- describe -->
+- **TBD** — touched in this session: `src/hooks/usePaperMetadata.js`. <!-- describe -->
+- **TBD** — touched in this session: `src/utils/otpService.js`. <!-- describe -->
+- **TBD** — touched in this session: `src/utils/monadModels.js`. <!-- describe -->
+- **TBD** — touched in this session: `src/utils/monadModels.test.js`. <!-- describe -->
