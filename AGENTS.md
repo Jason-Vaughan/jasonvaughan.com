@@ -349,18 +349,39 @@ GET /api/shared-docs?groupId=<group-id>
 POST /api/shared-docs
 { "groupId": "<group-id>", "name": "NETWORK", "filePath": "/path/to/NETWORK.md", "injectIntoConfig": true, "injectMode": "reference" }
 
-# Lock before editing a document's contents (prevents concurrent edits), then unlock after
+# Lock before editing a document's contents (prevents concurrent edits), then unlock after.
+# sessionId and projectName must be your own: the session and project your launch binding
+# verifies (`tc whoami` prints both), else 403 LOCK_CALLER_MISMATCH. ttlMinutes is optional,
+# a whole number from 1 to 120 (default 30), else 400. A lock cannot be renewed.
 POST /api/shared-docs/<doc-id>/lock
-{ "sessionId": <session-id>, "projectName": "my-project" }
+{ "sessionId": <your-session-id>, "projectName": "my-project", "ttlMinutes": 30 }
 DELETE /api/shared-docs/<doc-id>/lock
 
 # Re-scan a group's shared directory for new files
 POST /api/groups/<group-id>/sync
+
+# Read a document's recorded revisions after a seq (author, changed rows, notice outcomes, latest, gap)
+GET /api/shared-docs/<doc-id>/events?since=<seq>
+
+# Read every member's notice setting; set your own ("mute", "subscribe" or "default"), per doc or per group
+GET /api/shared-docs/<doc-id>/notices
+POST /api/shared-docs/<doc-id>/notices
+{ "setting": "mute" }
+POST /api/groups/<group-id>/notices
+{ "setting": "subscribe" }
 ```
 
 ### Lock Etiquette
 
 Lock before editing a shared doc's contents and unlock after, so other sessions can access it. Locks expire after **30 minutes** if not released; sessions auto-release all locks on wrap or kill.
+
+### Attested Edits
+
+TangleClaw records every revision it observes of a shared document. A revision's author is `unknown` unless the writer attests it: lock, `tc docs base <doc>` (save the digest it prints), edit the file as usual, `tc docs attest <doc> --base <saved digest>`, unlock. The attestation is refused (`409`) unless your session holds the lock and the edit followed your saved base with nothing observed in between; never re-take a base to make it pass. Attested authorship proves the lock holder named its base, not who typed the bytes.
+
+### Change Notices
+
+A `shared_doc_updated` notice is sent by rule, not to everyone: the owners of the rows an **attested** author changed (a row whose first cell is a member project's name), and the members that subscribed; never the attested author. An unattested write or a prose edit reaches subscribers only. Set yours with `tc docs subscribe|mute|default <doc>` (or `--group <group>`); a doc setting overrides its group's. A mute touches these notices only, never direct mail, replies or HOLD/STOP. Missed one, or offline? `GET /api/shared-docs/<doc-id>/events?since=<seq>` is the record.
 
 ## Session Memory
 
