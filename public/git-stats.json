@@ -1,7 +1,7 @@
 {
   "username": "Jason-Vaughan",
-  "weeklyCommits": 332,
-  "totalContributionsYear": 16840,
+  "weeklyCommits": 238,
+  "totalContributionsYear": 16940,
   "totalForks": 24,
   "totalStars": 31,
   "repoBreakdown": {
@@ -202,47 +202,8 @@
       "stars": 0
     }
   },
-  "updatedAt": "2026-11-22T03:39:14.585Z",
+  "updatedAt": "2026-11-23T04:14:02.876Z",
   "weeks": [
-    {
-      "contributionDays": [
-        {
-          "date": "2025-11-16",
-          "contributionCount": 20,
-          "color": "#9be9a8"
-        },
-        {
-          "date": "2025-11-17",
-          "contributionCount": 0,
-          "color": "#ebedf0"
-        },
-        {
-          "date": "2025-11-18",
-          "contributionCount": 11,
-          "color": "#9be9a8"
-        },
-        {
-          "date": "2025-11-19",
-          "contributionCount": 11,
-          "color": "#9be9a8"
-        },
-        {
-          "date": "2025-11-20",
-          "contributionCount": 29,
-          "color": "#9be9a8"
-        },
-        {
-          "date": "2025-11-21",
-          "contributionCount": 5,
-          "color": "#9be9a8"
-        },
-        {
-          "date": "2025-11-22",
-          "contributionCount": 8,
-          "color": "#9be9a8"
-        }
-      ]
-    },
     {
       "contributionDays": [
         {
@@ -2207,12 +2168,12 @@
         },
         {
           "date": "2026-11-10",
-          "contributionCount": 141,
+          "contributionCount": 162,
           "color": "#30a14e"
         },
         {
           "date": "2026-11-11",
-          "contributionCount": 121,
+          "contributionCount": 122,
           "color": "#40c463"
         },
         {
@@ -2222,7 +2183,7 @@
         },
         {
           "date": "2026-11-13",
-          "contributionCount": 91,
+          "contributionCount": 98,
           "color": "#40c463"
         },
         {
@@ -2266,8 +2227,17 @@
         },
         {
           "date": "2026-11-21",
-          "contributionCount": 41,
+          "contributionCount": 46,
           "color": "#9be9a8"
+        }
+      ]
+    },
+    {
+      "contributionDays": [
+        {
+          "date": "2026-11-22",
+          "contributionCount": 66,
+          "color": "#40c463"
         }
       ]
     }
